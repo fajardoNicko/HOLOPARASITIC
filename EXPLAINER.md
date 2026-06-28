@@ -68,28 +68,31 @@ The whole project is: *how many roadblocks does it take to break the city?*
 
 ## What we found (the results, in plain words)
 
-**1. The plant breaks early — after losing only about 22% of its pipes.**
+**1. The plant breaks early — after losing only about 28% of its pipes.**
 You might guess a network survives until half its roads are closed. Not this one.
-At just **22% knocked out (p_c = 0.22)**, the water network shatters into islands.
+At just **28% knocked out (p_c ≈ 0.28)**, the water network shatters into islands.
 Plants are more fragile than they look.
 
 **2. By the time it looks sick, it's already too late — but there's a warning
 window.** A plant only *looks* wilted once water transport has mostly failed —
 well past the breaking point. At the actual breaking point, the plant still looks
-fine. But our data show a window beforehand (between about 10% and 22% damage)
+fine. But our data show a window beforehand (between about 12% and 28% damage)
 where the network is quietly starting to come apart. **Catch it in that window
 and you can act before the damage is permanent.** That's the headline of the whole
 project: don't wait for wilting — there's an earlier, invisible danger line.
 
-**3. Smart attacks break it faster.** If the parasite goes after the *big main
-pipes* instead of random ones, the plant breaks at **20% instead of 22%**. Real
-dodder *does* target the big vessels — so in reality, the plant probably breaks
-even sooner than our main number says. (This makes our warning *more* urgent, not
-less.)
+**3. Where the parasite attacks matters enormously.** If the parasite goes after
+the *main stem and big veins* (the "backbone" all the water flows through), the
+plant breaks at just **18% instead of 28%** — far sooner. Real dodder *does* wrap
+around and tap the main stem, so in reality the plant breaks even earlier than our
+main number says (this makes our warning *more* urgent). Curiously, attacking the
+*most-connected* little pipes instead is actually *less* effective than random —
+because in a plant, the busy little junctions are backups, while the quiet main
+stem is the real lifeline.
 
 **4. Bushier plants are tougher.** Networks with more loops and higher fractal
-dimension D can take more damage before breaking (from ~19% up to ~32% as D goes
-from 1.26 to 1.49). More interconnections = more backup routes. **This suggests
+dimension D can take more damage before breaking (from ~23% up to ~32% as D goes
+from 1.35 to 1.48). More interconnections = more backup routes. **This suggests
 you could breed crops with denser veins to resist dodder.**
 
 **5. A stronger parasite breaks it faster — but only up to a point.** A more
@@ -99,7 +102,7 @@ it stronger doesn't add much.
 
 **The combined picture:** how doomed a plant is depends on *both* the parasite's
 strength *and* the plant's network design. A tough plant facing a weak parasite
-survives until 64% damage; a fragile plant facing a strong one breaks at just 9%.
+survives until 64% damage; a fragile plant facing a strong one breaks at just 14%.
 
 ---
 

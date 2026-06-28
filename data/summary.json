@@ -8,5 +8,13 @@
     "mean_degree": 5.994134897360704
   },
   "D": 1.4344676807090173,
-  "last_completed_stage": "1-network"
+  "last_completed_stage": "6-complete",
+  "p_c_random": 0.2793476144674991,
+  "p_c_ci95": [
+    0.27784239768506314,
+    0.28086397102784705
+  ],
+  "n_trials": 1000000,
+  "p_c_targeted_betweenness": 0.1765246794493992,
+  "p_c_targeted_degree": 0.313683336779782
 }

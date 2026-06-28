@@ -129,7 +129,7 @@ whole study.
 **Edge (link)** — a line connecting two dots (a pipe segment).
 
 **Degree** — how many lines touch a dot. A junction where 4 pipes meet has degree
-4. **Mean degree** = the average over the whole network (ours ≈ 3.6).
+4. **Mean degree** = the average over the whole network (ours ≈ 6.0).
 
 **Hub** — a dot with *many* connections (an important junction, a big main pipe).
 → Targeted attacks go after hubs first.
@@ -160,7 +160,7 @@ all the way through?) → Our central framework.
 **Percolation threshold (p_c)** — the **tipping point**: the fraction of pipes you
 can knock out before the network suddenly shatters. Remove a little less → still
 connected; a little more → broken into islands. → **The single most important
-number in the project.** Ours ≈ **0.22** (22%).
+number in the project.** Ours ≈ **0.28** (28%).
 
 **Phase transition** — a *sudden* change of state at a critical point, like water
 freezing to ice at 0 °C. It's not gradual — it flips. → Network collapse is a
@@ -176,9 +176,13 @@ justifies treating p_c as a real critical point.
 
 **Random vs targeted attack** — two ways to knock out pipes:
 - **Random** — knock out pipes at random (bad luck, generic stress).
-- **Targeted** — knock out the **hubs** (big pipes) first. Networks are much more
-fragile to targeted attack. → Real dodder targets big vessels, so the targeted
-threshold (≈0.20) is lower than random (≈0.22).
+- **Targeted** — knock out the most *important* pipes first. The right measure of
+"important" here is **betweenness** (the main stem/backbone all the water flows
+through), NOT how many connections a pipe has. → Attacking the backbone collapses
+the network at ≈0.18 (vs ≈0.28 random) — real dodder taps the main stem, so this
+is the realistic case. Oddly, attacking the most-*connected* little pipes is
+*weaker* than random (≈0.31): in a plant, busy junctions are redundant backups,
+the quiet stem is the lifeline.
 
 ---
 
@@ -206,7 +210,7 @@ grows as boxes shrink gives D. → Our `fractal.py` does exactly this.
 turn a pure tree into a net with **loops**. Real leaf veins are reticulate (full
 of loops), giving backup routes. → We add these on purpose; **without loops there
 is no sharp tipping point**, so they're essential to the whole result. Our network
-has 818 loops.
+has 2044 loops.
 
 ---
 
@@ -244,7 +248,7 @@ middle of the fitted S-curve.
 50%. → That point's x-value **is p_c**.
 
 **Confidence interval (CI)** — an honest "± error bar": the range we're 95% sure
-the true value sits in. → Ours is tiny, [0.2205, 0.2230], because a million trials
+the true value sits in. → Ours is tiny, [0.2778, 0.2809], because a million trials
 pins it down tightly.
 
 **Bootstrap** — a trick to get that error bar: re-sample your own data many times
@@ -284,5 +288,5 @@ and pop pipes (**embolism**). We use **percolation theory** to find the **tippin
 point** (**p_c**) where the network **shatters** (the **giant component**
 collapses). We find it with a **million-run Monte Carlo** simulation and pin it
 down with **logistic regression**. The punchline: the network breaks **early**
-(~22%) and **invisibly** — before the plant looks sick — which is why **p_c** is
+(~28%) and **invisibly** — before the plant looks sick — which is why **p_c** is
 useful as an early-warning signal.

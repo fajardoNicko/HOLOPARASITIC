@@ -45,17 +45,17 @@ different branches. The number of cross-links is fixed at
 mean degree constant while creating the loops that give a genuine percolation
 threshold.
 
-**Reference network:** N = 1023 vessels, 1840 segments, **818 anastomoses
-(loops)**, 512 terminal (leaf) sites, mean degree 3.60.
+**Reference network:** N = 1023 vessels, 3066 segments, **2044 anastomoses
+(loops)**, 512 terminal (leaf) sites, mean degree 6.0.
 
 ### Stage 2 — Fractal dimension (`fractal.py`)
 
 The drawn network is rasterised into a point cloud and **box-counting** is
 applied: the number of occupied boxes `N(ε)` is counted across box sizes `ε`,
 and the dimension is the slope of `log N(ε)` vs `log(1/ε)` over the genuine
-scaling window. For the reference network **D = 1.306**, within the empirical
-1.5–2.0 range of dicotyledonous crop venation (lower end; denser venation raises
-D — see Stage 6).
+scaling window. For the reference network **D = 1.43**, inside the measured
+1.39–1.76 range of real leaf venation (Crisci et al., *Relbunium*; see
+`VALIDATION.md`). Denser venation raises D — see Stage 6.
 
 ### Stage 3 — Hydraulic flow solver (`hydraulics.py`)
 
@@ -120,7 +120,7 @@ Figures produced: `network.png`, `sigmoid.png` (hero), `pc_heatmap.png`,
 | File | Contents |
 |------|----------|
 | `data/summary.json` | headline scalars: network stats, D, p_c (random & targeted), CI, n_trials |
-| `data/results.npz` | 8 arrays (below) |
+| `data/results.npz` | 13 arrays (hero curve, targeted curve, p_c-vs-D, K_h×D surface) |
 | `data/csv/sigmoid.csv` | the 50-point hero curve: `rho, p_collapse, gcc_fraction` |
 | `data/csv/pc_vs_D.csv` | `D, p_c` |
 | `data/csv/pc_surface.csv` | p_c table, rows = D, columns = K_h |
@@ -141,10 +141,12 @@ Figures produced: `network.png`, `sigmoid.png` (hero), `pc_heatmap.png`,
 
 | Quantity | Value |
 |----------|-------|
-| Vascular percolation threshold (random) | **p_c = 0.2218** |
-| 95 % confidence interval (10⁶ trials) | **[0.2205, 0.2230]** |
-| Threshold under targeted hub attack | **p_c = 0.2027** |
-| Fractal dimension of reference network | D = 1.306 |
+| Vascular percolation threshold (random) | **p_c = 0.279** |
+| 95 % confidence interval (10⁶ trials) | **[0.2778, 0.2809]** |
+| Threshold, backbone (betweenness) attack | **p_c = 0.177** |
+| Threshold, degree attack | **p_c = 0.314** |
+| Fractal dimension of reference network | D = 1.43 |
+| Mean degree / loops | 6.0 / 2044 |
 
 ---
 
@@ -152,58 +154,69 @@ Figures produced: `network.png`, `sigmoid.png` (hero), `pc_heatmap.png`,
 
 ### 3.1 The threshold is sharp, and it is *low*
 
-The collapse probability stays near zero while ρ < 0.10, then rises steeply:
+The collapse probability stays near zero while ρ < 0.12, then rises steeply:
 
-| ρ | 0.10 | 0.14 | 0.16 | 0.18 | 0.20 | **0.22** |
+| ρ | 0.12 | 0.16 | 0.20 | 0.24 | 0.27 | **0.28** |
 |---|------|------|------|------|------|----------|
-| P(collapse) | 0.004 | 0.046 | 0.098 | 0.197 | 0.333 | **≈0.50** |
-| GCC fraction | 0.84 | 0.74 | 0.68 | 0.62 | 0.55 | **≈0.50** |
+| P(collapse) | 0.002 | 0.021 | 0.078 | 0.22 | 0.378 | **≈0.50** |
+| GCC fraction | 0.85 | 0.78 | 0.70 | 0.60 | 0.54 | **≈0.48** |
 
 Two things matter here:
 
 1. **It is a genuine phase transition, not a slow decline.** The logistic fit is
-   steep and the 10⁶-trial confidence interval is only ±0.0013 wide (±0.6 %).
+   steep and the 10⁶-trial confidence interval is only ±0.0015 wide (±0.6 %).
    This statistically validates the central claim that vascular failure is a
    *threshold phenomenon* with a well-defined critical point.
 
-2. **The host collapses after losing only ~22 % of its vessels.** Intuition
+2. **The host collapses after losing only ~28 % of its vessels.** Intuition
    might expect a network to survive until roughly half its nodes are gone; this
-   reticulate vascular topology fragments at less than a quarter. The system is
+   reticulate vascular topology fragments at well under a third. The system is
    far more fragile than its vessel count suggests.
 
 ### 3.2 The pre-symptomatic window (the core argument)
 
 Macroscopic symptoms — wilting, necrosis — appear only when bulk water transport
 has largely failed, i.e. when the GCC is small (ρ well beyond p_c). But the
-*functional* point of no return is p_c = 0.22, where the GCC is still ~50 % and
+*functional* point of no return is p_c = 0.28, where the GCC is still ~50 % and
 the plant may look healthy.
 
 The data therefore define an **actionable early-warning window**: between the
-onset of measurable network disruption (ρ ≈ 0.10, GCC ≈ 84 %) and the percolation
-threshold (ρ ≈ 0.22), a span of **~12 percentage points of haustorial density**.
+onset of measurable network disruption (ρ ≈ 0.12, GCC ≈ 85 %) and the percolation
+threshold (ρ ≈ 0.28), a span of **~16 percentage points of haustorial density**.
 Detection or intervention inside this window is pre-symptomatic; past p_c it is
 too late. This is the quantitative basis for proposing p_c as a diagnostic
 target rather than waiting for visible wilting.
 
-### 3.3 Targeted attack collapses the host sooner
+### 3.3 Targeting the backbone collapses the host much sooner — and *degree* is the wrong target
 
-Targeted (hub-first) removal gives **p_c = 0.2027 vs 0.2218 for random** — a
-**~9 % lower** threshold. Because *Cuscuta* haustoria preferentially invade
-larger vascular bundles (the network's hubs) rather than random vessels, the
-*true* biological threshold is expected to lie nearer the targeted value. The
-random estimate is thus **conservative** — real collapse is likely even earlier,
-strengthening (not weakening) the pre-symptomatic argument.
+There are two ways to "attack the important vessels," and they disagree — which is
+itself a finding.
+
+- **Backbone attack (betweenness centrality):** removing the stem and major veins
+  — the low-degree vessels that carry the most flow paths — gives **p_c = 0.177 vs
+  0.279 random**, collapse **~37 % sooner**. This matches Albert–Barabási (attack
+  the structurally critical nodes) *and* the biology: *Cuscuta* preferentially
+  invades the main stem and large bundles, i.e. exactly this backbone.
+- **Degree attack:** removing the *highest-degree* vessels first gives
+  **p_c = 0.314 > random** — *weaker* than random. In a hierarchical vascular
+  network the high-degree nodes are the redundant reticulated periphery, not the
+  critical backbone, so attacking them wastes effort.
+
+The lesson: **degree is the wrong proxy for vulnerability in vasculature;
+betweenness (the backbone) is right.** Because real *Cuscuta* hits the backbone,
+the true threshold is nearer 0.18 — so the random estimate (0.28) is
+**conservative**, strengthening the pre-symptomatic argument.
 
 ### 3.4 Host architecture sets baseline resistance (p_c vs D)
 
-| D | 1.26 | 1.32 | 1.40 | 1.49 |
+| D | 1.35 | 1.39 | 1.43 | 1.48 |
 |---|------|------|------|------|
-| p_c | 0.190 | 0.231 | 0.259 | 0.321 |
+| p_c | 0.233 | 0.255 | 0.283 | 0.317 |
 
-p_c rises monotonically with fractal dimension, at roughly **Δp_c/ΔD ≈ 0.57 per
+p_c rises monotonically with fractal dimension, at roughly **Δp_c/ΔD ≈ 0.65 per
 unit D**. Denser, higher-dimensional venation — more anastomoses, more redundant
 pathways — requires substantially more haustorial load before it fragments. A
-host with D = 1.49 tolerates ~70 % more disruption than one with D = 1.26 before
+host with D = 1.48 tolerates ~36 % more disruption than one with D = 1.35 before
 collapsing. This identifies **vein density / network redundancy as a heritable
 resistance trait**, a concrete target for crop selection or breeding.
 
@@ -213,15 +226,15 @@ resistance trait**, a concrete target for crop selection or breeding.
 
 | D \ K_h | 0.30 | 0.60 | 1.00 | 1.50 | 2.50 |
 |---------|------|------|------|------|------|
-| 1.26 | 0.316 | 0.196 | 0.127 | 0.108 | 0.086 |
-| 1.32 | 0.381 | 0.236 | 0.168 | 0.143 | 0.126 |
-| 1.39 | 0.407 | 0.276 | 0.214 | 0.187 | 0.163 |
-| 1.49 | 0.644 | 0.362 | 0.299 | 0.279 | 0.252 |
+| 1.35 | 0.375 | 0.241 | 0.183 | 0.159 | 0.138 |
+| 1.39 | 0.442 | 0.279 | 0.211 | 0.181 | 0.161 |
+| 1.43 | 0.467 | 0.309 | 0.240 | 0.210 | 0.193 |
+| 1.48 | 0.643 | 0.353 | 0.296 | 0.267 | 0.247 |
 
 Three patterns:
 
 1. **p_c falls steeply with sink strength, then saturates.** Going from K_h = 0.3
-   to 0.6 roughly *halves* p_c at every D (e.g. 0.644 → 0.362 at D = 1.49); past
+   to 0.6 roughly *halves* p_c at every D (e.g. 0.643 → 0.353 at D = 1.48); past
    K_h ≈ 1.0 further increases barely move it. Once each haustorium is strong
    enough to embolise its local neighbourhood, additional strength adds little —
    the damage per haustorium is already near-maximal.
@@ -230,23 +243,23 @@ Three patterns:
    helps regardless of parasite aggressiveness.
 
 3. **The two factors compound.** The most resistant corner (weak sink, dense
-   network: K_h = 0.3, D = 1.49) has p_c = 0.644; the most vulnerable corner
-   (strong sink, sparse network: K_h = 2.5, D = 1.26) has p_c = 0.086 — a **7.5×
+   network: K_h = 0.3, D = 1.48) has p_c = 0.643; the most vulnerable corner
+   (strong sink, sparse network: K_h = 2.5, D = 1.35) has p_c = 0.138 — a **4.7×
    range**. Vulnerability is jointly determined, so neither parasite strength nor
    host architecture alone predicts outcome.
 
 ### 3.6 The physical (embolism) model predicts *earlier* collapse than random removal
 
 A key cross-check: at moderate-to-strong sinks the coupled hydraulic thresholds
-fall *below* the purely topological random value (0.22). For example at D ≈ 1.32,
-K_h = 1.0 gives p_c = 0.168 vs 0.231 topological. The reason is mechanistic — a
+fall *below* the purely topological random value (0.28). For example at D ≈ 1.43,
+K_h = 1.0 gives p_c = 0.240 vs 0.283 topological. The reason is mechanistic — a
 haustorium does not merely disable the vessel it taps; by drawing down local
 water potential it **embolises neighbouring vessels too**, so each haustorium
 removes more than one node-equivalent and the cascade amplifies damage. Only at
-very weak sinks (K_h = 0.3) is the hydraulic threshold *higher* than random,
-because weak sinks rarely trigger cavitation and many are needed. The crossover
-near K_h ≈ 0.6 is itself a model prediction. Net effect: incorporating the
-physics makes the host look **more**, not less, fragile.
+weak sinks (K_h ≤ 0.6) is the hydraulic threshold *higher* than random, because
+weak sinks rarely trigger cavitation and many are needed. The crossover near
+K_h ≈ 0.7 is itself a model prediction. Net effect: incorporating the physics
+makes the host look **more**, not less, fragile.
 
 ---
 

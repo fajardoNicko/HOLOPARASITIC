@@ -66,19 +66,22 @@ C:\laragon\bin\python\python-3.13\python.exe scripts\run_full.py 100000
      vessels past the cavitation limit embolise and are removed, so **K_h
      genuinely shifts p_c**. This fills the (K_h, D) surface.
 
-3. **Random vs targeted removal.** `mode="targeted"` removes hubs first
-   (Albert–Barabási attack); comparing it to random is itself a result.
+3. **Random vs targeted removal.** `mode="targeted"` removes the highest-
+   **betweenness** vessels first — the stem/major-vein backbone, the true
+   structurally-critical nodes in a vascular tree (`p_c ≈ 0.18` vs `0.28`
+   random). Targeting by raw *degree* is weaker than random (`0.31`), because the
+   high-degree nodes are the redundant reticulated periphery — a result in itself.
 
 ### The D axis
 
 `D` is swept at **constant network size N** by varying the anastomosis (vein)
 density (`NetworkParams.reticulation`) and *measuring* the box-counting
 dimension of each network — denser venation → more space-filling → higher `D`
-(≈1.25–1.51 at N=1023). As in real leaf venation, denser networks are also
-better connected, so mean degree co-varies; a `length_ratio` sweep at fixed
-connectivity is the documented geometric control. Box-counting fits the genuine
-scaling regime (a fixed window of box sizes), not the finite-size-saturated
-coarse boxes.
+(≈1.35–1.48 across the sweep; hero network D ≈ 1.43, inside the measured
+*Relbunium* leaf-venation range 1.39–1.76). As in real leaf venation, denser
+networks are also better connected, so mean degree co-varies (~6.0 at the
+default). Box-counting fits the genuine scaling regime (a fixed window of box
+sizes), not the finite-size-saturated coarse boxes.
 
 ## Outputs
 
