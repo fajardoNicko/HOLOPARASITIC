@@ -100,19 +100,25 @@ def main():
                    n_trials=res["n_trials"])
     _checkpoint(datadir, results, summary, "2-hero-sigmoid")
 
-    # [3] targeted-attack comparison -------------------------------------
+    # [3] targeted-attack comparison: backbone (betweenness) vs degree -----
     try:
-        print("[3] targeted (hub) attack comparison ...", flush=True)
-        res_t = percolation.find_pc(
-            G, config.PercolationParams(mode="targeted",
-                                        n_trials=max(50_000, n_trials // 10),
-                                        n_densities=50))
+        print("[3] targeted-attack comparison (betweenness vs degree) ...",
+              flush=True)
+        _, nodes_t = network.to_csr(G)
+        tparams = config.PercolationParams(mode="targeted",
+                                           n_trials=max(50_000, n_trials // 10),
+                                           n_densities=50)
+        res_t = percolation.find_pc(G, tparams)            # betweenness (default)
+        w_deg = percolation.importance_weights(G, nodes_t, metric="degree")
+        res_td = percolation.find_pc(G, tparams, weights=w_deg)   # degree
         print(f"    p_c(random)={res['p_c']:.4f}  "
-              f"p_c(targeted)={res_t['p_c']:.4f}", flush=True)
+              f"p_c(betweenness-backbone)={res_t['p_c']:.4f}  "
+              f"p_c(degree)={res_td['p_c']:.4f}", flush=True)
         viz.plot_sigmoid(res_t, os.path.join(figdir, "sigmoid_targeted.png"))
         results.update(targeted_rhos=res_t["rhos"],
                        targeted_p_collapse=res_t["p_collapse"])
-        summary["p_c_targeted"] = res_t["p_c"]
+        summary["p_c_targeted_betweenness"] = res_t["p_c"]
+        summary["p_c_targeted_degree"] = res_td["p_c"]
         _checkpoint(datadir, results, summary, "3-targeted")
     except Exception as e:
         print(f"    [3] FAILED: {e}", flush=True)

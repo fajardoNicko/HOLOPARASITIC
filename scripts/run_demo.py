@@ -46,13 +46,13 @@ def main():
 
     # 3. Small p_c vs D and a small (K_h, D) surface ----------------------
     print("[3] p_c vs D (random, 3 networks):")
-    sweep.pc_vs_D(reticulation_grid=(0.3, 0.9, 1.8),
+    sweep.pc_vs_D(reticulation_grid=(1.2, 2.0, 2.8),
                   perc=config.PercolationParams(mode="random",
                                                 n_trials=12_000,
                                                 n_densities=30))
     print("    small (K_h, D) hydraulic surface (3x3):")
     surf = sweep.pc_surface(
-        config.SweepParams(reticulation_grid=(0.3, 0.9, 1.8),
+        config.SweepParams(reticulation_grid=(1.2, 2.0, 2.8),
                            k_h_grid=(0.3, 0.7, 1.5),
                            n_trials_coupled=300, n_densities=20))
     viz.plot_pc_heatmap(surf, os.path.join(figdir, "pc_heatmap.png"))

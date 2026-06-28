@@ -14,9 +14,12 @@ estimate the threshold statistically:
 MODES
   random     classic site percolation — node removed with prob rho.
              (the fast, 1e6-trial engine behind the hero sigmoid)
-  targeted   degree-weighted removal — hubs go first (Albert-Barabasi attack),
-             expected removed fraction still rho. Pass custom `weights` (e.g.
-             vessel flow magnitude) to attack by hydraulic importance instead.
+  targeted   backbone-weighted removal — the highest-BETWEENNESS vessels go
+             first (Albert-Barabasi-style attack on the structurally critical
+             stem/major veins). In a vascular tree, betweenness (not degree)
+             identifies the critical nodes: high-degree vessels are the
+             redundant reticulated periphery, so a *degree* attack is actually
+             weaker than random. Pass custom `weights` to override.
   hydraulic  COUPLED model: place a fraction rho of haustoria, solve the flow
              field, embolise every vessel past the cavitation tension, remove
              those, then measure the GCC. Here K_h genuinely shifts p_c — this
@@ -28,11 +31,30 @@ The hot loop runs on a CSR adjacency built ONCE and never touches NetworkX.
 from __future__ import annotations
 
 import numpy as np
+import networkx as nx
 from scipy.sparse.csgraph import connected_components
 from sklearn.linear_model import LogisticRegression
 
 import config
 from . import network, hydraulics
+
+
+def importance_weights(G, nodes, metric="betweenness"):
+    """Mean-preserving removal weights for targeted attack.
+
+    'betweenness' (default) ranks nodes by betweenness centrality — the true
+    structural importance in a hierarchical vascular network (the low-degree
+    stem/backbone carries the most shortest paths). 'degree' ranks by degree.
+    NOTE: in a vascular tree these DISAGREE — the high-degree nodes are the
+    redundant reticulated periphery, so a degree attack is *weaker* than random
+    while a betweenness attack is far stronger.
+    """
+    if metric == "degree":
+        w = np.array([d for _, d in G.degree(nodes)], float)
+    else:
+        bc = nx.betweenness_centrality(G, normalized=True)
+        w = np.array([bc[n] for n in nodes], float)
+    return w / w.mean() if w.mean() > 0 else np.ones_like(w)
 
 
 # ----------------------------------------------------------------------------
@@ -91,8 +113,9 @@ def density_response(G, params=None, weights=None, k_h=config.K_H_DEFAULT):
 
     solver = hydraulics.HydraulicSolver(G) if p.mode == "hydraulic" else None
     if p.mode == "targeted" and weights is None:
-        deg = np.asarray(adj.sum(axis=1)).ravel().astype(float)
-        weights = deg / deg.mean()             # hub-biased, mean-preserving
+        # attack the structural backbone (betweenness), NOT raw degree — see
+        # importance_weights(): in a vascular tree these disagree.
+        weights = importance_weights(G, nodes, metric="betweenness")
 
     p_collapse = np.empty(p.n_densities)
     gcc_fraction = np.empty(p.n_densities)

@@ -66,12 +66,14 @@ class NetworkParams:
     radius_exponent: float = 3.0  # Murray's law exponent (r_p^n = sum r_c^n)
     root_length: float = 1.0      # length of the root vessel (normalised)
     root_radius: float = 1.0      # radius of the root vessel (normalised)
-    # Reticulation: number of anastomoses (cross-links) to add, expressed as a
-    # fraction of the (N-1) tree edges. 0.0 => pure tree (NO sharp percolation!).
-    # The shortest candidate links are added first, so mean degree is
-    # ~2*(1+reticulation) REGARDLESS of length_ratio — this keeps reticulation
-    # density constant across the D sweep so length_ratio alone controls D.
-    reticulation: float = 0.8
+    # Reticulation: number of anastomoses (cross-links) to add, as a fraction of
+    # the (N-1) tree edges; shortest candidates first, so mean degree is
+    # ~2*(1+reticulation) regardless of length_ratio. This is ALSO the D knob:
+    # denser venation -> more space-filling -> higher box-counting D. Default 2.0
+    # gives ~2044 loops, mean degree ~6.0 and D~1.43 — inside the measured
+    # Relbunium leaf-venation range (1.39-1.76; see VALIDATION.md) — with a sharp
+    # p_c~0.28. (0.0 => pure tree, which has NO sharp percolation transition.)
+    reticulation: float = 2.0
     reticulation_knn: int = 10    # nearest neighbours scanned per node for links
     seed: int | None = 0
 
@@ -102,8 +104,11 @@ class SweepParams:
     # D axis is realised at CONSTANT network size N by varying the anastomosis
     # (vein) density and MEASURING the box-counting dimension of each network:
     # denser venation -> more space-filling -> higher D (and, as in real leaf
-    # venation, higher connectivity). Spans D ~ 1.25-1.51 at N=1023.
-    reticulation_grid: tuple = (0.3, 0.9, 1.6, 2.6)
+    # venation, higher connectivity). Spans D ~ 1.35-1.48 at N=1023 (low-mid of
+    # the empirical Relbunium range 1.39-1.76). Capped at ret=2.5: denser
+    # networks are so robust they don't hydraulically collapse under weak sinks
+    # (p_c undefined / NaN), which would leave blank heatmap cells.
+    reticulation_grid: tuple = (1.2, 1.6, 2.0, 2.5)
     k_h_grid: tuple = (0.3, 0.6, 1.0, 1.5, 2.5)
     n_trials_coupled: int = 600   # per (K_h, D) cell for hydraulic mode
     n_densities: int = 30
