@@ -83,6 +83,40 @@ def pc_surface(sweep=None, base_network=None, verbose=True):
             "reticulation": np.array(rets)}
 
 
+def compare_parasites(G, parasites=None, perc=None, verbose=True):
+    """p_c for each parasite profile on the SAME host network (hydraulic mode).
+
+    A parasite differs by sink strength K_h, attachment pattern (stem backbone vs
+    root-proximal), and aggressiveness — see config.PARASITES. Returns a list of
+    {name, kind, attachment, k_h, p_c}."""
+    ps = parasites or config.PARASITES
+    pp = perc or config.PercolationParams(mode="random", n_trials=25_000,
+                                          n_densities=40, seed=5)
+    out = []
+    for par in ps:
+        res = percolation.find_pc(G, pp, parasite=par, with_ci=True)
+        lo, hi = res["ci"]["ci95"]
+        out.append({"name": par.name, "kind": par.kind,
+                    "attachment": par.attachment, "efficiency": par.efficiency,
+                    "p_c": float(res["p_c"]),
+                    "ci_lo": float(lo), "ci_hi": float(hi)})
+        if verbose:
+            print(f"  {par.name:22s} {par.kind:13s} {par.attachment:13s} "
+                  f"eff={par.efficiency:.1f}  p_c={res['p_c']:.3f}  "
+                  f"95%CI=[{lo:.3f}, {hi:.3f}]")
+
+    # pairwise significance by 95%-CI overlap (conservative)
+    sig = sorted(out, key=lambda r: r["p_c"])
+    if verbose:
+        print("  pairwise (adjacent, by p_c): non-overlapping 95% CI => "
+              "significant")
+        for a, b in zip(sig, sig[1:]):
+            ok = a["ci_hi"] < b["ci_lo"]
+            print(f"    {a['name']:22s} vs {b['name']:22s}: "
+                  f"{'SIGNIFICANT' if ok else 'not distinguishable'}")
+    return out
+
+
 if __name__ == "__main__":
     print("pc_vs_D (random, topological):")
     pc_vs_D(reticulation_grid=(0.3, 0.9, 1.8),

@@ -40,18 +40,24 @@ from . import network, hydraulics
 
 
 def importance_weights(G, nodes, metric="betweenness"):
-    """Mean-preserving removal weights for targeted attack.
+    """Mean-preserving weights describing WHERE a parasite attacks / which nodes
+    matter for an attack.
 
-    'betweenness' (default) ranks nodes by betweenness centrality — the true
-    structural importance in a hierarchical vascular network (the low-degree
-    stem/backbone carries the most shortest paths). 'degree' ranks by degree.
-    NOTE: in a vascular tree these DISAGREE — the high-degree nodes are the
-    redundant reticulated periphery, so a degree attack is *weaker* than random
-    while a betweenness attack is far stronger.
+    'betweenness' — the structural backbone (stem/major veins); the true
+        importance in a hierarchical vascular network. Stem parasites (Cuscuta,
+        mistletoe) tap this.
+    'root_proximal' — vessels near the stem base (low generation); root parasites
+        (Striga, Orobanche) tap here.
+    'degree' — raw degree. NOTE: in a vascular tree this DISAGREES with
+        betweenness — high-degree nodes are the redundant reticulated periphery,
+        so a degree attack is *weaker* than random.
     """
     if metric == "degree":
         w = np.array([d for _, d in G.degree(nodes)], float)
-    else:
+    elif metric == "root_proximal":
+        gen = np.array([G.nodes[n]["gen"] for n in nodes], float)
+        w = (gen.max() - gen + 1.0)          # highest at the root (gen 0)
+    else:  # betweenness
         bc = nx.betweenness_centrality(G, normalized=True)
         w = np.array([bc[n] for n in nodes], float)
     return w / w.mean() if w.mean() > 0 else np.ones_like(w)
@@ -83,11 +89,27 @@ def _trial_weighted(adj, n, rho, rng, weights):
     return _gcc_size(_keep(adj, idx)) if idx.size else 0
 
 
-def _trial_hydraulic(adj, nodes, solver, rho, k_h, rng):
+def _trial_parasite(adj, n, rho, rng, weights, efficiency):
+    # A parasite taps vessels following its attachment pattern (weights; E[frac]
+    # = rho) and DISABLES each tapped vessel with probability `efficiency` —
+    # 1.0 for a holoparasite, <1 for a hemiparasite that only partially blocks.
+    p_remove = np.clip(rho * weights, 0.0, 1.0) * efficiency
+    idx = np.flatnonzero(rng.random(n) > p_remove)
+    return _gcc_size(_keep(adj, idx)) if idx.size else 0
+
+
+def _trial_hydraulic(adj, nodes, solver, rho, k_h, rng, p_attach=None,
+                     psi_parasite=config.PSI_PARASITE):
     n = len(nodes)
     n_h = int(round(rho * n))
-    haustoria = rng.choice(nodes, size=n_h, replace=False) if n_h else []
-    psi = solver.solve(haustoria=list(haustoria), k_h=k_h)
+    if n_h:
+        # p_attach: probability of a haustorium landing on each node (its
+        # attachment pattern). None => uniform random.
+        haustoria = rng.choice(nodes, size=n_h, replace=False, p=p_attach)
+    else:
+        haustoria = []
+    psi = solver.solve(haustoria=list(haustoria), k_h=k_h,
+                       psi_parasite=psi_parasite)
     embolized = set(solver.embolized_nodes(psi))
     if not embolized:
         return n
@@ -99,9 +121,15 @@ def _trial_hydraulic(adj, nodes, solver, rho, k_h, rng):
 # ----------------------------------------------------------------------------
 # Density response: the (rho -> P(collapse)) curve and raw trial data
 # ----------------------------------------------------------------------------
-def density_response(G, params=None, weights=None, k_h=config.K_H_DEFAULT):
+def density_response(G, params=None, weights=None, k_h=config.K_H_DEFAULT,
+                     parasite=None):
     """Run the full Monte Carlo sweep over rho. Returns a result dict with the
-    aggregated curves and the raw (X, y) needed for the logistic fit."""
+    aggregated curves and the raw (X, y) needed for the logistic fit.
+
+    parasite : a config.Parasite. In 'hydraulic' mode it sets the sink strength
+               K_h, the reservoir potential, and the attachment pattern that
+               haustoria follow (where they land). Lets one model Cuscuta vs
+               Striga vs Orobanche on the same host network."""
     p = params or config.DEFAULT_PERCOLATION
     rng = config.new_rng(p.seed)
 
@@ -111,11 +139,22 @@ def density_response(G, params=None, weights=None, k_h=config.K_H_DEFAULT):
     tpd = p.trials_per_density
     rhos = np.linspace(0.0, 1.0, p.n_densities)
 
-    solver = hydraulics.HydraulicSolver(G) if p.mode == "hydraulic" else None
+    solver = (hydraulics.HydraulicSolver(G)
+              if p.mode == "hydraulic" and parasite is None else None)
     if p.mode == "targeted" and weights is None:
         # attack the structural backbone (betweenness), NOT raw degree — see
         # importance_weights(): in a vascular tree these disagree.
         weights = importance_weights(G, nodes, metric="betweenness")
+
+    # parasite profile: a topological attack following the attachment pattern,
+    # scaled by a per-haustorium disabling efficiency (holo 1.0, hemi < 1.0).
+    # This is robust and smooth, unlike the hydraulic embolism cascade under
+    # highly-concentrated backbone placement. Overrides `mode`.
+    par_w, par_eff = None, 1.0
+    if parasite is not None:
+        par_eff = parasite.efficiency
+        par_w = (np.ones(n) if parasite.attachment == "random"
+                 else importance_weights(G, nodes, metric=parasite.attachment))
 
     p_collapse = np.empty(p.n_densities)
     gcc_fraction = np.empty(p.n_densities)
@@ -125,7 +164,9 @@ def density_response(G, params=None, weights=None, k_h=config.K_H_DEFAULT):
     for di, rho in enumerate(rhos):
         gccs = np.empty(tpd)
         for t in range(tpd):
-            if p.mode == "random":
+            if parasite is not None:
+                g = _trial_parasite(adj, n, rho, rng, par_w, par_eff)
+            elif p.mode == "random":
                 g = _trial_random(adj, n, rho, rng)
             elif p.mode == "targeted":
                 g = _trial_weighted(adj, n, rho, rng, weights)
@@ -207,9 +248,10 @@ def bootstrap_pc(X, y, n_boot=200, sample_cap=50_000, seed=7):
 
 
 def find_pc(G, params=None, weights=None, k_h=config.K_H_DEFAULT,
-            with_ci=False):
+            with_ci=False, parasite=None):
     """One-call convenience: sweep + logistic fit (+ optional bootstrap CI)."""
-    res = density_response(G, params, weights=weights, k_h=k_h)
+    res = density_response(G, params, weights=weights, k_h=k_h,
+                           parasite=parasite)
     fit = fit_pc(res["X"], res["y"])
     res.update(fit)
     res["p_c_logistic"] = res["p_c"]

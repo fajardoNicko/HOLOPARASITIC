@@ -262,6 +262,53 @@ measured leaf-venation range.
 
 ---
 
+## 7. Parasite profiles — biological validation
+
+The multi-parasite comparison (ANALYSIS.md §3.7) encodes each weed as an
+*attachment site* (stem vs root) and a *trophic mode* (holo- vs hemiparasite,
+via the "efficiency" knob). Each **input profile** is checked against the
+literature below (full citations in `REFERENCES_PARASITES.md`). The agents
+confirmed these facts verbatim from the primary text.
+
+| Parasite | Our profile | What the literature says | Verdict |
+|---|---|---|---|
+| *Cuscuta* | stem · holoparasite · full sink | stem holoparasite; xylem **+** phloem bridge; "very strong sink" (Yoshida 2019; Wolswinkel 2006; Yoshida 2016) | ✅ |
+| *Orobanche* | root · holoparasite · full sink | "obligate holoparasite … attaches to the **roots** … **xylem and phloem** connections … depends entirely on the host" (Shilo et al. 2017) | ✅ |
+| *Striga* | root · hemiparasite · partial sink | "obligate **hemiparasitic root** parasites"; photosynthetic but host-dependent; **xylem-to-xylem** connection (Spallek et al. 2013) | ✅ |
+| Mistletoe | stem · hemiparasite · partial sink | aerial **stem** hemiparasite; taps host **xylem**; high transpiration / water sink (Glatzel & Geils 2009) | ✅ |
+
+**Sink-strength ordering (holo > hemi → our efficiency 1.0 vs 0.6):**
+qualitatively supported — holoparasites are *totally* dependent on the host while
+hemiparasites draw mainly water/minerals and fix some of their own carbon
+(Těšitel 2016; Twyford 2018; contrast Shilo 2017 "depends entirely" vs Spallek
+2013 "negative carbon gain … still host dependent"). The two-axis
+(stem/root × holo/hemi) classification itself is standard (Těšitel 2016; Nickrent
+2020).
+
+**One refinement the literature exposes:** *Striga* connects to host **xylem
+only** (no phloem; Spallek 2013), whereas *Cuscuta*/*Orobanche* bridge **both**.
+Our topological removal model doesn't yet distinguish xylem from phloem, so this
+nuance isn't captured — a clean future refinement.
+
+**Statistical robustness of the ranking (within the model):** each parasite's p_c
+carries a bootstrap 95% CI and **every adjacent pair is significantly different**
+(non-overlapping CIs): Orobanche [0.153, 0.157] < Cuscuta [0.173, 0.177] < Striga
+[0.260, 0.265] < Mistletoe [0.420, 0.430]. So the ordering is *not noise* — it is
+a statistically firm prediction of the model.
+
+**NOT empirically validated (by design):** that statistical robustness is *within*
+the model. The ranking itself, and the "root attack fragments more than stem
+attack" result, still have **no empirical counterpart** — no one has measured a
+vascular percolation threshold for any parasite. These are outputs awaiting
+wet-lab test, exactly like the main p_c. (Distinguish: *statistically
+significant* ≠ *empirically validated*.)
+
+**Verdict:** every biological *input* of the parasite comparison is literature-
+confirmed; the *outputs* remain model predictions. The "only Cuscuta?" answer is
+therefore on solid footing — the profiles are real; the ranking is a hypothesis.
+
+---
+
 ## Recommendations from this validation
 
 1. **Match D to the empirical range — ✅ DONE.** Default `reticulation` was raised

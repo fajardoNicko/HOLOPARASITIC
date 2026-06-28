@@ -261,6 +261,32 @@ weak sinks rarely trigger cavitation and many are needed. The crossover near
 K_h ≈ 0.7 is itself a model prediction. Net effect: incorporating the physics
 makes the host look **more**, not less, fragile.
 
+### 3.7 Generality: the framework ranks different parasitic weeds
+
+The model is **parasite-agnostic** — a parasite is just an *attachment pattern*
+(where it taps) and a per-haustorium *efficiency* (how completely it disables a
+vessel: 1.0 for a full holoparasite, ~0.6 for a partly-photosynthetic
+hemiparasite). Running four real weeds on the *same* host network
+(`run_parasites.py`):
+
+| Parasite | Type | Attaches | p_c | 95% CI |
+|---|---|---|---|---|
+| *Orobanche* (broomrape) | holoparasite | root | **0.155** | [0.153, 0.157] |
+| *Cuscuta* (dodder) | holoparasite | stem | **0.175** | [0.173, 0.177] |
+| *Striga* (witchweed) | hemiparasite | root | **0.263** | [0.260, 0.265] |
+| Mistletoe | hemiparasite | branch | **0.425** | [0.420, 0.430] |
+
+**The ranking is statistically significant:** every adjacent pair has
+non-overlapping 95% bootstrap confidence intervals, so the ordering is not noise.
+Two clear effects: (1) **full holoparasites collapse the host far sooner** than
+partial hemiparasites (0.15–0.18 vs 0.26–0.42); (2) at equal efficiency, **root
+attack is more devastating than stem attack** (severing the base disconnects more
+at once: Orobanche < Cuscuta, Striga < Mistletoe). Reassuringly, *Cuscuta* here
+(0.175) reproduces the betweenness-backbone result of §3.3 (0.177) — an internal
+consistency check. This directly answers *"only Cuscuta?"*: **no** — the same
+framework predicts and *ranks* the threat of *Striga* and *Orobanche*, which
+together threaten tens of millions of farmers.
+
 ---
 
 ## Part 4 — Significance

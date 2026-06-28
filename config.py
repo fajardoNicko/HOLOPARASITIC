@@ -116,6 +116,38 @@ class SweepParams:
 
 
 # ----------------------------------------------------------------------------
+# Parasite profiles — the model is parasite-agnostic: a parasite is just a sink
+# strength (K_h), an attachment pattern (WHERE it taps), and an aggressiveness
+# (psi_parasite). Different weeds = different profiles, no code change.
+#   attachment: 'betweenness'   -> stem/branch parasites tap the backbone
+#               'root_proximal'  -> root parasites tap near the stem base
+#               'random'         -> null/baseline
+# NOTE: root parasites really attach to the host ROOT SYSTEM; our network models
+# the shoot vasculature with the root as a single source node, so root attack is
+# approximated as "tap the root-proximal (low-generation) backbone." A full root
+# system is future work.
+# ----------------------------------------------------------------------------
+@dataclass
+class Parasite:
+    name: str
+    attachment: str       # 'betweenness' (stem) | 'root_proximal' (root) | 'random'
+    efficiency: float     # per-haustorium disabling prob: 1.0 holo, <1 hemi
+    kind: str             # 'holoparasite' | 'hemiparasite' (label)
+
+
+PARASITES = [
+    Parasite("Cuscuta (dodder)",      attachment="betweenness",
+             efficiency=1.0, kind="holoparasite"),     # stem, full parasite
+    Parasite("Orobanche (broomrape)", attachment="root_proximal",
+             efficiency=1.0, kind="holoparasite"),     # root, full parasite
+    Parasite("Striga (witchweed)",    attachment="root_proximal",
+             efficiency=0.6, kind="hemiparasite"),     # root, partial (photosyn.)
+    Parasite("Mistletoe",             attachment="betweenness",
+             efficiency=0.6, kind="hemiparasite"),     # branch, partial
+]
+
+
+# ----------------------------------------------------------------------------
 # Output locations
 # ----------------------------------------------------------------------------
 @dataclass

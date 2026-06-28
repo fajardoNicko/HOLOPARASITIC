@@ -151,6 +151,44 @@ def plot_collapse_montage(G, path="figures/collapse_montage.png",
     return path
 
 
+def plot_parasite_comparison(results, path="figures/parasites.png", dpi=160):
+    """Bar chart of p_c across parasite profiles (generality result)."""
+    from matplotlib.patches import Patch
+    results = sorted(results, key=lambda r: r["p_c"])
+    names = [r["name"] for r in results]
+    pcs = [r["p_c"] for r in results]
+    colors = ["#1f6f4a" if r["kind"] == "holoparasite" else "#8c4a2f"
+              for r in results]
+
+    # 95% bootstrap CI error bars (if present)
+    yerr = None
+    if all("ci_lo" in r and np.isfinite(r["ci_lo"]) for r in results):
+        yerr = [[pcs[i] - r["ci_lo"] for i, r in enumerate(results)],
+                [r["ci_hi"] - pcs[i] for i, r in enumerate(results)]]
+
+    fig, ax = plt.subplots(figsize=(8.5, 5))
+    ax.bar(range(len(names)), pcs, color=colors, width=0.62,
+           yerr=yerr, capsize=5, ecolor="black")
+    for i, r in enumerate(results):
+        top = r.get("ci_hi", pcs[i])
+        ax.text(i, top + 0.008, f"{pcs[i]:.2f}", ha="center", fontsize=11,
+                fontweight="bold")
+        ax.text(i, 0.012, r["attachment"].replace("_", "-")
+                + f"  (eff={r['efficiency']})",
+                ha="center", va="bottom", fontsize=8, color="white", rotation=90)
+    ax.set_xticks(range(len(names)))
+    ax.set_xticklabels(names, rotation=12, ha="right", fontsize=9)
+    ax.set_ylabel(r"vascular percolation threshold $p_c$")
+    ax.set_title("Generality: collapse threshold across parasitic weeds\n"
+                 "(lower $p_c$ = host collapses sooner = more devastating)")
+    ax.legend(handles=[Patch(color="#1f6f4a", label="holoparasite (strong sink)"),
+                       Patch(color="#8c4a2f", label="hemiparasite (moderate)")],
+              loc="upper left")
+    ax.grid(axis="y", alpha=0.3)
+    fig.tight_layout(); fig.savefig(_ensure(path), dpi=dpi); plt.close(fig)
+    return path
+
+
 def animate_collapse(G, res=None, path="figures/collapse.gif",
                      n_frames=40, fps=10, dpi=120):
     """Animated GCC collapse beside the filling-in sigmoid. Saves a GIF if a
