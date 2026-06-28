@@ -1,0 +1,19 @@
+{
+  "_note": "PREVIEW (fast 50k/30k run). The full 1e6 run writes the real results.npz / summary.json when it finishes.",
+  "network": {
+    "n_nodes": 1023,
+    "n_edges": 1840,
+    "n_anastomoses": 818,
+    "n_terminals": 512,
+    "n_cycles": 818,
+    "mean_degree": 3.5972629521016617
+  },
+  "D": 1.3064723744801385,
+  "p_c_random": 0.22123105433671914,
+  "p_c_ci95": [
+    0.2199353813092296,
+    0.2225753580482664
+  ],
+  "p_c_targeted": 0.20250642410833294,
+  "n_trials": 50000
+}

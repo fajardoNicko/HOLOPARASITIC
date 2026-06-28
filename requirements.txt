@@ -1,0 +1,7 @@
+# Holoparasitic Vascular Percolation Study — pinned to the team's benchmarked stack.
+# Install:  C:\laragon\bin\python\python-3.13\python.exe -m pip install -r requirements.txt
+numpy==2.4.6
+scipy==1.17.1
+networkx==3.6.1
+scikit-learn==1.9.0
+matplotlib==3.11.0
