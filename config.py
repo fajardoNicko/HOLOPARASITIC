@@ -121,7 +121,12 @@ class SweepParams:
 # (psi_parasite). Different weeds = different profiles, no code change.
 #   attachment: 'betweenness'   -> stem/branch parasites tap the backbone
 #               'root_proximal'  -> root parasites tap near the stem base
-#               'random'         -> null/baseline
+#               'random'         -> systemic/endophytic parasites tap diffusely
+# The model tells parasites apart by attachment site x trophic mode (efficiency):
+# two species with the SAME attachment & mode collapse the host identically, so the
+# holoparasite set below spans the THREE distinct attachment geometries (stem, root,
+# systemic) rather than listing same-profile species (e.g. Cassytha would duplicate
+# Cuscuta; Phelipanche would duplicate Orobanche).
 # NOTE: root parasites really attach to the host ROOT SYSTEM; our network models
 # the shoot vasculature with the root as a single source node, so root attack is
 # approximated as "tap the root-proximal (low-generation) backbone." A full root
@@ -136,13 +141,17 @@ class Parasite:
 
 
 PARASITES = [
-    Parasite("Cuscuta (dodder)",      attachment="betweenness",
-             efficiency=1.0, kind="holoparasite"),     # stem, full parasite
-    Parasite("Orobanche (broomrape)", attachment="root_proximal",
-             efficiency=1.0, kind="holoparasite"),     # root, full parasite
-    Parasite("Striga (witchweed)",    attachment="root_proximal",
+    # --- HOLOPARASITES (study focus; efficiency 1.0 = full vessel disabling) ---
+    Parasite("Cuscuta (dodder)",       attachment="betweenness",
+             efficiency=1.0, kind="holoparasite"),     # STEM holoparasite
+    Parasite("Orobanche (broomrape)",  attachment="root_proximal",
+             efficiency=1.0, kind="holoparasite"),     # ROOT holoparasite
+    Parasite("Pilostyles (endophyte)", attachment="random",
+             efficiency=1.0, kind="holoparasite"),     # SYSTEMIC/endophytic holo
+    # --- HEMIPARASITES (comparison only; efficiency 0.6 = partial sink) ---
+    Parasite("Striga (witchweed)",     attachment="root_proximal",
              efficiency=0.6, kind="hemiparasite"),     # root, partial (photosyn.)
-    Parasite("Mistletoe",             attachment="betweenness",
+    Parasite("Mistletoe",              attachment="betweenness",
              efficiency=0.6, kind="hemiparasite"),     # branch, partial
 ]
 

@@ -1,0 +1,2 @@
+sample_id,species,common_name,plant_id,leaf_id,view,date_collected,location,image_file,scale_px_per_mm,collected_by,notes
+tomato_p01_l1_topdown,Solanum lycopersicum,tomato,p01,l1,topdown,2026-07-01,,venation_topdown/tomato/tomato_p01_l1_topdown.jpg,,,example row - delete me

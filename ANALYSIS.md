@@ -1,7 +1,9 @@
-# Holoparasitic Vascular Percolation — Pipeline & Data Analysis
+# Holoparasite-Induced Vascular Percolation — Pipeline & Data Analysis
 
-*Computational biophysics model of *Cuscuta campestris* haustorial sink dynamics
-and the Vascular Percolation Threshold p_c of a host plant.*
+*Computational biophysics model of holoparasitic haustorial sink strength and the
+Vascular Percolation Threshold p_c of a host plant. Focused on holoparasites
+(*Cuscuta* stem, *Orobanche* root, *Pilostyles* systemic; calibrated on *Cuscuta
+campestris*); hemiparasites (*Striga*, mistletoe) are kept as a comparison (§3.7).*
 
 This document explains the full computational pipeline, catalogues the data it
 produced, and analyses those results. All numbers below come from the production
@@ -261,31 +263,42 @@ weak sinks rarely trigger cavitation and many are needed. The crossover near
 K_h ≈ 0.7 is itself a model prediction. Net effect: incorporating the physics
 makes the host look **more**, not less, fragile.
 
-### 3.7 Generality: the framework ranks different parasitic weeds
+### 3.7 Generality: the framework ranks holoparasite types (with a hemiparasite comparison)
 
 The model is **parasite-agnostic** — a parasite is just an *attachment pattern*
 (where it taps) and a per-haustorium *efficiency* (how completely it disables a
 vessel: 1.0 for a full holoparasite, ~0.6 for a partly-photosynthetic
-hemiparasite). Running four real weeds on the *same* host network
+hemiparasite). Because the model distinguishes parasites by **attachment × mode**,
+two species with the same profile collapse the host identically; the holoparasite
+set below therefore spans the **three distinct attachment geometries** (stem, root,
+systemic) rather than listing same-profile species (e.g. *Cassytha* would duplicate
+*Cuscuta*; *Phelipanche* would duplicate *Orobanche*). The two hemiparasites are
+kept as a **comparison only**. Running them on the *same* host network
 (`run_parasites.py`):
 
 | Parasite | Type | Attaches | p_c | 95% CI |
 |---|---|---|---|---|
-| *Orobanche* (broomrape) | holoparasite | root | **0.155** | [0.153, 0.157] |
-| *Cuscuta* (dodder) | holoparasite | stem | **0.175** | [0.173, 0.177] |
-| *Striga* (witchweed) | hemiparasite | root | **0.263** | [0.260, 0.265] |
-| Mistletoe | hemiparasite | branch | **0.425** | [0.420, 0.430] |
+| *Orobanche* (broomrape) | **holoparasite** | root | **0.155** | [0.153, 0.157] |
+| *Cuscuta* (dodder) | **holoparasite** | stem | **0.175** | [0.173, 0.177] |
+| *Striga* (witchweed) | hemiparasite *(comparison)* | root | **0.263** | [0.260, 0.265] |
+| *Pilostyles* (endophyte) | **holoparasite** | systemic | **0.277** | [0.275, 0.280] |
+| Mistletoe | hemiparasite *(comparison)* | stem | **0.425** | [0.420, 0.430] |
 
 **The ranking is statistically significant:** every adjacent pair has
 non-overlapping 95% bootstrap confidence intervals, so the ordering is not noise.
-Two clear effects: (1) **full holoparasites collapse the host far sooner** than
-partial hemiparasites (0.15–0.18 vs 0.26–0.42); (2) at equal efficiency, **root
-attack is more devastating than stem attack** (severing the base disconnects more
-at once: Orobanche < Cuscuta, Striga < Mistletoe). Reassuringly, *Cuscuta* here
-(0.175) reproduces the betweenness-backbone result of §3.3 (0.177) — an internal
-consistency check. This directly answers *"only Cuscuta?"*: **no** — the same
-framework predicts and *ranks* the threat of *Striga* and *Orobanche*, which
-together threaten tens of millions of farmers.
+Three effects emerge: (1) **among holoparasites, *attachment site* sets the
+threat** — root (*Orobanche* 0.155) > stem (*Cuscuta* 0.175) > systemic/diffuse
+(*Pilostyles* 0.277); (2) **at equal attachment, full beats partial** — holo
+collapses the host sooner than hemi (stem: *Cuscuta* 0.175 vs mistletoe 0.425;
+root: *Orobanche* 0.155 vs *Striga* 0.263); (3) **the two axes can cross** — the
+targeted root *hemi*parasite *Striga* (0.263) outranks the diffuse *holo*parasite
+*Pilostyles* (0.277), i.e. *where* a parasite attacks can outweigh *how completely*
+it feeds. Reassuringly, *Cuscuta* here (0.175) reproduces the betweenness-backbone
+result of §3.3 (0.177), and *Pilostyles* (random attachment, 0.277) reproduces the
+random-attack p_c of §3.2 (0.279) — two internal consistency checks. This answers
+*"only Cuscuta?"*: **no** — the same framework predicts and *ranks* multiple
+holoparasites and places them against hemiparasite weeds that threaten tens of
+millions of farmers.
 
 ---
 

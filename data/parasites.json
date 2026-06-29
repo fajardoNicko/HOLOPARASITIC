@@ -18,6 +18,15 @@
     "ci_hi": 0.1568479860389056
   },
   {
+    "name": "Pilostyles (endophyte)",
+    "kind": "holoparasite",
+    "attachment": "random",
+    "efficiency": 1.0,
+    "p_c": 0.27741722871821,
+    "ci_lo": 0.27537661533884883,
+    "ci_hi": 0.27985076294325306
+  },
+  {
     "name": "Striga (witchweed)",
     "kind": "hemiparasite",
     "attachment": "root_proximal",

@@ -1,0 +1,2 @@
+sample_id,species,plant_id,organ,branch_id,parent_radius_um,daughter1_radius_um,daughter2_radius_um,image_file,measured_by,notes
+tomato_p01_stem_xsec,Solanum lycopersicum,p01,stem,b1,,,,cross_sections/tomato/tomato_p01_stem_xsec.jpg,,example row - delete me

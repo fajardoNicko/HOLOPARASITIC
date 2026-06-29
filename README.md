@@ -1,9 +1,11 @@
-# Holoparasitic Vascular Percolation Study
+# Holoparasite-Induced Vascular Percolation Study
 
-Computational biophysics model of *Cuscuta campestris* (dodder) haustorial sink
-dynamics and the **Vascular Percolation Threshold p_c** of a host plant's
-hydraulic network — the point of irreversible network fragmentation, proposed as
-a *pre-symptomatic* intervention metric (collapse precedes visible wilting).
+Computational biophysics model of **holoparasitic** haustorial sink strength and
+the **Vascular Percolation Threshold p_c** of a host plant's hydraulic network —
+the point of irreversible network fragmentation, proposed as a *pre-symptomatic*
+intervention metric (collapse precedes visible wilting). Focused on holoparasites
+(*Cuscuta* stem, *Orobanche* root, *Pilostyles* endophytic; calibrated on *Cuscuta
+campestris*), with hemiparasites (*Striga*, mistletoe) kept as a comparison.
 
 ## What it does
 

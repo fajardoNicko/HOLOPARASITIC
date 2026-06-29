@@ -2,9 +2,11 @@
 
 References that back the biological **input assumptions** of the multi-parasite
 comparison (`run_parasites.py`, ANALYSIS.md §3.7): each parasite's **attachment
-site** (stem vs root) and **trophic mode** (holoparasite vs hemiparasite). All
-DOIs below were verified against publisher / PubMed / journal pages during a web
-search (none invented). **OA** = open access.
+site** (stem / root / systemic) and **trophic mode** (holoparasite vs hemiparasite).
+The study focuses on **holoparasites** spanning the three attachment geometries;
+the two hemiparasites are a comparison only. All DOIs below were verified against
+publisher / PubMed / journal pages during a web search (none invented). **OA** =
+open access.
 
 > Scope note: these validate the *inputs* (where each parasite attaches and how
 > dependent it is), **not** the model's p_c numbers — no empirical "vascular
@@ -103,6 +105,23 @@ These justify the two-axis scheme the whole comparison is built on.
 
 ---
 
+## F. *Pilostyles* / endophytic holoparasites — systemic (diffuse interface)
+
+14. **Nickrent, D. L. (2020).** *see A3* — the census places the endophytic
+    holoparasite families (Apodanthaceae, incl. *Pilostyles*; Rafflesiaceae) among
+    parasitic angiosperms; these live almost entirely *inside* the host as
+    endophytic strands, emerging only to flower → backs a **systemic/distributed**
+    (not backbone-localised) vascular interface.
+15. **Těšitel, J. (2016).** *see A1* — functional-biology basis for endophytic
+    holoparasitism (total host dependence; diffuse internal host contact).
+
+> Honest scope: *Pilostyles* is included to exercise the **systemic/distributed**
+> attachment geometry (modelled as "random" tapping), **not** as a crop pest.
+> Quantified vascular-interface data for endophytic holoparasites is sparse, so this
+> is the most **schematic** of the five profiles — flagged as such in VALIDATION §7.
+
+---
+
 ## Mapping: model assumption → reference(s)
 
 | Model input | Backed by |
@@ -110,6 +129,7 @@ These justify the two-axis scheme the whole comparison is built on.
 | Two-axis scheme (stem/root × holo/hemi) is standard | Těšitel 2016 (1); Twyford 2018 (2); Nickrent 2020 (3) |
 | *Cuscuta* = **stem holoparasite**, xylem+phloem, strong sink | your Yoshida 2019 / Wolswinkel 2006 / Hibberd & Jeschke 2001; Yoshida 2016 (5) |
 | *Orobanche* = **root holoparasite**, xylem+phloem | Shilo 2017 (7); Joel 2013 (8) |
+| *Pilostyles* = **systemic/endophytic holoparasite**, diffuse interface | Nickrent 2020 (3/14); Těšitel 2016 (1/15) |
 | *Striga* = **root hemiparasite**, photosynthetic, xylem | Spallek 2013 (9); Runo & Kuria 2018 (10) |
 | Mistletoe = **stem hemiparasite**, xylem, water sink | Glatzel & Geils 2009 (13) |
 | holo (total dependence) > hemi (partial) sink strength → our "efficiency" | Těšitel 2016 (1); Twyford 2018 (2); Shilo 2017 (7) vs Spallek 2013 (9) |

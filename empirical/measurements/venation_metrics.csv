@@ -1,0 +1,2 @@
+sample_id,species,plant_id,leaf_id,box_counting_D,vein_density_mm_per_mm2,leaf_area_mm2,image_file,measured_by,notes
+tomato_p01_l1_topdown,Solanum lycopersicum,p01,l1,,,,venation_topdown/tomato/tomato_p01_l1_topdown.jpg,,example row - delete me
