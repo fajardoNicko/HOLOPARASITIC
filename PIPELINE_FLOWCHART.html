@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOLOPARASITIC — Program Flowcharts</title>
+<style>
+:root{
+  --bg:#f5f6fb; --panel:#fdfdff; --ink:#171a22; --ink2:#4d5460; --ink3:#828a97;
+  --line:#e2e4ee; --arrow:#16d5d0;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:ui-sans-serif,-apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1360px;margin:0 auto;padding:44px 24px 90px}
+
+header{border-bottom:1px solid var(--line);padding-bottom:26px}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);margin:0 0 10px}
+h1{font-size:28px;letter-spacing:-.02em;margin:0 0 8px;font-weight:660}
+header p.sub{margin:0;color:var(--ink2);font-size:14.5px;max-width:80ch}
+
+/* symbol key */
+.key{display:flex;flex-wrap:wrap;gap:26px;margin-top:26px;align-items:center}
+.key figure{margin:0;display:flex;align-items:center;gap:10px}
+.key figcaption{font-size:12.5px;color:var(--ink2)}
+.key figcaption b{display:block;color:var(--ink);font-family:var(--mono);font-size:12px;font-weight:600}
+
+figure.chart{margin:0}
+section.fig{margin-top:64px}
+section.fig > h2{font-size:19px;margin:0 0 5px;letter-spacing:-.01em;font-weight:640}
+section.fig > h2 .n{font-family:var(--mono);color:var(--ink3);font-weight:400;margin-right:11px;font-size:16px}
+section.fig > p.lede{margin:0 0 22px;color:var(--ink2);font-size:13.5px;max-width:88ch}
+.canvas{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 18px;overflow-x:auto}
+.canvas svg{display:block;margin:0 auto;height:auto;max-width:100%}
+p.cap{margin:12px 2px 0;font-size:12.5px;color:var(--ink3);max-width:92ch}
+p.cap code{font-family:var(--mono);font-size:.94em;color:var(--ink2)}
+code{font-family:var(--mono);font-size:.93em}
+
+.note{border:1px solid var(--line);border-left:3px solid #c026d3;background:#fdf4ff;border-radius:10px;
+  padding:14px 17px;margin-top:22px;font-size:13px;color:var(--ink2)}
+.note b{color:var(--ink)}
+.note.warn{border-left-color:#e11d48;background:#fff1f4}
+.note + .note{margin-top:12px}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin-top:10px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:12.8px;min-width:680px}
+th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+tr:last-child td{border-bottom:none}
+td:first-child{font-family:var(--mono);white-space:nowrap}
+td.n{font-family:var(--mono);color:var(--ink3);white-space:nowrap}
+
+footer{margin-top:70px;padding-top:22px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink3);
+  font-family:var(--mono)}
+
+@media print{
+  body{background:#fff}
+  .wrap{padding:0;max-width:100%}
+  section.fig{break-inside:avoid;page-break-inside:avoid}
+  .canvas{border:none;padding:0}
+  footer{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">Holoparasitic Vascular Percolation</p>
+  <h1>Program Flowcharts</h1>
+  <p class="sub">The whole codebase expressed as five standard flowcharts — every symbol drawn from the source, not from the
+  prose. Read them in order: Fig 1 is the driver, Figs 2–4 are the routines it calls, Fig 5 is the sweep that calls Fig 2
+  twenty times over.</p>
+
+  <div class="key" id="key"></div>
+</header>
+
+<section class="fig">
+  <h2><span class="n">Fig 1</span>Main program — <code>scripts/run_full.py</code></h2>
+  <p class="lede">The driver. Everything before the loop happens exactly once; the six production stages then run inside a
+  guarded loop so that a failure in a late stage cannot destroy work already written to disk.</p>
+  <div class="canvas"><div id="f1"></div></div>
+  <p class="cap"><b>Reading the loop:</b> each stage is wrapped in <code>try/except</code>. On an exception the driver prints
+  <code>[n] FAILED</code> and moves on; on success <code>_checkpoint()</code> rewrites <code>data/results.npz</code> and
+  <code>data/summary.json</code> including <code>last_completed_stage</code> — which is what makes an interrupted run
+  resumable rather than restartable.</p>
+</section>
+
+<section class="fig">
+  <h2><span class="n">Fig 2</span>Monte Carlo damage loop — <code>percolation.density_response()</code></h2>
+  <p class="lede">The heart of the program and where 10<sup>6</sup> trials happen. Note that the graph is converted to a CSR
+  adjacency matrix <em>before</em> the outer loop — nothing inside either loop touches a NetworkX object. That one decision
+  is what makes a million trials a coffee break instead of a cluster job.</p>
+  <div class="canvas"><div id="f2"></div></div>
+  <p class="cap"><b>Two nested loops:</b> the outer runs over 50 infestation loads ρ; the inner runs 20 000 trials at each
+  load. 50 × 20 000 = 1 000 000 rows of <code>(ρ, collapse-bit)</code>, which is exactly what Fig 3 consumes.</p>
+</section>
+
+<section class="fig">
+  <h2><span class="n">Fig 3</span>Threshold estimation — <code>percolation.fit_pc()</code> → <code>bootstrap_pc()</code></h2>
+  <p class="lede">Turns a million binary outcomes into one number with an error bar. The two guards on the right and left of
+  the spine are the honesty of this routine: it refuses to invent a threshold when the data does not contain one.</p>
+  <div class="canvas"><div id="f3"></div></div>
+  <p class="cap"><b>Why the fallback exists:</b> the logistic inflection <code>−intercept/coef</code> can extrapolate outside
+  [0,1] when collapse is already near-certain at the edge of the sweep. When that happens the linearly interpolated
+  empirical 50 % crossing is the honest estimate. A genuine <code>NaN</code> means the curve never reaches 50 % anywhere in
+  ρ ∈ [0,1] — a host the sink simply cannot collapse — and that is reported, not filled in.</p>
+</section>
+
+<section class="fig">
+  <h2><span class="n">Fig 4</span>Hydraulic solve and cavitation — <code>hydraulics.HydraulicSolver.solve()</code></h2>
+  <p class="lede">The physics core, and the only place the parasite exists as a number. The haustorium is one term:
+  a leak conductance <code>h[i]</code> tying a host node to a reservoir at −3 MPa. The decision diamond at the bottom is the
+  hinge of the whole study — it is where a hydraulic event becomes a topological one.</p>
+  <div class="canvas"><div id="f4"></div></div>
+  <p class="cap"><b>The grounding term:</b> <code>diag(h + 1e−12)</code> keeps <code>A</code> non-singular even when severe
+  infestation detaches part of the network. Without it <code>spsolve</code> would return a plausible, meaningless answer to a
+  singular system — a silent failure, the worst kind.</p>
+</section>
+
+<section class="fig">
+  <h2><span class="n">Fig 5</span>Parameter sweep — <code>sweep.pc_surface()</code></h2>
+  <p class="lede">Two nested loops over host architecture (D, varied through reticulation density at constant node count) and
+  parasite aggressiveness (K<sub>h</sub>). Every cell re-runs the entire pipeline — Figs 2, 3 and 4 in full. Nothing here is
+  interpolated.</p>
+  <div class="canvas"><div id="f5"></div></div>
+  <p class="cap"><b>Why the NaN branch is drawn and not hidden:</b> some cells have no threshold at all — a network so densely
+  reticulated that a weak sink cannot collapse it, ever. Recording those as <code>NaN</code> rather than dropping them keeps
+  the model's behaviour visible exactly where it is most interesting: the region where the host wins.</p>
+</section>
+
+<section class="fig">
+  <h2><span class="n">Fig 6</span>Where each file sits in the flow</h2>
+  <p class="lede">Every source file, what it owns, and which figure above shows it running.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>File</th><th class="n">Lines</th><th>Owns</th><th class="n">Shown in</th></tr></thead>
+      <tbody>
+        <tr><td>config.py</td><td class="n">176</td><td>Every constant, dataclass and parasite profile; the RNG factory. No parameter is defined anywhere else.</td><td class="n">Fig 1</td></tr>
+        <tr><td>holoparasitic/network.py</td><td class="n">169</td><td>Bifurcation, Murray radii, Hagen–Poiseuille conductance, reticulation, the one-time CSR conversion</td><td class="n">Fig 1, 2</td></tr>
+        <tr><td>holoparasitic/fractal.py</td><td class="n">86</td><td>Edge point cloud, windowed box-counting, D</td><td class="n">Fig 1, 5</td></tr>
+        <tr><td>holoparasitic/hydraulics.py</td><td class="n">135</td><td>Conductance Laplacian, Dirichlet BCs, haustorial leak, sparse solve, cavitation test</td><td class="n">Fig 4</td></tr>
+        <tr><td>holoparasitic/percolation.py</td><td class="n">275</td><td>Attack weights, four trial kernels, GCC, logistic fit, crossing fallback, bootstrap CI</td><td class="n">Fig 2, 3</td></tr>
+        <tr><td>holoparasitic/sweep.py</td><td class="n">124</td><td>p_c vs D, the (K_h × D) surface, parasite comparison</td><td class="n">Fig 5</td></tr>
+        <tr><td>holoparasitic/dynamics.py</td><td class="n">86</td><td>Logistic ρ(t), crossing times, RK45 verification, pre-symptomatic window</td><td class="n">—</td></tr>
+        <tr><td>holoparasitic/viz.py</td><td class="n">249</td><td>All figures and the collapse animation. No science.</td><td class="n">Fig 1</td></tr>
+        <tr><td>scripts/run_full.py</td><td class="n">166</td><td>The 10⁶-trial production run, six checkpointed stages</td><td class="n">Fig 1</td></tr>
+        <tr><td>scripts/run_demo.py</td><td class="n">66</td><td>Identical call sequence at 10 000 trials — development and live demo</td><td class="n">Fig 1</td></tr>
+        <tr><td>scripts/run_parasites.py</td><td class="n">47</td><td>Cross-parasite threshold comparison + CI-overlap significance</td><td class="n">—</td></tr>
+        <tr><td>scripts/run_dynamics.py</td><td class="n">141</td><td>Growth-rate sweep, per-parasite pre-symptomatic window</td><td class="n">—</td></tr>
+        <tr><td>scripts/validate_stats.py</td><td class="n">224</td><td>Five-test validation report incl. the Molloy–Reed closed-form check</td><td class="n">—</td></tr>
+        <tr><td>scripts/export_csv.py</td><td class="n">58</td><td>results.npz → three paper-ready CSV tables</td><td class="n">—</td></tr>
+        <tr><td>scripts/show_npz.py</td><td class="n">47</td><td>Console inspection of any results file</td><td class="n">—</td></tr>
+        <tr><td>tests/test_smoke.py</td><td class="n">69</td><td>Reticulation, D range, sink lowers ψ — the pre-flight gate</td><td class="n">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <b>Two places where these flowcharts disagree with METHODOLOGY.md — reconcile before submission.</b><br>
+    <b>1 · Site, not bond, percolation.</b> The prose says ρ is "the fraction of <em>vessels</em> drained or disabled" (edges).
+    Fig 2 shows what the code does: <code>_trial_random</code> computes
+    <code>idx = np.flatnonzero(rng.random(n) &gt; rho)</code> with <code>n = adj.shape[0]</code> — that is <em>node</em>
+    (junction) removal, classic <em>site</em> percolation. Same critical behaviour and same qualitative conclusions, but not
+    the same number.<br>
+    <b>2 · Root attachment is not enforced.</b> The prose defines the giant component as "the largest surviving subnetwork
+    that remains connected to the <em>root</em>." <code>_gcc_size</code> returns <code>np.bincount(labels).max()</code> — the
+    largest component <em>anywhere</em>, with no root check. On a network this reticulated the two nearly always coincide,
+    but the claim is not something the code currently guarantees.
+  </div>
+
+  <div class="note">
+    <b>What is not yet drawn, because it is not yet written.</b> There is no <code>scripts/run_empirical.py</code>. It would
+    read <code>empirical/measurements/*.csv</code>, run the <em>same</em> <code>fractal.box_counting_dimension()</code> over
+    <code>venation_topdown/</code>, join each species' measured D to the <code>pc_vs_D</code> curve already sitting in
+    <code>results.npz</code>, and emit four tests via <code>scipy.stats</code>: one-sample t-test of D_real vs D_model,
+    one-way ANOVA of D across the five species, log-log regression testing H₀ that Murray's exponent = 3, and the central
+    Pearson correlation of D_measured against p_c_predicted. Every dependency it needs already exists.
+  </div>
+</section>
+
+<footer>PIPELINE_FLOWCHART.html · drawn from the repository source · cross-check against METHODOLOGY.md and METHODOLOGY_SCRIPT.md</footer>
+</div>
+
+<script>
+/* ------------------------------------------------------------------ *
+ *  Minimal flowchart renderer.
+ *  Nodes carry explicit centre-x / top-y; the renderer draws the shape,
+ *  centres the text, and routes orthogonal polyline edges between named
+ *  anchors ('t' top, 'b' bottom, 'l' left, 'r' right).
+ * ------------------------------------------------------------------ */
+const NS = "http://www.w3.org/2000/svg";
+const ARROW = "#16d5d0", LBL = "#5a6270";
+
+function shapePath(n){
+  const x = n.x, y = n.y, w = n.w, h = n.h, L = x - w/2, R = x + w/2, B = y + h;
+  switch(n.type){
+    case "terminal": return `<rect x="${L}" y="${y}" width="${w}" height="${h}" rx="${h/2}" fill="url(#g)"/>`;
+    case "io": {
+      const s = Math.min(30, h*0.44);
+      return `<polygon points="${L+s},${y} ${R},${y} ${R-s},${B} ${L},${B}" fill="url(#g)"/>`;
+    }
+    case "decision":
+      return `<polygon points="${x},${y} ${R},${y+h/2} ${x},${B} ${L},${y+h/2}" fill="url(#g)"/>`;
+    case "sub":
+      return `<rect x="${L}" y="${y}" width="${w}" height="${h}" rx="4" fill="url(#g)"/>`
+           + `<line x1="${L+13}" y1="${y}" x2="${L+13}" y2="${B}" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>`
+           + `<line x1="${R-13}" y1="${y}" x2="${R-13}" y2="${B}" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>`;
+    default:
+      return `<rect x="${L}" y="${y}" width="${w}" height="${h}" rx="4" fill="url(#g)"/>`;
+  }
+}
+
+function shapeText(n){
+  const lines = Array.isArray(n.text) ? n.text : [n.text];
+  const meta = lines.map(t => t.startsWith("~")
+      ? {t:t.slice(1), size:12.5, lh:17, op:.82, weight:400}
+      : {t:t,         size:15.5, lh:20, op:1,  weight:650});
+  const total = meta.reduce((a,m)=>a+m.lh, 0);
+  let cur = n.y + n.h/2 - total/2;
+  return meta.map(m => {
+    const base = cur + m.lh*0.74; cur += m.lh;
+    return `<text x="${n.x}" y="${base}" text-anchor="middle" fill="#fff" fill-opacity="${m.op}"`
+         + ` font-size="${m.size}" font-weight="${m.weight}"`
+         + ` font-family="ui-monospace,Menlo,Consolas,monospace">${m.t.replace(/&/g,"&amp;").replace(/</g,"&lt;")}</text>`;
+  }).join("");
+}
+
+function anchor(n, side){
+  if(side === "t") return [n.x, n.y];
+  if(side === "b") return [n.x, n.y + n.h];
+  if(side === "l") return [n.x - n.w/2, n.y + n.h/2];
+  return [n.x + n.w/2, n.y + n.h/2];
+}
+
+function render(spec, mountId){
+  const map = {}; spec.nodes.forEach(n => map[n.id] = n);
+  let out = `<svg viewBox="0 0 ${spec.w} ${spec.h}" width="${spec.w}" xmlns="${NS}" role="img" aria-label="flowchart">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a21cf0"/><stop offset="100%" stop-color="#6d0bd4"/>
+    </linearGradient>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="${ARROW}"/>
+    </marker>
+  </defs>`;
+
+  // edges first so shapes sit on top
+  spec.edges.forEach(e => {
+    const a = anchor(map[e.from], e.fs || "b");
+    const b = anchor(map[e.to],   e.ts || "t");
+    const pts = [a, ...(e.via || []), b];
+    const d = pts.map((p,i) => (i ? "L" : "M") + p[0] + " " + p[1]).join(" ");
+    out += `<path d="${d}" fill="none" stroke="${ARROW}" stroke-width="3.2"
+             stroke-linejoin="miter" marker-end="url(#ah)"/>`;
+    if(e.label){
+      out += `<text x="${e.lx}" y="${e.ly}" text-anchor="${e.anc || "middle"}" fill="${LBL}"
+               font-size="15" font-weight="500"
+               font-family="ui-sans-serif,Segoe UI,Inter,Helvetica,Arial,sans-serif">${e.label}</text>`;
+    }
+  });
+
+  spec.nodes.forEach(n => { out += shapePath(n) + shapeText(n); });
+  out += "</svg>";
+  document.getElementById(mountId).innerHTML = out;
+}
+
+/* ---------------- symbol key ---------------- */
+(function(){
+  const items = [
+    ["terminal","Terminal","start / stop / return"],
+    ["process","Process","a computation or assignment"],
+    ["io","Input · Output","read a parameter, write a file"],
+    ["decision","Decision","a branch or a loop test"],
+    ["sub","Predefined process","a call detailed in another figure"]
+  ];
+  document.getElementById("key").innerHTML = items.map(([type,name,desc]) => {
+    const n = {type, x:56, y:8, w:104, h:type==="decision"?52:40, text:""};
+    return `<figure><svg viewBox="0 0 116 ${type==="decision"?68:56}" width="116" height="${type==="decision"?68:56}"
+      xmlns="${NS}"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a21cf0"/><stop offset="100%" stop-color="#6d0bd4"/></linearGradient></defs>
+      ${shapePath(n)}</svg><figcaption><b>${name}</b>${desc}</figcaption></figure>`;
+  }).join("");
+})();
+
+/* =================================================================== *
+ *  FIG 1 — scripts/run_full.py
+ * =================================================================== */
+render({ w:1260, h:1580, nodes:[
+  {id:"start", type:"terminal", x:560, y:26,   w:180, h:54,  text:["Start"]},
+  {id:"p1",    type:"process",  x:560, y:122,  w:470, h:70,  text:["Declare frozen parameters","~config.py · NetworkParams · PercolationParams · SweepParams"]},
+  {id:"io1",   type:"io",       x:560, y:236,  w:470, h:62,  text:["Read n_trials from argv","~default 1,000,000"]},
+  {id:"p2",    type:"process",  x:560, y:344,  w:470, h:74,  text:["G = network.generate()","~bifurcate → Murray radii → g = 1/R → reticulate"]},
+  {id:"p3",    type:"process",  x:560, y:462,  w:470, h:58,  text:["D = fractal.fractal_dimension(G)"]},
+  {id:"io2",   type:"io",       x:560, y:564,  w:470, h:66,  text:["Write figures/network.png","~_checkpoint(\"1-network\")"]},
+  {id:"p4",    type:"process",  x:560, y:674,  w:260, h:52,  text:["stage ← 2"]},
+  {id:"d1",    type:"decision", x:560, y:768,  w:340, h:126, text:["is stage ≤ 6 ?"]},
+  {id:"sub",   type:"sub",      x:560, y:948,  w:560, h:78,  text:["run stage","~2 sigmoid · 3 targeted · 4 p_c vs D · 5 surface · 6 animation"]},
+  {id:"d2",    type:"decision", x:560, y:1076, w:400, h:136, text:["did the stage","raise an exception ?"]},
+  {id:"fail",  type:"process",  x:250, y:1264, w:300, h:58,  text:["print \"[stage] FAILED\""]},
+  {id:"chk",   type:"io",       x:900, y:1264, w:340, h:62,  text:["_checkpoint(stage)","~rewrite results.npz + summary.json"]},
+  {id:"p5",    type:"process",  x:560, y:1376, w:300, h:52,  text:["stage ← stage + 1"]},
+  {id:"stop",  type:"terminal", x:1050,y:1470, w:180, h:54,  text:["Stop"]}
+], edges:[
+  {from:"start", to:"p1"}, {from:"p1", to:"io1"}, {from:"io1", to:"p2"},
+  {from:"p2", to:"p3"}, {from:"p3", to:"io2"}, {from:"io2", to:"p4"}, {from:"p4", to:"d1"},
+  {from:"d1", fs:"b", to:"sub", label:"True", lx:590, ly:922, anc:"start"},
+  {from:"d1", fs:"r", to:"stop", ts:"r", via:[[1180,831],[1180,1497]], label:"False", lx:760, ly:812, anc:"start"},
+  {from:"sub", to:"d2"},
+  {from:"d2", fs:"l", to:"fail", via:[[250,1144]], label:"True", lx:352, ly:1130, anc:"end"},
+  {from:"d2", fs:"r", to:"chk",  via:[[900,1144]], label:"False", lx:768, ly:1130, anc:"start"},
+  {from:"fail", fs:"b", to:"p5", ts:"l", via:[[250,1402]]},
+  {from:"chk",  fs:"b", to:"p5", ts:"r", via:[[900,1402]]},
+  {from:"p5", fs:"b", to:"d1", ts:"l", via:[[560,1500],[70,1500],[70,831]], label:"loop", lx:88, ly:1160, anc:"start"}
+]}, "f1");
+
+/* =================================================================== *
+ *  FIG 2 — percolation.density_response()
+ * =================================================================== */
+render({ w:1340, h:1660, nodes:[
+  {id:"start", type:"terminal", x:620, y:26,   w:180, h:54,  text:["Start"]},
+  {id:"setup", type:"process",  x:620, y:118,  w:560, h:98,  text:["adj, nodes = network.to_csr(G)","~converted ONCE — the loops never touch NetworkX","~rng = new_rng(seed) · threshold = 0.5 × N · rhos = linspace(0,1,50)"]},
+  {id:"init",  type:"process",  x:620, y:250,  w:260, h:52,  text:["di ← 0"]},
+  {id:"dout",  type:"decision", x:620, y:336,  w:340, h:126, text:["is di < 50 ?"]},
+  {id:"ret",   type:"terminal", x:1080,y:364,  w:400, h:70,  text:["return X, y,","~p_collapse, gcc_fraction"]},
+  {id:"agg",   type:"process",  x:170, y:540,  w:320, h:92,  text:["p_collapse[di] ← mean(y)","~gcc_fraction[di] ← mean(gcc)/N","~di ← di + 1"]},
+  {id:"prho",  type:"process",  x:620, y:512,  w:420, h:66,  text:["rho ← rhos[di]","~t ← 0"]},
+  {id:"din",   type:"decision", x:620, y:614,  w:380, h:130, text:["is t < trials","per density ?"]},
+  {id:"dmode", type:"decision", x:620, y:794,  w:400, h:136, text:["is mode","hydraulic ?"]},
+  {id:"topo",  type:"process",  x:250, y:990,  w:420, h:92,  text:["keep node i where","~rng.random(n) > rho × w[i] × efficiency","~— site percolation"]},
+  {id:"hyd",   type:"sub",      x:1010,y:990,  w:440, h:92,  text:["place ρ·N haustoria","~solver.solve() → drop ψ < −2 MPa","~— see Fig 4"]},
+  {id:"gcc",   type:"process",  x:620, y:1130, w:470, h:58,  text:["gcc = _gcc_size(_keep(adj, idx))"]},
+  {id:"dcol",  type:"decision", x:620, y:1224, w:390, h:130, text:["is gcc < 0.5 × N ?"]},
+  {id:"y1",    type:"process",  x:230, y:1400, w:280, h:52,  text:["y ← 1  collapsed"]},
+  {id:"y0",    type:"process",  x:1010,y:1400, w:280, h:52,  text:["y ← 0  survived"]},
+  {id:"tinc",  type:"process",  x:620, y:1494, w:300, h:52,  text:["t ← t + 1"]}
+], edges:[
+  {from:"start", to:"setup"}, {from:"setup", to:"init"}, {from:"init", to:"dout"},
+  {from:"dout", fs:"r", to:"ret", ts:"l", label:"False", lx:800, ly:380, anc:"start"},
+  {from:"dout", fs:"b", to:"prho", label:"True", lx:650, ly:490, anc:"start"},
+  {from:"prho", to:"din"},
+  {from:"din", fs:"l", to:"agg", ts:"b", via:[[170,679]], label:"False", lx:422, ly:665, anc:"end"},
+  {from:"agg", fs:"t", to:"dout", ts:"l", via:[[170,399]]},
+  {from:"din", fs:"b", to:"dmode", label:"True", lx:650, ly:772, anc:"start"},
+  {from:"dmode", fs:"l", to:"topo", via:[[250,862]], label:"False", lx:412, ly:848, anc:"end"},
+  {from:"dmode", fs:"r", to:"hyd",  via:[[1010,862]], label:"True", lx:828, ly:848, anc:"start"},
+  {from:"topo", fs:"b", to:"gcc", ts:"l", via:[[250,1159]]},
+  {from:"hyd",  fs:"b", to:"gcc", ts:"r", via:[[1010,1159]]},
+  {from:"gcc", to:"dcol"},
+  {from:"dcol", fs:"l", to:"y1", via:[[230,1289]], label:"True", lx:417, ly:1275, anc:"end"},
+  {from:"dcol", fs:"r", to:"y0", via:[[1010,1289]], label:"False", lx:823, ly:1275, anc:"start"},
+  {from:"y1", fs:"b", to:"tinc", ts:"l", via:[[230,1520]]},
+  {from:"y0", fs:"b", to:"tinc", ts:"r", via:[[1010,1520]]},
+  {from:"tinc", fs:"b", to:"din", ts:"r", via:[[620,1600],[1270,1600],[1270,679]], label:"inner loop", lx:1258, ly:1580, anc:"end"}
+]}, "f2");
+
+/* =================================================================== *
+ *  FIG 3 — fit_pc / pc_crossing / bootstrap_pc
+ * =================================================================== */
+render({ w:1200, h:1090, nodes:[
+  {id:"start", type:"terminal", x:550, y:26,   w:180, h:54,  text:["Start"]},
+  {id:"io",    type:"io",       x:550, y:118,  w:480, h:62,  text:["Read X = ρ, y = collapse bit","~1,000,000 rows from Fig 2"]},
+  {id:"d0",    type:"decision", x:550, y:214,  w:360, h:126, text:["is y single-class ?"]},
+  {id:"nanret",type:"terminal", x:190, y:246,  w:340, h:62,  text:["return NaN","~p_c outside sweep range"]},
+  {id:"fit",   type:"process",  x:550, y:392,  w:480, h:92,  text:["LogisticRegression().fit(X, y)","~p_c ← − intercept / coef"]},
+  {id:"d1",    type:"decision", x:550, y:520,  w:390, h:132, text:["is 0 ≤ p_c ≤ 1 ?"]},
+  {id:"cross", type:"process",  x:180, y:660,  w:340, h:80,  text:["p_c ← pc_crossing()","~interpolated empirical 50 % crossing"]},
+  {id:"d2",    type:"decision", x:550, y:700,  w:340, h:126, text:["with_ci ?"]},
+  {id:"boot",  type:"process",  x:950, y:850,  w:400, h:96,  text:["bootstrap_pc(X, y)","~200 resamples, cap 50,000","~CI95 ← percentile 2.5 / 97.5"]},
+  {id:"ret",   type:"terminal", x:550, y:970,  w:470, h:70,  text:["return p_c, CI95, curves"]}
+], edges:[
+  {from:"start", to:"io"}, {from:"io", to:"d0"},
+  {from:"d0", fs:"l", to:"nanret", ts:"r", label:"True", lx:362, ly:263, anc:"end"},
+  {from:"d0", fs:"b", to:"fit", label:"False", lx:580, ly:368, anc:"start"},
+  {from:"fit", to:"d1"},
+  {from:"d1", fs:"l", to:"cross", via:[[180,586]], label:"False", lx:347, ly:572, anc:"end"},
+  {from:"d1", fs:"b", to:"d2", label:"True", lx:580, ly:680, anc:"start"},
+  {from:"cross", fs:"b", to:"d2", ts:"l", via:[[180,763]]},
+  {from:"d2", fs:"r", to:"boot", via:[[950,763]], label:"True", lx:738, ly:749, anc:"start"},
+  {from:"d2", fs:"b", to:"ret", label:"False", lx:580, ly:900, anc:"start"},
+  {from:"boot", fs:"b", to:"ret", ts:"r", via:[[950,1005]]}
+]}, "f3");
+
+/* =================================================================== *
+ *  FIG 4 — HydraulicSolver.solve() + cavitation
+ * =================================================================== */
+render({ w:1180, h:1420, nodes:[
+  {id:"start", type:"terminal", x:560, y:26,   w:180, h:54,  text:["Start"]},
+  {id:"io",    type:"io",       x:560, y:116,  w:560, h:66,  text:["Read G, k_h, haustoria list","~ψ_parasite = −3.0 MPa"]},
+  {id:"p1",    type:"process",  x:560, y:218,  w:560, h:74,  text:["W = conductance_csr(G)","~L = diag(deg) − W"]},
+  {id:"p2",    type:"process",  x:560, y:328,  w:560, h:86,  text:["fix ψ_root = 0 · ψ_terminal = −1 MPa","~free = every other node"]},
+  {id:"p3",    type:"process",  x:560, y:450,  w:600, h:86,  text:["h[i] ← k_h × node_conductance[i]","~one leak conductance per haustorium"]},
+  {id:"p4",    type:"process",  x:560, y:572,  w:640, h:104, text:["A = L_ff + diag(h + 1e−12)","~b = − L_fd · ψ_fixed + h · ψ_parasite","~ψ_free = spsolve(A, b)"]},
+  {id:"p5",    type:"process",  x:560, y:712,  w:260, h:52,  text:["i ← 0"]},
+  {id:"d1",    type:"decision", x:560, y:804,  w:340, h:124, text:["is i < N ?"]},
+  {id:"ret",   type:"terminal", x:930, y:835,  w:340, h:62,  text:["return ψ,","~embolised node list"]},
+  {id:"d2",    type:"decision", x:560, y:976,  w:410, h:132, text:["is ψ[i] < −2.0 MPa ?"]},
+  {id:"emb",   type:"process",  x:250, y:1150, w:300, h:70,  text:["embolise node i","~delete it from the graph"]},
+  {id:"keep",  type:"process",  x:930, y:1150, w:300, h:70,  text:["keep node i","~still conducting"]},
+  {id:"pi",    type:"process",  x:560, y:1256, w:260, h:52,  text:["i ← i + 1"]}
+], edges:[
+  {from:"start", to:"io"}, {from:"io", to:"p1"}, {from:"p1", to:"p2"},
+  {from:"p2", to:"p3"}, {from:"p3", to:"p4"}, {from:"p4", to:"p5"}, {from:"p5", to:"d1"},
+  {from:"d1", fs:"r", to:"ret", ts:"l", label:"False", lx:748, ly:848, anc:"start"},
+  {from:"d1", fs:"b", to:"d2", label:"True", lx:590, ly:956, anc:"start"},
+  {from:"d2", fs:"l", to:"emb", via:[[250,1042]], label:"True", lx:342, ly:1028, anc:"end"},
+  {from:"d2", fs:"r", to:"keep", via:[[930,1042]], label:"False", lx:778, ly:1028, anc:"start"},
+  {from:"emb",  fs:"b", to:"pi", ts:"l", via:[[250,1282]]},
+  {from:"keep", fs:"b", to:"pi", ts:"r", via:[[930,1282]]},
+  {from:"pi", fs:"b", to:"d1", ts:"l", via:[[560,1360],[45,1360],[45,866]], label:"loop", lx:62, ly:1120, anc:"start"}
+]}, "f4");
+
+/* =================================================================== *
+ *  FIG 5 — sweep.pc_surface()
+ * =================================================================== */
+render({ w:1180, h:1340, nodes:[
+  {id:"start", type:"terminal", x:560, y:26,   w:180, h:54,  text:["Start"]},
+  {id:"p0",    type:"process",  x:560, y:116,  w:560, h:78,  text:["reticulation_grid = (1.2, 1.6, 2.0, 2.5)","~k_h_grid = (0.3, 0.6, 1.0, 1.5, 2.5)"]},
+  {id:"p1",    type:"process",  x:560, y:220,  w:260, h:52,  text:["i ← 0"]},
+  {id:"d1",    type:"decision", x:560, y:310,  w:340, h:124, text:["is i < 4 ?"]},
+  {id:"ret",   type:"terminal", x:940, y:341,  w:380, h:62,  text:["return D, k_h, pc","~the vulnerability surface"]},
+  {id:"p2",    type:"process",  x:560, y:478,  w:580, h:96,  text:["G_i = generate(reticulation[i])","~D[i] = fractal_dimension(G_i)","~j ← 0"]},
+  {id:"ii",    type:"process",  x:200, y:648,  w:280, h:56,  text:["i ← i + 1"]},
+  {id:"d2",    type:"decision", x:560, y:614,  w:340, h:124, text:["is j < 5 ?"]},
+  {id:"sub",   type:"sub",      x:560, y:786,  w:560, h:78,  text:["find_pc(G_i, hydraulic, k_h[j])","~full re-run — see Figs 2, 3 and 4"]},
+  {id:"d3",    type:"decision", x:560, y:914,  w:420, h:132, text:["is p_c defined","in [0, 1] ?"]},
+  {id:"nan",   type:"process",  x:200, y:1088, w:340, h:76,  text:["pc[i,j] ← NaN","~reported, never interpolated"]},
+  {id:"ok",    type:"process",  x:940, y:1088, w:300, h:76,  text:["pc[i,j] ← p_c"]},
+  {id:"pj",    type:"process",  x:560, y:1200, w:260, h:52,  text:["j ← j + 1"]}
+], edges:[
+  {from:"start", to:"p0"}, {from:"p0", to:"p1"}, {from:"p1", to:"d1"},
+  {from:"d1", fs:"r", to:"ret", ts:"l", label:"False", lx:748, ly:354, anc:"start"},
+  {from:"d1", fs:"b", to:"p2", label:"True", lx:590, ly:460, anc:"start"},
+  {from:"p2", to:"d2"},
+  {from:"d2", fs:"l", to:"ii", ts:"r", label:"False", lx:382, ly:662, anc:"end"},
+  {from:"ii", fs:"t", to:"d1", ts:"l", via:[[200,372]]},
+  {from:"d2", fs:"b", to:"sub", label:"True", lx:590, ly:764, anc:"start"},
+  {from:"sub", to:"d3"},
+  {from:"d3", fs:"l", to:"nan", via:[[200,980]], label:"False", lx:337, ly:966, anc:"end"},
+  {from:"d3", fs:"r", to:"ok",  via:[[940,980]], label:"True", lx:783, ly:966, anc:"start"},
+  {from:"nan", fs:"b", to:"pj", ts:"l", via:[[200,1226]]},
+  {from:"ok",  fs:"b", to:"pj", ts:"r", via:[[940,1226]]},
+  {from:"pj", fs:"b", to:"d2", ts:"r", via:[[560,1290],[1120,1290],[1120,676]], label:"inner loop", lx:1108, ly:1272, anc:"end"}
+]}, "f5");
+</script>
+</body>
+</html>
