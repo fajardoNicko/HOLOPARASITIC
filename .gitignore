@@ -1,0 +1,15 @@
+# Personal Claude Code permissions — machine-local, must not be shared.
+# Grants broad auto-approval; committing it would apply it to teammates' machines too.
+.claude/settings.local.json
+ANALYSIS.md
+Cell_Membrane_Roleplay_COMPLETED.docx
+CONCEPTS.md
+EXPLAINER.md
+METHODOLOGY_SCRIPT.md
+METHODOLOGY.md
+ORAL_SCRIPT.md
+PIPELINE_FLOWCHART.html
+PRESENTATION.md
+PROPOSAL_DEFENSE.md
+REFERENCES_PARASITES.md
+VALIDATION.md

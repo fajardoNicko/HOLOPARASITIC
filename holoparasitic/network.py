@@ -29,8 +29,18 @@ import config
 # Murray's law: r_parent^n = r_c1^n + r_c2^n.  For a symmetric bifurcation the
 # two children are equal, so r_child = r_parent / 2^(1/n).
 # ----------------------------------------------------------------------------
-def _child_radius(parent_radius: float, exponent: float) -> float:
-    return parent_radius / (2.0 ** (1.0 / exponent))
+def _child_radii(parent_radius: float, exponent: float,
+                 symmetry: float = 1.0) -> tuple[float, float]:
+    """The two daughter radii from Murray's law  r_p^n = r1^n + r2^n  with a
+    given asymmetry  s = r_small / r_large in (0, 1].  Returns (r_large, r_small).
+
+    s = 1 recovers the original symmetric split  r = r_p / 2^(1/n)  exactly, so
+    the default leaves every existing result byte-identical. Real leaf
+    bifurcations are asymmetric (s < 1); calibrate.py measures s from Matos data
+    and Murray conservation is preserved for any s."""
+    s = max(1e-6, min(1.0, symmetry))
+    r_large = parent_radius / (1.0 + s ** exponent) ** (1.0 / exponent)
+    return r_large, s * r_large
 
 
 def _hagen_poiseuille_resistance(radius: float, length: float) -> float:
@@ -70,11 +80,14 @@ def generate(params: config.NetworkParams | None = None) -> nx.Graph:
             G.nodes[node]["kind"] = "terminal"
             continue
 
-        child_r = _child_radius(radius, p.radius_exponent)
+        r_large, r_small = _child_radii(radius, p.radius_exponent,
+                                        p.daughter_symmetry)
         child_l = length * p.length_ratio
         px, py = G.nodes[node]["pos"]
 
-        for sign in (+1.0, -1.0):
+        # wider daughter on one side, narrower on the other (asymmetric when
+        # daughter_symmetry < 1; identical radii when == 1)
+        for sign, child_r in ((+1.0, r_large), (-1.0, r_small)):
             jitter = math.radians(rng.uniform(-p.angle_jitter, p.angle_jitter))
             ca = angle + sign * math.radians(p.branch_angle) + jitter
             cx = px + math.cos(ca) * child_l

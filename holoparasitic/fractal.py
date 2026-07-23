@@ -34,22 +34,25 @@ def _edge_point_cloud(G: nx.Graph, samples_per_unit: float = 4000.0,
     return pts
 
 
-def box_counting_dimension(G: nx.Graph, n_sizes: int = 12,
-                           min_boxes: int = 16, max_boxes: int = 1024) -> dict:
-    """Return {'D', 'sizes', 'counts', 'fit'} for network G.
+def box_counting_from_points(pts, n_sizes: int = 12,
+                             min_boxes: int = 16, max_boxes: int = 1024) -> dict:
+    """Windowed box-counting on a raw 2-D point cloud. Returns
+    {'D', 'sizes', 'counts', 'fit'} (slope == D).
 
-    `D` is the fitted box-counting dimension; `sizes` are box counts per axis,
-    `counts` the occupied-box tallies, `fit` the (slope, intercept) of the
-    log-log regression (slope == D).
+    This is the SHARED core used for both the synthetic networks (via
+    `box_counting_dimension`, which feeds it the edge point cloud) and real leaf
+    images (`scripts/run_empirical.py`, which feeds it the vein-pixel
+    coordinates). Because a model's D and a photograph's D are then computed by
+    literally the same code path over the same box-size window, the comparison
+    is like-for-like rather than two differently-defined numbers that happen to
+    share a name — which is exactly what the empirical validation requires.
 
-    The fit deliberately spans an intermediate-to-fine WINDOW of box sizes
-    (default 16..1024 boxes per axis). The coarsest boxes are excluded because
-    at a finite ~10^3-node network they sit in the finite-size-saturated regime
-    (everything looks 2-D), which otherwise biases D upward and destroys the
-    monotonic dependence on network morphology. Fitting the genuine scaling
-    regime is standard practice for box-counting on finite objects.
+    The fit spans an intermediate-to-fine WINDOW of box sizes (default 16..1024
+    boxes per axis). The coarsest boxes are excluded because on a finite object
+    they sit in the size-saturated regime (everything looks 2-D), which biases D
+    upward; fitting the genuine scaling regime is standard practice.
     """
-    pts = _edge_point_cloud(G)
+    pts = np.asarray(pts, float)
 
     # Normalise the cloud into the unit square so box sizes are comparable.
     lo = pts.min(axis=0)
@@ -73,6 +76,15 @@ def box_counting_dimension(G: nx.Graph, n_sizes: int = 12,
 
     return {"D": float(slope), "sizes": ks, "counts": counts,
             "fit": (float(slope), float(intercept))}
+
+
+def box_counting_dimension(G: nx.Graph, n_sizes: int = 12,
+                           min_boxes: int = 16, max_boxes: int = 1024) -> dict:
+    """Return {'D', 'sizes', 'counts', 'fit'} for network G. Rasterises the
+    graph edges to a point cloud, then defers to `box_counting_from_points` —
+    the same core that measures real leaf images."""
+    return box_counting_from_points(_edge_point_cloud(G), n_sizes,
+                                    min_boxes, max_boxes)
 
 
 def fractal_dimension(G: nx.Graph) -> float:

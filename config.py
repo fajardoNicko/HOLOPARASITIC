@@ -64,6 +64,11 @@ class NetworkParams:
     angle_jitter: float = 8.0     # random angle spread [degrees]
     length_ratio: float = 0.72    # child_length/parent_length -> the D knob
     radius_exponent: float = 3.0  # Murray's law exponent (r_p^n = sum r_c^n)
+    daughter_symmetry: float = 1.0  # r_small/r_large at each split (0,1]; 1.0 =
+                                    # symmetric (Murray-equal daughters, the
+                                    # original behaviour). Real leaves are <1;
+                                    # calibrate.py measures it from Matos data.
+                                    # Murray conservation holds for any value.
     root_length: float = 1.0      # length of the root vessel (normalised)
     root_radius: float = 1.0      # radius of the root vessel (normalised)
     # Reticulation: number of anastomoses (cross-links) to add, as a fraction of
