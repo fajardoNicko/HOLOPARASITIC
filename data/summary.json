@@ -1,20 +1,20 @@
 {
   "network": {
     "n_nodes": 1023,
-    "n_edges": 3066,
-    "n_anastomoses": 2044,
+    "n_edges": 1273,
+    "n_anastomoses": 251,
     "n_terminals": 512,
-    "n_cycles": 2044,
-    "mean_degree": 5.994134897360704
+    "n_cycles": 251,
+    "mean_degree": 2.4887585532746823
   },
-  "D": 1.4344676807090173,
+  "D": 1.3867914291116228,
   "last_completed_stage": "6-complete",
-  "p_c_random": 0.2793476144674991,
+  "p_c_random": 0.27111454748476205,
   "p_c_ci95": [
-    0.27784239768506314,
-    0.28086397102784705
+    0.2699506429280105,
+    0.27195542001433215
   ],
   "n_trials": 1000000,
-  "p_c_targeted_betweenness": 0.1765246794493992,
-  "p_c_targeted_degree": 0.313683336779782
+  "p_c_targeted_betweenness": 0.18887898651024984,
+  "p_c_targeted_degree": 0.20228705128912816
 }

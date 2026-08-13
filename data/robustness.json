@@ -1,0 +1,73 @@
+{
+  "network": {
+    "N": 4095,
+    "E": 5144,
+    "mean_degree": 2.5123
+  },
+  "root_sensitivity": {
+    "k_eff_default": 0.002897940308360044,
+    "k_eff_values": [
+      0.002898,
+      0.002908,
+      0.002853,
+      0.002747,
+      0.002361
+    ],
+    "cv_percent": 7.414460429915343,
+    "note": "Topological p_c is EXACTLY root-invariant (largest-CC GCC, root never enters the trial); only the hydraulic field varies, and only mildly."
+  },
+  "mc_convergence": [
+    {
+      "n_trials": 500,
+      "p_c": 0.2702,
+      "ci95": [
+        0.2499,
+        0.2918
+      ],
+      "ci_width": 0.0418
+    },
+    {
+      "n_trials": 1000,
+      "p_c": 0.2773,
+      "ci95": [
+        0.2655,
+        0.2904
+      ],
+      "ci_width": 0.0249
+    },
+    {
+      "n_trials": 2000,
+      "p_c": 0.2837,
+      "ci95": [
+        0.2767,
+        0.2914
+      ],
+      "ci_width": 0.0148
+    },
+    {
+      "n_trials": 4000,
+      "p_c": 0.2869,
+      "ci95": [
+        0.2826,
+        0.2927
+      ],
+      "ci_width": 0.0101
+    },
+    {
+      "n_trials": 8000,
+      "p_c": 0.2852,
+      "ci95": [
+        0.2824,
+        0.2885
+      ],
+      "ci_width": 0.0061
+    }
+  ],
+  "theory_comparison": {
+    "mean_degree": 2.5123,
+    "kappa_<k2>/<k>": 3.1192,
+    "molloy_reed_fc": 0.5281,
+    "measured_pc_random": 0.2852,
+    "note": "Molloy-Reed/Cohen assumes a locally tree-like network; the planar leaf mesh has short loops, so expect qualitative agreement (same order), not an exact match."
+  }
+}

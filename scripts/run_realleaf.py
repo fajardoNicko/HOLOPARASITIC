@@ -39,17 +39,7 @@ import config
 from holoparasitic import realleaf, fractal, percolation
 
 
-def find_pairs(data_dir):
-    """Return [(spp, nodes_csv, veins_csv)] discovered under data_dir.
-    Matches <stem>_nodes.csv with <stem>_veins.csv (recursively)."""
-    nodes = glob.glob(os.path.join(data_dir, "**", "*_nodes.csv"), recursive=True)
-    pairs = []
-    for npath in sorted(nodes):
-        vpath = npath.replace("_nodes.csv", "_veins.csv")
-        if os.path.exists(vpath):
-            spp = os.path.basename(npath)[:-len("_nodes.csv")]
-            pairs.append((spp, npath, vpath))
-    return pairs
+find_pairs = realleaf.find_leaf_pairs      # shared, stem-mismatch tolerant
 
 
 def model_curve():

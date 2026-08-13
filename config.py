@@ -53,6 +53,20 @@ PSI_CAVITATION = -2.0   # vessel embolises (is removed) when its psi < this
 # K_h is THE independent variable of the study.  Normalised units.
 K_H_DEFAULT = 0.5
 
+# Literature-anchored holoparasite constant (scripts/make_sink_demo.py):
+# K_h solved so ONE haustorium diverts ~18-20% of leaf throughput -- a CONSERVATIVE
+# FLOOR taken from a hemiparasite (Jiang, Jeschke & Hartung 2003, J. Exp. Bot.
+# 54:1985, ~18% in Rhinanthus/Hordeum) -- across an illustrative ~1.5 MPa host->
+# parasite gradient. CAUTION: the 1.5 MPa figure is an order-of-magnitude value
+# cited in Cuscuta REVIEW literature, NOT a primary measurement, and it is NOT in
+# Kaiser et al. 2015 (that review does not quantify the gradient). No published
+# holoparasite-specific "% of host water" or gradient measurement was located; the
+# exact sink magnitude is therefore a DELIMITATION, not a measured input.
+# NOTE: at this realistic strength the sink is SUB-cavitation (0 vessels embolise
+# at any gradient) — it drains water/carbon but does not rupture the xylem, so the
+# hydraulic sink and the percolation collapse are DECOUPLED lenses. See sink_demo.json.
+K_H_HOLOPARASITE = 0.0392
+
 
 # ----------------------------------------------------------------------------
 # Network generation defaults  (Person A)
@@ -80,6 +94,20 @@ class NetworkParams:
     # p_c~0.28. (0.0 => pure tree, which has NO sharp percolation transition.)
     reticulation: float = 2.0
     reticulation_knn: int = 10    # nearest neighbours scanned per node for links
+    # Reticulation MODE — how loops are closed:
+    #   'knn'  (original) add reticulation*(N-1) shortest nearest-neighbour
+    #          cross-links to the tree. Produces a decorated TREE: mean degree
+    #          rises but most edges stay bridges (loop_fraction ~0.2 at <k>=2.5),
+    #          unlike real venation. Kept for the pre-2026-07 hero network.
+    #   'mesh' (calibrated) close areoles the way a real leaf does: add the
+    #          shortest DELAUNAY edges (planar, non-crossing) up to `mesh_frac`
+    #          of the candidates. Yields a true planar MESH — most edges lie on a
+    #          cycle (loop_fraction ~0.78 at <k>~2.6), matching the Matos cohort.
+    #          Here mesh_frac (not reticulation) sets connectivity, and <k> and
+    #          loop_fraction rise together exactly as they do across real leaves.
+    reticulation_mode: str = "knn"
+    mesh_frac: float = 0.10       # 'mesh' mode: fraction of Delaunay candidate
+                                  # edges to add (controls <k> AND loop_fraction)
     seed: int | None = 0
 
 
@@ -170,10 +198,38 @@ class Paths:
     data: str = "data"
 
 
-DEFAULT_NETWORK = NetworkParams()
+# The pre-2026-07 hero (knn reticulation, <k>~6, D~1.43) — kept as a robustness
+# check. It was an artifact of reticulation=2.0, not a calibration target.
+LEGACY_HERO_NETWORK = NetworkParams()
+
+# PROMOTED HERO (2026-07-30). The cohort-calibrated planar MESH: real branching
+# geometry (angle 55.31, Murray exponent 2.0, daughter symmetry 0.675, length
+# ratio 0.929), the real mean degree (<k> = 2.5 via mesh_frac 0.086), at N=1023
+# (generations=9) — the SAME size as the legacy hero, so promoting it is a
+# like-for-like swap of the connectivity model, not a change of scale. p_c stays
+# ~0.28. Mirrors calibrate.calibrated_base(generations=9); hardcoded here because
+# config cannot import calibrate (calibrate imports config).
+DEFAULT_NETWORK = NetworkParams(
+    generations=9, branch_angle=55.31, angle_jitter=30.0, radius_exponent=2.0,
+    daughter_symmetry=0.675, length_ratio=0.929,
+    reticulation_mode="mesh", mesh_frac=0.086, seed=0)
 DEFAULT_PERCOLATION = PercolationParams()
 DEFAULT_SWEEP = SweepParams()
 PATHS = Paths()
+
+# ---------------------------------------------------------------------------
+# Synthetic-phase 2D sweep grid — calibrated to the 100-leaf real cohort.
+# The generator's branching geometry is fixed to the cohort medians (see
+# holoparasitic.calibrate.COHORT_TARGETS / calibrated_base); only these two
+# axes are swept, and BOTH mean degree and D are measured on each network:
+#   SWEEP_MEAN_DEGREES  -> reticulation knob (mean degree), spans+extends real
+#                          2.15..2.99 with an extra high-<k> point for causal range
+#   SWEEP_GENERATIONS   -> D knob (space-filling), spans the real D 1.26..1.91
+# The knobs are near-orthogonal (grid <k>-D correlation ~0), so p_c can be
+# attributed to each factor independently — the causal complement to the real
+# cohort, where the two were uncorrelated but not manipulable.
+SWEEP_MEAN_DEGREES = (2.1, 2.4, 2.7, 3.0, 3.5, 4.0)
+SWEEP_GENERATIONS = (8, 9, 10, 11, 12, 13, 14)
 
 
 def new_rng(seed):

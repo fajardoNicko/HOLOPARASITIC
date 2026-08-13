@@ -145,20 +145,44 @@ def load_matos(nodes_csv: str, veins_csv: str, *, root=None,
 
 
 def _assign_roles(G, nodes, root):
-    """Set every node's kind ('root'|'terminal'|'internal') and gen (BFS hops)."""
+    """Set every node's kind ('root'|'terminal'|'internal') and gen (BFS hops).
+
+    SOURCE SELECTION. The Matos venation files are predominantly CROPPED
+    patches of lamina (`*_crop_*`), and none of the 120 leaves carries a
+    petiole flag (`node_Type` is 'E' throughout). There is therefore no true
+    petiole in the data, and the source must be chosen on hydraulic grounds.
+
+    Rule hierarchy, most-preferred first (the rule that fired is recorded in
+    G.graph['root_rule'] so every run is auditable):
+      1. 'explicit'      — caller supplied a node id
+      2. 'petiole'       — a node_Type 'P' node exists (other datasets may have one)
+      3. 'widest_vein'   — the endpoint of the largest-caliber vein in the patch
+      4. 'geometric'     — extreme-y node (degenerate fallback only)
+
+    Rule 3 is the operative one here. Vein caliber decreases distally, so the
+    widest vein is the hydraulically most proximal point of the patch — the
+    route by which water enters this window of the network. Choosing an
+    arbitrary boundary node instead would inject flow through a minor vein and
+    misrepresent the pressure field entirely.
+    """
     deg = dict(G.degree())
 
-    # ROOT: forced -> petiole node in-graph -> highest-degree petiole -> the
-    # geometric base (extreme y) as a last resort. All defensible; logged.
     if root is not None and root in G:
-        r = root
+        r, rule = root, "explicit"
     else:
         petiole = [n for n in G if nodes.get(n, {}).get("node_type") == "P"]
         if petiole:
-            r = max(petiole, key=lambda n: deg.get(n, 0))
-        else:                                            # no petiole flag: base
-            r = max(G.nodes, key=lambda n: G.nodes[n]["pos"][1])
+            r, rule = max(petiole, key=lambda n: deg.get(n, 0)), "petiole"
+        elif G.number_of_edges():
+            # endpoint of the widest vein; break ties by higher degree
+            u, v, _ = max(G.edges(data=True), key=lambda e: e[2]["radius"])
+            r = u if deg.get(u, 0) >= deg.get(v, 0) else v
+            rule = "widest_vein"
+        else:
+            r, rule = max(G.nodes, key=lambda n: G.nodes[n]["pos"][1]), "geometric"
+
     G.graph["root"] = r
+    G.graph["root_rule"] = rule
 
     # gen = BFS hop distance from root on the largest component containing it
     gens = nx.single_source_shortest_path_length(G, r)
@@ -190,6 +214,41 @@ def _assign_conductances(G):
         g = (rn ** 4) / ln
         d["conductance"] = float(g)
         d["resistance"] = float(1.0 / g) if g > 0 else float("inf")
+
+
+def find_leaf_pairs(data_dir: str):
+    """Discover (species, nodes_csv, veins_csv) triples under data_dir.
+
+    Pairing is done PER DIRECTORY rather than by exact stem substitution,
+    because the archive is not internally consistent: e.g. Bei_tar ships
+    `UCBG_Beitar..._nodes.csv` alongside `UCBG-Beitar..._veins.csv` (underscore
+    vs hyphen). Naive `_nodes.csv`->`_veins.csv` replacement silently DROPS
+    that species. Here a directory holding exactly one of each is paired
+    regardless of stem, and only ambiguous directories fall back to stem
+    matching."""
+    import glob
+    import os
+
+    pairs = []
+    node_files = sorted(glob.glob(os.path.join(data_dir, "**", "*_nodes.csv"),
+                                  recursive=True))
+    by_dir = {}
+    for n in node_files:
+        by_dir.setdefault(os.path.dirname(n), []).append(n)
+
+    for d, nlist in sorted(by_dir.items()):
+        vlist = sorted(glob.glob(os.path.join(d, "*_veins.csv")))
+        spp = os.path.basename(d)
+        if len(nlist) == 1 and len(vlist) == 1:
+            pairs.append((spp, nlist[0], vlist[0]))          # unambiguous
+            continue
+        for n in nlist:                                      # fall back to stem
+            stem = os.path.basename(n)[:-len("_nodes.csv")]
+            match = [v for v in vlist
+                     if os.path.basename(v)[:-len("_veins.csv")] == stem]
+            if match:
+                pairs.append((spp, n, match[0]))
+    return pairs
 
 
 def summary(G) -> dict:

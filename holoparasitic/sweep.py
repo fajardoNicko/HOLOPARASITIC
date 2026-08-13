@@ -26,8 +26,14 @@ from . import network, fractal, percolation
 
 def _network_for_reticulation(base: config.NetworkParams, reticulation: float,
                               seed):
+    # Force knn mode: this sweep moves D by the reticulation knob, which only
+    # takes effect in knn mode. Since DEFAULT_NETWORK is now the calibrated MESH
+    # hero (where mesh_frac, not reticulation, sets connectivity), we must
+    # override the mode here or the D-axis would silently collapse to a point.
+    # (The definitive mesh-based, causal p_c-vs-D result is scripts/run_synthetic_grid.py;
+    # this legacy knn sweep is retained for the hydraulic (K_h, D) surface.)
     p = config.NetworkParams(**{**base.__dict__, "reticulation": reticulation,
-                                "seed": seed})
+                                "reticulation_mode": "knn", "seed": seed})
     return network.generate(p)
 
 

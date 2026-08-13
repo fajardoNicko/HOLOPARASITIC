@@ -99,8 +99,63 @@ def generate(params: config.NetworkParams | None = None) -> nx.Graph:
             _add_edge(G, node, cid, child_r, child_l, "axial")
             stack.append((cid, ca, child_l, child_r, gen + 1))
 
-    _add_reticulation(G, p, rng)
+    if getattr(p, "reticulation_mode", "knn") == "mesh":
+        _add_mesh_reticulation(G, p)
+    else:
+        _add_reticulation(G, p, rng)
     return G
+
+
+def _add_mesh_reticulation(G, p: config.NetworkParams) -> None:
+    """Close areoles the way a real leaf does, producing a true planar MESH.
+
+    A real venation network is not a tree with a few cross-links: it is a mesh in
+    which most vein segments lie on a loop (the Matos cohort has ~78% of edges on
+    a cycle at a mean degree of only ~2.5). The 'knn' mode cannot reproduce that
+    — adding nearest-neighbour links to a tree raises mean degree while leaving
+    most edges as bridges. This mode instead adds the shortest DELAUNAY edges,
+    which are planar and non-crossing by construction, so each added edge closes
+    a real areole. Adding a fraction `mesh_frac` of the Delaunay candidates
+    reproduces both the high loop fraction AND the low mean degree of real
+    leaves, and — as in real leaves — the two rise together.
+
+    New anastomoses are thin minor veins: their radius is the smaller of the two
+    endpoints' radii, so the r^4 conductance hierarchy is preserved (major veins
+    still dominate flow; the mesh is the low-order reticulation).
+    """
+    from scipy.spatial import Delaunay
+
+    frac = float(getattr(p, "mesh_frac", 0.10))
+    if frac <= 0.0 or G.number_of_nodes() < 4:
+        return
+    ids = list(G.nodes)
+    pos = np.array([G.nodes[i]["pos"] for i in ids])
+    try:
+        tri = Delaunay(pos)
+    except Exception:
+        return                      # degenerate (collinear) point set
+
+    cand = {}
+    for s in tri.simplices:
+        for i in range(3):
+            a, b = int(s[i]), int(s[(i + 1) % 3])
+            if a == b:
+                continue
+            ua, ub = ids[a], ids[b]
+            if G.has_edge(ua, ub):
+                continue
+            key = (a, b) if a < b else (b, a)
+            if key in cand:
+                continue
+            cand[key] = float(np.hypot(*(pos[a] - pos[b])))
+    if not cand:
+        return
+
+    ordered = sorted(cand.items(), key=lambda kv: kv[1])
+    n_take = int(round(frac * len(ordered)))
+    for (a, b), length in ordered[:n_take]:
+        radius = min(G.nodes[ids[a]]["radius"], G.nodes[ids[b]]["radius"])
+        _add_edge(G, ids[a], ids[b], radius, length or 1e-6, "anastomosis")
 
 
 def _add_reticulation(G, p: config.NetworkParams, rng) -> None:

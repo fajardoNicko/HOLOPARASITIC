@@ -122,14 +122,21 @@ def _trial_hydraulic(adj, nodes, solver, rho, k_h, rng, p_attach=None,
 # Density response: the (rho -> P(collapse)) curve and raw trial data
 # ----------------------------------------------------------------------------
 def density_response(G, params=None, weights=None, k_h=config.K_H_DEFAULT,
-                     parasite=None):
+                     parasite=None, rho_max=1.0):
     """Run the full Monte Carlo sweep over rho. Returns a result dict with the
     aggregated curves and the raw (X, y) needed for the logistic fit.
 
     parasite : a config.Parasite. In 'hydraulic' mode it sets the sink strength
                K_h, the reservoir potential, and the attachment pattern that
                haustoria follow (where they land). Lets one model Cuscuta vs
-               Striga vs Orobanche on the same host network."""
+               Striga vs Orobanche on the same host network.
+    rho_max  : upper bound of the removal-fraction sweep (default 1.0, the full
+               range used by the synthetic pipeline). Real leaves all collapse
+               well below rho=0.3, so sweeping to 1.0 spends most density points
+               where P(collapse) is already 1; passing rho_max~0.6 concentrates
+               the SAME trial budget in the informative range and sharpens the
+               p_c estimate at no extra cost. p_c is unaffected as long as the
+               crossing lies inside [0, rho_max]."""
     p = params or config.DEFAULT_PERCOLATION
     rng = config.new_rng(p.seed)
 
@@ -137,7 +144,7 @@ def density_response(G, params=None, weights=None, k_h=config.K_H_DEFAULT,
     n = adj.shape[0]
     threshold = p.collapse_fraction * n
     tpd = p.trials_per_density
-    rhos = np.linspace(0.0, 1.0, p.n_densities)
+    rhos = np.linspace(0.0, float(rho_max), p.n_densities)
 
     solver = (hydraulics.HydraulicSolver(G)
               if p.mode == "hydraulic" and parasite is None else None)
@@ -248,10 +255,10 @@ def bootstrap_pc(X, y, n_boot=200, sample_cap=50_000, seed=7):
 
 
 def find_pc(G, params=None, weights=None, k_h=config.K_H_DEFAULT,
-            with_ci=False, parasite=None):
+            with_ci=False, parasite=None, rho_max=1.0):
     """One-call convenience: sweep + logistic fit (+ optional bootstrap CI)."""
     res = density_response(G, params, weights=weights, k_h=k_h,
-                           parasite=parasite)
+                           parasite=parasite, rho_max=rho_max)
     fit = fit_pc(res["X"], res["y"])
     res.update(fit)
     res["p_c_logistic"] = res["p_c"]

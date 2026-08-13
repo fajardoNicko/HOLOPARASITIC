@@ -1,0 +1,17 @@
+{
+  "K_H_HOLOPARASITE": 0.0391845703125,
+  "gradient_MPa": 1.5,
+  "target_diversion": 0.2,
+  "achieved_diversion": 0.20002814875608343,
+  "patch_size": 10,
+  "psi_parasite_demo": -1.8224271040669335,
+  "min_psi_at_literature_MPa": -1.0224354894047039,
+  "cavitation_onset_gradient_MPa": NaN,
+  "embolised_at_literature": 0,
+  "note": "At an illustrative ~1.5 MPa gradient the sink is sub-cavitation; hydraulic sink and percolation collapse are decoupled lenses. 1.5 MPa is a review-level order-of-magnitude value (NOT primary, NOT from Kaiser 2015); ~18-20% diversion is a hemiparasite floor.",
+  "gradient_caveat": "illustrative; no primary holoparasite gradient measurement located",
+  "sources": [
+    "Jiang, Jeschke & Hartung 2003 J Exp Bot 54:1985 (~18%, hemiparasite floor)",
+    "gradient ~1.5 MPa: Cuscuta review literature, not a primary measurement"
+  ]
+}

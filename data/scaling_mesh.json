@@ -1,0 +1,70 @@
+{
+  "generator": "calibrated planar mesh (calibrate.calibrated_base)",
+  "finite_size": [
+    {
+      "N": 511,
+      "D": 1.267,
+      "p_c": 0.2531,
+      "ci95": [
+        0.2517,
+        0.2549
+      ],
+      "width_0.1_0.9": 0.1387
+    },
+    {
+      "N": 1023,
+      "D": 1.387,
+      "p_c": 0.2719,
+      "ci95": [
+        0.2707,
+        0.2732
+      ],
+      "width_0.1_0.9": 0.1321
+    },
+    {
+      "N": 2047,
+      "D": 1.511,
+      "p_c": 0.2753,
+      "ci95": [
+        0.2742,
+        0.2767
+      ],
+      "width_0.1_0.9": 0.1257
+    },
+    {
+      "N": 4095,
+      "D": 1.638,
+      "p_c": 0.2848,
+      "ci95": [
+        0.2837,
+        0.2861
+      ],
+      "width_0.1_0.9": 0.123
+    },
+    {
+      "N": 8191,
+      "D": 1.741,
+      "p_c": 0.2857,
+      "ci95": [
+        0.2845,
+        0.2868
+      ],
+      "width_0.1_0.9": 0.1224
+    }
+  ],
+  "beta_test": {
+    "N": 8191,
+    "kappa": 3.131,
+    "molloy_reed_fc": 0.531,
+    "empirical_fc": 0.524,
+    "beta": 1.481,
+    "beta_se": 0.028,
+    "loglog_R2": 0.9951,
+    "n_fit": 16,
+    "meanfield_beta": 1.0,
+    "twoD_beta": 0.139,
+    "SE_from_meanfield": 17.3,
+    "SE_from_2D": 48.1
+  },
+  "note": "Compare to validate_stats.py which runs TEST2/3 on the legacy knn defaults (mean-field). f_c located empirically because Molloy-Reed assumes tree-like connectivity."
+}

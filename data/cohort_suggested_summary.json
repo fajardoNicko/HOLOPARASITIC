@@ -1,0 +1,177 @@
+{
+  "n_total": 120,
+  "n_valid": 105,
+  "n_fragments": 15,
+  "validity_rule": "N>=1000 and pc_current>=0.02",
+  "trials_per_network": 10000,
+  "attack": "random (site percolation)",
+  "target_mean_degree": 2.811,
+  "pc_current": {
+    "n": 105,
+    "median": 0.201,
+    "mean": 0.18805333333333332,
+    "min": 0.0548,
+    "max": 0.2708
+  },
+  "pc_suggested": {
+    "n": 105,
+    "median": 0.215,
+    "mean": 0.20040666666666668,
+    "min": 0.058,
+    "max": 0.2708
+  },
+  "delta_pc": {
+    "n": 105,
+    "median": 0.0095,
+    "mean": 0.012347619047619048,
+    "min": 0.0,
+    "max": 0.0459
+  },
+  "frac_improved": 0.8857142857142857,
+  "clean_A_sensitivity": {
+    "n": 21,
+    "pc_current": {
+      "n": 21,
+      "median": 0.2198,
+      "mean": 0.2119095238095238,
+      "min": 0.1287,
+      "max": 0.2708
+    },
+    "pc_suggested": {
+      "n": 21,
+      "median": 0.2267,
+      "mean": 0.2228,
+      "min": 0.1745,
+      "max": 0.2708
+    },
+    "delta_pc": {
+      "n": 21,
+      "median": 0.0069,
+      "mean": 0.01088095238095238,
+      "min": 0.0,
+      "max": 0.0459
+    },
+    "frac_improved": 0.6190476190476191,
+    "median_relative_gain_pct": 3.139217470427661
+  },
+  "median_relative_gain_pct": 5.4925102133454375,
+  "top10_gainers": [
+    {
+      "species": "Clu_ala",
+      "N": 6475,
+      "k_current": 2.1949,
+      "loops_added": 1994,
+      "pc_current": 0.1351,
+      "pc_suggested": 0.181,
+      "delta_pc": 0.0459
+    },
+    {
+      "species": "Chl_spi",
+      "N": 20004,
+      "k_current": 2.1479,
+      "loops_added": 6632,
+      "pc_current": 0.1287,
+      "pc_suggested": 0.1745,
+      "delta_pc": 0.0458
+    },
+    {
+      "species": "Ane_cal",
+      "N": 85519,
+      "k_current": 2.2156,
+      "loops_added": 25460,
+      "pc_current": 0.1545,
+      "pc_suggested": 0.1962,
+      "delta_pc": 0.0417
+    },
+    {
+      "species": "Met_dav",
+      "N": 5054,
+      "k_current": 2.1979,
+      "loops_added": 1549,
+      "pc_current": 0.158,
+      "pc_suggested": 0.1981,
+      "delta_pc": 0.0401
+    },
+    {
+      "species": "Eur_jap",
+      "N": 11423,
+      "k_current": 2.2491,
+      "loops_added": 3209,
+      "pc_current": 0.1632,
+      "pc_suggested": 0.2006,
+      "delta_pc": 0.0374
+    },
+    {
+      "species": "Smi_his",
+      "N": 31577,
+      "k_current": 2.3442,
+      "loops_added": 7370,
+      "pc_current": 0.1934,
+      "pc_suggested": 0.2273,
+      "delta_pc": 0.0339
+    },
+    {
+      "species": "Vio_gla",
+      "N": 5924,
+      "k_current": 2.3201,
+      "loops_added": 1454,
+      "pc_current": 0.1579,
+      "pc_suggested": 0.1906,
+      "delta_pc": 0.0327
+    },
+    {
+      "species": "Abe_mex",
+      "N": 15035,
+      "k_current": 2.3151,
+      "loops_added": 3727,
+      "pc_current": 0.1855,
+      "pc_suggested": 0.2172,
+      "delta_pc": 0.0316
+    },
+    {
+      "species": "Asi_tri",
+      "N": 203589,
+      "k_current": 2.2835,
+      "loops_added": 53695,
+      "pc_current": 0.1774,
+      "pc_suggested": 0.2085,
+      "delta_pc": 0.0311
+    },
+    {
+      "species": "Dic_feb",
+      "N": 1585,
+      "k_current": 2.4618,
+      "loops_added": 276,
+      "pc_current": 0.1911,
+      "pc_suggested": 0.2214,
+      "delta_pc": 0.0303
+    }
+  ],
+  "smallest_gainers": [
+    {
+      "species": "Aex_pun",
+      "k_current": 2.9361,
+      "delta_pc": 0.0
+    },
+    {
+      "species": "Car_pen",
+      "k_current": 2.8487,
+      "delta_pc": 0.0
+    },
+    {
+      "species": "Cup_nud",
+      "k_current": 2.9328,
+      "delta_pc": 0.0
+    },
+    {
+      "species": "Del_fis",
+      "k_current": 2.8487,
+      "delta_pc": 0.0
+    },
+    {
+      "species": "Eus_jap",
+      "k_current": 2.9428,
+      "delta_pc": 0.0
+    }
+  ]
+}

@@ -4,44 +4,44 @@
     "kind": "holoparasite",
     "attachment": "betweenness",
     "efficiency": 1.0,
-    "p_c": 0.17531822656668652,
-    "ci_lo": 0.1729145400286925,
-    "ci_hi": 0.17749619751592333
+    "p_c": 0.19041310950357748,
+    "ci_lo": 0.18876550759498897,
+    "ci_hi": 0.19196548837999933
   },
   {
     "name": "Orobanche (broomrape)",
     "kind": "holoparasite",
     "attachment": "root_proximal",
     "efficiency": 1.0,
-    "p_c": 0.1549247152455104,
-    "ci_lo": 0.15310962656447658,
-    "ci_hi": 0.1568479860389056
+    "p_c": 0.19190924573667428,
+    "ci_lo": 0.19017231112970145,
+    "ci_hi": 0.19346514809052823
   },
   {
     "name": "Pilostyles (endophyte)",
     "kind": "holoparasite",
     "attachment": "random",
     "efficiency": 1.0,
-    "p_c": 0.27741722871821,
-    "ci_lo": 0.27537661533884883,
-    "ci_hi": 0.27985076294325306
+    "p_c": 0.2709537329723143,
+    "ci_lo": 0.26967601463982377,
+    "ci_hi": 0.27255674739468594
   },
   {
     "name": "Striga (witchweed)",
     "kind": "hemiparasite",
     "attachment": "root_proximal",
     "efficiency": 0.6,
-    "p_c": 0.26256645214823016,
-    "ci_lo": 0.25998477836223394,
-    "ci_hi": 0.264817957210127
+    "p_c": 0.322272276990277,
+    "ci_lo": 0.3202991883751499,
+    "ci_hi": 0.3239705543928788
   },
   {
     "name": "Mistletoe",
     "kind": "hemiparasite",
     "attachment": "betweenness",
     "efficiency": 0.6,
-    "p_c": 0.42473033134680543,
-    "ci_lo": 0.4198139721167916,
-    "ci_hi": 0.4295086818096412
+    "p_c": 0.3566023368762541,
+    "ci_lo": 0.3547666846219456,
+    "ci_hi": 0.35911484338928057
   }
 ]

@@ -1,0 +1,1093 @@
+{
+  "summary": {
+    "n_leaves": 119,
+    "n_exact": 119,
+    "total_veins_compared": 5668467,
+    "min_pearson_log_r": 0.999999999999996,
+    "worst_ratio_cv": 1.1238977940417635e-07,
+    "worst_abs_median_ratio_minus_1": 6.12119119836052e-08,
+    "median_pearson_wrong_exponent_control": 0.9528292989069869,
+    "n_leaves_resistance2_is_L_over_r2": 119,
+    "cv_tolerance": 1e-06,
+    "verdict": "PASS \u2014 our resistance reproduces the source dataset's own Hagen-Poiseuille column exactly",
+    "skipped": [
+      {
+        "species": "Equ_tel",
+        "error": "fewer than 50 usable veins"
+      }
+    ]
+  },
+  "per_leaf": {
+    "Abe_mex": {
+      "n_veins": 17404,
+      "pearson_log_r": 0.9999999999999994,
+      "ratio_median": 1.000000000198622,
+      "ratio_cv": 5.69519453085329e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9343537078876175,
+      "resistance2_is_L_over_r2": true
+    },
+    "Aex_pun": {
+      "n_veins": 23157,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.0000000008959014,
+      "ratio_cv": 4.068088639152317e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.971591708588906,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ale_cor": {
+      "n_veins": 238902,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.000000001419381,
+      "ratio_cv": 4.9224486779606233e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9643227014289447,
+      "resistance2_is_L_over_r2": true
+    },
+    "Als_lig": {
+      "n_veins": 295,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.0000000063431311,
+      "ratio_cv": 7.284972187752973e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.8596076610507877,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ane_cal": {
+      "n_veins": 94736,
+      "pearson_log_r": 0.9999999999999996,
+      "ratio_median": 0.9999999990309315,
+      "ratio_cv": 5.37556922665487e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9401586151773635,
+      "resistance2_is_L_over_r2": true
+    },
+    "Arg_spi": {
+      "n_veins": 5055,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.000000001861684,
+      "ratio_cv": 5.156896841012315e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9515512901919095,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ari_bae": {
+      "n_veins": 17663,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 1.0000000014271557,
+      "ratio_cv": 5.519218326982543e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.950604626771282,
+      "resistance2_is_L_over_r2": true
+    },
+    "Asi_tri": {
+      "n_veins": 232449,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000003953962,
+      "ratio_cv": 5.498251875783795e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9588270701402151,
+      "resistance2_is_L_over_r2": true
+    },
+    "Asp_obl": {
+      "n_veins": 391,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.999999994441849,
+      "ratio_cv": 3.910294726865764e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9485576326706255,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ast_ban": {
+      "n_veins": 1379,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000027909093,
+      "ratio_cv": 4.5038945484315575e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9260577245847927,
+      "resistance2_is_L_over_r2": true
+    },
+    "Bar_pur": {
+      "n_veins": 568,
+      "pearson_log_r": 0.9999999999999992,
+      "ratio_median": 0.9999999976391993,
+      "ratio_cv": 5.787158311171765e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.8647003659020971,
+      "resistance2_is_L_over_r2": true
+    },
+    "Beg_for": {
+      "n_veins": 30452,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999994369222,
+      "ratio_cv": 5.7586933398751526e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9320737947479669,
+      "resistance2_is_L_over_r2": true
+    },
+    "Bei_tar": {
+      "n_veins": 89703,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.000000001246747,
+      "ratio_cv": 5.1108343104055685e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9664196823670023,
+      "resistance2_is_L_over_r2": true
+    },
+    "Bux_har": {
+      "n_veins": 10671,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.000000003883953,
+      "ratio_cv": 5.031849479343979e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9409138781702817,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cal_nut": {
+      "n_veins": 129,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999947443439,
+      "ratio_cv": 5.293294544734426e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9172458346277524,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cal_pan": {
+      "n_veins": 17862,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.0000000003627614,
+      "ratio_cv": 5.656337240208497e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.963326909760182,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cam_sin": {
+      "n_veins": 53884,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999989284634,
+      "ratio_cv": 4.933302426661744e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9468577884001562,
+      "resistance2_is_L_over_r2": true
+    },
+    "Can_can": {
+      "n_veins": 5539,
+      "pearson_log_r": 0.9999999999999994,
+      "ratio_median": 1.0000000004928282,
+      "ratio_cv": 6.80271493037483e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9557559722854408,
+      "resistance2_is_L_over_r2": true
+    },
+    "Car_pal": {
+      "n_veins": 12466,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.0000000015645336,
+      "ratio_cv": 5.008288800701599e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.960168464277546,
+      "resistance2_is_L_over_r2": true
+    },
+    "Car_pen": {
+      "n_veins": 2118,
+      "pearson_log_r": 0.9999999999999993,
+      "ratio_median": 0.9999999992571935,
+      "ratio_cv": 4.690835382705271e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.8840610955176471,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cat_edu": {
+      "n_veins": 21023,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.999999999647101,
+      "ratio_cv": 5.131905073015455e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9631511072097282,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cel_aus": {
+      "n_veins": 70358,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999996620892,
+      "ratio_cv": 6.174134630824561e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.967380069752782,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cel_ten": {
+      "n_veins": 87597,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.000000001215073,
+      "ratio_cv": 4.619115480217436e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9615368237918731,
+      "resistance2_is_L_over_r2": true
+    },
+    "Chi_nit": {
+      "n_veins": 45856,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 0.9999999991513397,
+      "ratio_cv": 6.160381487674647e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9492555490245821,
+      "resistance2_is_L_over_r2": true
+    },
+    "Chl_spi": {
+      "n_veins": 21483,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 0.9999999980579793,
+      "ratio_cv": 6.148847874756754e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9361681454008375,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cis_ant": {
+      "n_veins": 396175,
+      "pearson_log_r": 0.9999999999999996,
+      "ratio_median": 0.9999999977633265,
+      "ratio_cv": 4.5286643991902166e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9648310928976542,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cis_pop": {
+      "n_veins": 116276,
+      "pearson_log_r": 0.9999999999999993,
+      "ratio_median": 1.0000000009771108,
+      "ratio_cv": 6.419688176025349e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.954384284610332,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cit_mon": {
+      "n_veins": 149956,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999988620223,
+      "ratio_cv": 4.8633917494460195e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9638779995989206,
+      "resistance2_is_L_over_r2": true
+    },
+    "Clu_ala": {
+      "n_veins": 7106,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.0000000012284944,
+      "ratio_cv": 4.095961045431088e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9463694331849307,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cne_tri": {
+      "n_veins": 9973,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000011406251,
+      "ratio_cv": 4.937123698904861e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9633847070551717,
+      "resistance2_is_L_over_r2": true
+    },
+    "Com_ery": {
+      "n_veins": 8319,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999970635977,
+      "ratio_cv": 5.2036189124738116e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.946370040530504,
+      "resistance2_is_L_over_r2": true
+    },
+    "Com_umb": {
+      "n_veins": 14516,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999997938142,
+      "ratio_cv": 4.314259993491585e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9502772135641939,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cor_bud": {
+      "n_veins": 10979,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999972787559,
+      "ratio_cv": 5.418559513677022e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9476287753899759,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cor_lae": {
+      "n_veins": 44394,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.0000000007209886,
+      "ratio_cv": 4.709940293381858e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9627018750165568,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cos_tap": {
+      "n_veins": 13792,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.0000000007869305,
+      "ratio_cv": 4.9127865623550175e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.912178046785496,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cri_pat": {
+      "n_veins": 6085,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999996148127,
+      "ratio_cv": 5.5608054587944774e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9470379636349634,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cup_nud": {
+      "n_veins": 12051,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.99999999101099,
+      "ratio_cv": 4.2955944695146665e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9729887001364738,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cus_spi": {
+      "n_veins": 65279,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000002769265,
+      "ratio_cv": 5.2964964862829556e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9379068183804041,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cya_ful": {
+      "n_veins": 6107,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 0.999999996869086,
+      "ratio_cv": 4.862888141881206e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9484024479655631,
+      "resistance2_is_L_over_r2": true
+    },
+    "Cyc_bip": {
+      "n_veins": 147922,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 1.0000000019983346,
+      "ratio_cv": 4.531213093903046e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.933473248430437,
+      "resistance2_is_L_over_r2": true
+    },
+    "Dap_him": {
+      "n_veins": 165671,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 0.9999999996265202,
+      "ratio_cv": 5.130976184857325e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.946745348978838,
+      "resistance2_is_L_over_r2": true
+    },
+    "Del_fis": {
+      "n_veins": 291953,
+      "pearson_log_r": 0.9999999999999989,
+      "ratio_median": 0.9999999904797859,
+      "ratio_cv": 4.230084137532576e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9670324464752981,
+      "resistance2_is_L_over_r2": true
+    },
+    "Des_spi": {
+      "n_veins": 3632,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000035316408,
+      "ratio_cv": 5.8961329113909034e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9041235234927347,
+      "resistance2_is_L_over_r2": true
+    },
+    "Dic_ant": {
+      "n_veins": 196,
+      "pearson_log_r": 0.9999999999999994,
+      "ratio_median": 0.9999999927112788,
+      "ratio_cv": 6.431518906410348e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.8592043008541695,
+      "resistance2_is_L_over_r2": true
+    },
+    "Dic_feb": {
+      "n_veins": 1951,
+      "pearson_log_r": 0.9999999999999993,
+      "ratio_median": 1.000000002221454,
+      "ratio_cv": 5.955071840656087e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9368200272260545,
+      "resistance2_is_L_over_r2": true
+    },
+    "Dic_squ": {
+      "n_veins": 2925,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999999136882,
+      "ratio_cv": 5.2282792045234364e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9634334131664806,
+      "resistance2_is_L_over_r2": true
+    },
+    "Dio_lyc": {
+      "n_veins": 6894,
+      "pearson_log_r": 0.9999999999999994,
+      "ratio_median": 1.0000000021000683,
+      "ratio_cv": 6.883807071054813e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9528292989069869,
+      "resistance2_is_L_over_r2": true
+    },
+    "Dio_pol": {
+      "n_veins": 21662,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999996976825,
+      "ratio_cv": 4.581705645580568e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9354927913613623,
+      "resistance2_is_L_over_r2": true
+    },
+    "Dip_esc": {
+      "n_veins": 2831,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 0.999999999893806,
+      "ratio_cv": 5.028117383501681e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9548448968841382,
+      "resistance2_is_L_over_r2": true
+    },
+    "Dir_occ": {
+      "n_veins": 177490,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999983271275,
+      "ratio_cv": 4.8683495739402114e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9667117538293744,
+      "resistance2_is_L_over_r2": true
+    },
+    "Doo_asp": {
+      "n_veins": 539,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.0000000054651885,
+      "ratio_cv": 4.6263872222791055e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9346121077577522,
+      "resistance2_is_L_over_r2": true
+    },
+    "Dry_rem": {
+      "n_veins": 407,
+      "pearson_log_r": 0.9999999999999993,
+      "ratio_median": 1.0000000006963077,
+      "ratio_cv": 5.053596522441002e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.8978097712823424,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ehr_acu": {
+      "n_veins": 69804,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000003183833,
+      "ratio_cv": 4.5171416808883214e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9635967718026567,
+      "resistance2_is_L_over_r2": true
+    },
+    "Esc_her": {
+      "n_veins": 227614,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999979632,
+      "ratio_cv": 4.9685449406735995e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9592292656980355,
+      "resistance2_is_L_over_r2": true
+    },
+    "Euc_cri": {
+      "n_veins": 6402,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.999999993231557,
+      "ratio_cv": 4.41542218001654e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9657511910383471,
+      "resistance2_is_L_over_r2": true
+    },
+    "Eur_jap": {
+      "n_veins": 12846,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.0000000008673693,
+      "ratio_cv": 4.7503397760672415e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9482840820825019,
+      "resistance2_is_L_over_r2": true
+    },
+    "Eus_jap": {
+      "n_veins": 123836,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999900931984,
+      "ratio_cv": 4.238588668520739e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9709052810101101,
+      "resistance2_is_L_over_r2": true
+    },
+    "Fra_son": {
+      "n_veins": 257145,
+      "pearson_log_r": 0.9999999999999996,
+      "ratio_median": 0.9999999966945993,
+      "ratio_cv": 5.3063274013966705e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9661091682187454,
+      "resistance2_is_L_over_r2": true
+    },
+    "Gom_keu": {
+      "n_veins": 49867,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999997994207,
+      "ratio_cv": 4.05533356821878e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9592175313422419,
+      "resistance2_is_L_over_r2": true
+    },
+    "Hel_chi": {
+      "n_veins": 4492,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999998812046,
+      "ratio_cv": 5.223305036178303e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9369777608332592,
+      "resistance2_is_L_over_r2": true
+    },
+    "Hib_sca": {
+      "n_veins": 70666,
+      "pearson_log_r": 0.9999999999999991,
+      "ratio_median": 0.999999990851031,
+      "ratio_cv": 4.114363653370795e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9679068305913926,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ill_lan": {
+      "n_veins": 59514,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999925049455,
+      "ratio_cv": 4.3615158252373163e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9713299338334896,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ite_ili": {
+      "n_veins": 47700,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999991569526,
+      "ratio_cv": 4.246127959250081e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9578456775346328,
+      "resistance2_is_L_over_r2": true
+    },
+    "Kni_uva": {
+      "n_veins": 1284,
+      "pearson_log_r": 0.9999999999999996,
+      "ratio_median": 1.0000000021936164,
+      "ratio_cv": 5.6283787017201933e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9062502499109846,
+      "resistance2_is_L_over_r2": true
+    },
+    "Lon_jap": {
+      "n_veins": 16369,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000013864099,
+      "ratio_cv": 5.299033731296507e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9607204924918192,
+      "resistance2_is_L_over_r2": true
+    },
+    "Luz_niv": {
+      "n_veins": 720,
+      "pearson_log_r": 0.9999999999999993,
+      "ratio_median": 1.0000000020719548,
+      "ratio_cv": 4.7039213785730844e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.8743731174030611,
+      "resistance2_is_L_over_r2": true
+    },
+    "Mag_che": {
+      "n_veins": 12610,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999997174619,
+      "ratio_cv": 5.5859468910520635e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9507394989881636,
+      "resistance2_is_L_over_r2": true
+    },
+    "Mal_pal": {
+      "n_veins": 121393,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999981579644,
+      "ratio_cv": 4.9064632596599244e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9632578873331571,
+      "resistance2_is_L_over_r2": true
+    },
+    "Mel_maj": {
+      "n_veins": 123805,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.999999994903796,
+      "ratio_cv": 4.0197804530893633e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9599649222858011,
+      "resistance2_is_L_over_r2": true
+    },
+    "Met_dav": {
+      "n_veins": 5554,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.0000000017746427,
+      "ratio_cv": 4.768314496255173e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9285208381216141,
+      "resistance2_is_L_over_r2": true
+    },
+    "Mic_mul": {
+      "n_veins": 26993,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999993418277,
+      "ratio_cv": 5.6645658269544016e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9464038655303723,
+      "resistance2_is_L_over_r2": true
+    },
+    "Mic_pla": {
+      "n_veins": 778,
+      "pearson_log_r": 0.9999999999999996,
+      "ratio_median": 1.0000000012863777,
+      "ratio_cv": 4.594190810523528e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.8969570594541635,
+      "resistance2_is_L_over_r2": true
+    },
+    "Mon_car": {
+      "n_veins": 4351,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.0000000007558645,
+      "ratio_cv": 5.1088297119229224e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9525905019394276,
+      "resistance2_is_L_over_r2": true
+    },
+    "Myr_rub": {
+      "n_veins": 35122,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.000000000086298,
+      "ratio_cv": 4.2051651591427874e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.95126447755904,
+      "resistance2_is_L_over_r2": true
+    },
+    "Nan_dom": {
+      "n_veins": 28096,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999993789725,
+      "ratio_cv": 4.4867280937098454e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.947550886939031,
+      "resistance2_is_L_over_r2": true
+    },
+    "Not_fus": {
+      "n_veins": 20975,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.0000000000447107,
+      "ratio_cv": 4.2815133830879224e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9424621080402972,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ole_eur": {
+      "n_veins": 8566,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.000000000954183,
+      "ratio_cv": 4.9007059136210884e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9595829032522236,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ono_sen": {
+      "n_veins": 7029,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.000000002135173,
+      "ratio_cv": 5.171147657288374e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9390721798430598,
+      "resistance2_is_L_over_r2": true
+    },
+    "Osm_ber": {
+      "n_veins": 3490,
+      "pearson_log_r": 0.999999999999999,
+      "ratio_median": 1.0000000044369597,
+      "ratio_cv": 5.924450599981682e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9600867802617226,
+      "resistance2_is_L_over_r2": true
+    },
+    "Pae_bro": {
+      "n_veins": 84061,
+      "pearson_log_r": 0.9999999999999996,
+      "ratio_median": 1.000000000904626,
+      "ratio_cv": 4.668921624995652e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9294046784353617,
+      "resistance2_is_L_over_r2": true
+    },
+    "Par_tor": {
+      "n_veins": 8490,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999984993813,
+      "ratio_cv": 4.7593916442770024e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9516133207309915,
+      "resistance2_is_L_over_r2": true
+    },
+    "Per_acu": {
+      "n_veins": 9739,
+      "pearson_log_r": 0.9999999999999996,
+      "ratio_median": 1.000000002386066,
+      "ratio_cv": 4.7162343908918e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9621645236173982,
+      "resistance2_is_L_over_r2": true
+    },
+    "Peu_bol": {
+      "n_veins": 24602,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.0000000010219465,
+      "ratio_cv": 5.021480926722062e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9590323719855613,
+      "resistance2_is_L_over_r2": true
+    },
+    "Phi_lat": {
+      "n_veins": 41804,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999992632215,
+      "ratio_cv": 4.144012313956127e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9538582271581099,
+      "resistance2_is_L_over_r2": true
+    },
+    "Phi_var": {
+      "n_veins": 5306,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999927075705,
+      "ratio_cv": 4.0105530645541164e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.917170932966513,
+      "resistance2_is_L_over_r2": true
+    },
+    "Phy_pur": {
+      "n_veins": 731,
+      "pearson_log_r": 0.9999999999999996,
+      "ratio_median": 1.0000000028040763,
+      "ratio_cv": 4.049946847189565e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.956379265738139,
+      "resistance2_is_L_over_r2": true
+    },
+    "Pit_vir": {
+      "n_veins": 45083,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999988335063,
+      "ratio_cv": 4.2760876658341735e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9602439735352101,
+      "resistance2_is_L_over_r2": true
+    },
+    "Pla_ori": {
+      "n_veins": 75228,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 0.9999999995206855,
+      "ratio_cv": 4.61170437165225e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9703709164777765,
+      "resistance2_is_L_over_r2": true
+    },
+    "Pol_cor": {
+      "n_veins": 5857,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999900931984,
+      "ratio_cv": 4.2181929114869844e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9651239596561578,
+      "resistance2_is_L_over_r2": true
+    },
+    "Pol_cri": {
+      "n_veins": 20804,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000010330612,
+      "ratio_cv": 4.7850896462025466e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.942615316439045,
+      "resistance2_is_L_over_r2": true
+    },
+    "Pol_vir": {
+      "n_veins": 111849,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.0000000014337063,
+      "ratio_cv": 4.266955967811224e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9599075843512257,
+      "resistance2_is_L_over_r2": true
+    },
+    "Pro_hoo": {
+      "n_veins": 22448,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999985060601,
+      "ratio_cv": 5.675457422362581e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9556891081106308,
+      "resistance2_is_L_over_r2": true
+    },
+    "Pte_esc": {
+      "n_veins": 188,
+      "pearson_log_r": 0.9999999999999993,
+      "ratio_median": 0.9999999790110692,
+      "ratio_cv": 4.9096483917937443e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9781796151749215,
+      "resistance2_is_L_over_r2": true
+    },
+    "Puy_alp": {
+      "n_veins": 72,
+      "pearson_log_r": 0.999999999999996,
+      "ratio_median": 0.999999938788088,
+      "ratio_cv": 1.1238977940417635e-07,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.1628918495337442,
+      "resistance2_is_L_over_r2": true
+    },
+    "Qui_sap": {
+      "n_veins": 22538,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999996750026,
+      "ratio_cv": 5.031023767693686e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9451534636298335,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ran_lae": {
+      "n_veins": 8313,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000017150628,
+      "ratio_cv": 5.3331408930841756e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9690617638606576,
+      "resistance2_is_L_over_r2": true
+    },
+    "Res_lut": {
+      "n_veins": 22895,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999948891951,
+      "ratio_cv": 4.094450325567838e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9714353463048143,
+      "resistance2_is_L_over_r2": true
+    },
+    "Rha_pir": {
+      "n_veins": 33980,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.0000000024189761,
+      "ratio_cv": 4.1522588977116656e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9662362508146541,
+      "resistance2_is_L_over_r2": true
+    },
+    "Rib_vib": {
+      "n_veins": 1691,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.999999996027233,
+      "ratio_cv": 4.168212702955699e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9631897410104715,
+      "resistance2_is_L_over_r2": true
+    },
+    "Rom_cou": {
+      "n_veins": 29169,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999990216794,
+      "ratio_cv": 5.426626794125693e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9429686533916659,
+      "resistance2_is_L_over_r2": true
+    },
+    "Rub_odo": {
+      "n_veins": 180671,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999923709701,
+      "ratio_cv": 5.662868989147354e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9668863062311325,
+      "resistance2_is_L_over_r2": true
+    },
+    "Rub_tin": {
+      "n_veins": 10104,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999923024354,
+      "ratio_cv": 4.132758905349101e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9643541157733643,
+      "resistance2_is_L_over_r2": true
+    },
+    "Sag_lat": {
+      "n_veins": 16308,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999941095268,
+      "ratio_cv": 4.396397847920354e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.940893439058414,
+      "resistance2_is_L_over_r2": true
+    },
+    "Sal_sco": {
+      "n_veins": 3945,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.000000000023502,
+      "ratio_cv": 4.718663185675455e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9502282973249863,
+      "resistance2_is_L_over_r2": true
+    },
+    "Sam_nig": {
+      "n_veins": 18803,
+      "pearson_log_r": 1.0,
+      "ratio_median": 0.9999999999087062,
+      "ratio_cv": 6.380593884548499e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9548355722215109,
+      "resistance2_is_L_over_r2": true
+    },
+    "Sau_cer": {
+      "n_veins": 12743,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 1.0000000020135535,
+      "ratio_cv": 6.023073210451006e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9581836106511982,
+      "resistance2_is_L_over_r2": true
+    },
+    "Sau_mad": {
+      "n_veins": 175473,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999997841262,
+      "ratio_cv": 5.3542423453323526e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9528070799243576,
+      "resistance2_is_L_over_r2": true
+    },
+    "Sch_pol": {
+      "n_veins": 8441,
+      "pearson_log_r": 0.9999999999999994,
+      "ratio_median": 1.0000000040493267,
+      "ratio_cv": 5.577245361511746e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9542310827457989,
+      "resistance2_is_L_over_r2": true
+    },
+    "Sim_chi": {
+      "n_veins": 19719,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000007631198,
+      "ratio_cv": 5.2078859027574765e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.956413500187074,
+      "resistance2_is_L_over_r2": true
+    },
+    "Smi_his": {
+      "n_veins": 37011,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.000000000646797,
+      "ratio_cv": 4.799672628719006e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9598645381737891,
+      "resistance2_is_L_over_r2": true
+    },
+    "Sol_lig": {
+      "n_veins": 8810,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.000000001059344,
+      "ratio_cv": 5.430924812810014e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9513268058403845,
+      "resistance2_is_L_over_r2": true
+    },
+    "Sta_chi": {
+      "n_veins": 43061,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 0.9999999992010694,
+      "ratio_cv": 5.6895732925703246e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9158381362983739,
+      "resistance2_is_L_over_r2": true
+    },
+    "Tas_lan": {
+      "n_veins": 2727,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 1.0000000043650403,
+      "ratio_cv": 5.528695025987622e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.916634516079599,
+      "resistance2_is_L_over_r2": true
+    },
+    "Tec_spe": {
+      "n_veins": 62553,
+      "pearson_log_r": 0.9999999999999997,
+      "ratio_median": 1.0000000007620702,
+      "ratio_cv": 4.4502364484827445e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9572186219355766,
+      "resistance2_is_L_over_r2": true
+    },
+    "Tod_bar": {
+      "n_veins": 2589,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 0.9999999971662952,
+      "ratio_cv": 5.2320245384987364e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.958776667726863,
+      "resistance2_is_L_over_r2": true
+    },
+    "Tri_lan": {
+      "n_veins": 2128,
+      "pearson_log_r": 0.9999999999999999,
+      "ratio_median": 1.0000000022582292,
+      "ratio_cv": 4.974658288157587e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9675050858325945,
+      "resistance2_is_L_over_r2": true
+    },
+    "Tro_ara": {
+      "n_veins": 91797,
+      "pearson_log_r": 0.9999999999999998,
+      "ratio_median": 0.9999999990412721,
+      "ratio_cv": 4.952485220189048e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9414923373442857,
+      "resistance2_is_L_over_r2": true
+    },
+    "Ure_car": {
+      "n_veins": 256622,
+      "pearson_log_r": 0.999999999999999,
+      "ratio_median": 1.0000000059050242,
+      "ratio_cv": 5.145957357020088e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9585635363091208,
+      "resistance2_is_L_over_r2": true
+    },
+    "Vio_gla": {
+      "n_veins": 6872,
+      "pearson_log_r": 1.0,
+      "ratio_median": 1.0000000017465434,
+      "ratio_cv": 5.888358249189221e-08,
+      "exact": true,
+      "pearson_log_r_wrong_exponent": 0.9481045318348272,
+      "resistance2_is_L_over_r2": true
+    }
+  }
+}

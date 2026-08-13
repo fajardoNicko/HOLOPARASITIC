@@ -1,0 +1,15 @@
+{
+  "note": "loop_fraction = fraction of edges on a cycle (non-bridge), computed identically for both",
+  "empirical": {
+    "n": 112,
+    "median": 0.7758989096261009,
+    "min": 0.32005141388174807,
+    "max": 0.9954154727793696
+  },
+  "synthetic": {
+    "n": 42,
+    "median": 0.806044898697877,
+    "min": 0.28893058161350843,
+    "max": 0.9609218436873748
+  }
+}

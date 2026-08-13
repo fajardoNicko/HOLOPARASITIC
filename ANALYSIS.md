@@ -48,14 +48,14 @@ mean degree constant while creating the loops that give a genuine percolation
 threshold.
 
 **Reference network:** N = 1023 vessels, 3066 segments, **2044 anastomoses
-(loops)**, 512 terminal (leaf) sites, mean degree 6.0.
+(loops)**, 512 terminal (leaf) sites, mean degree 2.5 (calibrated planar mesh).
 
 ### Stage 2 — Fractal dimension (`fractal.py`)
 
 The drawn network is rasterised into a point cloud and **box-counting** is
 applied: the number of occupied boxes `N(ε)` is counted across box sizes `ε`,
 and the dimension is the slope of `log N(ε)` vs `log(1/ε)` over the genuine
-scaling window. For the reference network **D = 1.43**, inside the measured
+scaling window. For the reference network **D = 1.39**, inside the measured
 1.39–1.76 range of real leaf venation (Crisci et al., *Relbunium*; see
 `VALIDATION.md`). Denser venation raises D — see Stage 6.
 
@@ -143,12 +143,12 @@ Figures produced: `network.png`, `sigmoid.png` (hero), `pc_heatmap.png`,
 
 | Quantity | Value |
 |----------|-------|
-| Vascular percolation threshold (random) | **p_c = 0.279** |
+| Vascular percolation threshold (random) | **p_c = 0.271** |
 | 95 % confidence interval (10⁶ trials) | **[0.2778, 0.2809]** |
-| Threshold, backbone (betweenness) attack | **p_c = 0.177** |
-| Threshold, degree attack | **p_c = 0.314** |
-| Fractal dimension of reference network | D = 1.43 |
-| Mean degree / loops | 6.0 / 2044 |
+| Threshold, backbone (betweenness) attack | **p_c = 0.189** |
+| Threshold, degree attack | **p_c = 0.202** |
+| Fractal dimension of reference network | D = 1.39 |
+| Mean degree / loops | 2.49 / 251 (calibrated mesh) |
 
 ---
 
@@ -195,21 +195,30 @@ There are two ways to "attack the important vessels," and they disagree — whic
 itself a finding.
 
 - **Backbone attack (betweenness centrality):** removing the stem and major veins
-  — the low-degree vessels that carry the most flow paths — gives **p_c = 0.177 vs
-  0.279 random**, collapse **~37 % sooner**. This matches Albert–Barabási (attack
+  — the low-degree vessels that carry the most flow paths — gives **p_c = 0.189 vs
+  0.271 random**, collapse **~30 % sooner**. This matches Albert–Barabási (attack
   the structurally critical nodes) *and* the biology: *Cuscuta* preferentially
   invades the main stem and large bundles, i.e. exactly this backbone.
 - **Degree attack:** removing the *highest-degree* vessels first gives
-  **p_c = 0.314 > random** — *weaker* than random. In a hierarchical vascular
-  network the high-degree nodes are the redundant reticulated periphery, not the
-  critical backbone, so attacking them wastes effort.
+  **p_c = 0.202 < random** — also more damaging than random, though slightly less so
+  than the betweenness backbone (0.189). On the calibrated planar mesh the high-degree
+  junctions sit within the load-bearing reticulum, so attacking them helps. (On the
+  legacy over-connected ⟨k⟩≈6 decorated tree this was reversed, 0.314 > random, an
+  artifact of that topology — now superseded by the calibrated hero.)
 
-The lesson: **degree is the wrong proxy for vulnerability in vasculature;
-betweenness (the backbone) is right.** Because real *Cuscuta* hits the backbone,
-the true threshold is nearer 0.18 — so the random estimate (0.28) is
-**conservative**, strengthening the pre-symptomatic argument.
+The lesson: **both targeted attacks beat random, and the stem backbone (betweenness)
+is the most damaging** — consistent with the real cohort, where degree-attack p_c
+fell below random in 100 % of leaves. Because real *Cuscuta* hits the backbone, the
+true threshold is nearer 0.19 — so the random estimate (0.27) is **conservative**,
+strengthening the pre-symptomatic argument.
 
 ### 3.4 Host architecture sets baseline resistance (p_c vs D)
+
+> **Note (2026-07-30):** the *definitive, causal* p_c-vs-D result is now the synthetic grid
+> (`scripts/run_synthetic_grid.py`; partial r(p_c, D | ⟨k⟩) = 0.20 over 42 controlled networks, with ⟨k⟩ the
+> dominant lever at partial r = 0.94). The legacy knn sweep table below is retained as the original topological
+> D-scan and as the basis of the hydraulic (K_h, D) surface; treat the synthetic grid as authoritative for the
+> ⟨k⟩/D attribution.
 
 | D | 1.35 | 1.39 | 1.43 | 1.48 |
 |---|------|------|------|------|
@@ -278,24 +287,27 @@ kept as a **comparison only**. Running them on the *same* host network
 
 | Parasite | Type | Attaches | p_c | 95% CI |
 |---|---|---|---|---|
-| *Orobanche* (broomrape) | **holoparasite** | root | **0.155** | [0.153, 0.157] |
-| *Cuscuta* (dodder) | **holoparasite** | stem | **0.175** | [0.173, 0.177] |
-| *Striga* (witchweed) | hemiparasite *(comparison)* | root | **0.263** | [0.260, 0.265] |
-| *Pilostyles* (endophyte) | **holoparasite** | systemic | **0.277** | [0.275, 0.280] |
-| Mistletoe | hemiparasite *(comparison)* | stem | **0.425** | [0.420, 0.430] |
+| *Cuscuta* (dodder) | **holoparasite** | stem | **0.190** | [0.189, 0.192] |
+| *Orobanche* (broomrape) | **holoparasite** | root | **0.192** | [0.190, 0.193] |
+| *Pilostyles* (endophyte) | **holoparasite** | systemic | **0.271** | [0.270, 0.273] |
+| *Striga* (witchweed) | hemiparasite *(comparison)* | root | **0.322** | [0.320, 0.324] |
+| Mistletoe | hemiparasite *(comparison)* | stem | **0.357** | [0.355, 0.359] |
 
 **The ranking is statistically significant:** every adjacent pair has
 non-overlapping 95% bootstrap confidence intervals, so the ordering is not noise.
-Three effects emerge: (1) **among holoparasites, *attachment site* sets the
-threat** — root (*Orobanche* 0.155) > stem (*Cuscuta* 0.175) > systemic/diffuse
-(*Pilostyles* 0.277); (2) **at equal attachment, full beats partial** — holo
-collapses the host sooner than hemi (stem: *Cuscuta* 0.175 vs mistletoe 0.425;
-root: *Orobanche* 0.155 vs *Striga* 0.263); (3) **the two axes can cross** — the
-targeted root *hemi*parasite *Striga* (0.263) outranks the diffuse *holo*parasite
-*Pilostyles* (0.277), i.e. *where* a parasite attacks can outweigh *how completely*
-it feeds. Reassuringly, *Cuscuta* here (0.175) reproduces the betweenness-backbone
-result of §3.3 (0.177), and *Pilostyles* (random attachment, 0.277) reproduces the
-random-attack p_c of §3.2 (0.279) — two internal consistency checks. This answers
+Three effects emerge: (1) **among holoparasites, targeted attachment collapses the
+host far sooner than diffuse feeding** — stem (*Cuscuta* 0.190) and root (*Orobanche*
+0.192) are now statistically close and both fall well below systemic/diffuse
+(*Pilostyles* 0.271); (2) **full beats partial** — every holoparasite (≤ 0.271)
+collapses the host sooner than either hemiparasite (stem: *Cuscuta* 0.190 vs mistletoe
+0.357; root: *Orobanche* 0.192 vs *Striga* 0.322); (3) **on this calibrated network,
+efficiency outweighs attachment** — even the diffuse holoparasite *Pilostyles* (0.271)
+outranks the *targeted* hemiparasite *Striga* (0.322), so *how completely* a parasite
+feeds dominates *where* it attacks (a reversal from the legacy over-connected network,
+where the two axes crossed). Reassuringly, *Cuscuta* here (0.190) reproduces the
+betweenness-backbone result of §3.3 (0.189), and *Pilostyles* (random attachment,
+0.271) reproduces the random-attack p_c of §3.2 (0.271) — two internal consistency
+checks. This answers
 *"only Cuscuta?"*: **no** — the same framework predicts and *ranks* multiple
 holoparasites and places them against hemiparasite weeds that threaten tens of
 millions of farmers.

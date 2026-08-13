@@ -1,0 +1,15 @@
+{
+  "note": "synthetic grid: degree SD and effective conductance (r^4/L, model-assigned radii), regenerated from calibrate.grid_params seed=0",
+  "degree_sd": {
+    "n": 42,
+    "median": 1.3495949395676532,
+    "min": 1.0461988622623817,
+    "max": 1.7305869110876817
+  },
+  "effective_conductance": {
+    "n": 42,
+    "median": 0.004035732087722043,
+    "min": 0.0005349986102040239,
+    "max": 0.03544239573670357
+  }
+}

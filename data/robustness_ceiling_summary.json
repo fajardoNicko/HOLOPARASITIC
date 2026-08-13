@@ -1,0 +1,75 @@
+{
+  "surface": {
+    "intercept": -0.09066244702944809,
+    "beta_k": 0.12019104407571433,
+    "beta_D": 0.028668605565802495,
+    "R2": 0.8867028635791774
+  },
+  "caps": {
+    "mean_degree_p90": 2.811332862542374,
+    "D_p90": 1.8522
+  },
+  "n_species": 100,
+  "median_gain_reticulation": 0.03555,
+  "max_gain_reticulation": 0.0797,
+  "median_gain_D": 0.00455,
+  "reticulation_is_dominant_lever_fraction": 0.89,
+  "top5_headroom": [
+    {
+      "species": "Chl_spi",
+      "mean_degree": 2.1479,
+      "D": 1.6848,
+      "pc_measured": 0.1216,
+      "pc_model_now": 0.2158,
+      "pc_ceiling_reticulation": 0.2955,
+      "gain_from_reticulation": 0.0797,
+      "gain_from_D": 0.0048,
+      "dominant_lever": "reticulation"
+    },
+    {
+      "species": "Mag_che",
+      "mean_degree": 2.1721,
+      "D": 1.6739,
+      "pc_measured": 0.1039,
+      "pc_model_now": 0.2184,
+      "pc_ceiling_reticulation": 0.2952,
+      "gain_from_reticulation": 0.0768,
+      "gain_from_D": 0.0051,
+      "dominant_lever": "reticulation"
+    },
+    {
+      "species": "Met_dav",
+      "mean_degree": 2.1979,
+      "D": 1.5064,
+      "pc_measured": 0.1556,
+      "pc_model_now": 0.2167,
+      "pc_ceiling_reticulation": 0.2904,
+      "gain_from_reticulation": 0.0737,
+      "gain_from_D": 0.0099,
+      "dominant_lever": "reticulation"
+    },
+    {
+      "species": "Ane_cal",
+      "mean_degree": 2.2156,
+      "D": 1.7844,
+      "pc_measured": 0.1513,
+      "pc_model_now": 0.2268,
+      "pc_ceiling_reticulation": 0.2984,
+      "gain_from_reticulation": 0.0716,
+      "gain_from_D": 0.0019,
+      "dominant_lever": "reticulation"
+    },
+    {
+      "species": "Hel_chi",
+      "mean_degree": 2.2387,
+      "D": 1.5857,
+      "pc_measured": 0.1349,
+      "pc_model_now": 0.2239,
+      "pc_ceiling_reticulation": 0.2927,
+      "gain_from_reticulation": 0.0688,
+      "gain_from_D": 0.0076,
+      "dominant_lever": "reticulation"
+    }
+  ],
+  "caveat": "Constrained, first-order estimate from a linear response surface (R^2~0.89); a direction+magnitude, not a designed network; trade-offs (cost, efficiency) not modelled."
+}

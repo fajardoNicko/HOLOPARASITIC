@@ -1,0 +1,7 @@
+{
+  "n_species": 93,
+  "spearman_rho": 0.18684233103562825,
+  "spearman_p": 0.0729248933244529,
+  "pearson_loglog_r": 0.22651287024830408,
+  "note": "Units differ (model r^4/L mm vs measured mmol/m2/s/MPa); rank/relative agreement is the meaningful test."
+}

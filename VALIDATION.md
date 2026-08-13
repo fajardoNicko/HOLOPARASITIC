@@ -24,14 +24,37 @@ to the specific sources checked; values behind paywalls are flagged.
 | Aspect | Our model | Literature | Verdict |
 |--------|-----------|------------|---------|
 | Percolation engine (GCC → 0) | ~84 % removal | Callaway *f_c* = 0.837 | ✅ **Matches theory** |
-| Operational p_c (GCC < 50 %) | 0.279 | stricter, earlier criterion | ✅ Consistent, distinct metric |
-| Backbone (betweenness) attack < random | 0.177 < 0.279 | A–B targeted attack; stem biology | ✅ Correct direction, large gap |
-| Degree attack > random | 0.314 > 0.279 | degree ≠ importance in a tree | ✅ Genuine secondary insight |
+| Operational p_c (GCC < 50 %) | **0.271** (mesh hero; legacy knn 0.279) | stricter, earlier criterion | ✅ Consistent, distinct metric |
+| Backbone (betweenness) attack < random | **0.189 < 0.271** | A–B targeted attack; stem biology | ✅ Correct direction, large gap |
+| Degree attack **< random** | **0.202 < 0.271** | targeted beats random | ✅ **Now matches real cohort** (degree < random in 100% of leaves) |
 | Tipping-point framing | phase transition | catastrophe/bifurcation; P88 | ✅ Supported (different formalism) |
-| Fractal dimension D | 1.43 (recalibrated) | 1.39–1.76 (Crisci, box-counting) | ✅ **In range** (t = +35 vs min) |
+| Fractal dimension D | **1.39** (mesh hero; legacy 1.43) | 1.39–1.76 (Crisci, box-counting) | ✅ **In range** (= measured min) |
 | Reticulation → robustness | higher p_c | ✅ fragmentation; ✗ embolism spread | ⚠️ **Mode-dependent (key caveat)** |
 | *Cuscuta* strong sink (K_h) | leak conductance | strong sink confirmed; no flux value | ✅ Qualitative; calibration gap |
 | Host architecture → resistance | p_c rises with D | host heterogeneity confirmed | ✅ Supported |
+| Modelled conductance vs measured **Kleaf** | Spearman ρ = 0.19 (p = 0.07, n = 93) | weak / non-significant rank link | ⚠️ **Limitation — xylem-only model (§9)** |
+
+> **Hero promoted 2026-07-30 (user-approved).** The featured network is now the cohort-calibrated planar
+> **mesh** (⟨k⟩ = 2.49, N = 1023, D = 1.39, 1e6 trials → p_c = 0.271, CI [0.270, 0.272]), replacing the
+> legacy knn ⟨k⟩ ≈ 6 network (`config.LEGACY_HERO_NETWORK`). p_c is essentially unchanged (0.271 vs 0.279)
+> and the attack-mode ordering **improved**: degree attack is now 0.202 < random (it was 0.314 > random on
+> the over-connected decorated tree), matching the real cohort.
+>
+> **Honest caveat on §6 below.** The finite-size scaling and critical exponent **β = 0.74** were computed
+> by `validate_stats.py` on the LEGACY knn generator (κ ≈ 7.3), which is effectively mean-field because its
+> long cross-links break planarity. A true planar leaf mesh is a 2-D system and may fall in the **2-D
+> percolation universality class (β ≈ 5/36 ≈ 0.14)**, not mean-field. Re-running the scaling collapse on
+> the mesh hero is a needed follow-up — **do not quote β = 0.74 for the mesh hero** until then.
+>
+> **UPDATE — measured 2026-07-30 (`run_scaling_mesh.py`, N = 8191).** My 2-D guess above was wrong.
+> On the calibrated mesh the order parameter is a clean power law (log–log R² = 0.995) and the transition
+> sharpens with N (width 0.139 → 0.122), so the transition **is** genuinely continuous — but the extracted
+> exponent **β ≈ 1.48 matches neither mean-field (1.0) nor 2-D (0.14).** The ±0.03 statistical SE is
+> misleadingly small: β is strongly sensitive to where f_c and the fit window are placed on a finite
+> network. **Honest conclusion: a real continuous transition, but NO definitive universality class from a
+> single-size fit — it needs a full multi-size scaling collapse (future work). Do not quote a specific β
+> (neither 0.74 nor 1.48) as the mesh hero's exponent.** None of the main results (p_c, ⟨k⟩/D dependence,
+> robustness ceiling) depend on the exponent.
 
 ---
 
@@ -362,3 +385,27 @@ therefore on solid footing — the profiles are real; the ranking is a hypothesi
 
 *Sources accessed via the team's reference list; several full texts were paywalled
 (noted inline) and values were taken from abstracts/open mirrors.*
+
+---
+
+## 9. Modelled conductance vs measured Kleaf ⚠️ (limitation, reported honestly)
+
+**Test (2026-07-30, `scripts/run_kleaf_validate.py`).** For 93 cohort species we solved the baseline
+hydraulic field and read off the effective source→terminal conductance, then rank-correlated it against
+the measured leaf hydraulic conductance Kleaf (`hydraulics/UCBG_venation_kmax.csv`).
+
+**Result — weak and non-significant:** **Spearman ρ = 0.19 (p = 0.07, n = 93)**; log–log Pearson r = 0.23.
+
+**This is a limitation, not a validation, and the reason is mechanistic.** Whole-leaf Kleaf is dominated
+by the **outside-xylem pathway** (bundle sheath + mesophyll), which our xylem-only network model does not
+represent at all (Scoffoni et al., 2023, *New Phytol.* 239, 1265). The model captures the *within-xylem*
+hydraulics correctly — evidenced by the exact match to the source dataset's own `Resistance_4` column on
+5.67 M veins (CV ~1e-7, §hydraulic validation) — but it should **not** be expected to predict whole-leaf
+Kleaf, and here it does not.
+
+**Ready-to-paste limitation sentence:**
+> A comparison of the model's effective xylem conductance with measured leaf hydraulic conductance across
+> 93 species showed only a weak, non-significant rank association (Spearman ρ = 0.19, p = 0.07). This is
+> expected: leaf hydraulic conductance is dominated by the outside-xylem pathway, which the xylem-only
+> network model does not represent. The model's hydraulics are validated within the xylem (an exact match
+> to the deposited per-vein resistance), but whole-leaf conductance prediction is outside its scope.

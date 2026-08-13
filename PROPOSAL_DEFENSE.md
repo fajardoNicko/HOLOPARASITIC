@@ -1,5 +1,9 @@
 # Research Proposal Defense — Slide Deck
 
+> ⚠️ **Numbers updated 2026-07-30 (hero promoted to the calibrated mesh).** Legacy figures (⟨k⟩≈6, p_c 0.279,
+> degree 0.314 > random) may still appear below. Current: ⟨k⟩ = 2.49, p_c = 0.271, degree **0.202 < random**;
+> parasite ordering is now efficiency-dominated (all holo < all hemi). See **HERO_NUMBERS.md**.
+
 **Structure (as required):**
 I. Justification · II. Expected Contribution · III. Refined Methodology (6 steps)
 · IV. Review of Related Literature

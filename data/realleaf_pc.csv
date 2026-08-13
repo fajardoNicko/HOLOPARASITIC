@@ -1,0 +1,4 @@
+species,n_nodes,n_edges,mean_degree,loop_fraction,n_components,D,pc_random,pc_degree,pc_betweenness,pc_hydraulic,pc_predicted_synthetic
+UCBG_Abemex_931304_B01-1_crop,15035,17404,2.32,0.603,2,1.5848,0.1847,0.1446,nan,nan,0.3168
+UCBG_Aexpun_730753_B01-2_crop,15774,23157,2.94,0.977,1,1.7502,0.2708,0.2649,nan,nan,0.3168
+UCBG-Alecor200230360-B01-2_20200114_2246_01_01_01__stitch_crop,190210,238902,2.51,0.775,4,1.9086,0.2123,0.1746,nan,nan,0.3168

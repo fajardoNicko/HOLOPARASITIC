@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PubMat Draft — Dance Safety &amp; Emergency Resources (HOPE 3)</title>
+<style>
+  /* ============ B5 SHEET: 176mm x 250mm ============ */
+  @page { size: 176mm 250mm; margin: 0; }
+
+  :root{
+    --ink:#1d1b2e;
+    --muted:#5b5870;
+    --rose:#e0447d;
+    --rose-soft:#fde7ef;
+    --gold:#c99a2e;
+    --teal:#0f8a8a;
+    --teal-soft:#e2f4f4;
+    --red:#d63b3b;
+    --red-soft:#fdeaea;
+    --line:#e6e2ee;
+    --paper:#fffdfa;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    background:#5c5470;
+    font-family:"Segoe UI", "Inter", system-ui, sans-serif;
+    color:var(--ink);
+    padding:14mm 0;
+    display:flex; justify-content:center;
+  }
+
+  .sheet{
+    width:176mm; height:250mm;
+    background:var(--paper);
+    padding:9mm 9mm 7mm;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,.35);
+    display:flex; flex-direction:column;
+  }
+
+  /* soft decorative corner blooms */
+  .sheet::before,
+  .sheet::after{
+    content:""; position:absolute; border-radius:50%; z-index:0;
+  }
+  .sheet::before{ width:70mm; height:70mm; background:var(--rose-soft); top:-28mm; right:-22mm; }
+  .sheet::after { width:56mm; height:56mm; background:var(--teal-soft); bottom:-24mm; left:-20mm; }
+  .sheet > *{ position:relative; z-index:1; }
+
+  /* ============ NAME BLOCK (upper left, required) ============ */
+  .nameplate{
+    font-size:8pt; line-height:1.35; color:var(--muted);
+    border-left:2.5pt solid var(--rose);
+    padding-left:2.5mm; margin-bottom:3mm;
+  }
+  .nameplate strong{ display:block; color:var(--ink); font-size:9pt; letter-spacing:.3px; }
+  .fill{ display:inline-block; min-width:34mm; border-bottom:.6pt dotted #b9b4c7; }
+
+  /* ============ HEADER / SLOGAN ============ */
+  header{ text-align:center; margin-bottom:3.5mm; }
+  .eyebrow{
+    display:inline-block; font-size:7.5pt; font-weight:700; letter-spacing:2.2px;
+    text-transform:uppercase; color:var(--teal);
+    background:var(--teal-soft); padding:1mm 3.5mm; border-radius:999px;
+  }
+  h1{
+    font-size:25pt; line-height:1.02; font-weight:800; letter-spacing:-.5px;
+    margin:2mm 0 1.2mm; color:var(--ink);
+  }
+  h1 em{ font-style:normal; color:var(--rose); }
+  .subslogan{ font-size:8.5pt; color:var(--muted); font-weight:600; letter-spacing:.4px; }
+
+  .rule{ height:1.2pt; background:linear-gradient(90deg,var(--rose),var(--gold),var(--teal)); margin:3.5mm 0; border-radius:2px; }
+
+  /* ============ GENERIC SECTION HEADS ============ */
+  .sec-head{
+    display:flex; align-items:center; gap:2mm; margin-bottom:2mm;
+  }
+  .badge{
+    width:6.5mm; height:6.5mm; border-radius:2mm; flex:none;
+    display:grid; place-items:center; font-size:9pt; font-weight:800; color:#fff;
+  }
+  .b-rose{ background:var(--rose); } .b-red{ background:var(--red); } .b-teal{ background:var(--teal); }
+  .sec-head h2{ font-size:11.5pt; font-weight:800; letter-spacing:.2px; }
+  .sec-head span{ font-size:7.5pt; color:var(--muted); font-weight:600; }
+
+  /* ============ PART 1 — 3 SAFETY TIPS ============ */
+  .tips{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.5mm; }
+  .tip{
+    background:#fff; border:.8pt solid var(--line); border-top:2.5pt solid var(--rose);
+    border-radius:2mm; padding:2.5mm;
+  }
+  .tip h3{ font-size:8.5pt; font-weight:800; margin-bottom:.8mm; }
+  .tip .risk{ font-size:6.8pt; color:var(--rose); font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:1.2mm; }
+  .tip p{ font-size:7.2pt; line-height:1.4; color:var(--muted); }
+  .tip p b{ color:var(--ink); }
+
+  /* ============ PART 2 — PRICE ============ */
+  .price{ display:grid; grid-template-columns:repeat(5,1fr); gap:2mm; }
+  .step{
+    background:var(--red-soft); border-radius:2mm; padding:2.5mm 2mm; text-align:center;
+    border:.8pt solid #f6cccc;
+  }
+  .step .letter{
+    font-size:16pt; font-weight:900; color:var(--red); line-height:1; letter-spacing:-1px;
+  }
+  .step .word{ font-size:7.6pt; font-weight:800; margin:.8mm 0 1mm; letter-spacing:.3px; }
+  .step p{ font-size:6.5pt; line-height:1.35; color:#7a4a4a; }
+  .price-note{
+    margin-top:2mm; font-size:7pt; color:var(--muted); background:#fff;
+    border-left:2pt solid var(--red); padding:1.5mm 2.5mm; border-radius:0 1.5mm 1.5mm 0;
+  }
+
+  /* ============ PART 3 — CAMPUS POINTER ============ */
+  .campus{ display:grid; grid-template-columns:1.15fr 1fr; gap:3mm; align-items:stretch; }
+  .resources{ display:flex; flex-direction:column; gap:2mm; }
+  .res{
+    display:flex; gap:2mm; background:#fff; border:.8pt solid var(--line);
+    border-radius:2mm; padding:2mm 2.5mm;
+  }
+  .res .icon{
+    width:7mm; height:7mm; flex:none; border-radius:1.5mm; display:grid; place-items:center;
+    font-size:10pt; background:var(--teal-soft);
+  }
+  .res h4{ font-size:8pt; font-weight:800; }
+  .res p{ font-size:6.8pt; line-height:1.35; color:var(--muted); }
+  .res .where{ color:var(--teal); font-weight:700; }
+
+  /* mini campus map */
+  .map{
+    background:#fff; border:.8pt solid var(--line); border-radius:2mm; padding:2.5mm;
+    display:flex; flex-direction:column;
+  }
+  .map h4{ font-size:7.5pt; font-weight:800; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:1.5mm; }
+  .map svg{ width:100%; flex:1; }
+  .map .legend{ font-size:6.2pt; color:var(--muted); margin-top:1.5mm; line-height:1.5; }
+  .dot{ display:inline-block; width:2mm; height:2mm; border-radius:50%; margin-right:1mm; vertical-align:middle; }
+
+  /* ============ FOOTER ============ */
+  footer{
+    margin-top:auto; padding-top:2.5mm; border-top:.8pt solid var(--line);
+    display:flex; justify-content:space-between; align-items:flex-end; gap:3mm;
+  }
+  .emergency{
+    background:var(--ink); color:#fff; border-radius:2mm; padding:2mm 3mm;
+    font-size:7.5pt; font-weight:700; letter-spacing:.3px;
+  }
+  .emergency span{ color:#ffd166; }
+  .refs{ font-size:5.6pt; color:#9a95a8; line-height:1.4; text-align:right; max-width:88mm; }
+
+  /* ============ SCREEN-ONLY HELPER ============ */
+  .hint{
+    width:176mm; color:#e8e3f2; font-size:9pt; margin:0 auto 4mm; line-height:1.5;
+  }
+  .hint b{ color:#ffd166; }
+  @media print{
+    body{ background:#fff; padding:0; }
+    .sheet{ box-shadow:none; }
+    .hint{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hint">
+  <b>DRAFT — B5 (176 × 250 mm).</b> Print with Ctrl+P → paper size B5, margins <b>None</b>, “Background graphics” ON.
+  Replace the dotted lines with your name/section, and edit the map labels to match your real campus.
+</div>
+
+<div class="sheet">
+
+  <!-- ===== NAME / SECTION (required, upper left) ===== -->
+  <div class="nameplate">
+    <strong>Name: <span class="fill"></span></strong>
+    Section: <span class="fill"></span> &nbsp;·&nbsp; PE &amp; Health 12 (HOPE 3 – Dance) &nbsp;·&nbsp; Date: <span class="fill" style="min-width:22mm"></span>
+  </div>
+
+  <!-- ===== SLOGAN ===== -->
+  <header>
+    <div class="eyebrow">Emergency Ready in the Dance Studio</div>
+    <h1>Dance with Passion,<br><em>Practice with Caution!</em></h1>
+    <div class="subslogan">Folk Dance &amp; Ballroom are high-intensity sports — know the risks, know the response, know where help is.</div>
+  </header>
+
+  <div class="rule"></div>
+
+  <!-- ===== PART 1: 3 SAFETY TIPS ===== -->
+  <section>
+    <div class="sec-head">
+      <div class="badge b-rose">1</div>
+      <h2>Before You Collapse — 3 Safety Tips</h2>
+      <span>Dehydration · Overexertion · Hyperthermia</span>
+    </div>
+    <div class="tips">
+      <div class="tip">
+        <div class="risk">Dehydration</div>
+        <h3>Sip, don’t chug.</h3>
+        <p>Losing body water through heavy sweating. <b>Tinikling</b> hopping dries up fluids fast.<br><b>Do:</b> small sips of water <b>every 15 minutes</b> of rehearsal — before, during, and after.</p>
+      </div>
+      <div class="tip">
+        <div class="risk">Overexertion</div>
+        <h3>Rest between runs.</h3>
+        <p>Pushing muscles and the heart past safe limits — continuous high-speed spins and partner lifts in <b>Ballroom</b>.<br><b>Do:</b> listen to your body — dizzy or breathless? <b>Stop and sit down immediately.</b></p>
+      </div>
+      <div class="tip">
+        <div class="risk">Hyperthermia</div>
+        <h3>Keep the air moving.</h3>
+        <p>Dangerously high body temperature from dancing in hot, crowded, unventilated spaces.<br><b>Do:</b> open windows, wear lightweight clothing, and take <b>regular cooling breaks</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ===== PART 2: PRICE ===== -->
+  <section>
+    <div class="sec-head">
+      <div class="badge b-red">2</div>
+      <h2>First Aid: The PRICE Protocol</h2>
+      <span>Twisted ankle · struck by a bamboo pole</span>
+    </div>
+    <div class="price">
+      <div class="step">
+        <div class="letter">P</div><div class="word">PROTECT</div>
+        <p>Guard the injured area — stop the dancing, clear the space.</p>
+      </div>
+      <div class="step">
+        <div class="letter">R</div><div class="word">REST</div>
+        <p>Stop all movement. Let the dancer sit or lie down comfortably.</p>
+      </div>
+      <div class="step">
+        <div class="letter">I</div><div class="word">ICE</div>
+        <p>Apply a wrapped cold pack for <b>15–20 minutes</b>.</p>
+      </div>
+      <div class="step">
+        <div class="letter">C</div><div class="word">COMPRESS</div>
+        <p>Wrap the joint firmly with an elastic bandage — not too tight.</p>
+      </div>
+      <div class="step">
+        <div class="letter">E</div><div class="word">ELEVATE</div>
+        <p>Prop the injured limb <b>above heart level</b>.</p>
+      </div>
+    </div>
+    <div class="price-note">Apply PRICE <b>first</b> — then bring the dancer to the school resources below.</div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- ===== PART 3: SCHOOL EMERGENCY RESOURCES + MAP ===== -->
+  <section>
+    <div class="sec-head">
+      <div class="badge b-teal">3</div>
+      <h2>Where Help Is on Campus</h2>
+      <span>Know this before rehearsal starts</span>
+    </div>
+
+    <div class="campus">
+      <div class="resources">
+        <div class="res">
+          <div class="icon">🏥</div>
+          <div>
+            <h4>The School Clinic</h4>
+            <p>For sprains, muscle strains, and heat fatigue. Houses the <b>School Nurse</b> and basic medical supplies. <span class="where">→ Ground floor, Main Building</span></p>
+          </div>
+        </div>
+        <div class="res">
+          <div class="icon">🧰</div>
+          <div>
+            <h4>DRRM Toolkits</h4>
+            <p>Disaster Risk Reduction &amp; Management response kits — look for the <b>bright orange</b> boxes. <span class="where">→ Corridors &amp; gym walls</span></p>
+          </div>
+        </div>
+        <div class="res">
+          <div class="icon">➕</div>
+          <div>
+            <h4>First Aid Kits</h4>
+            <p>Must be <b>physically present in the dance area</b> during every rehearsal. Check it is stocked before you begin. <span class="where">→ Dance studio / gym</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- simple campus pointer -->
+      <div class="map">
+        <h4>Campus Pointer</h4>
+        <svg viewBox="0 0 100 62" preserveAspectRatio="xMidYMid meet">
+          <!-- blocks -->
+          <rect x="3" y="4"  width="42" height="24" rx="2" fill="#f4f2f8" stroke="#ddd8e6" stroke-width=".6"/>
+          <rect x="52" y="4"  width="45" height="24" rx="2" fill="#e2f4f4" stroke="#bfe3e3" stroke-width=".6"/>
+          <rect x="3" y="36" width="42" height="22" rx="2" fill="#fde7ef" stroke="#f6cfdd" stroke-width=".6"/>
+          <rect x="52" y="36" width="45" height="22" rx="2" fill="#f4f2f8" stroke="#ddd8e6" stroke-width=".6"/>
+          <!-- corridor -->
+          <rect x="45" y="4" width="7" height="54" fill="#fff8e8"/>
+          <rect x="3" y="28" width="94" height="8" fill="#fff8e8"/>
+          <!-- labels -->
+          <text x="24" y="17" font-size="4.4" text-anchor="middle" fill="#5b5870" font-family="Segoe UI,sans-serif">MAIN BLDG.</text>
+          <text x="74" y="14" font-size="4.4" text-anchor="middle" fill="#0f8a8a" font-family="Segoe UI,sans-serif" font-weight="bold">DANCE STUDIO</text>
+          <text x="74" y="20" font-size="3.6" text-anchor="middle" fill="#0f8a8a" font-family="Segoe UI,sans-serif">/ GYM</text>
+          <text x="24" y="48" font-size="4.4" text-anchor="middle" fill="#e0447d" font-family="Segoe UI,sans-serif" font-weight="bold">CLINIC</text>
+          <text x="74" y="48" font-size="4.4" text-anchor="middle" fill="#5b5870" font-family="Segoe UI,sans-serif">CLASSROOMS</text>
+          <!-- markers -->
+          <circle cx="12" cy="42" r="2.4" fill="#e0447d"/>
+          <circle cx="62" cy="10" r="2.4" fill="#0f8a8a"/>
+          <circle cx="48.5" cy="32" r="2.4" fill="#c99a2e"/>
+          <circle cx="90" cy="42" r="2.4" fill="#c99a2e"/>
+          <!-- route arrow: studio -> clinic -->
+          <path d="M62 14 L62 32 L18 32 L14 39" fill="none" stroke="#e0447d" stroke-width=".9"
+                stroke-dasharray="2.5 1.8" stroke-linecap="round"/>
+          <path d="M14 39 l2.4 -1.2 M14 39 l-1.6 -2.1" fill="none" stroke="#e0447d" stroke-width=".9" stroke-linecap="round"/>
+        </svg>
+        <div class="legend">
+          <span class="dot" style="background:#e0447d"></span>School Clinic &nbsp;
+          <span class="dot" style="background:#0f8a8a"></span>First Aid Kit (dance area)<br>
+          <span class="dot" style="background:#c99a2e"></span>DRRM Toolkits (orange boxes) &nbsp;
+          <span style="color:#e0447d">- - -</span> fastest route to the nurse
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="emergency">CALL FOR HELP: <span>Teacher → School Nurse → DRRM Coordinator</span></div>
+    <div class="refs">
+      DepEd, <i>SHS Core Curriculum Guide: Physical Education and Health (Grades 11 &amp; 12)</i> ·
+      Plowman, S. A., &amp; Smith, D. L. (2013), <i>Exercise Physiology for Health, Fitness, and Performance</i>, Lippincott Williams &amp; Wilkins ·
+      NASPE (2013), <i>The Scope and Sequence of Fitness Education for PreK-16 Programs</i>.
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

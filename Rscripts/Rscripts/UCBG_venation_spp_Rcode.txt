@@ -1,0 +1,129 @@
+######################################################
+#         CREATE PHYLO TREE AND CALCULATE ED         #
+######################################################
+
+# Load packages ######################################
+library(tidyverse)
+library (BIEN)
+library(ape)
+library(ggtree)
+library(ggpubr)
+
+# Create phylogenetic tree ###########################
+# using V.PhyloMaker 2 Jin and Qian 2022 - https://www.sciencedirect.com/science/article/pii/S2468265922000580
+
+# installing PhyloMaker 2 (you may need to install package "ape" first)
+#library(devtools)
+#devtools::install_github("jinyizju/V.PhyloMaker2")
+#library(V.PhyloMaker2) 
+
+# import species list
+tx122<- read.csv("DataS1/UCBG_122spp_list.csv")
+# create the phylogenetic tree
+tree122 <- phylo.maker(sp.list = tx122%>%select (spp_name_WP, genus_WP, family_WP), tree = GBOTB.extended.WP, nodes = nodes.info.1.WP, scenarios = "S3")
+# check if all 122 species were included
+tree122$scenario.3$tip.label 
+# write the tree
+write.tree(tree122$scenario.3, "UCBG_122spp.tre")
+
+
+# remove _ from phylogenetic tree tip labels
+tree122$tip.label<- gsub('_',' ',tree122$tip.label)
+
+# plot phylogenetic tree  
+asterids<-rep("#D55E00", 30)
+rosids<-rep("#CC79A7",40)
+b_eudico<- rep("#F0E442",10) 
+mono<-rep("#009E73",17) 
+b_angio<- rep("#56B4E9", 13)
+ferns<- rep("#999999", 12)
+my_color<-c(asterids, rosids, b_eudico, mono, b_angio, ferns)
+length (my_color)
+
+pdf(width=15,height=15,file='Phylo_tree.pdf')
+plot(x=tree122,tip.color=my_color, type='fan')
+for (clade in clades_unique)
+{
+  arc.cladelabels(tree=tree122,text=clade,node=getMRCA(phy=tree122, tip=tx122$spp_name_WP[tx122$clade==clade]), ln.offset=10,
+                  lab.offset=10)
+  nodelabels(text=clade,node=getMRCA(phy=tree122, tip=tx122$spp_name_WP[tx122$clade==clade]))
+}
+dev.off()
+
+
+# summarize taxa data
+sum_tx122<- as.data.frame(tx122%>% 
+  group_by (clade)%>%
+  summarize (number_of_species = n()))
+
+# reorder clade levels
+sum_tx122$clade <- factor(sum_tx122$clade, 
+                          levels = c("ferns", "basal angiosperms", "monocots",
+                                     "basal eudicots", "rosids", "asterids"))
+
+g_bar<-ggplot(data =sum_tx122, aes(x= clade, y = number_of_species, fill = clade))+
+  geom_bar(stat="identity")+
+  ylab("Number of species")+
+  xlab("Clades")+
+  scale_fill_manual(name = "Clades", values = c("asterids"="#D55E00",# dark orange
+                                "rosids"="#CC79A7", # pink
+                                "basal angiosperms" = "#56B4E9",# blue # basal angiosperms = anita + magnoliids
+                                #"magnoliids" =  "#0072B2", #dark blue
+                                "monocots" = "#009E73",# green
+                                "basal eudicots" = "#F0E442",#yellow
+                                "ferns" = "#999999"))+ # grey
+  theme_bw()+
+  theme(axis.title = element_text(size = 14),
+        axis.text=element_text(size=12),
+        legend.title=element_text(size=14),
+        legend.text=element_text(size=12));g_bar
+
+ggsave(Fig1, file='Figure1.png', width = 30, height = 40, units = "cm", dpi = 300, limitsize = FALSE)
+
+
+# Calculate evolutionary distinctiveness #################
+# opening the  GBOTB megatree - replace .tre with .txt in the "UCBG_122spp.tre" file
+tree_final<-read.tree("DataS1/UCBG_122spp.txt")
+
+# Calculate ED using EQUAL SPLIT (Redding and Mooers 2006)
+ED_split1 <- evol.distinct(tree_final, type = "equal.splits", scale = FALSE,use.branch.lengths = FALSE ) # scale F branch F
+
+# Obtain species occurrences coordinates ################
+# Use BIEN function to obtain coordinates and plot map of occurrence -----------
+vec_names<-unique(tx122$spp_name_WP)
+coord<- list()
+for (i in 1:length(vec_names)) {
+  # extract coordinates for species occurrence
+  coord[[i]]<-BIEN_occurrence_species(vec_names[i]) 
+  #plot species occurrence
+  png(file=paste0(vec_names[i],"_plot.png"),
+      width=600, height=350)
+  map('world', fill = TRUE, col= "grey", bg = "light blue")
+  points(cbind(coord[[i]]$longitude,
+               coord[[i]]$latitude),
+         col = "red",
+         pch = 20,
+         cex = 1) 
+  print(vec_names[i])
+  dev.off()
+}
+
+# unlist coordinates
+dt<-bind_rows(coord)
+glimpse(dt)
+
+# plot map of species occurrences -----------------------------
+dt<-read_csv("UCBG_122spp_occurrences.csv")
+glimpse(dt)
+
+p1<-ggplot() +
+  geom_map(
+    data = world, map = world,
+    aes(long, lat, map_id = region),
+    color = "white", fill = "grey60", size = 0.1) +
+  #theme_void() +
+  geom_hex(data = dt, aes(x=longitude, y=latitude), bins=100)+
+  scale_fill_viridis(option="D", breaks = c(1,7,54,403,3000), trans = "log",  name="Species occurrences"); p1
+
+ggsave("Figure2.png", width = 19, height = 12, units = "cm")
+

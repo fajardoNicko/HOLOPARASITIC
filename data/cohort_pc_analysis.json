@@ -1,0 +1,155 @@
+{
+  "full_cohort": {
+    "label": "full cohort (100, quality not gated)",
+    "n": 100,
+    "pearson_k_vs_pc": {
+      "r": 0.5867346864103329,
+      "p": 1.4086045826226248e-10
+    },
+    "pearson_D_vs_pc": {
+      "r": 0.4863002579396945,
+      "p": 2.9056137922354926e-07
+    },
+    "spearman_k_vs_pc": {
+      "rho": 0.7327846671063185,
+      "p": 4.479878760590678e-18
+    },
+    "spearman_D_vs_pc": {
+      "rho": 0.49594949781808323,
+      "p": 1.5470416515324623e-07
+    },
+    "predictor_collinearity_k_vs_D": {
+      "r": 0.14830920930359578,
+      "p": 0.14085812460367797,
+      "VIF": 1.0224903099098988
+    },
+    "partial_pc_vs_k_given_D": {
+      "r": 0.5955270017789541,
+      "p": 6.34789913598292e-11
+    },
+    "partial_pc_vs_D_given_k": {
+      "r": 0.4985891306301549,
+      "p": 1.2976026406374725e-07
+    },
+    "multiple_regression_standardized": {
+      "predictors": [
+        "intercept",
+        "z_mean_degree",
+        "z_D"
+      ],
+      "beta": [
+        0.18468100000000004,
+        0.02833310653393699,
+        0.02198336792877737
+      ],
+      "se": [
+        0.003837727337022087,
+        0.003880643219398709,
+        0.003880643219398709
+      ],
+      "t": [
+        48.12249119899816,
+        7.301136675565629,
+        5.664877363341743
+      ],
+      "p": [
+        1.6692909885210796e-69,
+        7.941002968271507e-11,
+        1.5041905493213938e-07
+      ],
+      "r2": 0.5072693325897623,
+      "n": 100,
+      "dof": 97
+    },
+    "pc_random_median": 0.19985,
+    "pc_random_range": [
+      0.0262,
+      0.2698
+    ],
+    "mean_degree_range": [
+      2.147870425914817,
+      2.9892933618843682
+    ],
+    "D_range": [
+      1.262,
+      1.9132
+    ]
+  },
+  "clean_A_sensitivity": {
+    "label": "clean-A only (sensitivity)",
+    "n": 16,
+    "pearson_k_vs_pc": {
+      "r": 0.7736100795590973,
+      "p": 0.00043836333121001383
+    },
+    "pearson_D_vs_pc": {
+      "r": 0.3063210731085507,
+      "p": 0.24854131480028951
+    },
+    "spearman_k_vs_pc": {
+      "rho": 0.5911764705882353,
+      "p": 0.015875579555641485
+    },
+    "spearman_D_vs_pc": {
+      "rho": 0.38235294117647056,
+      "p": 0.14385924954389048
+    },
+    "predictor_collinearity_k_vs_D": {
+      "r": -0.20449516974549697,
+      "p": 0.447427344380358,
+      "VIF": 1.0436433646500642
+    },
+    "partial_pc_vs_k_given_D": {
+      "r": 0.8974466192499762,
+      "p": 2.429968260830666e-06
+    },
+    "partial_pc_vs_D_given_k": {
+      "r": 0.7488992863087895,
+      "p": 0.0008426577102698114
+    },
+    "multiple_regression_standardized": {
+      "predictors": [
+        "intercept",
+        "z_mean_degree",
+        "z_D"
+      ],
+      "beta": [
+        0.2172812500000001,
+        0.03051326892300836,
+        0.016949501428989953
+      ],
+      "se": [
+        0.004071853560663391,
+        0.004159759371754904,
+        0.004159759371754903
+      ],
+      "t": [
+        53.36175448426499,
+        7.335344714936128,
+        4.074635072422318
+      ],
+      "p": [
+        1.2920035998187606e-16,
+        5.703301035331809e-06,
+        0.00131417427792861
+      ],
+      "r2": 0.8236692792430214,
+      "n": 16,
+      "dof": 13
+    },
+    "pc_random_median": 0.22245,
+    "pc_random_range": [
+      0.1216,
+      0.2698
+    ],
+    "mean_degree_range": [
+      2.147870425914817,
+      2.9637883008356547
+    ],
+    "D_range": [
+      1.4512,
+      1.9086
+    ]
+  },
+  "verdict": "On the real cohort <k> and D are nearly independent (r=+0.15, VIF=1.02), so their effects separate cleanly. BOTH independently predict p_c: partial r(p_c,<k>|D)=+0.60 (p=6e-11) and partial r(p_c,D|<k>)=+0.50 (p=1e-07); mean degree is somewhat stronger. This REVISES the preliminary n=10 result (D looked irrelevant) \u2014 with n=100 and a full D range, fractal dimension is a real, independent predictor, not reducible to connectivity."
+}

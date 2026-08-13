@@ -1,0 +1,312 @@
+<title>Chapter III — Methodology Figure Pack</title>
+<style>
+  :root{
+    --ink:#20303A; --accent:#E4572E; --blue:#3B8EA5; --vein:#7A4E2D;
+    --paper:#ffffff; --soft:#F4F6F7; --line:#D5DEE2; --mut:#5B6B74;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#E9EDEF;color:var(--ink);
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 22px 80px}
+  header.top{text-align:center;padding:22px;border-bottom:3px solid var(--ink);margin-bottom:26px}
+  header.top h1{margin:0 0 4px;font-size:23px;letter-spacing:.2px}
+  header.top p{margin:0;color:var(--mut);font-size:13px}
+  .note{background:#FFF6F2;border:1px solid #F2C9BB;border-radius:8px;
+    padding:12px 15px;font-size:13px;color:#8a3a22;margin:18px 0 30px}
+  .fig{background:var(--paper);border:1px solid var(--line);border-radius:12px;
+    padding:22px 24px 26px;margin:26px 0;box-shadow:0 1px 3px rgba(0,0,0,.05);
+    page-break-inside:avoid}
+  .fig h2{margin:0 0 2px;font-size:16px;color:var(--accent);letter-spacing:.3px}
+  .fig h2 span{color:var(--ink)}
+  .place{font-size:12px;color:var(--mut);margin:0 0 16px;
+    border-left:3px solid var(--blue);padding:2px 0 2px 9px}
+  .cap{font-size:13px;color:#33454E;margin-top:14px;border-top:1px dashed var(--line);
+    padding-top:11px}
+  .cap b{color:var(--ink)}
+  img.data{display:block;max-width:100%;height:auto;margin:0 auto;
+    border:1px solid var(--line);border-radius:8px}
+  /* ---- flow diagram primitives ---- */
+  .flow{display:flex;flex-direction:column;align-items:center;gap:0;padding:6px 0}
+  .stage{border-radius:9px;padding:10px 18px;font-size:13.5px;font-weight:600;
+    text-align:center;min-width:230px;border:1.5px solid;background:var(--soft)}
+  .s-in{border-color:var(--blue);background:#EAF3F5;color:#20535f}
+  .s-proc{border-color:var(--ink);background:#EEF1F2;color:var(--ink)}
+  .s-out{border-color:var(--accent);background:#FDEEE8;color:#8a3a22}
+  .s-sub{font-weight:500;font-size:12px;color:var(--mut);min-width:200px;
+    border-style:dashed}
+  .arrow{width:2px;height:20px;background:var(--ink);position:relative;margin:3px 0}
+  .arrow:after{content:"";position:absolute;bottom:-1px;left:-4px;
+    border-left:5px solid transparent;border-right:5px solid transparent;
+    border-top:7px solid var(--ink)}
+  .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;align-items:stretch}
+  .col{display:flex;flex-direction:column;align-items:center;gap:0}
+  table.cmp{border-collapse:collapse;width:100%;font-size:13px;margin-top:6px}
+  table.cmp th,table.cmp td{border:1px solid var(--line);padding:8px 11px;text-align:center}
+  table.cmp th{background:var(--ink);color:#fff;font-weight:600}
+  table.cmp td.metric{text-align:left;font-weight:600;background:var(--soft)}
+  .yes{color:#1c7a4a;font-weight:700}.no{color:var(--accent);font-weight:700}
+  .mini{font-family:"Consolas",monospace;font-size:11.5px;background:#1e2a30;color:#d6e2e6;
+    border-radius:7px;padding:9px 12px;text-align:left;min-width:150px}
+  .mini b{color:#7fd1c4}
+  .branch{display:flex;gap:40px;justify-content:center;align-items:flex-start;margin-top:4px}
+  .blabel{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;margin-bottom:5px}
+  .bl-y{background:#DFF3E8;color:#1c7a4a}.bl-n{background:#FDE7DF;color:var(--accent)}
+  .diamond{width:150px;height:74px;display:flex;align-items:center;justify-content:center;
+    text-align:center;background:#FFF6ED;border:1.5px solid #C98A3B;color:#8a5a1e;
+    font-weight:600;font-size:12.5px;transform:rotate(0);border-radius:8px}
+  .fan{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:4px}
+  .chip{border:1.5px solid var(--accent);background:#FDEEE8;color:#8a3a22;border-radius:20px;
+    padding:8px 16px;font-size:13px;font-weight:600}
+  .legend{font-size:11.5px;color:var(--mut);text-align:center;margin-top:8px}
+  @media print{body{background:#fff}.fig{box-shadow:none}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <h1>Chapter III — Methodology Figure Pack</h1>
+  <p>Percolation Analysis of Pre-Symptomatic Giant-Component Collapse in Host Xylem Networks
+  Driven by Holoparasitic Haustorial Sink Dynamics</p>
+</header>
+
+<div class="note"><b>How to use this file.</b> Each card is one figure with its number,
+a placement note (where it goes in the chapter), the graphic, and a ready-to-use caption.
+Schematic diagrams are drawn here as vector graphics — screenshot each card, or print this
+page to PDF, and insert into your document. Figures 4, 5, 7, 9, 10 and 11 are rendered from
+the <i>actual</i> pipeline (real Cistus leaf, calibrated generator, real box-counting and
+percolation) and live as PNGs in <code>figures/methodology/</code>.</div>
+
+<!-- ============ FIGURE 1 ============ -->
+<div class="fig">
+  <h2>Figure 1. <span>Overall Software Pipeline</span></h2>
+  <p class="place">Place: immediately after "Software Development Framework." Serves as the software-architecture diagram for the whole methodology.</p>
+  <div class="flow">
+    <div class="stage s-in">Dryad dataset (Matos et al., 2024)</div><div class="arrow"></div>
+    <div class="stage s-in">Load node &amp; vein CSV tables</div><div class="arrow"></div>
+    <div class="stage s-proc">Graph reconstruction (NetworkX)</div><div class="arrow"></div>
+    <div class="stage s-proc">Characterization of real networks</div><div class="arrow"></div>
+    <div class="stage s-proc">Synthetic network generator (calibrated)</div><div class="arrow"></div>
+    <div class="stage s-proc">Hydraulic solver (Hagen–Poiseuille / Kirchhoff)</div><div class="arrow"></div>
+    <div class="stage s-proc">Attack simulator (random · degree · betweenness)</div><div class="arrow"></div>
+    <div class="stage s-proc">Monte-Carlo percolation engine</div><div class="arrow"></div>
+    <div class="stage s-proc">Statistical analysis</div><div class="arrow"></div>
+    <div class="stage s-out">Outputs — CSV / JSON / figures</div>
+  </div>
+  <p class="cap"><b>Figure 1.</b> Architecture of the custom Python framework. Real leaf
+  networks (blue) and calibrated synthetic networks feed a single shared physics and
+  percolation engine, so real and synthetic data are analysed identically; all results are
+  exported as machine-readable tables and publication figures (orange).</p>
+</div>
+
+<!-- ============ FIGURE 2 ============ -->
+<div class="fig">
+  <h2>Figure 2. <span>Structure of the Original Dataset</span></h2>
+  <p class="place">Place: during Data Acquisition.</p>
+  <div class="flow">
+    <div class="stage s-in">Dryad dataset · doi:10.5061/dryad.1g1jwsv36</div>
+    <div class="arrow"></div>
+    <div class="row">
+      <div class="col"><div class="mini"><b>&lt;leaf&gt;_nodes.csv</b><br>node_ID · X · Y<br>Calibration · Degree</div></div>
+      <div class="col"><div class="mini"><b>&lt;leaf&gt;_veins.csv</b><br>EndNodes_1 · EndNodes_2<br>Width · Length · Type</div></div>
+      <div class="col"><div class="mini"><b>metadata.csv</b><br>spp_code · resolution<br>quality · hand_traced</div></div>
+    </div>
+    <div class="arrow"></div>
+    <div class="stage s-proc">Python framework → graph representation</div>
+  </div>
+  <p class="cap"><b>Figure 2.</b> What is downloaded from Dryad. Each of the 120 species
+  ships a node table (vein junctions with pixel coordinates and a mm/pixel calibration) and a
+  vein table (segments with width and length), plus a metadata table carrying an
+  extraction-quality grade. These tables are read directly by the framework; no image
+  processing is performed by this study.</p>
+</div>
+
+<!-- ============ FIGURE 3 ============ -->
+<div class="fig">
+  <h2>Figure 3. <span>Graph Reconstruction from CSV</span></h2>
+  <p class="place">Place: during Construction of the Vascular Graph.</p>
+  <div class="row" style="align-items:center;gap:26px">
+    <div class="col" style="gap:10px">
+      <div class="mini"><b>Node table</b><br>id&nbsp;&nbsp;x&nbsp;&nbsp;y<br>1&nbsp;&nbsp;0.2&nbsp;0.9<br>2&nbsp;&nbsp;0.5&nbsp;0.7<br>3&nbsp;&nbsp;0.8&nbsp;0.8</div>
+      <div class="mini"><b>Vein table</b><br>u&nbsp;&nbsp;v&nbsp;&nbsp;radius<br>1&nbsp;&nbsp;2&nbsp;&nbsp;0.04<br>2&nbsp;&nbsp;3&nbsp;&nbsp;0.03</div>
+    </div>
+    <div style="font-size:30px;color:var(--ink)">→</div>
+    <svg width="220" height="170" viewBox="0 0 220 170">
+      <line x1="45" y1="35" x2="110" y2="95" stroke="#7A4E2D" stroke-width="5" stroke-linecap="round"/>
+      <line x1="110" y1="95" x2="180" y2="55" stroke="#7A4E2D" stroke-width="4" stroke-linecap="round"/>
+      <line x1="110" y1="95" x2="95" y2="150" stroke="#3B8EA5" stroke-width="3" stroke-linecap="round"/>
+      <line x1="180" y1="55" x2="95" y2="150" stroke="#3B8EA5" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="45" cy="35" r="8" fill="#E4572E" stroke="#fff" stroke-width="2"/>
+      <circle cx="110" cy="95" r="7" fill="#20303A"/><circle cx="180" cy="55" r="7" fill="#20303A"/>
+      <circle cx="95" cy="150" r="7" fill="#20303A"/>
+      <text x="20" y="30" font-size="11" fill="#E4572E" font-weight="bold">source</text>
+    </svg>
+  </div>
+  <p class="legend">nodes = vascular junctions &nbsp;·&nbsp; edges = xylem vessels (thickness ∝ radius) &nbsp;·&nbsp; blue edges = reticulate loops</p>
+  <p class="cap"><b>Figure 3.</b> Reconstruction of a NetworkX graph from the published
+  coordinate tables. Junctions become nodes at their measured positions and vein segments
+  become weighted edges carrying radius, length and a Hagen–Poiseuille conductance. The graph
+  is rebuilt directly from Matos et al.'s coordinates, <b>not</b> re-extracted from leaf images.</p>
+</div>
+
+<!-- ============ FIGURE 4 ============ -->
+<div class="fig">
+  <h2>Figure 4. <span>Visual Mapping of Cistus from the Experimental Dataset</span></h2>
+  <p class="place">Place: keep your current figure — this is the improved, annotated version.</p>
+  <img class="data" src="figures/methodology/fig04_real_network.png" alt="Real Cistus network">
+  <p class="cap"><b>Figure 4.</b> The largest leaf in the analysis cohort (<i>Cistus</i>,
+  ~300,000 junctions and ~396,000 veins) reconstructed as a graph. The hydraulic source
+  (orange) is placed on the widest vein; edge darkness and thickness encode vein caliber,
+  resolving the midrib and major veins, the secondary veins, and the fine reticulate loop
+  mesh. This is the real venation topology on which the physics is solved directly.</p>
+</div>
+
+<!-- ============ FIGURE 5 ============ -->
+<div class="fig">
+  <h2>Figure 5. <span>Synthetic Graph</span></h2>
+  <p class="place">Place: keep your current figure — improved, annotated version.</p>
+  <img class="data" src="figures/methodology/fig05_synthetic_network.png" alt="Synthetic network">
+  <p class="cap"><b>Figure 5.</b> A calibrated synthetic network. Axial veins (brown) form the
+  branching skeleton from the root node (orange); anastomoses (blue) close loops via
+  planar-mesh reticulation. Connectivity ⟨k⟩ and fractal dimension D are set independently by
+  the generator. The generator reproduces the branching <b>topology</b> of real venation, not
+  the external leaf silhouette.</p>
+</div>
+
+<!-- ============ FIGURE 6 ============ -->
+<div class="fig">
+  <h2>Figure 6. <span>Real vs Synthetic Network Comparison</span></h2>
+  <p class="place">Place: immediately after Figure 5.</p>
+  <div class="row" style="gap:22px;margin-bottom:14px">
+    <div class="col"><img class="data" style="max-width:320px" src="figures/methodology/fig04_real_network.png" alt="real"><div class="legend">Real network (Cistus)</div></div>
+    <div class="col"><img class="data" style="max-width:320px" src="figures/methodology/fig05_synthetic_network.png" alt="synthetic"><div class="legend">Synthetic network</div></div>
+  </div>
+  <table class="cmp">
+    <tr><th>Property</th><th>Reproduced in synthetic?</th><th>Note</th></tr>
+    <tr><td class="metric">Fractal dimension (D)</td><td class="yes">✔</td><td>matched &amp; controllable (1.26–1.81)</td></tr>
+    <tr><td class="metric">Degree distribution</td><td class="yes">✔</td><td>mean degree calibrated to real median</td></tr>
+    <tr><td class="metric">Connectivity ⟨k⟩</td><td class="yes">✔</td><td>independently controllable</td></tr>
+    <tr><td class="metric">Loop density</td><td class="yes">✔</td><td>planar-mesh reticulation</td></tr>
+    <tr><td class="metric">External leaf shape</td><td class="no">✘</td><td><b>intentionally not reproduced</b></td></tr>
+  </table>
+  <p class="cap"><b>Figure 6.</b> The synthetic network is not meant to resemble the leaf
+  silhouette. What is preserved is the <b>topology</b> — fractal dimension, degree
+  distribution, connectivity and loop density — while the geometry is deliberately generic, so
+  that ⟨k⟩ and D can be varied independently in the causal experiments.</p>
+</div>
+
+<!-- ============ FIGURE 7 ============ -->
+<div class="fig">
+  <h2>Figure 7. <span>Box-Counting Procedure</span></h2>
+  <p class="place">Place: during the Fractal Dimension discussion.</p>
+  <img class="data" src="figures/methodology/fig07_boxcounting.png" alt="box counting">
+  <p class="cap"><b>Figure 7.</b> Estimation of fractal dimension D by box-counting. The
+  network is overlaid with grids of decreasing box size; the number of occupied boxes is
+  counted at each scale. The slope of log(occupied boxes) versus log(1/box size) is the
+  fractal dimension D.</p>
+</div>
+
+<!-- ============ FIGURE 8 ============ -->
+<div class="fig">
+  <h2>Figure 8. <span>Hydraulic Solver</span></h2>
+  <p class="place">Place: during Hydraulic Modeling.</p>
+  <div class="flow">
+    <div class="stage s-out">Source (ψ = 0) — widest vein / petiole</div><div class="arrow"></div>
+    <div class="stage s-proc">Pressure gradient across the network</div><div class="arrow"></div>
+    <div class="stage s-proc">Flow through veins &nbsp; Q = g·Δψ &nbsp;(g ∝ r⁴ / L)</div><div class="arrow"></div>
+    <div class="stage s-in">Terminal veins (sinks, ψ = ψ_leaf)</div>
+  </div>
+  <p class="legend">solved as a conductance (Laplacian) system L·Ψ = b for the nodal water potentials</p>
+  <p class="cap"><b>Figure 8.</b> The hydraulic model. Water enters at the source held at
+  potential ψ = 0, flows down the pressure gradient through each vein (conductance set by the
+  Hagen–Poiseuille law, g ∝ r⁴/L), and exits at the terminal veins held at the leaf
+  potential. The steady-state potential field is obtained by solving the conductance-Laplacian
+  linear system.</p>
+</div>
+
+<!-- ============ FIGURE 9 ============ -->
+<div class="fig">
+  <h2>Figure 9. <span>Attack Simulation</span></h2>
+  <p class="place">Place: during the Percolation Simulation.</p>
+  <img class="data" src="figures/methodology/fig09_attack_modes.png" alt="attack modes">
+  <p class="cap"><b>Figure 9.</b> Three vessel-removal strategies applied to the same network
+  (removed vessels marked ✗ in red). <b>Random</b> removal is classic site percolation;
+  <b>degree-targeted</b> removes the most-connected junctions first; <b>betweenness-targeted</b>
+  removes the structurally critical backbone vessels first. Each mode models a different mode
+  of haustorial attack on the host network.</p>
+</div>
+
+<!-- ============ FIGURE 10 ============ -->
+<div class="fig">
+  <h2>Figure 10. <span>Giant Connected Component</span></h2>
+  <p class="place">Place: immediately after Attack Simulation.</p>
+  <img class="data" src="figures/methodology/fig10_gcc.png" alt="GCC">
+  <p class="cap"><b>Figure 10.</b> The giant connected component (GCC) is the largest set of
+  still-connected junctions. Before attack (left) the whole network is one connected component.
+  After enough vessels are removed (right) the network shatters into disconnected fragments
+  (grey); the largest surviving component (red) is what percolation tracks. Collapse is
+  recorded when the GCC falls below half the original network.</p>
+</div>
+
+<!-- ============ FIGURE 11 ============ -->
+<div class="fig">
+  <h2>Figure 11. <span>Monte-Carlo Simulation</span></h2>
+  <p class="place">Place: during the Monte-Carlo discussion.</p>
+  <div class="row" style="align-items:center;gap:26px">
+    <div class="col" style="gap:0">
+      <div class="stage s-proc" style="min-width:150px">Run 1</div><div class="arrow"></div>
+      <div class="stage s-proc" style="min-width:150px">Run 2</div><div class="arrow"></div>
+      <div class="stage s-proc" style="min-width:150px">Run 3 … 1000+</div><div class="arrow"></div>
+      <div class="stage s-out" style="min-width:150px">Collapse probability</div>
+    </div>
+    <img class="data" style="max-width:520px" src="figures/methodology/fig11_montecarlo.png" alt="monte carlo curve">
+  </div>
+  <p class="cap"><b>Figure 11.</b> At each removal fraction ρ the attack is repeated over many
+  stochastic trials; the fraction of trials that collapse gives the collapse probability. A
+  logistic curve fitted to these probabilities locates the percolation threshold p<sub>c</sub>
+  (the removal fraction at which collapse probability = 0.5).</p>
+</div>
+
+<!-- ============ FIGURE 12 ============ -->
+<div class="fig">
+  <h2>Figure 12. <span>Statistical Workflow</span></h2>
+  <p class="place">Place: during Statistical Analysis. Replaces several paragraphs of text.</p>
+  <div class="flow">
+    <div class="stage s-in">Simulation results</div><div class="arrow"></div>
+    <div class="stage s-proc">Shapiro–Wilk normality test</div><div class="arrow"></div>
+    <div class="diamond">Normally<br>distributed?</div>
+    <div class="branch">
+      <div class="col">
+        <div class="blabel bl-y">YES</div>
+        <div class="stage s-proc" style="min-width:150px">ANOVA</div><div class="arrow"></div>
+        <div class="stage s-out" style="min-width:150px">Tukey HSD post-hoc</div>
+      </div>
+      <div class="col">
+        <div class="blabel bl-n">NO</div>
+        <div class="stage s-proc" style="min-width:150px">Kruskal–Wallis</div><div class="arrow"></div>
+        <div class="stage s-out" style="min-width:150px">Dunn post-hoc</div>
+      </div>
+    </div>
+  </div>
+  <p class="cap"><b>Figure 12.</b> Statistical decision path. Group differences in p<sub>c</sub>
+  are tested for normality (Shapiro–Wilk); normally-distributed data use parametric ANOVA with
+  Tukey post-hoc tests, otherwise the non-parametric Kruskal–Wallis with Dunn post-hoc tests
+  are used.</p>
+</div>
+
+<!-- ============ FIGURE 13 ============ -->
+<div class="fig">
+  <h2>Figure 13. <span>Software Outputs</span></h2>
+  <p class="place">Place: at the end of the methodology.</p>
+  <div class="flow">
+    <div class="stage s-proc">Custom Python framework</div><div class="arrow"></div>
+    <div class="fan">
+      <div class="chip">CSV tables</div><div class="chip">JSON results</div>
+      <div class="chip">Percolation curves</div><div class="chip">Heatmaps</div>
+      <div class="chip">Regression plots</div><div class="chip">Publication-quality figures</div>
+    </div>
+  </div>
+  <p class="cap"><b>Figure 13.</b> Outputs produced by the framework. Every analysis exports
+  machine-readable tables (CSV/JSON) for reproducibility alongside the publication figures —
+  percolation curves, parameter heatmaps and regression plots — used throughout the Results.</p>
+</div>
+
+</div>
