@@ -1,0 +1,815 @@
+{
+  "_canonical_loop_fraction": "loop_fraction_nonbridge",
+  "_generated_by": "scripts/build_analysis_master.py",
+  "T1_characterization": {
+    "empirical_n": 112,
+    "synthetic_n": 42,
+    "empirical": {
+      "D": {
+        "n": 112,
+        "M": 1.657764,
+        "SD": 0.162442,
+        "Mdn": 1.67624,
+        "min": 1.148291,
+        "max": 1.91324,
+        "sum": 185.669594,
+        "sum_sq": 310.7254
+      },
+      "hydraulic_conductance": {
+        "n": 112,
+        "M": 0.027943,
+        "SD": 0.148391,
+        "Mdn": 0.004014,
+        "min": 3.9e-05,
+        "max": 1.508395,
+        "sum": 3.129659,
+        "sum_sq": 2.531668
+      },
+      "mean_degree": {
+        "n": 112,
+        "M": 2.544389,
+        "SD": 0.199872,
+        "Mdn": 2.519813,
+        "min": 2.14787,
+        "max": 2.989293,
+        "sum": 284.97156,
+        "sum_sq": 729.512793
+      },
+      "degree_sd": {
+        "n": 112,
+        "M": 0.794944,
+        "SD": 0.163551,
+        "Mdn": 0.847525,
+        "min": 0.201465,
+        "max": 0.98888,
+        "sum": 89.033737,
+        "sum_sq": 73.74597
+      },
+      "loop_fraction": {
+        "n": 112,
+        "M": 0.768972,
+        "SD": 0.137486,
+        "Mdn": 0.775899,
+        "min": 0.320051,
+        "max": 0.995415,
+        "sum": 86.124887,
+        "sum_sq": 68.32582
+      },
+      "bridge_fraction": {
+        "n": 112,
+        "M": 0.231028,
+        "SD": 0.137486,
+        "Mdn": 0.224101,
+        "min": 0.004585,
+        "max": 0.679949,
+        "sum": 25.875113,
+        "sum_sq": 8.076046
+      },
+      "gcc_fraction": {
+        "n": 112,
+        "M": 0.997977,
+        "SD": 0.01426,
+        "Mdn": 0.99999,
+        "min": 0.850162,
+        "max": 1.0,
+        "sum": 111.773442,
+        "sum_sq": 111.569914
+      },
+      "N": {
+        "n": 112,
+        "M": 39754.723214,
+        "SD": 57276.733597,
+        "Mdn": 15404.5,
+        "min": 421.0,
+        "max": 300633.0,
+        "sum": 4452529.0,
+        "sum_sq": 541158345475.0
+      }
+    },
+    "synthetic": {
+      "D": {
+        "n": 42,
+        "M": 1.598856,
+        "SD": 0.192174,
+        "Mdn": 1.639627,
+        "min": 1.261903,
+        "max": 1.809908,
+        "sum": 67.15196,
+        "sum_sq": 108.88049
+      },
+      "hydraulic_conductance": {
+        "n": 42,
+        "M": 0.008617,
+        "SD": 0.009461,
+        "Mdn": 0.004036,
+        "min": 0.000535,
+        "max": 0.035442,
+        "sum": 0.361914,
+        "sum_sq": 0.006789
+      },
+      "mean_degree": {
+        "n": 42,
+        "M": 2.924206,
+        "SD": 0.636974,
+        "Mdn": 2.795865,
+        "min": 2.086106,
+        "max": 3.998352,
+        "sum": 122.816645,
+        "sum_sq": 375.7763
+      },
+      "degree_sd": {
+        "n": 42,
+        "M": 1.361985,
+        "SD": 0.212725,
+        "Mdn": 1.349595,
+        "min": 1.046199,
+        "max": 1.730587,
+        "sum": 57.203382,
+        "sum_sq": 79.765488
+      },
+      "loop_fraction": {
+        "n": 42,
+        "M": 0.738965,
+        "SD": 0.224492,
+        "Mdn": 0.806045,
+        "min": 0.288931,
+        "max": 0.960922,
+        "sum": 31.036512,
+        "sum_sq": 25.001154
+      },
+      "bridge_fraction": {
+        "n": 42,
+        "M": 0.261035,
+        "SD": 0.224492,
+        "Mdn": 0.193955,
+        "min": 0.039078,
+        "max": 0.711069,
+        "sum": 10.963488,
+        "sum_sq": 4.928129
+      },
+      "gcc_fraction": {
+        "n": 42,
+        "M": 1.0,
+        "SD": 0.0,
+        "Mdn": 1.0,
+        "min": 1.0,
+        "max": 1.0,
+        "sum": 42.0,
+        "sum_sq": 42.0
+      },
+      "N": {
+        "n": 42,
+        "M": 9288.142857,
+        "SD": 11004.773857,
+        "Mdn": 4095.0,
+        "min": 511.0,
+        "max": 32767.0,
+        "sum": 390102.0,
+        "sum_sq": 8588630058.0
+      }
+    }
+  },
+  "T2_descriptor_correlations": {
+    "n": 112,
+    "mean_degree_x_loop": {
+      "n": 112,
+      "rho": 0.994,
+      "t": 95.339,
+      "df": 110,
+      "p": 1.4196697354514624e-107
+    },
+    "loop_x_terminal": {
+      "n": 112,
+      "rho": -0.9726,
+      "t": -43.874,
+      "df": 110,
+      "p": 1.577622162363975e-71
+    },
+    "loop_x_gcc": {
+      "n": 112,
+      "rho": 0.3113,
+      "t": 3.435,
+      "df": 110,
+      "p": 0.0008360555202374946
+    },
+    "mean_degree_x_D": {
+      "n": 112,
+      "rho": 0.1697,
+      "t": 1.806,
+      "df": 110,
+      "p": 0.07359683370804804
+    },
+    "loop_x_D": {
+      "n": 112,
+      "rho": 0.1561,
+      "t": 1.658,
+      "df": 110,
+      "p": 0.10015890728506063
+    },
+    "loop_x_N": {
+      "n": 112,
+      "rho": -0.0467,
+      "t": -0.49,
+      "df": 110,
+      "p": 0.6249461257588115
+    }
+  },
+  "T3_attack_thresholds": {
+    "n": 100,
+    "trials_per_leaf_per_mode": 2400,
+    "random": {
+      "n": 100,
+      "M": 0.184681,
+      "SD": 0.054117,
+      "Mdn": 0.19985,
+      "min": 0.0262,
+      "max": 0.2698,
+      "sum": 18.4681,
+      "sum_sq": 3.700649
+    },
+    "degree_targeted": {
+      "n": 100,
+      "M": 0.155866,
+      "SD": 0.056547,
+      "Mdn": 0.1685,
+      "min": 0.0019,
+      "max": 0.263,
+      "sum": 15.5866,
+      "sum_sq": 2.745976
+    },
+    "difference": {
+      "n": 100,
+      "M": 0.028815,
+      "SD": 0.010275,
+      "Mdn": 0.0305,
+      "min": 0.0008,
+      "max": 0.0464,
+      "sum": 2.8815,
+      "sum_sq": 0.093483
+    },
+    "n_positive": 100,
+    "n_zero": 0,
+    "n_negative": 0,
+    "wilcoxon": {
+      "W": 0.0,
+      "p": 3.894582001156701e-18,
+      "n_nonzero": 100
+    },
+    "relative_reduction_of_mean_pct": 15.6,
+    "relative_reduction_of_median_pct": 15.69
+  },
+  "T5_predictors": {
+    "n": 100,
+    "shapiro_wilk": {
+      "p_c_random": {
+        "W": 0.9115,
+        "p": 5.09615579916838e-06
+      },
+      "mean_degree": {
+        "W": 0.9711,
+        "p": 0.026759967727997654
+      },
+      "D": {
+        "W": 0.9644,
+        "p": 0.008379897305181436
+      },
+      "loop_fraction": {
+        "W": 0.9778,
+        "p": 0.08881255777663216
+      }
+    },
+    "spearman_with_pc_random": {
+      "mean_degree": {
+        "n": 100,
+        "rho": 0.7328,
+        "t": 10.661,
+        "df": 98,
+        "p": 4.479878760590678e-18
+      },
+      "D": {
+        "n": 100,
+        "rho": 0.496,
+        "t": 5.654,
+        "df": 98,
+        "p": 1.544732917524013e-07
+      },
+      "loop_fraction": {
+        "n": 100,
+        "rho": 0.7269,
+        "t": 10.478,
+        "df": 98,
+        "p": 1.1136130625956214e-17
+      }
+    },
+    "partial_spearman": {
+      "mean_degree_given_D": 0.735509,
+      "D_given_mean_degree": 0.502497,
+      "loop_given_D": 0.732831
+    },
+    "pearson": {
+      "mean_degree_x_pc": 0.5867,
+      "D_x_pc": 0.4863,
+      "mean_degree_x_D": 0.1483
+    },
+    "regression_semi_standardized": {
+      "intercept": 0.18468,
+      "beta": [
+        0.02848,
+        0.02209
+      ],
+      "R2": 0.5073,
+      "F": 49.93,
+      "df": [
+        2,
+        97
+      ],
+      "p": 1.233943313828777e-15,
+      "convention": "predictors z-scored; outcome raw (betas are outcome units per 1 SD of predictor)"
+    },
+    "regression_fully_standardized": {
+      "intercept": 0.0,
+      "beta": [
+        0.52618,
+        0.40827
+      ],
+      "R2": 0.5073,
+      "F": 49.93,
+      "df": [
+        2,
+        97
+      ],
+      "p": 1.2339433138287527e-15,
+      "convention": "predictors z-scored; outcome z-scored (fully standardized betas)"
+    }
+  },
+  "T7_reticulation_and_bridges": {
+    "n": 100,
+    "loop_x_pc_random": {
+      "n": 100,
+      "rho": 0.7269,
+      "t": 10.478,
+      "df": 98,
+      "p": 1.1136130625956214e-17
+    },
+    "bridge_x_pc_random": {
+      "n": 100,
+      "rho": -0.7269,
+      "t": -10.478,
+      "df": 98,
+      "p": 1.1136130625956214e-17
+    },
+    "loop_x_pc_degree_targeted": {
+      "n": 100,
+      "rho": 0.8177,
+      "t": 14.062,
+      "df": 98,
+      "p": 3.0641539674000367e-25
+    },
+    "bridge_x_pc_degree_targeted": {
+      "n": 100,
+      "rho": -0.8177,
+      "t": -14.062,
+      "df": 98,
+      "p": 3.0641539674000367e-25
+    },
+    "loop_x_attack_gap": {
+      "n": 100,
+      "rho": -0.7859,
+      "t": -12.582,
+      "df": 98,
+      "p": 3.52965073906485e-22
+    },
+    "bridge_x_attack_gap": {
+      "n": 100,
+      "rho": 0.7859,
+      "t": 12.582,
+      "df": 98,
+      "p": 3.52965073906485e-22
+    },
+    "mean_degree_x_attack_gap": {
+      "n": 100,
+      "rho": -0.793,
+      "t": -12.887,
+      "df": 98,
+      "p": 8.11220833648889e-23
+    },
+    "residual_loop_given_mean_degree_x_pc": {
+      "n": 100,
+      "rho": -0.0877,
+      "t": -0.871,
+      "df": 98,
+      "p": 0.38584524165830464
+    },
+    "residual_regression_slope": 0.6459,
+    "LABEL_WARNING": "loop fraction is POSITIVELY associated with both thresholds (+.727 random, +.818 targeted). The negative -.818 belongs to BRIDGE fraction vs the targeted threshold and the negative -.786 belongs to LOOP fraction vs the random-minus-targeted gap."
+  },
+  "T8_quartiles": {
+    "quartiles": [
+      {
+        "quartile": 1,
+        "n": 25,
+        "median_loop_fraction": 0.6155,
+        "median_mean_degree": 2.3201,
+        "median_pc": 0.1584
+      },
+      {
+        "quartile": 2,
+        "n": 25,
+        "median_loop_fraction": 0.7377,
+        "median_mean_degree": 2.4716,
+        "median_pc": 0.185
+      },
+      {
+        "quartile": 3,
+        "n": 25,
+        "median_loop_fraction": 0.8068,
+        "median_mean_degree": 2.5645,
+        "median_pc": 0.2087
+      },
+      {
+        "quartile": 4,
+        "n": 25,
+        "median_loop_fraction": 0.9007,
+        "median_mean_degree": 2.7336,
+        "median_pc": 0.2308
+      }
+    ],
+    "mann_whitney": {
+      "U": 4.0,
+      "p": 2.27770289499342e-09,
+      "n1": 25,
+      "n2": 25
+    },
+    "absolute_difference": 0.0724,
+    "relative_gain_pct": 45.71
+  },
+  "T9_enhancement": {
+    "n": 105,
+    "trials_per_leaf": 10000,
+    "ceiling_mean_degree": 2.811,
+    "ceiling_source": "90th percentile of the 100-network percolation cohort",
+    "ceiling_percentiles": {
+      "P90_percolation_cohort_100": 2.8113,
+      "P90_characterization_112": 2.8473,
+      "P90_all_120": 2.8487
+    },
+    "median_pc_current": 0.201,
+    "median_pc_enhanced": 0.215,
+    "delta_pc": {
+      "n": 105,
+      "M": 0.012348,
+      "SD": 0.010864,
+      "Mdn": 0.0095,
+      "min": 0.0,
+      "max": 0.0459,
+      "sum": 1.2965,
+      "sum_sq": 0.028283
+    },
+    "n_improved": 93,
+    "n_unchanged": 12,
+    "n_worsened": 0,
+    "pct_improved": 88.6,
+    "median_relative_gain_pct": 5.49,
+    "wilcoxon": {
+      "W": 0.0,
+      "p": 5.569420929930608e-17,
+      "n_nonzero": 93,
+      "n_zero_discarded": 12
+    },
+    "by_grade": [
+      {
+        "grade": "A",
+        "n": 21,
+        "median_pc_current": 0.2198,
+        "median_pc_enhanced": 0.2267,
+        "median_delta_pc": 0.0069,
+        "pct_improved": 61.9
+      },
+      {
+        "grade": "B",
+        "n": 46,
+        "median_pc_current": 0.1899,
+        "median_pc_enhanced": 0.2107,
+        "median_delta_pc": 0.0137,
+        "pct_improved": 95.7
+      },
+      {
+        "grade": "C",
+        "n": 10,
+        "median_pc_current": 0.161,
+        "median_pc_enhanced": 0.1711,
+        "median_delta_pc": 0.0083,
+        "pct_improved": 100.0
+      },
+      {
+        "grade": "D",
+        "n": 28,
+        "median_pc_current": 0.2048,
+        "median_pc_enhanced": 0.2195,
+        "median_delta_pc": 0.0086,
+        "pct_improved": 92.9
+      }
+    ],
+    "grade_note": "grade is the LEADING flag of the source dataset's comma-separated extraction-quality code: A = no vein-level defect, B = missing minor veins, C = spurious minor veins, D = physical damage or partial lamina"
+  },
+  "T10_gain_dependence": {
+    "n": 105,
+    "spearman_initial_mean_degree_x_delta": {
+      "n": 105,
+      "rho": -0.821,
+      "t": -14.594,
+      "df": 103,
+      "p": 8.066151823684293e-27
+    },
+    "spearman_D_x_delta": {
+      "n": 105,
+      "rho": -0.0342,
+      "t": -0.348,
+      "df": 103,
+      "p": 0.7289061843944277
+    },
+    "regression_semi_standardized": {
+      "intercept": 0.01235,
+      "beta": [
+        -0.00887,
+        0.00072
+      ],
+      "R2": 0.6549,
+      "F": 96.77,
+      "df": [
+        2,
+        102
+      ],
+      "p": 2.732060178529727e-24,
+      "convention": "predictors z-scored; outcome raw (betas are outcome units per 1 SD of predictor)"
+    },
+    "regression_fully_standardized": {
+      "intercept": -0.0,
+      "beta": [
+        -0.81649,
+        0.0659
+      ],
+      "R2": 0.6549,
+      "F": 96.77,
+      "df": [
+        2,
+        102
+      ],
+      "p": 2.732060178529727e-24,
+      "convention": "predictors z-scored; outcome z-scored (fully standardized betas)"
+    }
+  },
+  "T12_top_gainers": [
+    {
+      "name": "Clu_ala",
+      "N": 6475,
+      "mean_degree": 2.1949,
+      "loops_added": 1994,
+      "pc_before": 0.1351,
+      "pc_after": 0.181,
+      "delta_pc": 0.0459,
+      "boundary_ok": false,
+      "boundary_terminal_frac": 0.0611
+    },
+    {
+      "name": "Chl_spi",
+      "N": 20004,
+      "mean_degree": 2.1479,
+      "loops_added": 6632,
+      "pc_before": 0.1287,
+      "pc_after": 0.1745,
+      "delta_pc": 0.0458,
+      "boundary_ok": true,
+      "boundary_terminal_frac": 0.0025
+    },
+    {
+      "name": "Ane_cal",
+      "N": 85519,
+      "mean_degree": 2.2156,
+      "loops_added": 25460,
+      "pc_before": 0.1545,
+      "pc_after": 0.1962,
+      "delta_pc": 0.0417,
+      "boundary_ok": true,
+      "boundary_terminal_frac": 0.0345
+    },
+    {
+      "name": "Met_dav",
+      "N": 5054,
+      "mean_degree": 2.1979,
+      "loops_added": 1549,
+      "pc_before": 0.158,
+      "pc_after": 0.1981,
+      "delta_pc": 0.0401,
+      "boundary_ok": true,
+      "boundary_terminal_frac": 0.011
+    },
+    {
+      "name": "Eur_jap",
+      "N": 11423,
+      "mean_degree": 2.2491,
+      "loops_added": 3209,
+      "pc_before": 0.1632,
+      "pc_after": 0.2006,
+      "delta_pc": 0.0374,
+      "boundary_ok": true,
+      "boundary_terminal_frac": 0.0019
+    },
+    {
+      "name": "Smi_his",
+      "N": 31577,
+      "mean_degree": 2.3442,
+      "loops_added": 7370,
+      "pc_before": 0.1934,
+      "pc_after": 0.2273,
+      "delta_pc": 0.0339,
+      "boundary_ok": true,
+      "boundary_terminal_frac": 0.0089
+    }
+  ],
+  "T6_synthetic_grid": {
+    "n": 42,
+    "predictor_decoupling": {
+      "pearson": 0.0864,
+      "spearman": 0.2224
+    },
+    "ranges": {
+      "mean_degree": [
+        2.0861,
+        3.9984
+      ],
+      "D": [
+        1.2619,
+        1.8099
+      ],
+      "empirical_mean_degree": [
+        2.1479,
+        2.9893
+      ],
+      "empirical_D": [
+        1.1483,
+        1.9132
+      ]
+    },
+    "extrapolation_note": "the grid's connectivity axis reaches <k> = 4.00 against an empirical maximum of 2.99, so its upper third has no empirical counterpart",
+    "random": {
+      "spearman_mean_degree": {
+        "n": 42,
+        "rho": 0.9906,
+        "t": 45.701,
+        "df": 40,
+        "p": 3.814904603786488e-36
+      },
+      "spearman_D": {
+        "n": 42,
+        "rho": 0.2271,
+        "t": 1.475,
+        "df": 40,
+        "p": 0.14814468386298382
+      },
+      "ols_raw": {
+        "intercept": -0.09066,
+        "beta_mean_degree": 0.12019,
+        "beta_D": 0.02867,
+        "R2": 0.8867,
+        "F": 152.61,
+        "units": "p_c per unit of the raw predictor"
+      },
+      "ols_fully_standardized": {
+        "intercept": -0.0,
+        "beta": [
+          0.93346,
+          0.06717
+        ],
+        "R2": 0.8867,
+        "F": 152.61,
+        "df": [
+          2,
+          39
+        ],
+        "p": 3.6080221746514705e-19,
+        "convention": "predictors z-scored; outcome z-scored (fully standardized betas)"
+      }
+    },
+    "degree_targeted": {
+      "spearman_mean_degree": {
+        "n": 42,
+        "rho": 0.9927,
+        "t": 52.225,
+        "df": 40,
+        "p": 1.9987081166963608e-38
+      },
+      "spearman_D": {
+        "n": 42,
+        "rho": 0.2058,
+        "t": 1.33,
+        "df": 40,
+        "p": 0.19109683434832267
+      },
+      "ols_raw": {
+        "intercept": -0.18214,
+        "beta_mean_degree": 0.12895,
+        "beta_D": 0.03166,
+        "R2": 0.9383,
+        "F": 296.78,
+        "units": "p_c per unit of the raw predictor"
+      },
+      "ols_fully_standardized": {
+        "intercept": -0.0,
+        "beta": [
+          0.95994,
+          0.07111
+        ],
+        "R2": 0.9383,
+        "F": 296.78,
+        "df": [
+          2,
+          39
+        ],
+        "p": 2.5368324431055272e-24,
+        "convention": "predictors z-scored; outcome z-scored (fully standardized betas)"
+      }
+    }
+  },
+  "T11_validation": {
+    "hydraulic_resistance": {
+      "n_leaves": 119,
+      "n_veins": 5668467,
+      "n_exact": 119,
+      "min_pearson_log_r": 0.999999999999996,
+      "worst_ratio_cv": 1.1238977940417635e-07,
+      "worst_abs_median_ratio_minus_1": 6.12119119836052e-08,
+      "cv_tolerance": 1e-06,
+      "skipped": [
+        {
+          "species": "Equ_tel",
+          "error": "fewer than 50 usable veins"
+        }
+      ],
+      "defensible_claim": "agreement to within ~1e-7, i.e. floating-point precision; the correlation alone does not establish equality"
+    },
+    "wrong_exponent_control": 0.9528292989069869,
+    "kleaf": {
+      "n_species": 93,
+      "rho": 0.1868,
+      "p": 0.0729248933244529,
+      "significant_at_.05": false,
+      "reading": "weak AND non-significant; xylem-only model"
+    },
+    "boundary": {
+      "n": 120,
+      "n_within": 105,
+      "n_outside": 15,
+      "outside_in_enhancement_cohort": [
+        "Car_pen",
+        "Clu_ala",
+        "Par_tor"
+      ]
+    }
+  },
+  "T4_sink": {
+    "K_H_HOLOPARASITE": 0.0391845703125,
+    "gradient_MPa": 1.5,
+    "target_diversion": 0.2,
+    "achieved_diversion": 0.20002814875608343,
+    "patch_size": 10,
+    "psi_parasite_demo": -1.8224271040669335,
+    "min_psi_at_literature_MPa": -1.0224354894047039,
+    "cavitation_onset_gradient_MPa": NaN,
+    "embolised_at_literature": 0,
+    "note": "At an illustrative ~1.5 MPa gradient the sink is sub-cavitation; hydraulic sink and percolation collapse are decoupled lenses. 1.5 MPa is a review-level order-of-magnitude value (NOT primary, NOT from Kaiser 2015); ~18-20% diversion is a hemiparasite floor.",
+    "gradient_caveat": "illustrative; no primary holoparasite gradient measurement located",
+    "sources": [
+      "Jiang, Jeschke & Hartung 2003 J Exp Bot 54:1985 (~18%, hemiparasite floor)",
+      "gradient ~1.5 MPa: Cuscuta review literature, not a primary measurement"
+    ]
+  },
+  "T4_sink_sweep": {
+    "n_gradients": 31,
+    "gradient_range_MPa": [
+      0.0,
+      3.0
+    ],
+    "total_embolized_across_sweep": 0,
+    "min_margin_MPa": 0.6779,
+    "diversion_at_0_MPa": 0.0018,
+    "diversion_at_max_gradient": 0.3506,
+    "note": "diversion is gradient-specific; the 20% figure holds at the illustrative 1.5 MPa gradient only"
+  },
+  "headroom_diagnostic": {
+    "n": 100,
+    "dominant_lever_counts": {
+      "reticulation": 89,
+      "fractal_D": 11
+    },
+    "median_gain_from_reticulation": 0.0355,
+    "median_gain_from_D": 0.0046,
+    "median_pc_measured": 0.1998,
+    "median_pc_predicted_by_surface": 0.2595,
+    "median_prediction_bias": 0.0612,
+    "pearson_predicted_vs_measured": 0.6479,
+    "measured_median_delta_from_rewiring": 0.0095,
+    "ratio_predicted_to_measured_gain": 3.74,
+    "caveat": "the response surface over-predicts the measured threshold and its predicted reticulation gain is several times the gain actually measured by rewiring each leaf; the two must not be presented as mutually corroborating"
+  }
+}

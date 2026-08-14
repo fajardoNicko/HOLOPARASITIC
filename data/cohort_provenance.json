@@ -1,0 +1,134 @@
+{
+  "traced": {
+    "n": 120,
+    "rule": "all Matos leaves loaded",
+    "note": "100 of the 120 source files are calibrated crop windows rather than entire laminae, so network extent is bounded by the traced window and \"whole-leaf\" is not an accurate description of the cohort."
+  },
+  "characterization_112": {
+    "n": 112,
+    "rule": "n_edges >= 500 (characterize.py)",
+    "trials": null,
+    "excluded": [
+      "Als_lig",
+      "Asp_obl",
+      "Cal_nut",
+      "Dic_ant",
+      "Dry_rem",
+      "Equ_tel",
+      "Pte_esc",
+      "Puy_alp"
+    ],
+    "exclusion_reasons": {
+      "Als_lig": "too small (295 < 500 veins)",
+      "Asp_obl": "too small (391 < 500 veins)",
+      "Cal_nut": "too small (129 < 500 veins)",
+      "Dic_ant": "too small (196 < 500 veins)",
+      "Dry_rem": "too small (407 < 500 veins)",
+      "Equ_tel": "too small (12 < 500 veins)",
+      "Pte_esc": "too small (188 < 500 veins)",
+      "Puy_alp": "too small (72 < 500 veins)"
+    }
+  },
+  "percolation_cohort_100": {
+    "n": 100,
+    "rule": "n_edges >= 2000 AND n_cycles >= 1 AND window cut-end terminal fraction <= 0.05 AND |mean-degree shift| <= 0.05 (build_cohort.py)",
+    "trials_per_leaf_per_mode": 2400,
+    "attacks": [
+      "random",
+      "degree-targeted"
+    ],
+    "subset_of_112": true
+  },
+  "enhancement_cohort_105": {
+    "n": 105,
+    "rule": "N >= 1000 AND current p_c >= 0.02 (run_cohort_suggested.py)",
+    "trials_per_leaf": 10000,
+    "attacks": [
+      "random"
+    ],
+    "subset_of_112": true,
+    "superset_of_100": true,
+    "in_105_not_in_100": [
+      "Car_pen",
+      "Clu_ala",
+      "Dic_feb",
+      "Par_tor",
+      "Rib_vib"
+    ],
+    "excluded": [
+      "Als_lig",
+      "Asp_obl",
+      "Ast_ban",
+      "Bar_pur",
+      "Cal_nut",
+      "Dic_ant",
+      "Doo_asp",
+      "Dry_rem",
+      "Equ_tel",
+      "Kni_uva",
+      "Luz_niv",
+      "Mic_pla",
+      "Phy_pur",
+      "Pte_esc",
+      "Puy_alp"
+    ]
+  },
+  "synthetic_reference_network": {
+    "n": 1,
+    "N": 1023,
+    "trials": {
+      "random": 1000000,
+      "each_targeted": 100000
+    },
+    "note": "the ONLY object evaluated at one million trials; it is not an empirical leaf"
+  },
+  "synthetic_grid": {
+    "n": 42,
+    "rule": "6 mean-degree x 7 generation cells"
+  },
+  "hydraulic_validation": {
+    "n_leaves": 119,
+    "n_veins": 5668467,
+    "skipped": [
+      "Equ_tel (fewer than 50 usable veins)"
+    ]
+  },
+  "kleaf_validation": {
+    "n_species": 93
+  },
+  "boundary_check": {
+    "n": 120,
+    "n_within_tolerance": 105,
+    "n_outside_tolerance": 15,
+    "tolerances": {
+      "boundary_terminal_frac": 0.05,
+      "mean_degree_shift": 0.05
+    },
+    "outside_tolerance": [
+      "Als_lig",
+      "Asp_obl",
+      "Ast_ban",
+      "Bar_pur",
+      "Cal_nut",
+      "Car_pen",
+      "Clu_ala",
+      "Dic_ant",
+      "Doo_asp",
+      "Dry_rem",
+      "Kni_uva",
+      "Luz_niv",
+      "Par_tor",
+      "Pte_esc",
+      "Puy_alp"
+    ],
+    "outside_tolerance_but_in_enhancement_cohort": [
+      "Car_pen",
+      "Clu_ala",
+      "Par_tor"
+    ],
+    "outside_tolerance_but_in_percolation_cohort": [],
+    "note": "15 of 120 leaves fall outside the crop-edge tolerances; three of them remain in the 105-leaf enhancement cohort, one of which (Clu_ala) is the largest-gain leaf reported"
+  },
+  "nesting": "100 subset of 105 subset of 112 subset of 120",
+  "canonical_loop_fraction": "loop_fraction_nonbridge (proportion of edges lying on at least one cycle). The tagged column in characterization.csv differs slightly and must not be mixed with it."
+}

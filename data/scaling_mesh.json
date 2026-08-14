@@ -66,5 +66,11 @@
     "SE_from_meanfield": 17.3,
     "SE_from_2D": 48.1
   },
-  "note": "Compare to validate_stats.py which runs TEST2/3 on the legacy knn defaults (mean-field). f_c located empirically because Molloy-Reed assumes tree-like connectivity."
+  "note": "Compare to validate_stats.py which runs TEST2/3 on the legacy knn defaults (mean-field). f_c located empirically because Molloy-Reed assumes tree-like connectivity.",
+  "CAVEATS_ADDED_2026_08_14": {
+    "confounded_size_sweep": "the `finite_size` block raises N and D TOGETHER (generations sets both): D goes 1.267 -> 1.741 as N goes 511 -> 8191. The accompanying rise in p_c (0.2531 -> 0.2857) therefore mixes a size effect with a fractal-dimension effect and must NOT be reported as convergence in N. See data/finite_size_fixedD.json for a sweep with D and mean degree pinned, and its architecture_drift_audit for why even that one cannot settle the question.",
+    "do_not_quote_beta": "beta = 1.481 is a SINGLE-SIZE fit over 16 points and matches neither the mean-field (1.0) nor the two-dimensional (0.139) value. It is window- and f_c-sensitive. Do not quote it in the manuscript; a multi-size scaling collapse at constant architecture is required first.",
+    "f_c_is_not_p_c": "empirical_fc = 0.524 is the removal fraction at which the giant component VANISHES. The p_c reported everywhere else is the fraction at which the giant component falls below HALF its initial size (PercolationParams.collapse_fraction = 0.5). The two are different criteria on the same network and must be labelled as such, or the Results appear to give two incompatible thresholds.",
+    "molloy_reed_is_qualitative": "Molloy-Reed assumes a locally tree-like graph; the planar mesh contains short loops, so the agreement between f_c = 0.524 and the prediction 0.531 is an order-of-magnitude check, not a 1.3% validation."
+  }
 }

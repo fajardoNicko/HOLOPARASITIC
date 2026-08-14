@@ -1,0 +1,145 @@
+{
+  "purpose": "finite-size sweep with fractal dimension and mean degree held FIXED, so the size effect is not confounded with architecture (unlike data/scaling_mesh.json)",
+  "target_D": 1.3868,
+  "target_mean_degree": 2.4888,
+  "n_trials": 40000,
+  "n_densities": 50,
+  "seed": 21,
+  "sizes": [
+    {
+      "generations": 9,
+      "N": 1023,
+      "E": 1273,
+      "mean_degree": 2.4888,
+      "D": 1.3847,
+      "length_ratio": 0.925,
+      "mesh_frac": 0.0862,
+      "p_c": 0.2701,
+      "ci95": [
+        0.269,
+        0.2711
+      ],
+      "ci_width": 0.0021,
+      "width_0.1_0.9": 0.0646,
+      "unpinned_descriptors": {
+        "mean_degree": 2.4888,
+        "degree_sd": 1.2218,
+        "loop_fraction_nonbridge": 0.6921,
+        "bridge_fraction": 0.3079,
+        "terminal_fraction": 0.3069
+      }
+    },
+    {
+      "generations": 10,
+      "N": 2047,
+      "E": 2546,
+      "mean_degree": 2.4875,
+      "D": 1.3906,
+      "length_ratio": 0.8102,
+      "mesh_frac": 0.0968,
+      "p_c": 0.2295,
+      "ci95": [
+        0.2285,
+        0.2313
+      ],
+      "ci_width": 0.0028,
+      "width_0.1_0.9": 0.0827,
+      "unpinned_descriptors": {
+        "mean_degree": 2.4866,
+        "degree_sd": 1.2192,
+        "loop_fraction_nonbridge": 0.6813,
+        "bridge_fraction": 0.3187,
+        "terminal_fraction": 0.3102
+      }
+    },
+    {
+      "generations": 11,
+      "N": 4095,
+      "E": 5104,
+      "mean_degree": 2.4928,
+      "D": 1.3882,
+      "length_ratio": 0.6953,
+      "mesh_frac": 0.1105,
+      "p_c": 0.1271,
+      "ci95": [
+        0.1249,
+        0.1289
+      ],
+      "ci_width": 0.0039,
+      "width_0.1_0.9": 0.1609,
+      "unpinned_descriptors": {
+        "mean_degree": 2.4928,
+        "degree_sd": 1.2248,
+        "loop_fraction_nonbridge": 0.6524,
+        "bridge_fraction": 0.3476,
+        "terminal_fraction": 0.3072
+      }
+    },
+    {
+      "generations": 12,
+      "N": 8191,
+      "E": 10185,
+      "mean_degree": 2.4869,
+      "D": 1.3875,
+      "length_ratio": 0.6461,
+      "mesh_frac": 0.1151,
+      "p_c": 0.1008,
+      "ci95": [
+        0.0995,
+        0.1025
+      ],
+      "ci_width": 0.0031,
+      "width_0.1_0.9": 0.1187,
+      "unpinned_descriptors": {
+        "mean_degree": 2.4869,
+        "degree_sd": 1.2602,
+        "loop_fraction_nonbridge": 0.5796,
+        "bridge_fraction": 0.4204,
+        "terminal_fraction": 0.3243
+      }
+    },
+    {
+      "generations": 13,
+      "N": 16383,
+      "E": 20378,
+      "mean_degree": 2.4877,
+      "D": 1.3836,
+      "length_ratio": 0.6133,
+      "mesh_frac": 0.1182,
+      "p_c": 0.0772,
+      "ci95": [
+        0.0762,
+        0.0788
+      ],
+      "ci_width": 0.0026,
+      "width_0.1_0.9": 0.0852,
+      "unpinned_descriptors": {
+        "mean_degree": 2.4878,
+        "degree_sd": 1.2068,
+        "loop_fraction_nonbridge": 0.561,
+        "bridge_fraction": 0.439,
+        "terminal_fraction": 0.2952
+      }
+    }
+  ],
+  "D_spread_achieved": 0.007,
+  "mean_degree_spread_achieved": 0.0059,
+  "p_c_spread": 0.1929,
+  "slope_p_c_per_doubling": -0.05143,
+  "slope_width_per_doubling": 0.00772,
+  "confounded_comparison": "data/scaling_mesh.json varies D from 1.267 to 1.741 across the same size range; the p_c spread there (0.0326) mixes size and D",
+  "seconds": 457.8,
+  "architecture_drift_audit": {
+    "loop_fraction_range": [
+      0.561,
+      0.6921
+    ],
+    "loop_fraction_spread": 0.1311,
+    "degree_sd_range": [
+      1.2068,
+      1.2602
+    ],
+    "pearson_loop_fraction_vs_pc": 0.9126,
+    "verdict": "NOT a clean finite-size sweep. Pinning D and mean degree does not pin the architecture: loop fraction drifts by 0.131 across the size range, and loop fraction is itself one of this study's predictors of the threshold. No finite-size claim -- convergence OR divergence -- can be made from this generator without a construction that also holds the loop fraction fixed."
+  }
+}

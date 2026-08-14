@@ -16,5 +16,15 @@
   ],
   "n_trials": 1000000,
   "p_c_targeted_betweenness": 0.18887898651024984,
-  "p_c_targeted_degree": 0.20228705128912816
+  "p_c_targeted_degree": 0.20228705128912816,
+  "p_c_targeted_betweenness_ci95": [
+    0.1878947723086855,
+    0.19024184424753396
+  ],
+  "p_c_targeted_degree_ci95": [
+    0.20136864230805082,
+    0.2033111467505236
+  ],
+  "n_trials_targeted": 100000,
+  "targeted_ci_note": "Bootstrap percentile intervals added by scripts/run_targeted_ci.py; the original stage-3 run stored point estimates only."
 }

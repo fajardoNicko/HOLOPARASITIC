@@ -3,6 +3,9 @@
   "f_c": 0.5246452576549665,
   "rho0": 0.02,
   "kappa": 3.1036920659858604,
+  "p_c_source": "random-attack threshold of the SYNTHETIC reference network (data/summary.json); the empirical cohort median is 0.1998",
+  "f_c_definition": "analytic removal fraction at which the giant component vanishes (Callaway), a different criterion from p_c, which is the fraction at which the giant component falls below half its initial size",
+  "time_units": "arbitrary; set by the assumed growth rate r. Not calibrated to any measured infestation time-course.",
   "rates": {
     "slow (r=0.15)": {
       "t": [
@@ -2447,41 +2450,5 @@
       "max_abs_err_vs_numeric": 5.3831193946862754e-09
     }
   },
-  "per_parasite": [
-    {
-      "name": "Cuscuta (dodder)",
-      "kind": "holoparasite",
-      "p_c": 0.19041310950357748,
-      "t_c": 9.777968658795901,
-      "window": 6.183956466488366
-    },
-    {
-      "name": "Orobanche (broomrape)",
-      "kind": "holoparasite",
-      "p_c": 0.19190924573667428,
-      "t_c": 9.816674032357456,
-      "window": 6.145251092926811
-    },
-    {
-      "name": "Pilostyles (endophyte)",
-      "kind": "holoparasite",
-      "p_c": 0.2709537329723143,
-      "t_c": 11.608124723801327,
-      "window": 4.353800401482941
-    },
-    {
-      "name": "Striga (witchweed)",
-      "kind": "hemiparasite",
-      "p_c": 0.322272276990277,
-      "t_c": 12.593885793069202,
-      "window": 3.3680393322150657
-    },
-    {
-      "name": "Mistletoe",
-      "kind": "hemiparasite",
-      "p_c": 0.3566023368762541,
-      "t_c": 13.206714296032068,
-      "window": 2.7552108292521993
-    }
-  ]
+  "per_parasite_removed": "the multi-parasite comparison was dropped from the study's scope; see the note in this script"
 }

@@ -72,22 +72,11 @@ def main():
               f"{s['window']:6.2f}   ({s['max_abs_err_vs_numeric']:.1e})",
               flush=True)
 
-    # --- per-parasite window at the moderate rate ------------------------------
-    r_ref = 0.25
-    par_rows = []
-    try:
-        with open(os.path.join(datadir, "parasites.json")) as f:
-            parasites = json.load(f)
-        print(f"\n per-parasite pre-symptomatic window (r={r_ref}, rho0={rho0}):")
-        for p in parasites:
-            t_c = dynamics.crossing_time(p["p_c"], r_ref, rho0)
-            window = f_c and (dynamics.crossing_time(f_c, r_ref, rho0) - t_c)
-            par_rows.append({"name": p["name"], "kind": p["kind"],
-                             "p_c": p["p_c"], "t_c": t_c, "window": window})
-            print(f"  {p['name']:22s} p_c={p['p_c']:.3f}  "
-                  f"t_c={t_c:5.2f}  window={window:5.2f}", flush=True)
-    except Exception as e:
-        print(f"  (skipped per-parasite table: {e})", flush=True)
+    # The per-parasite window table was REMOVED (2026-08-14). It read from
+    # data/parasites.json, i.e. the multi-parasite comparison that was dropped
+    # from the study's scope because its efficiencies were stipulated rather than
+    # measured. Leaving it in the payload risked its reappearing in a figure that
+    # the Methods no longer covers.
 
     # --- figure ---------------------------------------------------------------
     fig, ax = plt.subplots(figsize=(8.5, 5.2))
@@ -108,11 +97,16 @@ def main():
     ax.annotate("", xy=(m["t_wilt"], 0.5), xytext=(m["t_c"], 0.5),
                 arrowprops=dict(arrowstyle="<->", color="black"))
     ax.text((m["t_c"] + m["t_wilt"]) / 2, 0.53,
-            f"window\n{m['window']:.1f} time-units", ha="center", fontsize=9)
+            f"window\n{m['window']:.1f} growth-time units", ha="center",
+            fontsize=9)
     for s in runs.values():
         ax.scatter([s["t_c"]], [p_c], color="black", zorder=5, s=25)
 
-    ax.set_xlabel("time since infestation  (growth-time units, read as days)")
+    # The time unit is set by the assumed growth rate r and is NOT calibrated to
+    # any measured infestation time-course; the window's existence and shape,
+    # not its duration, is the result.
+    ax.set_xlabel("time since infestation  (arbitrary units set by the assumed "
+                  "growth rate $r$)")
     ax.set_ylabel(r"haustorial load  $\rho(t)$")
     ax.set_ylim(0, 1.0)
     ax.set_title(r"Logistic infestation $d\rho/dt = r\,\rho(1-\rho)$ crossing the "
@@ -128,8 +122,21 @@ def main():
         return {k: (v.tolist() if isinstance(v, np.ndarray) else v)
                 for k, v in d.items()}
     payload = {"p_c": p_c, "f_c": f_c, "rho0": rho0, "kappa": kappa,
+               "p_c_source": ("random-attack threshold of the SYNTHETIC "
+                              "reference network (data/summary.json); the "
+                              "empirical cohort median is 0.1998"),
+               "f_c_definition": ("analytic removal fraction at which the giant "
+                                  "component vanishes (Callaway), a different "
+                                  "criterion from p_c, which is the fraction at "
+                                  "which the giant component falls below half "
+                                  "its initial size"),
+               "time_units": ("arbitrary; set by the assumed growth rate r. Not "
+                              "calibrated to any measured infestation "
+                              "time-course."),
                "rates": {k: _py(v) for k, v in runs.items()},
-               "per_parasite": par_rows}
+               "per_parasite_removed": ("the multi-parasite comparison was "
+                                        "dropped from the study's scope; see "
+                                        "the note in this script")}
     with open(os.path.join(datadir, "dynamics.json"), "w") as f:
         json.dump(payload, f, indent=2)
 

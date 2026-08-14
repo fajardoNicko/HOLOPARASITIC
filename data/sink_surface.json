@@ -1,0 +1,537 @@
+{
+  "what_p_c_means": "critical HAUSTORIAL ATTACHMENT DENSITY under the coupled hydraulic model (fraction of nodes bearing a haustorium at which P(GCC < 50% of N0) = .50). NOT the fraction of nodes removed, and not comparable to the topological p_c of the empirical cohort.",
+  "generator": "cohort-calibrated planar mesh (calibrate.calibrated_base), N=1023, <k> held at 2.4888 by tuning mesh_frac; D axis realised at constant N by tuning length_ratio and then MEASURED",
+  "N": 1023,
+  "calibrated_k_h": 0.0392,
+  "k_h_multiples": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    8,
+    16,
+    32,
+    64
+  ],
+  "k_h_values": [
+    0.0392,
+    0.0784,
+    0.1176,
+    0.1568,
+    0.2352,
+    0.3136,
+    0.6272,
+    1.2544,
+    2.5088
+  ],
+  "D_measured": [
+    1.2282344167987462,
+    1.3908497542308802,
+    1.4980011119702712,
+    1.5435356785540544
+  ],
+  "mean_degree_measured": [
+    2.4926686217008798,
+    2.4926686217008798,
+    2.4926686217008798,
+    2.490713587487781
+  ],
+  "n_trials_per_cell": 6000,
+  "n_densities": 40,
+  "seed": 11,
+  "cells": [
+    {
+      "D": 1.2282344167987462,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.0392,
+      "k_h_multiple_of_calibrated": 1,
+      "p_c_haustorial_density": null,
+      "ci95": null,
+      "max_p_collapse": 0.0,
+      "threshold_exists": false
+    },
+    {
+      "D": 1.2282344167987462,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.0784,
+      "k_h_multiple_of_calibrated": 2,
+      "p_c_haustorial_density": 0.9383951762402468,
+      "ci95": [
+        0.9329296621059322,
+        0.9445198340451123
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.2282344167987462,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.1176,
+      "k_h_multiple_of_calibrated": 3,
+      "p_c_haustorial_density": 0.6485590653349053,
+      "ci95": [
+        0.643965977655145,
+        0.6535965255443938
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.2282344167987462,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.1568,
+      "k_h_multiple_of_calibrated": 4,
+      "p_c_haustorial_density": 0.5075214267571984,
+      "ci95": [
+        0.5034606450347127,
+        0.5126717836341396
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.2282344167987462,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.2352,
+      "k_h_multiple_of_calibrated": 6,
+      "p_c_haustorial_density": 0.36543356490545553,
+      "ci95": [
+        0.36053772332643635,
+        0.3703159971887369
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.2282344167987462,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.3136,
+      "k_h_multiple_of_calibrated": 8,
+      "p_c_haustorial_density": 0.29575294680078784,
+      "ci95": [
+        0.2909886575857266,
+        0.29986080325314307
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.2282344167987462,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.6272,
+      "k_h_multiple_of_calibrated": 16,
+      "p_c_haustorial_density": 0.1869810500428971,
+      "ci95": [
+        0.1828840328753336,
+        0.19124823456137158
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.2282344167987462,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 1.2544,
+      "k_h_multiple_of_calibrated": 32,
+      "p_c_haustorial_density": 0.11666949468601323,
+      "ci95": [
+        0.11165895038104803,
+        0.12125405690520945
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.2282344167987462,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 2.5088,
+      "k_h_multiple_of_calibrated": 64,
+      "p_c_haustorial_density": 0.10835065366664448,
+      "ci95": [
+        0.10332987587539184,
+        0.11299311171102511
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.3908497542308802,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.0392,
+      "k_h_multiple_of_calibrated": 1,
+      "p_c_haustorial_density": null,
+      "ci95": null,
+      "max_p_collapse": 0.0,
+      "threshold_exists": false
+    },
+    {
+      "D": 1.3908497542308802,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.0784,
+      "k_h_multiple_of_calibrated": 2,
+      "p_c_haustorial_density": null,
+      "ci95": null,
+      "max_p_collapse": 0.0,
+      "threshold_exists": false
+    },
+    {
+      "D": 1.3908497542308802,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.1176,
+      "k_h_multiple_of_calibrated": 3,
+      "p_c_haustorial_density": 0.884060946055182,
+      "ci95": [
+        0.8792676639382533,
+        0.8892100281203036
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.3908497542308802,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.1568,
+      "k_h_multiple_of_calibrated": 4,
+      "p_c_haustorial_density": 0.7157912861795013,
+      "ci95": [
+        0.7103070207839834,
+        0.7199775299449331
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.3908497542308802,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.2352,
+      "k_h_multiple_of_calibrated": 6,
+      "p_c_haustorial_density": 0.5258107050177295,
+      "ci95": [
+        0.521916409375793,
+        0.5308447148317484
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.3908497542308802,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.3136,
+      "k_h_multiple_of_calibrated": 8,
+      "p_c_haustorial_density": 0.4286184763259915,
+      "ci95": [
+        0.4245628337975139,
+        0.4331767689898301
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.3908497542308802,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.6272,
+      "k_h_multiple_of_calibrated": 16,
+      "p_c_haustorial_density": 0.28069552661252983,
+      "ci95": [
+        0.27681841456359013,
+        0.28529488697373184
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.3908497542308802,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 1.2544,
+      "k_h_multiple_of_calibrated": 32,
+      "p_c_haustorial_density": 0.1980678703714598,
+      "ci95": [
+        0.193790218367838,
+        0.20177228588873752
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.3908497542308802,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 2.5088,
+      "k_h_multiple_of_calibrated": 64,
+      "p_c_haustorial_density": 0.17271833785659677,
+      "ci95": [
+        0.16863702460587127,
+        0.17665736282306116
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.4980011119702712,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.0392,
+      "k_h_multiple_of_calibrated": 1,
+      "p_c_haustorial_density": null,
+      "ci95": null,
+      "max_p_collapse": 0.0,
+      "threshold_exists": false
+    },
+    {
+      "D": 1.4980011119702712,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.0784,
+      "k_h_multiple_of_calibrated": 2,
+      "p_c_haustorial_density": null,
+      "ci95": null,
+      "max_p_collapse": 0.0,
+      "threshold_exists": false
+    },
+    {
+      "D": 1.4980011119702712,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.1176,
+      "k_h_multiple_of_calibrated": 3,
+      "p_c_haustorial_density": 0.777756076665548,
+      "ci95": [
+        0.7736205085162703,
+        0.7820285149557913
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.4980011119702712,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.1568,
+      "k_h_multiple_of_calibrated": 4,
+      "p_c_haustorial_density": 0.6196933647537842,
+      "ci95": [
+        0.615380932728506,
+        0.6243506062134611
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.4980011119702712,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.2352,
+      "k_h_multiple_of_calibrated": 6,
+      "p_c_haustorial_density": 0.4625629971053538,
+      "ci95": [
+        0.4574814629958531,
+        0.4673823297275838
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.4980011119702712,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.3136,
+      "k_h_multiple_of_calibrated": 8,
+      "p_c_haustorial_density": 0.3832151011433216,
+      "ci95": [
+        0.37817592692663987,
+        0.3875563282048092
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.4980011119702712,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 0.6272,
+      "k_h_multiple_of_calibrated": 16,
+      "p_c_haustorial_density": 0.25255474336524536,
+      "ci95": [
+        0.24825638990522206,
+        0.25658127633799105
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.4980011119702712,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 1.2544,
+      "k_h_multiple_of_calibrated": 32,
+      "p_c_haustorial_density": 0.18046286649087004,
+      "ci95": [
+        0.17690355459571208,
+        0.18508518077806996
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.4980011119702712,
+      "mean_degree": 2.4926686217008798,
+      "k_h": 2.5088,
+      "k_h_multiple_of_calibrated": 64,
+      "p_c_haustorial_density": 0.15323402426882643,
+      "ci95": [
+        0.14937842897796513,
+        0.15757095308445976
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.5435356785540544,
+      "mean_degree": 2.490713587487781,
+      "k_h": 0.0392,
+      "k_h_multiple_of_calibrated": 1,
+      "p_c_haustorial_density": null,
+      "ci95": null,
+      "max_p_collapse": 0.0,
+      "threshold_exists": false
+    },
+    {
+      "D": 1.5435356785540544,
+      "mean_degree": 2.490713587487781,
+      "k_h": 0.0784,
+      "k_h_multiple_of_calibrated": 2,
+      "p_c_haustorial_density": null,
+      "ci95": null,
+      "max_p_collapse": 0.0,
+      "threshold_exists": false
+    },
+    {
+      "D": 1.5435356785540544,
+      "mean_degree": 2.490713587487781,
+      "k_h": 0.1176,
+      "k_h_multiple_of_calibrated": 3,
+      "p_c_haustorial_density": 0.8395529881383947,
+      "ci95": [
+        0.8342415221145095,
+        0.8442941234444968
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.5435356785540544,
+      "mean_degree": 2.490713587487781,
+      "k_h": 0.1568,
+      "k_h_multiple_of_calibrated": 4,
+      "p_c_haustorial_density": 0.6741632284872846,
+      "ci95": [
+        0.669572419088355,
+        0.6781585611482864
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.5435356785540544,
+      "mean_degree": 2.490713587487781,
+      "k_h": 0.2352,
+      "k_h_multiple_of_calibrated": 6,
+      "p_c_haustorial_density": 0.5039937967665679,
+      "ci95": [
+        0.4994073973903602,
+        0.5079860549831338
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.5435356785540544,
+      "mean_degree": 2.490713587487781,
+      "k_h": 0.3136,
+      "k_h_multiple_of_calibrated": 8,
+      "p_c_haustorial_density": 0.41882548015011667,
+      "ci95": [
+        0.41417928265046633,
+        0.42309815088903546
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.5435356785540544,
+      "mean_degree": 2.490713587487781,
+      "k_h": 0.6272,
+      "k_h_multiple_of_calibrated": 16,
+      "p_c_haustorial_density": 0.27198741333594306,
+      "ci95": [
+        0.2679921920127242,
+        0.2762853611093284
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.5435356785540544,
+      "mean_degree": 2.490713587487781,
+      "k_h": 1.2544,
+      "k_h_multiple_of_calibrated": 32,
+      "p_c_haustorial_density": 0.19477594560362987,
+      "ci95": [
+        0.19090861140364326,
+        0.19879279075309414
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    },
+    {
+      "D": 1.5435356785540544,
+      "mean_degree": 2.490713587487781,
+      "k_h": 2.5088,
+      "k_h_multiple_of_calibrated": 64,
+      "p_c_haustorial_density": 0.165118137290321,
+      "ci95": [
+        0.16166591624465074,
+        0.16916360645511644
+      ],
+      "max_p_collapse": 1.0,
+      "threshold_exists": true
+    }
+  ],
+  "smallest_k_h_multiple_with_a_threshold": 2,
+  "psi_parasite": -3.0,
+  "psi_cavitation": -2.0,
+  "supersedes": "sweep.pc_surface() on the legacy knn generator (data/results.npz: surface_*), which used <k> 4.4-7.0, K_h 0.3-2.5 and 600 trials/cell",
+  "seconds": 1151.5,
+  "smallest_k_h_multiple_with_a_threshold_in_every_row": 3,
+  "largest_k_h_multiple_with_NO_threshold_in_any_row": 1,
+  "threshold_exists_by_multiple": {
+    "1": {
+      "n_rows_with_threshold": 0,
+      "n_rows": 4
+    },
+    "2": {
+      "n_rows_with_threshold": 1,
+      "n_rows": 4
+    },
+    "3": {
+      "n_rows_with_threshold": 4,
+      "n_rows": 4
+    },
+    "4": {
+      "n_rows_with_threshold": 4,
+      "n_rows": 4
+    },
+    "6": {
+      "n_rows_with_threshold": 4,
+      "n_rows": 4
+    },
+    "8": {
+      "n_rows_with_threshold": 4,
+      "n_rows": 4
+    },
+    "16": {
+      "n_rows_with_threshold": 4,
+      "n_rows": 4
+    },
+    "32": {
+      "n_rows_with_threshold": 4,
+      "n_rows": 4
+    },
+    "64": {
+      "n_rows_with_threshold": 4,
+      "n_rows": 4
+    }
+  }
+}

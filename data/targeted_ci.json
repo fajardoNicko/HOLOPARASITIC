@@ -1,0 +1,31 @@
+{
+  "n_trials": 100000,
+  "n_densities": 50,
+  "network": {
+    "N": 1023,
+    "E": 1273
+  },
+  "results": {
+    "betweenness": {
+      "p_c": 0.18887898651024984,
+      "ci95": [
+        0.1878947723086855,
+        0.19024184424753396
+      ],
+      "n_trials": 100000,
+      "p_c_previously_stored": 0.18887898651024984,
+      "reproduced_within": 0.0
+    },
+    "degree": {
+      "p_c": 0.20228705128912816,
+      "ci95": [
+        0.20136864230805082,
+        0.2033111467505236
+      ],
+      "n_trials": 100000,
+      "p_c_previously_stored": 0.20228705128912816,
+      "reproduced_within": 0.0
+    }
+  },
+  "seconds": 223.2
+}
