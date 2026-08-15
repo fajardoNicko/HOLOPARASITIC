@@ -1,0 +1,187 @@
+{
+  "_purpose": "diagnostics requested by the deep-RRL pass; see DEEP_RRL_EVIDENCE_PACK.md Part 0",
+  "_generated_by": "scripts/run_rrl_diagnostics.py",
+  "size_confound": {
+    "n": 100,
+    "N_min": 1436,
+    "N_max": 300633,
+    "spearman_N_x_pc_random": {
+      "rho": 0.2318,
+      "p": 0.02031956481245318
+    },
+    "spearman_N_x_pc_degree": {
+      "rho": 0.165,
+      "p": 0.10097139901726268
+    },
+    "spearman_N_x_mean_degree": {
+      "rho": 0.0367,
+      "p": 0.7166203518179365
+    },
+    "spearman_N_x_D": {
+      "rho": 0.8804,
+      "p": 1.6257334080886675e-33
+    },
+    "spearman_N_x_loop_fraction_nonbridge": {
+      "rho": 0.0301,
+      "p": 0.7660768425242357
+    },
+    "partial_spearman_pc_x_mean_degree_given_logN": {
+      "rho": 0.745,
+      "p": 6.233982065176482e-19
+    },
+    "partial_spearman_pc_x_D_given_logN": {
+      "rho": 0.6327,
+      "p": 1.6418750295708765e-12
+    },
+    "partial_spearman_pc_x_loop_fraction_nonbridge_given_logN": {
+      "rho": 0.7404,
+      "p": 1.3348108265613865e-18
+    },
+    "reading": "empirical p_c rises weakly with N (+0.232), the OPPOSITE sign to the fixed-architecture synthetic sweep, so the finite-size artefact does not propagate into the cohort; but D is rank-correlated with N at +0.880 and must be disclosed as partly a size readout"
+  },
+  "enhancement_artefact_test": {
+    "by_grade": {
+      "A": {
+        "n": 21,
+        "median_delta_pc": 0.0069,
+        "median_baseline_mean_degree": 2.6653,
+        "pct_improved": 61.9,
+        "median_residual_delta_given_baseline_k": 0.00201
+      },
+      "B": {
+        "n": 46,
+        "median_delta_pc": 0.0137,
+        "median_baseline_mean_degree": 2.4715,
+        "pct_improved": 95.7,
+        "median_residual_delta_given_baseline_k": -0.00019
+      },
+      "C": {
+        "n": 10,
+        "median_delta_pc": 0.00825,
+        "median_baseline_mean_degree": 2.5061,
+        "pct_improved": 100.0,
+        "median_residual_delta_given_baseline_k": -0.00522
+      },
+      "D": {
+        "n": 28,
+        "median_delta_pc": 0.0086,
+        "median_baseline_mean_degree": 2.5337,
+        "pct_improved": 92.9,
+        "median_residual_delta_given_baseline_k": -0.00062
+      }
+    },
+    "spearman_baseline_k_x_delta": {
+      "rho": -0.821,
+      "p": 8.066151823684293e-27
+    },
+    "kruskal_residual_delta_by_grade": {
+      "H": 19.266,
+      "p": 0.0002408881314450065
+    },
+    "grade_A": {
+      "n": 21,
+      "improved": 13,
+      "unchanged": 8,
+      "worsened": 0,
+      "sign_test_p": 0.000244140625,
+      "wilcoxon_p": 0.001468849966215837,
+      "wilcoxon_pratt_p": 0.00046764210045384055
+    },
+    "reading": "grade A starts at the HIGHEST baseline <k> and has the LARGEST positive residual gain, so the smaller raw grade-A effect is diminishing returns, not measurement recovery; 13 of the 13 grade-A leaves that changed at all improved"
+  },
+  "collinearity": {
+    "pearson_meandegree_x_D": 0.1483,
+    "p": 0.14084187327105238,
+    "VIF": 1.0225,
+    "spearman_meandegree_x_D": 0.2218,
+    "spearman_meandegree_x_loopfraction": 0.9945,
+    "pearson_meandegree_x_loopfraction": 0.9719,
+    "note": "loop fraction ~ 1 - 2/<k> for a connected planar graph, so 0.994 is the finite-V residual of a graph identity, not an empirical coincidence"
+  },
+  "synthetic_grid_refit": {
+    "empirical_max_mean_degree": 2.9893,
+    "n_grid_cells_above_empirical_max": 18,
+    "full": {
+      "n": 42,
+      "beta_mean_degree": 0.9334621943362567,
+      "beta_D": 0.06717403139907119,
+      "dominance_ratio": 13.896176467222773,
+      "R2": 0.8867028635791773,
+      "F": 152.61379401126788
+    },
+    "restricted_to_empirical_range": {
+      "n": 24,
+      "beta_mean_degree": 0.9806869416933095,
+      "beta_D": 0.12536839708652117,
+      "dominance_ratio": 7.822441416527825,
+      "R2": 0.9398696395851692,
+      "F": 164.1206064218142
+    },
+    "grid_spearman_N_x_D": 0.9901,
+    "note": "the D axis was realised by varying generations, so D and N are coupled in the grid too (rho 0.99); the grid decouples D from <k>, not from size"
+  },
+  "effect_sizes": {
+    "random_vs_degree": {
+      "n": 100,
+      "wilcoxon_p": 3.894582001156701e-18,
+      "rank_biserial_r": 1.0,
+      "common_language_pct": 100.0,
+      "median_difference": 0.0305
+    },
+    "enhancement": {
+      "n": 105,
+      "wilcoxon_pratt_p": 1.6663491689643201e-18,
+      "wilcoxon_nonzero_p": 5.565062522327962e-17,
+      "rank_biserial_r_nonzero": 1.0,
+      "improved": 93,
+      "unchanged": 12,
+      "worsened": 0,
+      "median_delta_pc": 0.0095
+    },
+    "loop_quartiles_Q1_vs_Q4": {
+      "n1": 25,
+      "n2": 25,
+      "U": 4.0,
+      "p": 2.27770289499342e-09,
+      "cliffs_delta": 0.9872,
+      "median_Q1": 0.1584,
+      "median_Q4": 0.2308
+    }
+  },
+  "kleaf_interval": {
+    "rho": 0.1868,
+    "n": 93,
+    "ci95": [
+      -0.024,
+      0.382
+    ],
+    "reading": "underpowered, not null: compatible with anything from no relationship to a moderate positive one"
+  },
+  "dataset_facts": {
+    "n_crop_windows": 100,
+    "n_whole_leaves": 20,
+    "quality_flag_combinations": {
+      "A": 34,
+      "D": 29,
+      "B,D": 23,
+      "B": 19,
+      "C": 7,
+      "C,D": 4,
+      "B,C": 3,
+      "B,C,D": 1
+    },
+    "leading_grade_counts": {
+      "B": 46,
+      "A": 34,
+      "D": 29,
+      "C": 11
+    },
+    "distinct_quality_letters_present": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "note": "the source deposit defines a SIX-tier A-F scale (A excellent; B >80% of veins correct; C fake minor veins; D damage <25% of leaf area; E <80% segmented; F damage >25%). The retained set spans A-D only. The grades are NON-ORDINAL: C inflates connectivity while B and E deflate it."
+  }
+}

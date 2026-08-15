@@ -6,7 +6,7 @@ current-vs-suggested-reticulation percolation run) into:
   * figures/cohort_suggested.png          current-vs-suggested scatter + delta histogram
   * console tables (paste-ready)
 
-Segments VALID whole-leaf networks from degenerate crop fragments (tiny N / p_c=0),
+Segments VALID leaf-venation networks from degenerate fragments (tiny N / p_c=0),
 so the headline cohort mean is not polluted. Run AFTER run_cohort_suggested.py.
 ASCII-only stdout.
 """
@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 
 CSV = os.path.join(ROOT, "data", "cohort_suggested.csv")
 INK = "#20303A"; ACCENT = "#E4572E"; BLUE = "#2F7FA8"
-N_MIN = 1000          # below this a Matos crop is a fragment, not a whole leaf
+N_MIN = 1000          # below this a Matos window is a fragment, not a usable network
 PC_MIN = 0.02         # p_c==0 => already collapsed => degenerate
 
 
@@ -96,7 +96,7 @@ def main():
     json.dump(summary, open(out, "w"), indent=2)
 
     print("=== COHORT CURRENT -> SUGGESTED RETICULATION (random attack, 1e4 trials) ===")
-    print("leaves: %d total  |  %d valid whole-leaves  |  %d crop fragments excluded"
+    print("leaves: %d total  |  %d valid networks  |  %d fragments excluded"
           % (summary["n_total"], summary["n_valid"], summary["n_fragments"]))
     s0, s1, sd = summary["pc_current"], summary["pc_suggested"], summary["delta_pc"]
     print("  p_c current    median %.3f  (range %.3f-%.3f)" % (s0["median"], s0["min"], s0["max"]))

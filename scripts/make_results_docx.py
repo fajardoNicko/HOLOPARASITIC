@@ -61,6 +61,30 @@ SWEEP = pd.read_csv(os.path.join(DATA, "sink_sweep.csv"))
 MASTER = pd.read_csv(os.path.join(DATA, "analysis_master.csv"))
 N_CROP = int(MASTER.is_crop.sum())
 
+FIGURES_USED = []
+FIGURES_MISSING = []
+
+# Figures present in figures/ that are deliberately NOT carried into the Results,
+# with the reason. Checked against the directory at build time so that a figure
+# can never be silently dropped: anything not used and not listed here is
+# reported as unaccounted for when the script finishes.
+RETIRED = {
+    "pc_heatmap.png": ("superseded by sink_surface.png — computed on the legacy "
+                       "knn generator at 8-64x the calibrated sink strength with "
+                       "600 trials per cell"),
+    "stat_finite_size.png": ("superseded by finite_size_fixedD.png — its size "
+                             "axis raises fractal dimension along with N, so the "
+                             "trend it shows is confounded"),
+    "stat_beta_fit.png": ("shows the critical exponent, which this revision does "
+                          "not quote: a single-size fit matching neither "
+                          "universality class"),
+    "stat_beta_mesh.png": "byte-identical duplicate of stat_beta_fit.png",
+    "parasites.png": ("belongs to the multi-parasite comparison that was dropped "
+                      "from the study's scope"),
+    "network.png": ("early synthetic-generator illustration, superseded by "
+                    "graph_synthetic.png in Figure 2"),
+}
+
 
 # ---------------------------------------------------------------------------
 # formatting helpers
@@ -136,9 +160,27 @@ class Doc:
         r.italic = (level >= 3)
         return p
 
-    def caption(self, number, title):
+    def caption(self, number, title, image=None, width=6.0):
+        """APA figure block: number, italic title, then the figure itself.
+
+        `image` is a filename in figures/. It is embedded, not merely named, so
+        the document can be read without opening the figure folder; a missing
+        file degrades to a visible placeholder rather than failing the build.
+        """
         self.para(number, bold=True, indent=False)
         self.para(title, italic=True, indent=False)
+        if image:
+            path = os.path.join(config.PATHS.figures, image)
+            p = self.d.add_paragraph()
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p.paragraph_format.line_spacing = 1.0
+            if os.path.exists(path):
+                p.add_run().add_picture(path, width=Inches(width))
+                FIGURES_USED.append((number, title, image))
+            else:
+                r = p.add_run(f"[figure file not found: figures/{image}]")
+                r.italic = True
+                FIGURES_MISSING.append((number, image))
 
     def note(self, text):
         p = self.d.add_paragraph()
@@ -410,10 +452,17 @@ D.para("Mean degree and loop fraction were almost perfectly rank-correlated "
           rho(T2["mean_degree_x_D"]["rho"]), rho(T2["loop_x_D"]["rho"]),
           rho(T2["loop_x_N"]["rho"]), pval(T2["loop_x_N"]["p"])))
 
-D.caption("Figure 1", "Representative empirical host network and calibrated "
-                      "synthetic mesh.")
-D.note("Each network is reduced to nodes (vein junctions) and edges (vein "
-       "segments).")
+D.caption("Figure 1", "Representative empirical host network.",
+          "graph_real_Cis_ant.png")
+D.note("The traced venation of one leaf reduced to nodes (vein junctions) and "
+       "edges (vein segments), which is the only representation the analysis "
+       "uses.")
+D.caption("Figure 2", "Representative calibrated synthetic mesh.",
+          "graph_synthetic.png", width=4.5)
+D.note("The generator tuned to the cohort medians, shown at the same reduction. "
+       "Its branching geometry, mean degree and loop fraction are set from the "
+       "measured cohort; its fractal dimension is left to emerge and is then "
+       "measured.")
 
 # --- Table 3 ---------------------------------------------------------------
 D.head("Collapse of the Host Networks Under Structural Attack", 2)
@@ -479,9 +528,20 @@ D.para("The ordering observed in the cohort was reproduced on the reference "
        "comparable with the cohort medians."
        % (SUM["p_c_targeted_degree"], SUM["p_c_targeted_betweenness"],
           SUM["p_c_random"], f"{e['N']['Mdn']:,.0f}"))
-D.caption("Figure 2", "Collapse probability and giant-component survival under "
-                      "random and degree-targeted attack, and the progressive "
-                      "fragmentation of the giant component.")
+D.caption("Figure 3", "Collapse curve under random attack.", "sigmoid.png")
+D.note("Collapse probability and surviving giant-component fraction against the "
+       "removed fraction, on the synthetic reference network at %s trials. The "
+       "logistic inflection locates p_c."
+       % f"{SUM['n_trials']:,}")
+D.caption("Figure 4", "Collapse curve under degree-targeted attack.",
+          "sigmoid_targeted.png")
+D.note("The same construction with removal weighted by node importance. The "
+       "curve shifts left: the network fragments after fewer removals.")
+D.caption("Figure 5", "Progressive fragmentation of the giant connected "
+                      "component.", "collapse_montage.png")
+D.note("The giant component breaking into disconnected islands as the removed "
+       "fraction crosses the threshold. This is what the threshold measures; the "
+       "curves in Figures 3 and 4 summarize it as a probability.")
 
 # --- Table 5: sink --------------------------------------------------------
 D.head("Hydraulic Behaviour of the Calibrated Haustorial Sink", 2)
@@ -519,6 +579,12 @@ D.para("At the calibrated strength the minimum host leaf water potential was "
           R["T4_sink_sweep"]["gradient_range_MPa"][0],
           R["T4_sink_sweep"]["gradient_range_MPa"][1],
           R["T4_sink_sweep"]["min_margin_MPa"]))
+
+D.caption("Figure 6", "Host water-potential field and cavitation safety margin "
+                      "under the calibrated haustorial sink.", "sink_demo.png")
+D.note("The solved potential field across the host network with the haustorium "
+       "attached. The minimum potential anywhere in the field stays above the "
+       "cavitation threshold, which is the result tabulated in Table 5.")
 
 # --- Table 6: predictors --------------------------------------------------
 D.head("Architectural Predictors of the Collapse Threshold", 2)
@@ -560,6 +626,14 @@ D.para("All three architectural measures were positively and significantly "
           reg["intercept"], reg["beta"][0], reg["beta"][1], rho(reg["R2"]),
           reg["df"][0], reg["df"][1], reg["F"], pval(reg["p"]),
           reg["beta"][0], rho(regs["beta"][0]), rho(regs["beta"][1])))
+
+D.caption("Figure 7", "Critical threshold versus the architectural predictors.",
+          "cohort_pc_predictors.png")
+D.note("Each point is one network of the percolation cohort, plotted against "
+       "mean degree (left) and fractal dimension (right), with the artifact-free "
+       "grade-A tracings distinguished. The coefficients printed on the panels "
+       "are product-moment; the rank statistics of Table 6 are the ones "
+       "reported, because the distributions are not normal.")
 
 # --- Table 7: synthetic grid ----------------------------------------------
 D.caption("Table 7", "Synthetic Causal Grid: Threshold Regressed on Two "
@@ -608,6 +682,15 @@ D.para("With the two axes decoupled by construction, the threshold tracked "
           abs(a["ols_fully_standardized"]["beta"][0]
               / a["ols_fully_standardized"]["beta"][1]),
           T6["ranges"]["mean_degree"][1], T6["ranges"]["empirical_mean_degree"][1]))
+
+D.caption("Figure 8", "Coverage of the synthetic grid over the measured "
+                      "architectural region.", "calibration_grid.png",
+          width=5.0)
+D.note("The grid networks plotted against the percolation cohort in the "
+       "mean-degree/fractal-dimension plane. The grid is laid out on two "
+       "independent knobs, which is what makes the attribution in Table 7 "
+       "possible; it also shows the extrapolation, since the grid's "
+       "connectivity axis extends past the densest network measured.")
 
 # --- Table 8: reticulation / bridges --------------------------------------
 D.head("Reticulation, Bridge Dependence, and Damage Tolerance", 2)
@@ -752,9 +835,20 @@ D.note("Sorted by descending gain. Each network began with a mean degree near "
           % (outside[0], [t["boundary_terminal_frac"] for t in R["T12_top_gainers"]
                           if not t["boundary_ok"]][0])
           if outside else ""))
-D.caption("Figure 3", "Per-network change in threshold following reticulation "
-                      "enhancement, and a representative network before and "
-                      "after enhancement.")
+D.caption("Figure 9", "Change in collapse threshold per network following "
+                      "reticulation enhancement.", "cohort_suggested.png")
+D.note("Left: each network's enhanced threshold against its own current "
+       "threshold; every point lies on or above the diagonal. Right: the "
+       "distribution of the change. The pairing is within-network, so each "
+       "network is its own control.")
+D.caption("Figure 10", "A representative network before and after reticulation "
+                       "enhancement.",
+          os.path.join("methodology", "fig_realsuggested_Met_dav.png"))
+D.note("Metapanax davidii, the fourth-largest gainer in Table 12. Added areole "
+       "closures (blue) shorten the open vein endings into redundant circuits "
+       "without altering the major-vein skeleton: mean degree rises from 2.20 to "
+       "the 2.81 ceiling through 1,549 added loops, and the measured threshold "
+       "rises from .158 to .198.")
 
 # --- Supplementary ---------------------------------------------------------
 D.head("Supplementary Analyses", 2)
@@ -815,8 +909,8 @@ D.para("The hydraulic solver reproduced the source dataset's own resistance "
           len(T11["boundary"]["outside_in_enhancement_cohort"])))
 
 # --- coupled sink surface --------------------------------------------------
-D.caption("Figure 4", "Critical haustorial density across sink strength and "
-                      "fractal dimension.")
+D.caption("Figure 11", "Critical haustorial density across sink strength and "
+                       "fractal dimension.", "sink_surface.png")
 mult_min = SURF["smallest_k_h_multiple_with_a_threshold"]
 mult_all = SURF["smallest_k_h_multiple_with_a_threshold_in_every_row"]
 mult_nomax = SURF["largest_k_h_multiple_with_NO_threshold_in_any_row"]
@@ -851,7 +945,8 @@ else:
            "tested, the collapse probability never reached .50.")
 
 # --- finite size -----------------------------------------------------------
-D.caption("Figure 5", "Size dependence and critical behaviour of the transition.")
+D.caption("Figure 12", "Size dependence of the threshold at fixed architecture.",
+          "finite_size_fixedD.png")
 fs = FSD["sizes"]
 drift = FSD.get("architecture_drift_audit", {})
 sc = SCAL["finite_size"]
@@ -898,8 +993,8 @@ D.para("Across the fixed-architecture sweep the threshold moved from %.4f at N =
           SCAL["beta_test"]["molloy_reed_fc"]))
 
 # --- pre-symptomatic window ------------------------------------------------
-D.caption("Figure 6", "The modelled pre-symptomatic window across infestation "
-                      "growth rates.")
+D.caption("Figure 13", "The modelled pre-symptomatic window across infestation "
+                       "growth rates.", "dynamics.png")
 rates = DYN["rates"]
 rk = list(rates)
 D.note("Infestation is modelled as logistic growth in the affected node fraction "
@@ -1007,5 +1102,42 @@ corr = [
 D.table(["Location", "Current text", "Replace with"], corr,
         widths=[1.0, 2.6, 2.9], size=9)
 
+# ===========================================================================
+# Figure inventory — every PNG in figures/ is either used above or retired here
+# ===========================================================================
+D.d.add_page_break()
+D.head("FIGURE INVENTORY")
+D.para("Every figure file in the project's figures/ directory is accounted for "
+       "below: carried into the Results above, or retired with its reason. "
+       "Methods figures (figures/methodology/) are outside this Results "
+       "inventory, except the one panel borrowed for Figure 10.", indent=False)
+
+D.head("Carried into the Results", 3)
+D.table(["Figure", "Title", "Source file"],
+        [[n, t, f"figures/{i}".replace("\\", "/")] for n, t, i in FIGURES_USED],
+        widths=[0.9, 3.1, 2.4], size=9)
+
+top_level = sorted(f for f in os.listdir(config.PATHS.figures)
+                   if f.lower().endswith(".png"))
+used = {os.path.basename(i) for _, _, i in FIGURES_USED}
+retired_rows = [[f, RETIRED[f]] for f in top_level if f in RETIRED]
+unaccounted = [f for f in top_level if f not in used and f not in RETIRED]
+
+D.head("Retired, with reason", 3)
+D.table(["Source file", "Why it is not in the Results"],
+        [[f"figures/{f}", why] for f, why in retired_rows],
+        widths=[1.8, 4.6], size=9)
+
+if unaccounted:
+    D.head("Unaccounted for — needs a decision", 3)
+    D.para("These files exist but are neither used nor retired: "
+           + ", ".join(unaccounted), indent=False)
+
 D.save(OUT)
 print("wrote", OUT)
+print(f"figures embedded: {len(FIGURES_USED)}   retired: {len(retired_rows)}   "
+      f"unaccounted: {len(unaccounted)}")
+if FIGURES_MISSING:
+    print("MISSING FIGURE FILES:", FIGURES_MISSING)
+if unaccounted:
+    print("UNACCOUNTED:", unaccounted)
