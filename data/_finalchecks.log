@@ -1,0 +1,17 @@
+[5] bootstrap audit (this runs 100k trials + 400 refits)...
+    capped CI width 0.001684 vs full-size 0.001053 -> ratio 1.599 (expected 1.414)
+[6] Kleaf cohort discrepancy...
+    manuscript_cohort      n= 93  rho(r4)=0.1871 p=0.0726 CI [-0.0235, 0.3818]
+    all_leaves_cohort      n=112  rho(r4)=0.1764 p=0.0628 CI [-0.0151, 0.3554]
+[7] betweenness vs Kirchhoff flux...
+    synthetic hero mesh (config.DEFAULT_NETWORK)   N=1023    rho(BC,flux)=+0.5107  rho(deg,flux)=+0.1780
+    real leaf Tri_lan                              N=1436    rho(BC,flux)=+0.1840  rho(deg,flux)=+0.0776
+    real leaf Tod_bar                              N=2129    rho(BC,flux)=+0.6292  rho(deg,flux)=+0.3417
+    real leaf Tas_lan                              N=2192    rho(BC,flux)=+0.4953  rho(deg,flux)=+0.2545
+[8] high-GCC subcohort...
+    all 100                n=100  pc~<k> +0.7328  pc~D +0.4960  pc~D|logN +0.6327
+    baseline gcc_fraction > 0.99 n= 99  pc~<k> +0.7313  pc~D +0.5064  pc~D|logN +0.6255
+    all 105                n=105  med delta 0.00950  93/12/0  sign p=2.02e-28
+    baseline gcc_fraction > 0.99 n=103  med delta 0.00940  91/12/0  sign p=8.08e-28
+
+wrote data\final_resolution_checks.json

@@ -1,0 +1,259 @@
+{
+  "_purpose": "final-pass sections 5-8",
+  "_generated_by": "scripts/run_final_resolution_checks.py",
+  "bootstrap_audit": {
+    "implementation": {
+      "function": "holoparasitic.percolation.bootstrap_pc",
+      "interval_type": "percentile (not BCa)",
+      "B": 200,
+      "seed": 7,
+      "resampling_unit": "individual (rho, collapse-outcome) Monte Carlo trials, drawn with replacement",
+      "sample_cap": 50000,
+      "note": "take = min(n_trials, sample_cap); when n_trials exceeds 50,000 each bootstrap replicate is SMALLER than the dataset"
+    },
+    "measured_on_hero_mesh": {
+      "n_trials": 100000,
+      "point_estimate_p_c": 0.27129,
+      "capped_at_50k": {
+        "cap": 50000,
+        "n_resampled": 50000,
+        "ci95": [
+          0.27048,
+          0.27216
+        ],
+        "width": 0.001684,
+        "sd": 0.000442
+      },
+      "full_size_replicate": {
+        "cap": 100000,
+        "n_resampled": 100000,
+        "ci95": [
+          0.27085,
+          0.27191
+        ],
+        "width": 0.001053,
+        "sd": 0.000298
+      },
+      "width_ratio_capped_over_full": 1.599,
+      "expected_ratio_sqrt_n_over_cap": 1.414
+    },
+    "verdict": "the shipped bootstrap is a PERCENTILE interval on resampled trials with B = 200 and a 50,000-trial cap. Where the run exceeds 50,000 trials the reported interval is CONSERVATIVE (too wide) by approximately sqrt(n/50,000) -- 1.41x for the 100,000-trial targeted runs and 4.47x for the 1,000,000-trial random run. The resampling unit (trials) matches the inferential claim (uncertainty in p_c given a finite trial budget). No result is anti-conservative; the fix is to raise sample_cap to n and re-report narrower intervals."
+  },
+  "kleaf_cohorts": {
+    "cohort_screen_from_code": {
+      "min_edges": 2000,
+      "min_cycles": 1,
+      "max_cut_end_frac": 0.05,
+      "max_mean_degree_shift": 0.05,
+      "quality_flags_gate_inclusion": false
+    },
+    "manuscript_cohort": {
+      "label": "percolation cohort (cohort.csv include==True) with a measured Kleaf",
+      "inclusion_rule": "n_edges>=2000 AND n_cycles>=1 AND cut_end_frac<=0.05 AND |mean_degree_shift|<=0.05; quality flags do NOT gate inclusion",
+      "n": 93,
+      "spearman_r4": [
+        0.1871,
+        0.07258878699620726
+      ],
+      "ci95_r4": [
+        -0.0235,
+        0.3818
+      ],
+      "spearman_r2": [
+        0.1808,
+        0.08285144427713485
+      ],
+      "ci95_r2": [
+        -0.03,
+        0.3762
+      ]
+    },
+    "all_leaves_cohort": {
+      "label": "every traced leaf with a measured Kleaf",
+      "inclusion_rule": "no cohort screen",
+      "n": 112,
+      "spearman_r4": [
+        0.1764,
+        0.06277096717976292
+      ],
+      "ci95_r4": [
+        -0.0151,
+        0.3554
+      ],
+      "spearman_r2": [
+        0.1792,
+        0.05863275017813235
+      ],
+      "ci95_r2": [
+        -0.0122,
+        0.3579
+      ]
+    },
+    "leaves_excluded_by_the_screen_but_having_Kleaf": 19,
+    "recommendation": "report the 100-leaf percolation cohort (n = 93). It is the cohort every other reported statistic uses, so using a different one for the single external validation would be inconsistent; and the screen is a resolvability screen (min 2,000 edges, crop-edge and mean-degree-shift tolerances), not a screen on the outcome. The unscreened n = 112 result is reported alongside because it is larger and gives the same answer, which is itself the robustness statement."
+  },
+  "betweenness_vs_flux": {
+    "per_network": [
+      {
+        "label": "synthetic hero mesh (config.DEFAULT_NETWORK)",
+        "N": 1023,
+        "n_free_nodes": 510,
+        "spearman_betweenness_x_flux": [
+          0.5107,
+          3.1241537777937986e-35
+        ],
+        "spearman_degree_x_flux": [
+          0.178,
+          5.2843377536804264e-05
+        ],
+        "spearman_betweenness_x_degree": [
+          0.3292,
+          2.3397584756609636e-14
+        ],
+        "flux_gini": 0.8909,
+        "betweenness_gini": 0.5785
+      },
+      {
+        "label": "real leaf Tri_lan",
+        "N": 1436,
+        "n_free_nodes": 1407,
+        "spearman_betweenness_x_flux": [
+          0.184,
+          3.538320736141285e-12
+        ],
+        "spearman_degree_x_flux": [
+          0.0776,
+          0.0036061442657409036
+        ],
+        "spearman_betweenness_x_degree": [
+          0.1188,
+          7.86858223036347e-06
+        ],
+        "flux_gini": 0.8898,
+        "betweenness_gini": 0.7001
+      },
+      {
+        "label": "real leaf Tod_bar",
+        "N": 2129,
+        "n_free_nodes": 1591,
+        "spearman_betweenness_x_flux": [
+          0.6292,
+          3.876469869333453e-176
+        ],
+        "spearman_degree_x_flux": [
+          0.3417,
+          8.649267097749228e-45
+        ],
+        "spearman_betweenness_x_degree": [
+          0.4446,
+          4.609830679924056e-78
+        ],
+        "flux_gini": 0.9308,
+        "betweenness_gini": 0.7264
+      },
+      {
+        "label": "real leaf Tas_lan",
+        "N": 2192,
+        "n_free_nodes": 1670,
+        "spearman_betweenness_x_flux": [
+          0.4953,
+          4.313321922730939e-104
+        ],
+        "spearman_degree_x_flux": [
+          0.2545,
+          4.199811489918301e-26
+        ],
+        "spearman_betweenness_x_degree": [
+          0.3486,
+          6.55220670041049e-49
+        ],
+        "flux_gini": 0.9851,
+        "betweenness_gini": 0.7195
+      }
+    ]
+  },
+  "high_gcc_subcohort": {
+    "percolation_full": {
+      "label": "all 100",
+      "n": 100,
+      "pc_x_mean_degree": [
+        0.7328,
+        4.479878760590678e-18
+      ],
+      "pc_x_mean_degree_given_logN": [
+        0.745,
+        6.233982065176482e-19
+      ],
+      "pc_x_loop_fraction": [
+        0.7269,
+        1.1136130625956214e-17
+      ],
+      "pc_x_D": [
+        0.496,
+        1.544732917524013e-07
+      ],
+      "pc_x_D_given_logN": [
+        0.6327,
+        1.6418750295708765e-12
+      ],
+      "attack_gap_x_loop_fraction": [
+        -0.786,
+        3.4963819109061186e-22
+      ],
+      "median_pc_random": 0.1998,
+      "median_pc_degree": 0.1685,
+      "n_degree_below_random": 100
+    },
+    "percolation_high_gcc": {
+      "label": "baseline gcc_fraction > 0.99",
+      "n": 99,
+      "pc_x_mean_degree": [
+        0.7313,
+        8.317588070003829e-18
+      ],
+      "pc_x_mean_degree_given_logN": [
+        0.7419,
+        1.5594248740684013e-18
+      ],
+      "pc_x_loop_fraction": [
+        0.7259,
+        1.8929983745735252e-17
+      ],
+      "pc_x_D": [
+        0.5064,
+        8.89809699793416e-08
+      ],
+      "pc_x_D_given_logN": [
+        0.6255,
+        4.449845899497741e-12
+      ],
+      "attack_gap_x_loop_fraction": [
+        -0.7807,
+        1.603635625443789e-21
+      ],
+      "median_pc_random": 0.2002,
+      "median_pc_degree": 0.1686,
+      "n_degree_below_random": 99
+    },
+    "enhancement_full": {
+      "label": "all 105",
+      "n": 105,
+      "median_delta_pc": 0.0095,
+      "improved": 93,
+      "unchanged": 12,
+      "worsened": 0,
+      "sign_test_p": 2.0194839173657902e-28
+    },
+    "enhancement_high_gcc": {
+      "label": "baseline gcc_fraction > 0.99",
+      "n": 103,
+      "median_delta_pc": 0.0094,
+      "improved": 91,
+      "unchanged": 12,
+      "worsened": 0,
+      "sign_test_p": 8.077935669463161e-28
+    },
+    "n_dropped_percolation": 1,
+    "n_dropped_enhancement": 2
+  }
+}

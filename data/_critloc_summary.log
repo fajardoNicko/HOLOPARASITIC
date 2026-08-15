@@ -1,0 +1,115 @@
+{
+  "_purpose": "final-pass sections 2 and 3: criterion choice and damage locality",
+  "_generated_by": "scripts/run_criterion_and_locality.py",
+  "settings": {
+    "n_densities": 40,
+    "trials_per_density": 60,
+    "n_trials_per_leaf_per_mode": 2400,
+    "rho_max": 0.6,
+    "seed": 1,
+    "collapse_criterion": "component < 0.5 * N0, P = 0.50",
+    "source_rule": "realleaf G.graph['root_rule'] (operative: widest_vein); source protected from removal"
+  },
+  "n": 99,
+  "replication_check_vs_archive": {
+    "spearman_gcc_vs_archived": 0.9987,
+    "median_abs_difference": 0.0011,
+    "median_gcc_here": 0.1997,
+    "median_gcc_archived": 0.1995
+  },
+  "criterion_comparison": {
+    "median_gcc": 0.1997,
+    "iqr_gcc": [
+      0.157,
+      0.2197
+    ],
+    "median_source": 0.1832,
+    "iqr_source": [
+      0.1486,
+      0.2031
+    ],
+    "spearman": 0.91,
+    "pearson": 0.9347,
+    "median_paired_difference_source_minus_gcc": -0.0105,
+    "wilcoxon_p": 5.693614842531711e-18,
+    "n_source_lower": 99,
+    "n_source_higher": 0
+  },
+  "locality_comparison": {
+    "median_random_gcc": 0.1997,
+    "median_disc1": 0.4949,
+    "iqr_disc1": [
+      0.4619,
+      0.5067
+    ],
+    "median_disc10": 0.4494,
+    "iqr_disc10": [
+      0.4247,
+      0.4682
+    ],
+    "median_paired_difference_disc1_minus_random": 0.2912,
+    "median_paired_difference_disc10_minus_random": 0.251,
+    "wilcoxon_disc1_p": 5.697220948724935e-18,
+    "wilcoxon_disc10_p": 5.697220948724935e-18,
+    "n_disc1_lower_than_random": 0,
+    "n_disc10_lower_than_random": 0
+  },
+  "associations_under_each_criterion": {
+    "gcc": {
+      "spearman_x_mean_degree": [
+        0.7327,
+        6.689640596775987e-18
+      ],
+      "spearman_x_loop_fraction": [
+        0.7282,
+        1.3411138032344598e-17
+      ],
+      "spearman_x_D": [
+        0.4897,
+        2.6826438197091226e-07
+      ]
+    },
+    "source_anchored": {
+      "spearman_x_mean_degree": [
+        0.6492,
+        3.655694944238204e-13
+      ],
+      "spearman_x_loop_fraction": [
+        0.6467,
+        4.786969574525472e-13
+      ],
+      "spearman_x_D": [
+        0.4511,
+        2.78286567706898e-06
+      ]
+    },
+    "disc1": {
+      "spearman_x_mean_degree": [
+        -0.0112,
+        0.9125273805859415
+      ],
+      "spearman_x_loop_fraction": [
+        -0.0018,
+        0.9857001329313438
+      ],
+      "spearman_x_D": [
+        0.1229,
+        0.2254357296500463
+      ]
+    },
+    "disc10": {
+      "spearman_x_mean_degree": [
+        0.1384,
+        0.17177606854695193
+      ],
+      "spearman_x_loop_fraction": [
+        0.1408,
+        0.16441339523691031
+      ],
+      "spearman_x_D": [
+        0.5109,
+        6.571279680892189e-08
+      ]
+    }
+  }
+}
