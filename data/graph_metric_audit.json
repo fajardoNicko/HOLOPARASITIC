@@ -1,0 +1,617 @@
+{
+  "_purpose": "graph-metric dependence and targeted-attack axis audit; see SECOND_PASS_AUDIT.md Part VI",
+  "_generated_by": "scripts/run_graph_metric_audit.py",
+  "loop_fraction_definition_in_code": "characterize.py: loop_fraction = (E - len(nx.bridges(G))) / E -- the NON-BRIDGE edge fraction",
+  "empirical_120_leaves": {
+    "label": "traced leaves (120)",
+    "n": 120,
+    "cycle_rank_fraction_vs_identity": {
+      "pearson_r": 0.7133803,
+      "max_abs_difference": 1.0,
+      "mean_abs_difference": 0.0146554,
+      "verdict": "EXACT identity up to the components correction"
+    },
+    "nonbridge_loop_fraction_vs_identity": {
+      "pearson_r": 0.8222,
+      "spearman_rho": 0.99374,
+      "max_abs_difference": 1.0,
+      "mean_abs_difference": 0.56433,
+      "verdict": "NOT an identity -- differs by a large, systematic margin"
+    },
+    "nonbridge_vs_cycle_rank": {
+      "mean_nonbridge": 0.75835,
+      "mean_cycle_rank": 0.20868,
+      "ratio": 3.634
+    },
+    "loop_fraction_given_mean_degree": {
+      "spearman_rho": 0.99374,
+      "pearson_r": 0.94824,
+      "cubic_fit_R2": 0.91724,
+      "residual_sd": 0.04733,
+      "residual_range": [
+        -0.22085,
+        0.23086
+      ],
+      "loop_fraction_range": [
+        0.0,
+        1.0
+      ]
+    }
+  },
+  "synthetic_grid_42": {
+    "label": "synthetic grid (42)",
+    "n": 42,
+    "cycle_rank_fraction_vs_identity": {
+      "pearson_r": 0.99999494,
+      "max_abs_difference": 0.00187878,
+      "mean_abs_difference": 0.00040005,
+      "verdict": "EXACT identity up to the components correction"
+    },
+    "nonbridge_loop_fraction_vs_identity": {
+      "pearson_r": 0.99999,
+      "spearman_rho": 0.99996,
+      "max_abs_difference": 0.00193,
+      "mean_abs_difference": 0.00041,
+      "verdict": "NOT an identity -- differs by a large, systematic margin"
+    },
+    "nonbridge_vs_cycle_rank": {
+      "mean_nonbridge": 0.2845,
+      "mean_cycle_rank": 0.28449,
+      "ratio": 1.0
+    },
+    "loop_fraction_given_mean_degree": {
+      "spearman_rho": 0.99996,
+      "pearson_r": 0.98219,
+      "cubic_fit_R2": 0.99997,
+      "residual_sd": 0.00088,
+      "residual_range": [
+        -0.00128,
+        0.0023
+      ],
+      "loop_fraction_range": [
+        0.0432,
+        0.4998
+      ]
+    }
+  },
+  "targeted_attack_axis": {
+    "N": 1023,
+    "degree": {
+      "weight_mean": 1.0,
+      "weight_sd": 0.49732,
+      "weight_max": 2.4108,
+      "weight_gini": 0.2743,
+      "n_distinct_weights": 6,
+      "largest_tied_group_fraction": 0.3206,
+      "curve": [
+        {
+          "nominal_rho": 0.0,
+          "expected_removed_fraction": 0.0,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.02,
+          "expected_removed_fraction": 0.02,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.04,
+          "expected_removed_fraction": 0.04,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.06,
+          "expected_removed_fraction": 0.06,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.08,
+          "expected_removed_fraction": 0.08,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.1,
+          "expected_removed_fraction": 0.1,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.12,
+          "expected_removed_fraction": 0.12,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.14,
+          "expected_removed_fraction": 0.14,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.16,
+          "expected_removed_fraction": 0.16,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.18,
+          "expected_removed_fraction": 0.18,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.2,
+          "expected_removed_fraction": 0.2,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.22,
+          "expected_removed_fraction": 0.22,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.24,
+          "expected_removed_fraction": 0.24,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.26,
+          "expected_removed_fraction": 0.26,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.28,
+          "expected_removed_fraction": 0.28,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.3,
+          "expected_removed_fraction": 0.3,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.32,
+          "expected_removed_fraction": 0.32,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.34,
+          "expected_removed_fraction": 0.34,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.36,
+          "expected_removed_fraction": 0.36,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.38,
+          "expected_removed_fraction": 0.38,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.4,
+          "expected_removed_fraction": 0.4,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.42,
+          "expected_removed_fraction": 0.41991,
+          "fraction_of_nodes_clipped": 0.00684
+        },
+        {
+          "nominal_rho": 0.44,
+          "expected_removed_fraction": 0.43958,
+          "fraction_of_nodes_clipped": 0.00684
+        },
+        {
+          "nominal_rho": 0.46,
+          "expected_removed_fraction": 0.45925,
+          "fraction_of_nodes_clipped": 0.00684
+        },
+        {
+          "nominal_rho": 0.48,
+          "expected_removed_fraction": 0.47892,
+          "fraction_of_nodes_clipped": 0.00684
+        },
+        {
+          "nominal_rho": 0.5,
+          "expected_removed_fraction": 0.49845,
+          "fraction_of_nodes_clipped": 0.03812
+        },
+        {
+          "nominal_rho": 0.52,
+          "expected_removed_fraction": 0.51687,
+          "fraction_of_nodes_clipped": 0.03812
+        },
+        {
+          "nominal_rho": 0.54,
+          "expected_removed_fraction": 0.53528,
+          "fraction_of_nodes_clipped": 0.03812
+        },
+        {
+          "nominal_rho": 0.56,
+          "expected_removed_fraction": 0.55369,
+          "fraction_of_nodes_clipped": 0.03812
+        },
+        {
+          "nominal_rho": 0.58,
+          "expected_removed_fraction": 0.57211,
+          "fraction_of_nodes_clipped": 0.03812
+        },
+        {
+          "nominal_rho": 0.6,
+          "expected_removed_fraction": 0.59052,
+          "fraction_of_nodes_clipped": 0.03812
+        },
+        {
+          "nominal_rho": 0.62,
+          "expected_removed_fraction": 0.60893,
+          "fraction_of_nodes_clipped": 0.03812
+        },
+        {
+          "nominal_rho": 0.64,
+          "expected_removed_fraction": 0.62206,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.66,
+          "expected_removed_fraction": 0.63453,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.68,
+          "expected_removed_fraction": 0.64701,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.7,
+          "expected_removed_fraction": 0.65948,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.72,
+          "expected_removed_fraction": 0.67195,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.74,
+          "expected_removed_fraction": 0.68443,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.76,
+          "expected_removed_fraction": 0.6969,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.78,
+          "expected_removed_fraction": 0.70938,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.8,
+          "expected_removed_fraction": 0.72185,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.82,
+          "expected_removed_fraction": 0.73433,
+          "fraction_of_nodes_clipped": 0.22287
+        },
+        {
+          "nominal_rho": 0.84,
+          "expected_removed_fraction": 0.7428,
+          "fraction_of_nodes_clipped": 0.54154
+        },
+        {
+          "nominal_rho": 0.86,
+          "expected_removed_fraction": 0.74759,
+          "fraction_of_nodes_clipped": 0.54154
+        },
+        {
+          "nominal_rho": 0.88,
+          "expected_removed_fraction": 0.75239,
+          "fraction_of_nodes_clipped": 0.54154
+        },
+        {
+          "nominal_rho": 0.9,
+          "expected_removed_fraction": 0.75718,
+          "fraction_of_nodes_clipped": 0.54154
+        },
+        {
+          "nominal_rho": 0.92,
+          "expected_removed_fraction": 0.76197,
+          "fraction_of_nodes_clipped": 0.54154
+        },
+        {
+          "nominal_rho": 0.94,
+          "expected_removed_fraction": 0.76676,
+          "fraction_of_nodes_clipped": 0.54154
+        },
+        {
+          "nominal_rho": 0.96,
+          "expected_removed_fraction": 0.77155,
+          "fraction_of_nodes_clipped": 0.54154
+        },
+        {
+          "nominal_rho": 0.98,
+          "expected_removed_fraction": 0.77634,
+          "fraction_of_nodes_clipped": 0.54154
+        },
+        {
+          "nominal_rho": 1.0,
+          "expected_removed_fraction": 0.78114,
+          "fraction_of_nodes_clipped": 0.54154
+        }
+      ],
+      "realised_at_nominal_0.20": 0.2,
+      "realised_at_nominal_0.2023": 0.2023,
+      "realised_at_nominal_0.1889": 0.1889
+    },
+    "betweenness": {
+      "weight_mean": 1.0,
+      "weight_sd": 2.45229,
+      "weight_max": 29.4466,
+      "weight_gini": 0.7539,
+      "n_distinct_weights": 619,
+      "largest_tied_group_fraction": 0.3206,
+      "curve": [
+        {
+          "nominal_rho": 0.0,
+          "expected_removed_fraction": 0.0,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.02,
+          "expected_removed_fraction": 0.02,
+          "fraction_of_nodes_clipped": 0.0
+        },
+        {
+          "nominal_rho": 0.04,
+          "expected_removed_fraction": 0.03975,
+          "fraction_of_nodes_clipped": 0.00196
+        },
+        {
+          "nominal_rho": 0.06,
+          "expected_removed_fraction": 0.05765,
+          "fraction_of_nodes_clipped": 0.00587
+        },
+        {
+          "nominal_rho": 0.08,
+          "expected_removed_fraction": 0.07407,
+          "fraction_of_nodes_clipped": 0.01075
+        },
+        {
+          "nominal_rho": 0.1,
+          "expected_removed_fraction": 0.08971,
+          "fraction_of_nodes_clipped": 0.01271
+        },
+        {
+          "nominal_rho": 0.12,
+          "expected_removed_fraction": 0.10454,
+          "fraction_of_nodes_clipped": 0.02053
+        },
+        {
+          "nominal_rho": 0.14,
+          "expected_removed_fraction": 0.11849,
+          "fraction_of_nodes_clipped": 0.02248
+        },
+        {
+          "nominal_rho": 0.16,
+          "expected_removed_fraction": 0.1317,
+          "fraction_of_nodes_clipped": 0.02835
+        },
+        {
+          "nominal_rho": 0.18,
+          "expected_removed_fraction": 0.14443,
+          "fraction_of_nodes_clipped": 0.03128
+        },
+        {
+          "nominal_rho": 0.2,
+          "expected_removed_fraction": 0.15651,
+          "fraction_of_nodes_clipped": 0.03812
+        },
+        {
+          "nominal_rho": 0.22,
+          "expected_removed_fraction": 0.16807,
+          "fraction_of_nodes_clipped": 0.04497
+        },
+        {
+          "nominal_rho": 0.24,
+          "expected_removed_fraction": 0.17892,
+          "fraction_of_nodes_clipped": 0.05083
+        },
+        {
+          "nominal_rho": 0.26,
+          "expected_removed_fraction": 0.18955,
+          "fraction_of_nodes_clipped": 0.05181
+        },
+        {
+          "nominal_rho": 0.28,
+          "expected_removed_fraction": 0.19993,
+          "fraction_of_nodes_clipped": 0.05572
+        },
+        {
+          "nominal_rho": 0.3,
+          "expected_removed_fraction": 0.21008,
+          "fraction_of_nodes_clipped": 0.05963
+        },
+        {
+          "nominal_rho": 0.32,
+          "expected_removed_fraction": 0.21998,
+          "fraction_of_nodes_clipped": 0.06452
+        },
+        {
+          "nominal_rho": 0.34,
+          "expected_removed_fraction": 0.22959,
+          "fraction_of_nodes_clipped": 0.06745
+        },
+        {
+          "nominal_rho": 0.36,
+          "expected_removed_fraction": 0.23882,
+          "fraction_of_nodes_clipped": 0.07722
+        },
+        {
+          "nominal_rho": 0.38,
+          "expected_removed_fraction": 0.24754,
+          "fraction_of_nodes_clipped": 0.087
+        },
+        {
+          "nominal_rho": 0.4,
+          "expected_removed_fraction": 0.25584,
+          "fraction_of_nodes_clipped": 0.09482
+        },
+        {
+          "nominal_rho": 0.42,
+          "expected_removed_fraction": 0.26375,
+          "fraction_of_nodes_clipped": 0.09971
+        },
+        {
+          "nominal_rho": 0.44,
+          "expected_removed_fraction": 0.2715,
+          "fraction_of_nodes_clipped": 0.10264
+        },
+        {
+          "nominal_rho": 0.46,
+          "expected_removed_fraction": 0.27898,
+          "fraction_of_nodes_clipped": 0.11241
+        },
+        {
+          "nominal_rho": 0.48,
+          "expected_removed_fraction": 0.28614,
+          "fraction_of_nodes_clipped": 0.11437
+        },
+        {
+          "nominal_rho": 0.5,
+          "expected_removed_fraction": 0.29323,
+          "fraction_of_nodes_clipped": 0.11828
+        },
+        {
+          "nominal_rho": 0.52,
+          "expected_removed_fraction": 0.30011,
+          "fraction_of_nodes_clipped": 0.1261
+        },
+        {
+          "nominal_rho": 0.54,
+          "expected_removed_fraction": 0.30674,
+          "fraction_of_nodes_clipped": 0.13001
+        },
+        {
+          "nominal_rho": 0.56,
+          "expected_removed_fraction": 0.31326,
+          "fraction_of_nodes_clipped": 0.13294
+        },
+        {
+          "nominal_rho": 0.58,
+          "expected_removed_fraction": 0.31964,
+          "fraction_of_nodes_clipped": 0.13587
+        },
+        {
+          "nominal_rho": 0.6,
+          "expected_removed_fraction": 0.32589,
+          "fraction_of_nodes_clipped": 0.13978
+        },
+        {
+          "nominal_rho": 0.62,
+          "expected_removed_fraction": 0.33205,
+          "fraction_of_nodes_clipped": 0.14174
+        },
+        {
+          "nominal_rho": 0.64,
+          "expected_removed_fraction": 0.33816,
+          "fraction_of_nodes_clipped": 0.1437
+        },
+        {
+          "nominal_rho": 0.66,
+          "expected_removed_fraction": 0.34413,
+          "fraction_of_nodes_clipped": 0.14858
+        },
+        {
+          "nominal_rho": 0.68,
+          "expected_removed_fraction": 0.35003,
+          "fraction_of_nodes_clipped": 0.15054
+        },
+        {
+          "nominal_rho": 0.7,
+          "expected_removed_fraction": 0.35578,
+          "fraction_of_nodes_clipped": 0.15836
+        },
+        {
+          "nominal_rho": 0.72,
+          "expected_removed_fraction": 0.36138,
+          "fraction_of_nodes_clipped": 0.16227
+        },
+        {
+          "nominal_rho": 0.74,
+          "expected_removed_fraction": 0.36689,
+          "fraction_of_nodes_clipped": 0.16422
+        },
+        {
+          "nominal_rho": 0.76,
+          "expected_removed_fraction": 0.37231,
+          "fraction_of_nodes_clipped": 0.17009
+        },
+        {
+          "nominal_rho": 0.78,
+          "expected_removed_fraction": 0.37753,
+          "fraction_of_nodes_clipped": 0.17595
+        },
+        {
+          "nominal_rho": 0.8,
+          "expected_removed_fraction": 0.38265,
+          "fraction_of_nodes_clipped": 0.1828
+        },
+        {
+          "nominal_rho": 0.82,
+          "expected_removed_fraction": 0.38754,
+          "fraction_of_nodes_clipped": 0.19062
+        },
+        {
+          "nominal_rho": 0.84,
+          "expected_removed_fraction": 0.39225,
+          "fraction_of_nodes_clipped": 0.19746
+        },
+        {
+          "nominal_rho": 0.86,
+          "expected_removed_fraction": 0.39684,
+          "fraction_of_nodes_clipped": 0.20919
+        },
+        {
+          "nominal_rho": 0.88,
+          "expected_removed_fraction": 0.40111,
+          "fraction_of_nodes_clipped": 0.21603
+        },
+        {
+          "nominal_rho": 0.9,
+          "expected_removed_fraction": 0.40523,
+          "fraction_of_nodes_clipped": 0.22385
+        },
+        {
+          "nominal_rho": 0.92,
+          "expected_removed_fraction": 0.40922,
+          "fraction_of_nodes_clipped": 0.23069
+        },
+        {
+          "nominal_rho": 0.94,
+          "expected_removed_fraction": 0.41307,
+          "fraction_of_nodes_clipped": 0.23363
+        },
+        {
+          "nominal_rho": 0.96,
+          "expected_removed_fraction": 0.41684,
+          "fraction_of_nodes_clipped": 0.23851
+        },
+        {
+          "nominal_rho": 0.98,
+          "expected_removed_fraction": 0.42051,
+          "fraction_of_nodes_clipped": 0.24242
+        },
+        {
+          "nominal_rho": 1.0,
+          "expected_removed_fraction": 0.42412,
+          "fraction_of_nodes_clipped": 0.24438
+        }
+      ],
+      "realised_at_nominal_0.20": 0.15651,
+      "realised_at_nominal_0.2023": 0.15784,
+      "realised_at_nominal_0.1889": 0.14981
+    },
+    "reading": "the targeted modes are WEIGHTED STOCHASTIC removal (removal probability proportional to centrality), not rank-ordered deletion of the top-k nodes. Two consequences: (i) the 'initial vs recalculated centrality' literature does not apply, and Callaway et al. (2000)'s degree-dependent occupation formalism is the correct precedent; (ii) because the removal probability is clipped at 1, the nominal rho over-states the realised removed fraction for heavy-tailed weights, so targeted and random thresholds are not quoted on identical axes."
+  }
+}

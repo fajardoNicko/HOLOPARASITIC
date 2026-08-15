@@ -1,0 +1,24 @@
+{
+  "_purpose": "does the l/r^4 vs l/r^2 convention change the hydraulic conclusions? See SECOND_PASS_AUDIT.md Part VI item 8",
+  "_generated_by": "scripts/run_resistance_convention_sensitivity.py",
+  "n_leaves": 120,
+  "n_with_measured_kleaf": 112,
+  "agreement_between_conventions": {
+    "spearman_r4_vs_r2": 0.85981,
+    "pearson_log_r4_vs_log_r2": 0.918,
+    "median_ratio_r4_over_r2": 0.063961,
+    "n_zero_or_degenerate_conductance": 1
+  },
+  "percolation_is_unaffected": "percolation.py operates on the unweighted CSR adjacency and on unweighted degree/betweenness, so p_c does not depend on the conductance convention at all",
+  "kleaf_validation": {
+    "n": 112,
+    "spearman_r4_vs_measured": [
+      0.1764,
+      0.06277096717976292
+    ],
+    "spearman_r2_vs_measured": [
+      0.1792,
+      0.05863275017813235
+    ]
+  }
+}

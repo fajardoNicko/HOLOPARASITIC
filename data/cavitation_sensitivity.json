@@ -1,0 +1,1188 @@
+{
+  "_purpose": "P0 cavitation-threshold sensitivity; see SECOND_PASS_AUDIT.md Part II",
+  "_generated_by": "scripts/run_cavitation_sensitivity.py",
+  "setup": {
+    "network": "config.DEFAULT_NETWORK (cohort-calibrated planar mesh)",
+    "N": 1023,
+    "n_free_nodes": 510,
+    "patch_size": 10,
+    "psi_source_MPa": 0.0,
+    "psi_leaf_MPa": -1.0,
+    "psi_cavitation_default_MPa": -2.0,
+    "calibrated_K_h": 0.0391845703125,
+    "achieved_diversion": 0.20002814875608343,
+    "psi_host_local_MPa": -0.3224271040669334,
+    "K_h_is_relative": "K_h multiplies each host node's own incident conductance, so a haustorium taps a vessel in proportion to its caliber"
+  },
+  "baseline_control": {
+    "min_interior_psi_MPa": -0.9962715728811639,
+    "median_interior_psi_MPa": -0.6048098535074182,
+    "embolised_by_threshold": {
+      "-1.00": 0,
+      "-1.10": 0,
+      "-1.25": 0,
+      "-1.50": 0,
+      "-1.75": 0,
+      "-2.00": 0,
+      "-2.50": 0,
+      "-3.00": 0
+    },
+    "reading": "with NO parasite the interior field already spans -0.996 to -0.011 MPa, because the terminal Dirichlet condition is fixed at -1.0 MPa; any cavitation threshold at or above PSI_LEAF makes the healthy leaf embolise, so the threshold is not freely choosable"
+  },
+  "gradient_sweep_at_calibrated_Kh": [
+    {
+      "gradient_MPa": 0.0,
+      "psi_parasite_MPa": -0.3224,
+      "min_interior_psi_MPa": -0.99628,
+      "delta_min_psi_vs_baseline_MPa": -0.0,
+      "patch_min_psi_MPa": -0.94078,
+      "delta_patch_psi_vs_baseline_MPa": -0.01715,
+      "diversion_fraction": 0.00179,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 0.1,
+      "psi_parasite_MPa": -0.4224,
+      "min_interior_psi_MPa": -0.99628,
+      "delta_min_psi_vs_baseline_MPa": -1e-05,
+      "patch_min_psi_MPa": -0.94622,
+      "delta_patch_psi_vs_baseline_MPa": -0.03564,
+      "diversion_fraction": 0.01694,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 0.2,
+      "psi_parasite_MPa": -0.5224,
+      "min_interior_psi_MPa": -0.99628,
+      "delta_min_psi_vs_baseline_MPa": -1e-05,
+      "patch_min_psi_MPa": -0.95166,
+      "delta_patch_psi_vs_baseline_MPa": -0.05753,
+      "diversion_fraction": 0.03177,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 0.3,
+      "psi_parasite_MPa": -0.6224,
+      "min_interior_psi_MPa": -0.99629,
+      "delta_min_psi_vs_baseline_MPa": -2e-05,
+      "patch_min_psi_MPa": -0.95711,
+      "delta_patch_psi_vs_baseline_MPa": -0.0816,
+      "diversion_fraction": 0.04631,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 0.4,
+      "psi_parasite_MPa": -0.7224,
+      "min_interior_psi_MPa": -0.99629,
+      "delta_min_psi_vs_baseline_MPa": -2e-05,
+      "patch_min_psi_MPa": -0.96255,
+      "delta_patch_psi_vs_baseline_MPa": -0.10829,
+      "diversion_fraction": 0.06055,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 0.5,
+      "psi_parasite_MPa": -0.8224,
+      "min_interior_psi_MPa": -0.9963,
+      "delta_min_psi_vs_baseline_MPa": -2e-05,
+      "patch_min_psi_MPa": -0.968,
+      "delta_patch_psi_vs_baseline_MPa": -0.13497,
+      "diversion_fraction": 0.0745,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 0.6,
+      "psi_parasite_MPa": -0.9224,
+      "min_interior_psi_MPa": -0.9963,
+      "delta_min_psi_vs_baseline_MPa": -3e-05,
+      "patch_min_psi_MPa": -0.97344,
+      "delta_patch_psi_vs_baseline_MPa": -0.16166,
+      "diversion_fraction": 0.08817,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 0.7,
+      "psi_parasite_MPa": -1.0224,
+      "min_interior_psi_MPa": -0.9963,
+      "delta_min_psi_vs_baseline_MPa": -3e-05,
+      "patch_min_psi_MPa": -0.97888,
+      "delta_patch_psi_vs_baseline_MPa": -0.18835,
+      "diversion_fraction": 0.10158,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 0.8,
+      "psi_parasite_MPa": -1.1224,
+      "min_interior_psi_MPa": -0.99631,
+      "delta_min_psi_vs_baseline_MPa": -4e-05,
+      "patch_min_psi_MPa": -0.98433,
+      "delta_patch_psi_vs_baseline_MPa": -0.21504,
+      "diversion_fraction": 0.11473,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 0.9,
+      "psi_parasite_MPa": -1.2224,
+      "min_interior_psi_MPa": -0.99631,
+      "delta_min_psi_vs_baseline_MPa": -4e-05,
+      "patch_min_psi_MPa": -0.98977,
+      "delta_patch_psi_vs_baseline_MPa": -0.24173,
+      "diversion_fraction": 0.12762,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.0,
+      "psi_parasite_MPa": -1.3224,
+      "min_interior_psi_MPa": -0.99631,
+      "delta_min_psi_vs_baseline_MPa": -4e-05,
+      "patch_min_psi_MPa": -0.99522,
+      "delta_patch_psi_vs_baseline_MPa": -0.26842,
+      "diversion_fraction": 0.14026,
+      "embolised_by_threshold": {
+        "-1.00": 0,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.1,
+      "psi_parasite_MPa": -1.4224,
+      "min_interior_psi_MPa": -1.00066,
+      "delta_min_psi_vs_baseline_MPa": -0.00439,
+      "patch_min_psi_MPa": -1.00066,
+      "delta_patch_psi_vs_baseline_MPa": -0.29511,
+      "diversion_fraction": 0.15267,
+      "embolised_by_threshold": {
+        "-1.00": 1,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.2,
+      "psi_parasite_MPa": -1.5224,
+      "min_interior_psi_MPa": -1.0061,
+      "delta_min_psi_vs_baseline_MPa": -0.00983,
+      "patch_min_psi_MPa": -1.0061,
+      "delta_patch_psi_vs_baseline_MPa": -0.32179,
+      "diversion_fraction": 0.16484,
+      "embolised_by_threshold": {
+        "-1.00": 1,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.3,
+      "psi_parasite_MPa": -1.6224,
+      "min_interior_psi_MPa": -1.01155,
+      "delta_min_psi_vs_baseline_MPa": -0.01528,
+      "patch_min_psi_MPa": -1.01155,
+      "delta_patch_psi_vs_baseline_MPa": -0.34848,
+      "diversion_fraction": 0.17679,
+      "embolised_by_threshold": {
+        "-1.00": 1,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.4,
+      "psi_parasite_MPa": -1.7224,
+      "min_interior_psi_MPa": -1.01699,
+      "delta_min_psi_vs_baseline_MPa": -0.02072,
+      "patch_min_psi_MPa": -1.01699,
+      "delta_patch_psi_vs_baseline_MPa": -0.37517,
+      "diversion_fraction": 0.18852,
+      "embolised_by_threshold": {
+        "-1.00": 1,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.5,
+      "psi_parasite_MPa": -1.8224,
+      "min_interior_psi_MPa": -1.02244,
+      "delta_min_psi_vs_baseline_MPa": -0.02616,
+      "patch_min_psi_MPa": -1.02244,
+      "delta_patch_psi_vs_baseline_MPa": -0.40186,
+      "diversion_fraction": 0.20003,
+      "embolised_by_threshold": {
+        "-1.00": 1,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.6,
+      "psi_parasite_MPa": -1.9224,
+      "min_interior_psi_MPa": -1.02788,
+      "delta_min_psi_vs_baseline_MPa": -0.03161,
+      "patch_min_psi_MPa": -1.02788,
+      "delta_patch_psi_vs_baseline_MPa": -0.42855,
+      "diversion_fraction": 0.21133,
+      "embolised_by_threshold": {
+        "-1.00": 2,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.7,
+      "psi_parasite_MPa": -2.0224,
+      "min_interior_psi_MPa": -1.03332,
+      "delta_min_psi_vs_baseline_MPa": -0.03705,
+      "patch_min_psi_MPa": -1.03332,
+      "delta_patch_psi_vs_baseline_MPa": -0.45524,
+      "diversion_fraction": 0.22244,
+      "embolised_by_threshold": {
+        "-1.00": 3,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.8,
+      "psi_parasite_MPa": -2.1224,
+      "min_interior_psi_MPa": -1.0484,
+      "delta_min_psi_vs_baseline_MPa": -0.05213,
+      "patch_min_psi_MPa": -1.0484,
+      "delta_patch_psi_vs_baseline_MPa": -0.48192,
+      "diversion_fraction": 0.23334,
+      "embolised_by_threshold": {
+        "-1.00": 3,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 1.9,
+      "psi_parasite_MPa": -2.2224,
+      "min_interior_psi_MPa": -1.07121,
+      "delta_min_psi_vs_baseline_MPa": -0.07494,
+      "patch_min_psi_MPa": -1.07121,
+      "delta_patch_psi_vs_baseline_MPa": -0.50861,
+      "diversion_fraction": 0.24405,
+      "embolised_by_threshold": {
+        "-1.00": 5,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.0,
+      "psi_parasite_MPa": -2.3224,
+      "min_interior_psi_MPa": -1.09402,
+      "delta_min_psi_vs_baseline_MPa": -0.09775,
+      "patch_min_psi_MPa": -1.09402,
+      "delta_patch_psi_vs_baseline_MPa": -0.5353,
+      "diversion_fraction": 0.25458,
+      "embolised_by_threshold": {
+        "-1.00": 5,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.1,
+      "psi_parasite_MPa": -2.4224,
+      "min_interior_psi_MPa": -1.11683,
+      "delta_min_psi_vs_baseline_MPa": -0.12056,
+      "patch_min_psi_MPa": -1.11683,
+      "delta_patch_psi_vs_baseline_MPa": -0.56199,
+      "diversion_fraction": 0.26493,
+      "embolised_by_threshold": {
+        "-1.00": 7,
+        "-1.10": 1,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.2,
+      "psi_parasite_MPa": -2.5224,
+      "min_interior_psi_MPa": -1.13963,
+      "delta_min_psi_vs_baseline_MPa": -0.14336,
+      "patch_min_psi_MPa": -1.13963,
+      "delta_patch_psi_vs_baseline_MPa": -0.58868,
+      "diversion_fraction": 0.27509,
+      "embolised_by_threshold": {
+        "-1.00": 7,
+        "-1.10": 2,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.3,
+      "psi_parasite_MPa": -2.6224,
+      "min_interior_psi_MPa": -1.16244,
+      "delta_min_psi_vs_baseline_MPa": -0.16617,
+      "patch_min_psi_MPa": -1.16244,
+      "delta_patch_psi_vs_baseline_MPa": -0.61537,
+      "diversion_fraction": 0.28509,
+      "embolised_by_threshold": {
+        "-1.00": 7,
+        "-1.10": 2,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.4,
+      "psi_parasite_MPa": -2.7224,
+      "min_interior_psi_MPa": -1.18525,
+      "delta_min_psi_vs_baseline_MPa": -0.18898,
+      "patch_min_psi_MPa": -1.18525,
+      "delta_patch_psi_vs_baseline_MPa": -0.64206,
+      "diversion_fraction": 0.29491,
+      "embolised_by_threshold": {
+        "-1.00": 7,
+        "-1.10": 5,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.5,
+      "psi_parasite_MPa": -2.8224,
+      "min_interior_psi_MPa": -1.20806,
+      "delta_min_psi_vs_baseline_MPa": -0.21179,
+      "patch_min_psi_MPa": -1.20806,
+      "delta_patch_psi_vs_baseline_MPa": -0.66874,
+      "diversion_fraction": 0.30457,
+      "embolised_by_threshold": {
+        "-1.00": 7,
+        "-1.10": 6,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.6,
+      "psi_parasite_MPa": -2.9224,
+      "min_interior_psi_MPa": -1.23087,
+      "delta_min_psi_vs_baseline_MPa": -0.23459,
+      "patch_min_psi_MPa": -1.23087,
+      "delta_patch_psi_vs_baseline_MPa": -0.69543,
+      "diversion_fraction": 0.31408,
+      "embolised_by_threshold": {
+        "-1.00": 8,
+        "-1.10": 6,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.7,
+      "psi_parasite_MPa": -3.0224,
+      "min_interior_psi_MPa": -1.25367,
+      "delta_min_psi_vs_baseline_MPa": -0.2574,
+      "patch_min_psi_MPa": -1.25367,
+      "delta_patch_psi_vs_baseline_MPa": -0.72212,
+      "diversion_fraction": 0.32342,
+      "embolised_by_threshold": {
+        "-1.00": 8,
+        "-1.10": 6,
+        "-1.25": 1,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.8,
+      "psi_parasite_MPa": -3.1224,
+      "min_interior_psi_MPa": -1.27648,
+      "delta_min_psi_vs_baseline_MPa": -0.28021,
+      "patch_min_psi_MPa": -1.27648,
+      "delta_patch_psi_vs_baseline_MPa": -0.74881,
+      "diversion_fraction": 0.33261,
+      "embolised_by_threshold": {
+        "-1.00": 8,
+        "-1.10": 6,
+        "-1.25": 1,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 2.9,
+      "psi_parasite_MPa": -3.2224,
+      "min_interior_psi_MPa": -1.29929,
+      "delta_min_psi_vs_baseline_MPa": -0.30302,
+      "patch_min_psi_MPa": -1.29929,
+      "delta_patch_psi_vs_baseline_MPa": -0.7755,
+      "diversion_fraction": 0.34166,
+      "embolised_by_threshold": {
+        "-1.00": 8,
+        "-1.10": 6,
+        "-1.25": 2,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 3.0,
+      "psi_parasite_MPa": -3.3224,
+      "min_interior_psi_MPa": -1.3221,
+      "delta_min_psi_vs_baseline_MPa": -0.32582,
+      "patch_min_psi_MPa": -1.3221,
+      "delta_patch_psi_vs_baseline_MPa": -0.80219,
+      "diversion_fraction": 0.35056,
+      "embolised_by_threshold": {
+        "-1.00": 8,
+        "-1.10": 8,
+        "-1.25": 3,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 3.5,
+      "psi_parasite_MPa": -3.8224,
+      "min_interior_psi_MPa": -1.43614,
+      "delta_min_psi_vs_baseline_MPa": -0.43986,
+      "patch_min_psi_MPa": -1.43614,
+      "delta_patch_psi_vs_baseline_MPa": -0.93563,
+      "diversion_fraction": 0.39299,
+      "embolised_by_threshold": {
+        "-1.00": 12,
+        "-1.10": 8,
+        "-1.25": 7,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 4.0,
+      "psi_parasite_MPa": -4.3224,
+      "min_interior_psi_MPa": -1.55017,
+      "delta_min_psi_vs_baseline_MPa": -0.5539,
+      "patch_min_psi_MPa": -1.55017,
+      "delta_patch_psi_vs_baseline_MPa": -1.06907,
+      "diversion_fraction": 0.43228,
+      "embolised_by_threshold": {
+        "-1.00": 12,
+        "-1.10": 10,
+        "-1.25": 7,
+        "-1.50": 3,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 4.5,
+      "psi_parasite_MPa": -4.8224,
+      "min_interior_psi_MPa": -1.67014,
+      "delta_min_psi_vs_baseline_MPa": -0.67387,
+      "patch_min_psi_MPa": -1.67014,
+      "delta_patch_psi_vs_baseline_MPa": -1.20251,
+      "diversion_fraction": 0.46875,
+      "embolised_by_threshold": {
+        "-1.00": 12,
+        "-1.10": 11,
+        "-1.25": 7,
+        "-1.50": 7,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 5.0,
+      "psi_parasite_MPa": -5.3224,
+      "min_interior_psi_MPa": -1.80485,
+      "delta_min_psi_vs_baseline_MPa": -0.80858,
+      "patch_min_psi_MPa": -1.80485,
+      "delta_patch_psi_vs_baseline_MPa": -1.33644,
+      "diversion_fraction": 0.5027,
+      "embolised_by_threshold": {
+        "-1.00": 15,
+        "-1.10": 12,
+        "-1.25": 9,
+        "-1.50": 7,
+        "-1.75": 3,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 5.5,
+      "psi_parasite_MPa": -5.8224,
+      "min_interior_psi_MPa": -1.93955,
+      "delta_min_psi_vs_baseline_MPa": -0.94328,
+      "patch_min_psi_MPa": -1.93955,
+      "delta_patch_psi_vs_baseline_MPa": -1.47118,
+      "diversion_fraction": 0.53438,
+      "embolised_by_threshold": {
+        "-1.00": 25,
+        "-1.10": 12,
+        "-1.25": 9,
+        "-1.50": 7,
+        "-1.75": 5,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 6.0,
+      "psi_parasite_MPa": -6.3224,
+      "min_interior_psi_MPa": -2.07425,
+      "delta_min_psi_vs_baseline_MPa": -1.07798,
+      "patch_min_psi_MPa": -2.07425,
+      "delta_patch_psi_vs_baseline_MPa": -1.60592,
+      "diversion_fraction": 0.56401,
+      "embolised_by_threshold": {
+        "-1.00": 28,
+        "-1.10": 14,
+        "-1.25": 11,
+        "-1.50": 8,
+        "-1.75": 7,
+        "-2.00": 3,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 6.5,
+      "psi_parasite_MPa": -6.8224,
+      "min_interior_psi_MPa": -2.20896,
+      "delta_min_psi_vs_baseline_MPa": -1.21269,
+      "patch_min_psi_MPa": -2.20896,
+      "delta_patch_psi_vs_baseline_MPa": -1.74066,
+      "diversion_fraction": 0.59179,
+      "embolised_by_threshold": {
+        "-1.00": 30,
+        "-1.10": 19,
+        "-1.25": 11,
+        "-1.50": 8,
+        "-1.75": 7,
+        "-2.00": 5,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 7.0,
+      "psi_parasite_MPa": -7.3224,
+      "min_interior_psi_MPa": -2.34366,
+      "delta_min_psi_vs_baseline_MPa": -1.34739,
+      "patch_min_psi_MPa": -2.34366,
+      "delta_patch_psi_vs_baseline_MPa": -1.8754,
+      "diversion_fraction": 0.61788,
+      "embolised_by_threshold": {
+        "-1.00": 34,
+        "-1.10": 23,
+        "-1.25": 13,
+        "-1.50": 9,
+        "-1.75": 8,
+        "-2.00": 7,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 7.5,
+      "psi_parasite_MPa": -7.8224,
+      "min_interior_psi_MPa": -2.47837,
+      "delta_min_psi_vs_baseline_MPa": -1.48209,
+      "patch_min_psi_MPa": -2.47837,
+      "delta_patch_psi_vs_baseline_MPa": -2.01014,
+      "diversion_fraction": 0.64243,
+      "embolised_by_threshold": {
+        "-1.00": 35,
+        "-1.10": 26,
+        "-1.25": 16,
+        "-1.50": 9,
+        "-1.75": 8,
+        "-2.00": 7,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 8.0,
+      "psi_parasite_MPa": -8.3224,
+      "min_interior_psi_MPa": -2.61307,
+      "delta_min_psi_vs_baseline_MPa": -1.6168,
+      "patch_min_psi_MPa": -2.61307,
+      "delta_patch_psi_vs_baseline_MPa": -2.14488,
+      "diversion_fraction": 0.66558,
+      "embolised_by_threshold": {
+        "-1.00": 38,
+        "-1.10": 28,
+        "-1.25": 19,
+        "-1.50": 10,
+        "-1.75": 8,
+        "-2.00": 7,
+        "-2.50": 2,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 8.5,
+      "psi_parasite_MPa": -8.8224,
+      "min_interior_psi_MPa": -2.74777,
+      "delta_min_psi_vs_baseline_MPa": -1.7515,
+      "patch_min_psi_MPa": -2.74777,
+      "delta_patch_psi_vs_baseline_MPa": -2.27962,
+      "diversion_fraction": 0.68743,
+      "embolised_by_threshold": {
+        "-1.00": 38,
+        "-1.10": 30,
+        "-1.25": 21,
+        "-1.50": 10,
+        "-1.75": 9,
+        "-2.00": 8,
+        "-2.50": 4,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 9.0,
+      "psi_parasite_MPa": -9.3224,
+      "min_interior_psi_MPa": -2.88248,
+      "delta_min_psi_vs_baseline_MPa": -1.88621,
+      "patch_min_psi_MPa": -2.88248,
+      "delta_patch_psi_vs_baseline_MPa": -2.41436,
+      "diversion_fraction": 0.70811,
+      "embolised_by_threshold": {
+        "-1.00": 38,
+        "-1.10": 31,
+        "-1.25": 23,
+        "-1.50": 12,
+        "-1.75": 9,
+        "-2.00": 8,
+        "-2.50": 5,
+        "-3.00": 0
+      }
+    },
+    {
+      "gradient_MPa": 9.5,
+      "psi_parasite_MPa": -9.8224,
+      "min_interior_psi_MPa": -3.01718,
+      "delta_min_psi_vs_baseline_MPa": -2.02091,
+      "patch_min_psi_MPa": -3.01718,
+      "delta_patch_psi_vs_baseline_MPa": -2.5491,
+      "diversion_fraction": 0.72769,
+      "embolised_by_threshold": {
+        "-1.00": 38,
+        "-1.10": 32,
+        "-1.25": 25,
+        "-1.50": 14,
+        "-1.75": 9,
+        "-2.00": 8,
+        "-2.50": 7,
+        "-3.00": 1
+      }
+    },
+    {
+      "gradient_MPa": 10.0,
+      "psi_parasite_MPa": -10.3224,
+      "min_interior_psi_MPa": -3.15189,
+      "delta_min_psi_vs_baseline_MPa": -2.15561,
+      "patch_min_psi_MPa": -3.15189,
+      "delta_patch_psi_vs_baseline_MPa": -2.68384,
+      "diversion_fraction": 0.74627,
+      "embolised_by_threshold": {
+        "-1.00": 38,
+        "-1.10": 33,
+        "-1.25": 27,
+        "-1.50": 15,
+        "-1.75": 10,
+        "-2.00": 9,
+        "-2.50": 7,
+        "-3.00": 2
+      }
+    },
+    {
+      "gradient_MPa": 10.5,
+      "psi_parasite_MPa": -10.8224,
+      "min_interior_psi_MPa": -3.28659,
+      "delta_min_psi_vs_baseline_MPa": -2.29032,
+      "patch_min_psi_MPa": -3.28659,
+      "delta_patch_psi_vs_baseline_MPa": -2.81858,
+      "diversion_fraction": 0.76392,
+      "embolised_by_threshold": {
+        "-1.00": 39,
+        "-1.10": 34,
+        "-1.25": 29,
+        "-1.50": 19,
+        "-1.75": 11,
+        "-2.00": 9,
+        "-2.50": 8,
+        "-3.00": 4
+      }
+    },
+    {
+      "gradient_MPa": 11.0,
+      "psi_parasite_MPa": -11.3224,
+      "min_interior_psi_MPa": -3.42129,
+      "delta_min_psi_vs_baseline_MPa": -2.42502,
+      "patch_min_psi_MPa": -3.42129,
+      "delta_patch_psi_vs_baseline_MPa": -2.95332,
+      "diversion_fraction": 0.7807,
+      "embolised_by_threshold": {
+        "-1.00": 41,
+        "-1.10": 34,
+        "-1.25": 29,
+        "-1.50": 20,
+        "-1.75": 12,
+        "-2.00": 9,
+        "-2.50": 8,
+        "-3.00": 4
+      }
+    },
+    {
+      "gradient_MPa": 11.5,
+      "psi_parasite_MPa": -11.8224,
+      "min_interior_psi_MPa": -3.556,
+      "delta_min_psi_vs_baseline_MPa": -2.55973,
+      "patch_min_psi_MPa": -3.556,
+      "delta_patch_psi_vs_baseline_MPa": -3.08806,
+      "diversion_fraction": 0.79668,
+      "embolised_by_threshold": {
+        "-1.00": 43,
+        "-1.10": 34,
+        "-1.25": 29,
+        "-1.50": 21,
+        "-1.75": 13,
+        "-2.00": 9,
+        "-2.50": 8,
+        "-3.00": 5
+      }
+    },
+    {
+      "gradient_MPa": 12.0,
+      "psi_parasite_MPa": -12.3224,
+      "min_interior_psi_MPa": -3.6907,
+      "delta_min_psi_vs_baseline_MPa": -2.69443,
+      "patch_min_psi_MPa": -3.6907,
+      "delta_patch_psi_vs_baseline_MPa": -3.2228,
+      "diversion_fraction": 0.81192,
+      "embolised_by_threshold": {
+        "-1.00": 43,
+        "-1.10": 35,
+        "-1.25": 30,
+        "-1.50": 21,
+        "-1.75": 15,
+        "-2.00": 10,
+        "-2.50": 8,
+        "-3.00": 7
+      }
+    }
+  ],
+  "cavitation_onset_gradient_by_threshold": {
+    "-1.00": 1.1,
+    "-1.10": 2.1,
+    "-1.25": 2.7,
+    "-1.50": 4.0,
+    "-1.75": 5.0,
+    "-2.00": 6.0,
+    "-2.50": 8.0,
+    "-3.00": 9.5
+  },
+  "patch_depression_law": {
+    "slope_MPa_per_MPa_of_gradient": -0.26817,
+    "intercept_MPa": -9.7e-05,
+    "max_abs_residual_MPa": 0.017053,
+    "single_node_analytic_clamp_Kh_over_1_plus_Kh": 0.03771,
+    "gradient_required_to_reach_PSI_CAVITATION_MPa": 6.26,
+    "reading": "the tapped node sits at a conductance-weighted average of its neighbours and the parasite reservoir, with the reservoir's weight fixed at K_h/(1+K_h) per node because K_h is specified RELATIVE to each node's own incident conductance. The depression is therefore linear in the gradient with a slope set by K_h and the patch size, independent of leaf architecture -- so the absence of embolism is an arithmetic consequence of the sink parameterisation, not an emergent property of venation topology."
+  },
+  "kh_sweep_at_illustrative_gradient": [
+    {
+      "K_h_multiple": 1,
+      "K_h": 0.039185,
+      "min_interior_psi_MPa": -1.02244,
+      "diversion_fraction": 0.20003,
+      "embolised_by_threshold": {
+        "-1.00": 1,
+        "-1.10": 0,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "K_h_multiple": 2,
+      "K_h": 0.078369,
+      "min_interior_psi_MPa": -1.15981,
+      "diversion_fraction": 0.30648,
+      "embolised_by_threshold": {
+        "-1.00": 7,
+        "-1.10": 4,
+        "-1.25": 0,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "K_h_multiple": 4,
+      "K_h": 0.156738,
+      "min_interior_psi_MPa": -1.36418,
+      "diversion_fraction": 0.4198,
+      "embolised_by_threshold": {
+        "-1.00": 12,
+        "-1.10": 9,
+        "-1.25": 7,
+        "-1.50": 0,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "K_h_multiple": 8,
+      "K_h": 0.313477,
+      "min_interior_psi_MPa": -1.58918,
+      "diversion_fraction": 0.51994,
+      "embolised_by_threshold": {
+        "-1.00": 22,
+        "-1.10": 12,
+        "-1.25": 9,
+        "-1.50": 4,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "K_h_multiple": 16,
+      "K_h": 0.626953,
+      "min_interior_psi_MPa": -1.72701,
+      "diversion_fraction": 0.59799,
+      "embolised_by_threshold": {
+        "-1.00": 35,
+        "-1.10": 22,
+        "-1.25": 13,
+        "-1.50": 8,
+        "-1.75": 0,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "K_h_multiple": 32,
+      "K_h": 1.253906,
+      "min_interior_psi_MPa": -1.78951,
+      "diversion_fraction": 0.65465,
+      "embolised_by_threshold": {
+        "-1.00": 36,
+        "-1.10": 26,
+        "-1.25": 18,
+        "-1.50": 9,
+        "-1.75": 3,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "K_h_multiple": 64,
+      "K_h": 2.507812,
+      "min_interior_psi_MPa": -1.81425,
+      "diversion_fraction": 0.69317,
+      "embolised_by_threshold": {
+        "-1.00": 36,
+        "-1.10": 28,
+        "-1.25": 21,
+        "-1.50": 13,
+        "-1.75": 5,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "K_h_multiple": 128,
+      "K_h": 5.015625,
+      "min_interior_psi_MPa": -1.82085,
+      "diversion_fraction": 0.71726,
+      "embolised_by_threshold": {
+        "-1.00": 36,
+        "-1.10": 31,
+        "-1.25": 23,
+        "-1.50": 15,
+        "-1.75": 8,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    },
+    {
+      "K_h_multiple": 256,
+      "K_h": 10.03125,
+      "min_interior_psi_MPa": -1.82215,
+      "diversion_fraction": 0.73115,
+      "embolised_by_threshold": {
+        "-1.00": 36,
+        "-1.10": 32,
+        "-1.25": 23,
+        "-1.50": 15,
+        "-1.75": 10,
+        "-2.00": 0,
+        "-2.50": 0,
+        "-3.00": 0
+      }
+    }
+  ],
+  "cavitation_onset_Kh_multiple_by_threshold": {
+    "-1.00": 1,
+    "-1.10": 2,
+    "-1.25": 4,
+    "-1.50": 8,
+    "-1.75": 32,
+    "-2.00": null,
+    "-2.50": null,
+    "-3.00": null
+  },
+  "leaf_boundary_condition_sweep": [
+    {
+      "psi_leaf_MPa": -0.5,
+      "baseline_min_interior_psi_MPa": -0.49814,
+      "sink_min_interior_psi_MPa": -0.66105,
+      "delta_min_psi_MPa": -0.16291,
+      "baseline_embolised_at_-2.00": 0,
+      "sink_embolised_at_-2.00": 0
+    },
+    {
+      "psi_leaf_MPa": -1.0,
+      "baseline_min_interior_psi_MPa": -0.99627,
+      "sink_min_interior_psi_MPa": -1.02244,
+      "delta_min_psi_MPa": -0.02616,
+      "baseline_embolised_at_-2.00": 0,
+      "sink_embolised_at_-2.00": 0
+    },
+    {
+      "psi_leaf_MPa": -1.5,
+      "baseline_min_interior_psi_MPa": -1.49441,
+      "sink_min_interior_psi_MPa": -1.49447,
+      "delta_min_psi_MPa": -6e-05,
+      "baseline_embolised_at_-2.00": 0,
+      "sink_embolised_at_-2.00": 0
+    },
+    {
+      "psi_leaf_MPa": -2.0,
+      "baseline_min_interior_psi_MPa": -1.99254,
+      "sink_min_interior_psi_MPa": -1.99261,
+      "delta_min_psi_MPa": -7e-05,
+      "baseline_embolised_at_-2.00": 0,
+      "sink_embolised_at_-2.00": 0
+    },
+    {
+      "psi_leaf_MPa": -2.5,
+      "baseline_min_interior_psi_MPa": -2.49068,
+      "sink_min_interior_psi_MPa": -2.49075,
+      "delta_min_psi_MPa": -7e-05,
+      "baseline_embolised_at_-2.00": 91,
+      "sink_embolised_at_-2.00": 93
+    }
+  ],
+  "margin_decomposition": {
+    "stipulated_gap_PSI_LEAF_minus_PSI_CAVITATION_MPa": 1.0,
+    "parasite_contribution_at_calibrated_Kh_and_1.5MPa_MPa": -0.02616,
+    "parasite_contribution_at_worst_gradient_in_0_3_MPa": -0.32582,
+    "parasite_share_of_total_margin_pct": 2.62,
+    "reading": "the reported ~0.98 MPa margin to cavitation is dominated by the stipulated 1.0 MPa gap between the transpirational boundary condition and the embolism threshold; the parasite itself moves the leaf's minimum potential by only the delta reported here. dPSI_min is invariant to the choice of PSI_CAVITATION and is the quantity the paper should report."
+  }
+}

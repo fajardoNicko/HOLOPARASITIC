@@ -1,0 +1,325 @@
+{
+  "_purpose": "second-pass confound and robustness battery",
+  "_generated_by": "scripts/run_second_pass_audit.py",
+  "grade_structure": {
+    "n_leaves": 120,
+    "flag_combinations": {
+      "A": 34,
+      "D": 29,
+      "B,D": 23,
+      "B": 19,
+      "C": 7,
+      "C,D": 4,
+      "B,C": 3,
+      "B,C,D": 1
+    },
+    "n_multi_flag": 31,
+    "pct_multi_flag": 25.8,
+    "leading_flag_counts": {
+      "B": 46,
+      "A": 34,
+      "D": 29,
+      "C": 11
+    },
+    "any_C_flag": 15,
+    "leading_grade_C": 11,
+    "C_hidden_by_leading_flag": 4,
+    "any_D_flag": 57,
+    "leading_grade_D": 29,
+    "D_hidden_by_leading_flag": 28,
+    "ordinality_verdict": "NOT ORDINAL. Per the deposit's data dictionary B = under-segmentation (>80% of veins correct), C = spurious minor veins (over-segmentation), D = physical damage <25% of leaf area. These are orthogonal defect TYPES with opposite effects on connectivity, so any statement of the form 'A > B > C > D' as a quality gradient is invalid, and the leading-flag reduction is arbitrary rather than conservative."
+  },
+  "grade_C_sensitivity": {
+    "full_cohort": {
+      "label": "all 100",
+      "n": 100,
+      "spearman_pc_x_mean_degree": [
+        0.7328,
+        4.479878760590678e-18
+      ],
+      "spearman_pc_x_loop_fraction": [
+        0.7269,
+        1.1136130625956214e-17
+      ],
+      "spearman_pc_x_D": [
+        0.496,
+        1.544732917524013e-07
+      ],
+      "partial_pc_x_mean_degree_given_logN": [
+        0.745,
+        6.233982065176482e-19
+      ],
+      "partial_pc_x_D_given_logN": [
+        0.6327,
+        1.6418750295708765e-12
+      ],
+      "median_pc_random": 0.1998,
+      "median_mean_degree": 2.5157
+    },
+    "excluding_any_C_flag": {
+      "label": "no C flag",
+      "n": 86,
+      "spearman_pc_x_mean_degree": [
+        0.7891,
+        1.8154957836763424e-19
+      ],
+      "spearman_pc_x_loop_fraction": [
+        0.7816,
+        6.665780014964979e-19
+      ],
+      "spearman_pc_x_D": [
+        0.427,
+        4.134035529925362e-05
+      ],
+      "partial_pc_x_mean_degree_given_logN": [
+        0.7996,
+        2.7077105098286088e-20
+      ],
+      "partial_pc_x_D_given_logN": [
+        0.5343,
+        1.1718187286022219e-07
+      ],
+      "median_pc_random": 0.2024,
+      "median_mean_degree": 2.5221
+    },
+    "grade_A_only": {
+      "label": "leading grade A",
+      "n": 16,
+      "spearman_pc_x_mean_degree": [
+        0.5912,
+        0.015875579555641485
+      ],
+      "spearman_pc_x_loop_fraction": [
+        0.5765,
+        0.01941514038653161
+      ],
+      "spearman_pc_x_D": [
+        0.3824,
+        0.14385924954389048
+      ],
+      "partial_pc_x_mean_degree_given_logN": [
+        0.7846,
+        0.0003197917742060559
+      ],
+      "partial_pc_x_D_given_logN": [
+        0.5498,
+        0.027367956572774476
+      ],
+      "median_pc_random": 0.2225,
+      "median_mean_degree": 2.6692
+    },
+    "flag_A_only_single_flag": {
+      "label": "A and only A",
+      "n": 16,
+      "spearman_pc_x_mean_degree": [
+        0.5912,
+        0.015875579555641485
+      ],
+      "spearman_pc_x_loop_fraction": [
+        0.5765,
+        0.01941514038653161
+      ],
+      "spearman_pc_x_D": [
+        0.3824,
+        0.14385924954389048
+      ],
+      "partial_pc_x_mean_degree_given_logN": [
+        0.7846,
+        0.0003197917742060559
+      ],
+      "partial_pc_x_D_given_logN": [
+        0.5498,
+        0.027367956572774476
+      ],
+      "median_pc_random": 0.2225,
+      "median_mean_degree": 2.6692
+    },
+    "reading": "C-flagged leaves carry spurious minor veins, which inflates both mean degree and loop fraction; if the connectivity result were an artefact of over-segmentation it would weaken on the C-free subset."
+  },
+  "fractal_dimension_audit": {
+    "spearman_D_x_N": [
+      0.8804,
+      1.6257334080886675e-33
+    ],
+    "pearson_D_x_logN": [
+      0.857,
+      5.6435582660099536e-30
+    ],
+    "R2_of_D_on_logN": 0.7345,
+    "spearman_pc_x_D_raw": [
+      0.496,
+      1.544732917524013e-07
+    ],
+    "spearman_pc_x_D_residualised_on_logN": [
+      0.5766,
+      3.420754106187357e-10
+    ],
+    "partial_pc_x_D_given_logN": [
+      0.6327,
+      1.6418750295708765e-12
+    ],
+    "spearman_D_resid_x_mean_degree": [
+      0.3502,
+      0.00035446601547833325
+    ],
+    "reading": "D is 73% explained by log network size in this cohort. After residualising D on log N its association with p_c is reported below; the raw D-p_c correlation cannot be interpreted as a geometry effect without this control."
+  },
+  "enhancement_robustness": {
+    "full_105": {
+      "label": "full_105",
+      "n": 105,
+      "improved": 93,
+      "unchanged": 12,
+      "worsened": 0,
+      "median_delta_pc": 0.0095,
+      "median_baseline_mean_degree": 2.512,
+      "wilcoxon_pratt_p": 1.6663491689643201e-18,
+      "sign_test_p": 2.0194839173657902e-28
+    },
+    "excluding_any_C_flag": {
+      "label": "excluding_any_C_flag",
+      "n": 91,
+      "improved": 79,
+      "unchanged": 12,
+      "worsened": 0,
+      "median_delta_pc": 0.0108,
+      "median_baseline_mean_degree": 2.5202,
+      "wilcoxon_pratt_p": 3.952467135211637e-16,
+      "sign_test_p": 3.308722450212111e-24
+    },
+    "leading_grade_A": {
+      "label": "leading_grade_A",
+      "n": 21,
+      "improved": 13,
+      "unchanged": 8,
+      "worsened": 0,
+      "median_delta_pc": 0.0069,
+      "median_baseline_mean_degree": 2.6653,
+      "wilcoxon_pratt_p": 0.00046764210045384055,
+      "sign_test_p": 0.000244140625
+    },
+    "A_and_only_A": {
+      "label": "A_and_only_A",
+      "n": 21,
+      "improved": 13,
+      "unchanged": 8,
+      "worsened": 0,
+      "median_delta_pc": 0.0069,
+      "median_baseline_mean_degree": 2.6653,
+      "wilcoxon_pratt_p": 0.00046764210045384055,
+      "sign_test_p": 0.000244140625
+    },
+    "excluding_any_D_flag": {
+      "label": "excluding_any_D_flag",
+      "n": 49,
+      "improved": 40,
+      "unchanged": 9,
+      "worsened": 0,
+      "median_delta_pc": 0.007,
+      "median_baseline_mean_degree": 2.5481,
+      "wilcoxon_pratt_p": 3.862918727562726e-09,
+      "sign_test_p": 1.8189894035458565e-12
+    },
+    "A_or_B_only_no_C_no_D": {
+      "label": "A_or_B_only_no_C_no_D",
+      "n": 40,
+      "improved": 31,
+      "unchanged": 9,
+      "worsened": 0,
+      "median_delta_pc": 0.0079,
+      "median_baseline_mean_degree": 2.5715,
+      "wilcoxon_pratt_p": 1.5828379075470286e-07,
+      "sign_test_p": 9.313225746154785e-10
+    },
+    "boundary_ok_only": {
+      "label": "boundary_ok_only",
+      "n": 102,
+      "improved": 92,
+      "unchanged": 10,
+      "worsened": 0,
+      "median_delta_pc": 0.00995,
+      "median_baseline_mean_degree": 2.5098,
+      "wilcoxon_pratt_p": 3.933192942531772e-18,
+      "sign_test_p": 4.0389678347315804e-28
+    }
+  },
+  "enhancement_mediation": {
+    "spearman_baseline_k_x_delta": [
+      -0.821,
+      8.066151823684293e-27
+    ],
+    "R2_of_delta_on_baseline_k": 0.6506,
+    "kruskal_on_raw_delta_by_grade": [
+      6.981,
+      0.0724901426578264
+    ],
+    "kruskal_on_residual_delta_by_grade": [
+      19.266,
+      0.0002408881314450065
+    ],
+    "residual_median_by_grade": {
+      "A": 0.00201,
+      "B": -0.00019,
+      "C": -0.00522,
+      "D": -0.00062
+    },
+    "baseline_k_median_by_grade": {
+      "A": 2.6653,
+      "B": 2.4715,
+      "C": 2.5061,
+      "D": 2.5337
+    },
+    "reading": "grade differences in the RAW gain are largely explained by grade differences in baseline connectivity; the residual test asks whether anything survives that mediation, and its sign tells you whether the artefact hypothesis (larger gain in worse tracings) or the diminishing-returns hypothesis is supported."
+  },
+  "size_controls": {
+    "cohort_n": 100,
+    "N_range": [
+      1436,
+      300633
+    ],
+    "raw": {
+      "pc_x_mean_degree": [
+        0.7328,
+        4.479878760590678e-18
+      ],
+      "pc_x_loop_fraction": [
+        0.7269,
+        1.1136130625956214e-17
+      ],
+      "pc_x_D": [
+        0.496,
+        1.544732917524013e-07
+      ],
+      "pc_x_N": [
+        0.2318,
+        0.02031956481245318
+      ],
+      "attack_gap_x_loop_fraction": [
+        -0.786,
+        3.4963819109061186e-22
+      ],
+      "attack_gap_x_N": [
+        0.0463,
+        0.6470948271081577
+      ]
+    },
+    "controlling_logN": {
+      "pc_x_mean_degree": [
+        0.745,
+        6.233982065176482e-19
+      ],
+      "pc_x_loop_fraction": [
+        0.7404,
+        1.3348108265613865e-18
+      ],
+      "pc_x_D": [
+        0.6327,
+        1.6418750295708765e-12
+      ],
+      "attack_gap_x_loop_fraction": [
+        -0.7886,
+        2.056266477109181e-22
+      ]
+    }
+  }
+}
