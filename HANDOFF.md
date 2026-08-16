@@ -1,6 +1,6 @@
 # HANDOFF — state of the project
 
-**Last updated 2026-08-15.** Supersedes the previous handoff (2026-08-09). Software build and analysis
+**Last updated 2026-08-16.** Supersedes the previous handoff (2026-08-09). Software build and analysis
 are complete; the project is now in the manuscript-writing phase.
 
 ---
@@ -15,7 +15,7 @@ authority for the one after it.
 | 1. Deep RRL + results mining | `DEEP_RRL_EVIDENCE_PACK.md` + `rrl/A…J` (~130 carded sources) | Literature base, evidence matrix, novelty audit, paragraph architecture |
 | 2. Scientific stress test | `SECOND_PASS_AUDIT.md` (Parts I–XIV) | Risk assessment, confounds, claim classification, DO-NOT-CLAIM list |
 | 3. Final resolution | `FINAL_RESOLUTION_PASS.md` (§§2–15) | Every open flag closed; title decision; writing handoff |
-| — Manuscript revision | `MANUSCRIPT_REVISED_SECTIONS.md` | Revised Introduction, Methods, Results |
+| — Manuscript revision | `MANUSCRIPT_REVISED_SECTIONS.md` + `.docx` | Revised Introduction, Methods, Results |
 
 **`FINAL_RESOLUTION_PASS.md` is the authoritative source** for corrections, terminology, and claim
 strength. `MANUSCRIPT_REVISED_SECTIONS.md` is the drafted text built from it.
@@ -29,8 +29,8 @@ strength. `MANUSCRIPT_REVISED_SECTIONS.md` is the drafted text built from it.
    threshold needs a ~6.0 MPa gradient against a ≈0.5 MPa largest measured value. 97.4% of the reported
    "margin" is the stipulated `PSI_LEAF − PSI_CAVITATION` gap. Report threshold-independently.
 3. **The reticulation result is scope-limited to dispersed damage.** Localised lesions are 2.3–2.5×
-   *less* damaging (99/99 networks), but connectivity stops predicting tolerance under them
-   (ρ = −.011 and .138, n.s., against .733 dispersed). This must be stated, not buried.
+   *less* damaging (100/100 networks, zero exceptions), but connectivity stops predicting tolerance
+   under them (ρ = −.000 and .151, n.s., against .737 dispersed). This must be stated, not buried.
 4. **Two first-pass claims were wrong and were corrected in pass 2** — the loop-fraction "graph
    identity" (it is empirical, not algebraic) and the "targeted attack" framing (removal is weighted-
    stochastic, so the betweenness threshold 0.1889 nominal is 0.1498 realised).
@@ -42,6 +42,7 @@ strength. `MANUSCRIPT_REVISED_SECTIONS.md` is the drafted text built from it.
 All reproducible, all reading only the archive or the raw deposit; none re-runs the original pipeline.
 
 ```
+scripts/make_revised_sections_docx.py            -> MANUSCRIPT_REVISED_SECTIONS.docx
 scripts/run_rrl_diagnostics.py                   -> data/rrl_diagnostics.json
 scripts/run_cavitation_sensitivity.py            -> data/cavitation_sensitivity.json
 scripts/run_graph_metric_audit.py                -> data/graph_metric_audit.json
@@ -51,10 +52,15 @@ scripts/run_criterion_and_locality.py            -> data/criterion_and_locality.
 scripts/run_final_resolution_checks.py           -> data/final_resolution_checks.json
 ```
 
-`run_criterion_and_locality.py` completed 99 of the 100 cohort networks; only `Cis_ant` (396k edges,
-~15 min) is missing. It is resumable — rerun the script and it appends the last row, then
-`--summarise-only` refreshes the JSON. All reported figures are the n = 99 values and are stable to
-three decimals across n = 75 / 85 / 97 / 99, so the last network will not move them.
+`run_criterion_and_locality.py` is **complete at 100 of 100** cohort networks, and both deliverables
+carry the final n = 100 figures. The re-implementation reproduces the archived cohort at Spearman
+0.9988 with an identical median (0.1998 vs 0.1998). Values were stable to three decimals across
+n = 75 / 85 / 97 / 99 / 100.
+
+`MANUSCRIPT_REVISED_SECTIONS.docx` is generated from the markdown by
+`scripts/make_revised_sections_docx.py` — 17 tables and all 14 figures embedded, APA caption layout
+(label, italic title, image, note). The markdown is the source of truth; re-run the script after any
+edit rather than editing the .docx by hand.
 
 **No processes are running.**
 
@@ -62,8 +68,11 @@ three decimals across n = 75 / 85 / 97 / 99, so the last network will not move t
 
 **Immediate, before any further writing**
 
-1. Apply `MANUSCRIPT_REVISED_SECTIONS.md` to the actual `.docx` files. Note the figure crosswalk at the
-   top of that file: figures renumber to 2–14 because Figure 1 is the Methods pipeline figure.
+1. Merge `MANUSCRIPT_REVISED_SECTIONS.docx` into the main manuscript. It **supersedes**
+   `Chapter_I_REVISED.docx` (Introduction), `Methodology.docx` (Methods) and `RESULTS_REVISED.docx`
+   (Results). Do not regenerate those three from their old scripts — those scripts emit the
+   pre-revision text. Note the figure crosswalk at the top of the markdown: figures renumber to 2–14
+   because Figure 1 is the Methods pipeline figure.
 2. Fix the reference list — the corrections are listed at the end of `MANUSCRIPT_REVISED_SECTIONS.md`
    and in `SECOND_PASS_AUDIT.md` Part VIII. The two Matos et al. (2024) papers must be cited
    separately (*Ecology* 105:e4436 for the dataset, *New Phytologist* 244:407 for the analysis).

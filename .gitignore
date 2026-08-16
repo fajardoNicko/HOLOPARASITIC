@@ -1,57 +1,94 @@
-# Personal Claude Code permissions — machine-local, must not be shared.
-# Grants broad auto-approval; committing it would apply it to teammates' machines too.
+# ─────────────────────────────────────────────────────────────
+# Large raw dataset (Matos et al. 2024 — re-download, never commit)
+# ~4.4 GB of per-leaf vein/node/HLD CSVs.
+# NOTE: this dir also lives in git history (commits e667fe7..76febe6),
+# which is why .git is ~1.6 GB. Ignoring it does not undo that.
+# ─────────────────────────────────────────────────────────────
+UCBG_venation_form_data/
+
+# ─────────────────────────────────────────────────────────────
+# Python
+# ─────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+
+# ─────────────────────────────────────────────────────────────
+# R
+# ─────────────────────────────────────────────────────────────
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# ─────────────────────────────────────────────────────────────
+# OS / editor cruft
+# ─────────────────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/
+
+# MS Office lock/owner files (e.g. ~$THODOLOGY_SEGMENTS_RRL.docx)
+~$*
+
+# ─────────────────────────────────────────────────────────────
+# LaTeX build artifacts
+# ─────────────────────────────────────────────────────────────
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.synctex.gz
+*.toc
+*.bbl
+*.blg
+
+# ─────────────────────────────────────────────────────────────
+# Machine-local Claude Code config
+# Grants broad auto-approval; committing it would apply it to
+# teammates' machines too.
+# ─────────────────────────────────────────────────────────────
 .claude/settings.local.json
-ANALYSIS.md
-Cell_Membrane_Roleplay_COMPLETED.docx
+
+# ─────────────────────────────────────────────────────────────
+# Local-only drafts and generated exports
+# Everything below is deliberately NOT pushed. The manuscript docs
+# that ARE tracked (Methodology.docx, RESULTS_DATA_PACK.docx,
+# SECOND_PASS_AUDIT.md, …) are intentionally left out of this list.
+# ─────────────────────────────────────────────────────────────
+CLAUDES CUT.docx
+RESULTS_REVISED.docx
+APPENDIX_C_COMPUTATIONS.tex
+APPENDIX_C_CHECKS.csv
+FIX_LIST.md
+HERO_NUMBERS.md
+HERO_DECISION.md
+RESULTS_AUDIT.md
+
+# Talk / teaching scripts — drafted locally, never part of the repo
 CONCEPTS.md
 EXPLAINER.md
 METHODOLOGY_SCRIPT.md
-METHODOLOGY.md
 ORAL_SCRIPT.md
-PIPELINE_FLOWCHART.html
 PRESENTATION.md
-PROPOSAL_DEFENSE.md
-REFERENCES_PARASITES.md
-VALIDATION.md
-SOFTWARE_LOGBOOK.md
-HERO_NUMBERS.md
-HANDOFF_FOR_PROCEDURES.md
-HERO_DECISION.md
-BIOPHYSICIST_ONE_PAGER.md
-hope3_pubmat_draft.html
-VALIDATOR_BRIEF.md
-UCBG_venation_form_data/
-CLAUDES CUT.docx
-APPENDIX_C_COMPUTATIONS.tex
-APPENDIX_C_CHECKS.csv
-RESULTS_REVISED.docx
-RESULTS_AUDIT.md
-
-METHODOLOGY_SEGMENTS_RRL.docx
-ANALYSIS.md
-APPENDIX_C_CHECKS.csv
-APPENDIX_C_COMPUTATIONS.tex
-BIOPHYSICIST_ONE_PAGER.md
-Cell_Membrane_Roleplay_COMPLETED.docx
-Chapter_I_REVISED.docx
-CLAUDES CUT.docx
-FIX_LIST.md
-HANDOFF_FOR_PROCEDURES.md
-HANDOFF.md
-HERO_NUMBERS.md
-hope3_pubmat_draft.html
-METHODOLOGY_FIGURES.html
-Methodology_RRL_Enhanced.docx
-METHODOLOGY_SEGMENTS_RRL.docx
-Methodology.docx
-PIPELINE_FLOWCHART.html
-PROJECT_DETAILED_WRITEUP.md
-PROPOSAL_DEFENSE.md
-REFERENCES_PARASITES.md
-RESULTS_AUDIT.md
-RESULTS_DATA_PACK.docx
-RESULTS_REVISED.docx
-ROBUSTNESS_CEILING_DISCUSSION.md
-SOFTWARE_LOGBOOK.md
-VALIDATION.md
-VALIDATOR_BRIEF.md
+*.html
