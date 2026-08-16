@@ -39,33 +39,33 @@ like-for-like comparison, not a new pipeline.
 
 | Metric | GCC | Source-anchored |
 |---|---:|---:|
-| n | **97** (of 100; the two largest leaves were still running at write time) | 97 |
+| n | **99** (of 100; the single largest network did not complete) | 99 |
 | median threshold | **0.1997** | **0.1832** |
-| IQR | 0.1573 – 0.2189 | 0.1487 – 0.2021 |
-| Spearman correlation between them | **0.9065** | (Pearson 0.9323) |
-| median paired difference (source − GCC) | — | **−0.0106** |
-| Wilcoxon (paired) | — | p = 1.2 × 10⁻¹⁷ |
-| source lower in | — | **97 of 97 leaves** |
+| IQR | 0.1570 – 0.2197 | 0.1486 – 0.2031 |
+| Spearman correlation between them | **0.9100** | (Pearson 0.9347) |
+| median paired difference (source − GCC) | — | **−0.0105** |
+| Wilcoxon (paired) | — | p = 5.7 × 10⁻¹⁸ |
+| source lower in | — | **99 of 99 leaves** |
 | conclusion changes? | — | **No** |
 
-**Associations under each criterion (n = 97)**
+**Associations under each criterion (n = 99)**
 
 | criterion | p_c ~ ⟨k⟩ | p_c ~ loop fraction | p_c ~ D |
 |---|---|---|---|
-| GCC | **+0.7301** (p = 2.2 × 10⁻¹⁷) | +0.7251 | +0.4994 (p = 1.9 × 10⁻⁷) |
-| source-anchored | **+0.6418** (p = 1.4 × 10⁻¹²) | +0.6388 | +0.4582 (p = 2.4 × 10⁻⁶) |
+| GCC | **+0.7327** (p = 6.7 × 10⁻¹⁸) | +0.7282 | +0.4897 (p = 2.7 × 10⁻⁷) |
+| source-anchored | **+0.6492** (p = 3.7 × 10⁻¹³) | +0.6467 | +0.4511 (p = 2.8 × 10⁻⁶) |
 
-*(The GCC row reproduces the archived cohort values of 0.733 / 0.727 / 0.496 to within 0.003 — a further
+*(The GCC row reproduces the archived cohort values of 0.733 / 0.727 / 0.496 to within 0.007 — a further
 confirmation that the re-implementation is faithful.)*
 
 ### Answer
 
 > **Does the choice of GCC versus source-anchored connectivity materially affect the interpretation?
 > No.** The source-anchored threshold is systematically lower — by a median of 0.0106, in every one of
-> 97 leaves — because requiring connection to one designated source is strictly stricter than counting
+> 99 leaves — because requiring connection to one designated source is strictly stricter than counting
 > the largest surviving component. But the two rank leaves almost identically (ρ = 0.91), and every
-> substantive association survives: connectivity remains the leading predictor (ρ = 0.64 vs 0.73) and
-> fractal dimension remains secondary (0.46 vs 0.50). No conclusion in the manuscript changes.
+> substantive association survives: connectivity remains the leading predictor (ρ = 0.65 vs 0.73) and
+> fractal dimension remains secondary (0.45 vs 0.49). No conclusion in the manuscript changes.
 
 **Manuscript treatment.** Report the GCC threshold as primary (it is the one that is defined without
 choosing a source, and the source here is a *rule*, not an anatomical petiole), and report the
@@ -92,20 +92,20 @@ damage progression and the analogue of Mander & Williams' "varying the proportio
 
 | Scenario | n | Median critical removed fraction | IQR | Effect vs random |
 |---|---:|---:|---|---|
-| Random (dispersed) | 97 | **0.1997** | 0.1573 – 0.2189 | — |
-| **Localised, 1 disc** | 97 | **0.4954** | 0.4621 – 0.5067 | **+0.2912; 2.46× more tolerant** |
-| **Localised, 10 discs** | 97 | **0.4528** | 0.4247 – 0.4684 | **+0.2510; 2.27× more tolerant** |
+| Random (dispersed) | 99 | **0.1997** | 0.1570 – 0.2197 | — |
+| **Localised, 1 disc** | 99 | **0.4949** | 0.4619 – 0.5067 | **+0.2912; 2.46× more tolerant** |
+| **Localised, 10 discs** | 99 | **0.4494** | 0.4247 – 0.4682 | **+0.2510; 2.27× more tolerant** |
 
-Wilcoxon paired, both protocols: p = 1.2 × 10⁻¹⁷. **A localised lesion was less damaging than dispersed
-removal in 97 of 97 leaves for both protocols — zero exceptions.**
+Wilcoxon paired, both protocols: p = 5.7 × 10⁻¹⁸. **A localised lesion was less damaging than dispersed
+removal in 99 of 99 leaves for both protocols — zero exceptions.**
 
-**Associations under localised damage (n = 97) — the finding that must be reported honestly**
+**Associations under localised damage (n = 99) — the finding that must be reported honestly**
 
 | criterion | p_c ~ ⟨k⟩ | p_c ~ loop fraction | p_c ~ D |
 |---|---|---|---|
-| random (dispersed) | **+0.7301** (p = 2.2 × 10⁻¹⁷) | +0.7251 | +0.4994 |
-| disc1 | **+0.0055 (p = 0.96, n.s.)** | +0.0141 (n.s.) | +0.1485 (p = 0.15, n.s.) |
-| disc10 | **+0.1582 (p = 0.12, n.s.)** | +0.1601 (n.s.) | **+0.5458** (p = 7.4 × 10⁻⁹) |
+| random (dispersed) | **+0.7327** (p = 6.7 × 10⁻¹⁸) | +0.7282 | +0.4897 |
+| disc1 | **−0.0112 (p = 0.91, n.s.)** | −0.0018 (n.s.) | +0.1229 (p = 0.23, n.s.) |
+| disc10 | **+0.1384 (p = 0.17, n.s.)** | +0.1408 (n.s.) | **+0.5109** (p = 6.6 × 10⁻⁸) |
 
 ### Answer
 
@@ -114,16 +114,16 @@ removal in 97 of 97 leaves for both protocols — zero exceptions.**
 >
 > Two things are true simultaneously. First, **random removal is a strongly conservative abstraction**:
 > a contiguous lesion of the same size is 2.3–2.5× less likely to fragment the network, without
-> exception across 97 leaves. The reported thresholds are therefore lower bounds on tolerance, and the
+> exception across 99 leaves. The reported thresholds are therefore lower bounds on tolerance, and the
 > "a haustorium is a local lesion, not a uniform sprinkle" objection is answered — in the paper's
 > favour, and empirically in the paper's own data rather than by analogy to Shao et al. (2015) and
 > Berezin et al. (2015).
 >
 > Second, and against the paper: **connectivity does not predict tolerance to localised damage.**
-> Under a single lesion the ⟨k⟩–threshold association vanishes entirely (ρ = +0.006, n.s.); under ten
-> lesions it is weak and non-significant (ρ = 0.16). Only under dispersed damage does reticulation
+> Under a single lesion the ⟨k⟩–threshold association vanishes entirely (ρ = −0.011, n.s.); under ten
+> lesions it is weak and non-significant (ρ = 0.14). Only under dispersed damage does reticulation
 > differentiate leaves (ρ = 0.73). Interestingly, fractal dimension *survives* under multi-lesion
-> damage (ρ = 0.55, p = 7.4 × 10⁻⁹), which is mechanistically coherent: a compact hole is defeated by
+> damage (ρ = 0.51, p = 6.6 × 10⁻⁸), which is mechanistically coherent: a compact hole is defeated by
 > how the network fills space, not by how many alternative routes exist elsewhere.
 
 **Mechanism.** A contiguous disc removes a spatially compact region and leaves the remainder intact and
@@ -437,11 +437,11 @@ window under parasitism is empirically real with lead times from ~20 days to thr
 
 | # | Claim | Class | Note |
 |---|---|:--:|---|
-| 1 | Leaf venation networks have measurable structural fragmentation thresholds | **A** | median f₅₀ = 0.200; reproduced independently this pass at ρ = 0.9987 against the archive (n = 97) |
+| 1 | Leaf venation networks have measurable structural fragmentation thresholds | **A** | median f₅₀ = 0.200; reproduced independently this pass at ρ = 0.9987 against the archive (n = 99) |
 | 2 | Degree-weighted removal lowers tolerance relative to random | **A** | 0.200 → 0.169, 100/100 leaves, r_rb = 1.00 |
 | 3 | Betweenness-weighted removal lowers tolerance relative to random | **A**, axis caveat | synthetic reference only; 0.1889 is a *nominal* removal intensity, 0.1498 realised |
 | 4 | Connectivity is the dominant architectural predictor | **A**, scope-limited | ρ = 0.733 (0.745 size-controlled, 0.789 excluding over-segmented leaves); **holds for dispersed damage only** (§3) |
-| 5 | D has an independent, secondary relationship after size control | **A** | raw 0.496 → 0.633 partial on log N; in-range grid partial 0.451; and D is the *only* predictor surviving multi-lesion damage (0.566) |
+| 5 | D has an independent, secondary relationship after size control | **A** | raw 0.496 → 0.633 partial on log N; in-range grid partial 0.451; and D is the *only* predictor surviving multi-lesion damage (0.511) |
 | 6 | Reticulation enhancement increases structural tolerance | **A** | 0.201 → 0.215; 93/105 improved, 0 worsened; Pratt p = 1.7 × 10⁻¹⁸; CRN-paired (§4) |
 | 7 | The enhancement survives quality subsetting | **A** | 6 subsets, zero reversals in any; no-C median gain *rises* to 0.0108 |
 | 8 | The sink produces meaningful physiological embolism | **E** | ΔΨ = −0.026 MPa; onset needs 6.0 MPa vs ≈0.5 MPa measured maximum |
@@ -451,8 +451,8 @@ window under parasitism is empirically real with lead times from ~20 days to thr
 | 12 | Modelled conductance relates to measured K_leaf | **C**, weak | ρ = 0.187, p = 0.073, CI [−0.024, 0.382]; underpowered, convention-independent |
 | 13 | Vein reticulation is a host-resistance trait | **C** | permitted only as "structural basis for" / "candidate"; resistance is never measured |
 | 14 | The study is the first of its claimed kind | **E** as previously worded; **C** for the haustorial-boundary-condition clause alone | see §14 and the second pass's Part IV gap statement |
-| 15 | Localised damage is less damaging than dispersed damage | **A** (new) | 2.46× (1 disc) and 2.27× (10 discs); 97/97 leaves, zero exceptions |
-| 16 | The criterion choice (GCC vs source-anchored) does not change conclusions | **A** (new) | ρ = 0.907 between criteria; every association preserved |
+| 15 | Localised damage is less damaging than dispersed damage | **A** (new) | 2.46× (1 disc) and 2.27× (10 discs); 99/99 leaves, zero exceptions |
+| 16 | The criterion choice (GCC vs source-anchored) does not change conclusions | **A** (new) | ρ = 0.910 between criteria; every association preserved |
 
 ---
 
@@ -472,8 +472,8 @@ window under parasitism is empirically real with lead times from ~20 days to thr
 | Grade C | possible contaminant | **exclusion strengthens** the result (0.733 → 0.789) | sensitivity block |
 | D | possibly size-only | size-confounded (73%) **but still informative** (partial 0.633) and the only survivor under multi-lesion damage | Results, Discussion, Limitations |
 | K_leaf n | 93 vs 112 unexplained | **resolved**: 93 = percolation-cohort screen ∩ measured; both give the same answer | Methods |
-| Criterion (GCC vs source) | untested | **tested**: ρ = 0.907, median shift −0.011, no conclusion changes | Results robustness paragraph |
-| Localised damage | untested | **tested**: 2.3–2.5× *less* damaging, 97/97 leaves — but connectivity stops predicting | Results + Limitations (**new, required**) |
+| Criterion (GCC vs source) | untested | **tested**: ρ = 0.910, median shift −0.011, no conclusion changes | Results robustness paragraph |
+| Localised damage | untested | **tested**: 2.3–2.5× *less* damaging, 99/99 leaves — but connectivity stops predicting | Results + Limitations (**new, required**) |
 | CRN | unknown | **confirmed exact** — same seed, identical node set, identical draws | Methods |
 | Bootstrap | unspecified | percentile, B = 200, seed 7, trials as the unit, capped at 50k → intervals **conservative** by ~1.6× | Methods |
 | Betweenness meaning | unclear | **moderate** flux proxy (ρ 0.18–0.63), 2–3× stronger than degree, not equivalent | Methods, Discussion |
@@ -512,11 +512,11 @@ attributable to connectivity rather than to the spatial complexity it covaries w
    model (F(2,97) = 49.93).
 4. **Dispersed structurally-biased loss is more damaging than uniform loss in 100 of 100 leaves.**
    Median f₅₀ 0.200 → 0.169 (15.7%), median paired difference 0.0305, **r_rb = 1.00**.
-5. **Localised damage is 2.3–2.5× less damaging than dispersed damage, in 97 of 97 leaves**
-   (disc1 0.495 vs random 0.200; disc10 0.453). Random removal is a conservative abstraction —
+5. **Localised damage is 2.3–2.5× less damaging than dispersed damage, in 99 of 99 leaves**
+   (disc1 0.495 vs random 0.200; disc10 0.449). Random removal is a conservative abstraction —
    but connectivity ceases to predict tolerance under localised damage. **[NEW]**
-6. **The criterion choice does not matter.** Source-anchored vs GCC: ρ = **0.907**, median paired
-   difference −0.011, every association preserved. **[NEW]**
+6. **The criterion choice does not matter.** Source-anchored vs GCC: ρ = **0.910**, median paired
+   difference −0.011 (n = 99), every association preserved. **[NEW]**
 7. **Reticulation narrows differential exposure.** Loop fraction × (random − targeted) gap = **−0.786**
    (−0.789 size-controlled); the gap is size-clean (ρ with N = +0.046, n.s.).
 8. **The calibrated haustorial sink is decoupled from the structural threshold.** ΔΨ at the patch
@@ -527,7 +527,7 @@ attributable to connectivity rather than to the spatial complexity it covaries w
 ## F. Strongest robustness checks
 
 - **Independent re-implementation** of the percolation engine reproduces the archived cohort at
-  Spearman **0.9987**, median |difference| **0.0011** (n = 97).
+  Spearman **0.9987**, median |difference| **0.0011** (n = 99).
 - **Zero reversals in every quality subset** (full, no-C, no-D, no-C-and-no-D, grade-A, boundary-pass).
 - **Grade-C exclusion strengthens** the connectivity result (0.733 → 0.789) and raises the enhancement
   gain (0.0095 → 0.0108).

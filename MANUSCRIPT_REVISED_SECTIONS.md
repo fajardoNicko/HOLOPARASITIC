@@ -951,15 +951,15 @@ every architecture–threshold association strengthened rather than weakened und
 | Cavitation threshold | −1.00 to −3.00 MPa, calibrated sink | Onset gradient rises from 1.1 MPa (at −1.00) to 6.0 MPa (at −2.00) and 9.5 MPa (at −3.00) | The absence of embolism is specific to thresholds at or below −1.10 MPa within the 0–3 MPa sweep; reported as threshold-dependent |
 | Host operating potential | ψ_leaf from −0.5 to −2.5 MPa | At ψ_leaf = −2.5 MPa, 91 vessels embolise with no parasite present | The margin is governed by the boundary condition, not by the parasite |
 | Resistance convention | ℓ/r⁴ versus ℓ/r² | K_leaf: ρ = .176 versus ρ = .179 (n = 112) | None; the K_leaf outcome is convention-independent |
-| Connectivity criterion | GCC versus source-anchored, identical draws | Spearman ρ = .907; median paired difference −0.011; source lower in 97 of 97 | None (§7.1) |
-| Damage locality | Dispersed versus contiguous-disc removal | Single lesion 0.4954, ten lesions 0.4528, versus dispersed 0.1997 | Dispersed removal is conservative; connectivity result is scope-limited (§7.2) |
+| Connectivity criterion | GCC versus source-anchored, identical draws | Spearman ρ = .910; median paired difference −0.011; source lower in 99 of 99 | None (§7.1) |
+| Damage locality | Dispersed versus contiguous-disc removal | Single lesion 0.4949, ten lesions 0.4494, versus dispersed 0.1997 | Dispersed removal is conservative; connectivity result is scope-limited (§7.2) |
 | Over-segmentation | Excluding all C-flagged networks | p_c ~ ⟨k⟩ rises from .733 to .789; median Δp_c rises from 0.0095 to 0.0108 | None; both principal results strengthen |
 | Baseline fragmentation | Excluding networks with baseline GCC fraction ≤ .99 | p_c ~ ⟨k⟩ = .731 (n = 99); Δp_c median 0.0094, 91 improved / 12 unchanged / 0 worsened (n = 103) | None |
 
-*Note.* Source-anchored and locality analyses were computed on 97 of the 100 cohort networks under the
+*Note.* Source-anchored and locality analyses were computed on 99 of the 100 cohort networks under the
 engine settings of Table 3, with both criteria scored on identical removal draws. The re-implementation
 used for those analyses reproduced the archived thresholds at Spearman ρ = .999 (median absolute
-difference 0.0011).
+difference 0.0011, n = 99).
 
 ### 7.1 Robustness to the Connectivity Criterion
 
@@ -969,12 +969,12 @@ the petiole in Price and Weitz (2014). Because no network in this dataset carrie
 source used here is the documented widest-vein rule described in the Methods, and the source node is
 protected from removal, matching the treatment of the structural vein as an un-attacked layer.
 
-Scoring both criteria on identical removal draws across 97 cohort networks, the source-anchored
+Scoring both criteria on identical removal draws across 99 cohort networks, the source-anchored
 threshold was systematically lower than the GCC threshold, by a median of 0.011, and was lower in every
-one of the 97 networks. The two nevertheless ranked networks almost identically (Spearman ρ = .907,
-Pearson r = .932; medians 0.1832 against 0.1997). Every substantive association was preserved:
-connectivity remained the leading predictor (ρ = .642 against .730 under the GCC criterion) and fractal
-dimension remained secondary (ρ = .458 against .499). **The choice of connectivity criterion does not
+one of the 99 networks. The two nevertheless ranked networks almost identically (Spearman ρ = .910,
+Pearson r = .935; medians 0.1832 against 0.1997). Every substantive association was preserved:
+connectivity remained the leading predictor (ρ = .649 against .733 under the GCC criterion) and fractal
+dimension remained secondary (ρ = .451 against .490). **The choice of connectivity criterion does not
 change the substantive conclusions of this study.**
 
 ### 7.2 Effect of Localised Damage
@@ -985,17 +985,17 @@ so that the horizontal axis is identical to the dispersed case: a single lesion,
 nearest a randomly chosen centre, and ten simultaneous lesions grown from ten random centres.
 
 Localised damage was substantially **less** damaging than dispersed damage. The median critical removed
-fraction rose from 0.1997 under dispersed removal to 0.4954 under a single lesion and 0.4528 under ten
+fraction rose from 0.1997 under dispersed removal to 0.4949 under a single lesion and 0.4494 under ten
 lesions — increases of 0.291 and 0.251, or factors of 2.46 and 2.27. A localised lesion was less
-damaging than dispersed removal in **97 of 97 networks for both protocols, without exception**
+damaging than dispersed removal in **99 of 99 networks for both protocols, without exception**
 (Wilcoxon p < .001 for both). Uniform removal is therefore a conservative abstraction, and the
 thresholds reported in Tables 3 and 4 are lower bounds on the loss a network can absorb.
 
 The architectural relationship, however, did not survive the change in damage geometry. Under a single
-lesion the association between connectivity and the threshold vanished (ρ = .006, p = .96), and under
-ten lesions it was weak and non-significant (ρ = .158, p = .12), against ρ = .730 under dispersed
+lesion the association between connectivity and the threshold vanished (ρ = −.011, p = .91), and under
+ten lesions it was weak and non-significant (ρ = .138, p = .17), against ρ = .733 under dispersed
 removal. Fractal dimension behaved oppositely, retaining a moderate and significant association under
-the multi-lesion protocol (ρ = .546, p < .001). A compact lesion removes a spatially bounded region and
+the multi-lesion protocol (ρ = .511, p < .001). A compact lesion removes a spatially bounded region and
 leaves the remainder connected, so the network routes around the hole; the alternative routes that
 reticulation supplies between regions are what dispersed removal destroys and what a single hole does
 not.
