@@ -40,6 +40,18 @@ def w(s: str = "") -> None:
     L.append(s)
 
 
+def steps(*lines):
+    r"""Emit a multi-stage derivation, one arithmetic step per line.
+
+    The first line carries the symbol and the '&=' alignment point; each
+    subsequent line is a further stage of the same expression.
+    """
+    w(r"\begin{align}")
+    for i, ln in enumerate(lines):
+        w(ln + (r" \\[3pt]" if i < len(lines) - 1 else ""))
+    w(r"\end{align}")
+
+
 def check(label, reported, computed, tol=5e-4):
     CHECKS.append((label, reported, computed, tol))
     return computed
@@ -147,15 +159,11 @@ def main() -> None:
     w(r"\end{center}")
     w(r"\vspace{1em}")
     w()
-    w(r"""\noindent This appendix re-derives every statistic reported in the
-Results directly from the archived data files. For each quantity the raw
-unit-level observations are tabulated, the defining formula is stated, and the
-intermediate sums obtained from those observations are substituted so that the
-reported value can be reproduced without returning to the raw files. The unit of
-observation is the individual leaf-venation network, which plays the role that a
-single experimental trial plays in a bench study. Section~C.13 lists every
-recomputed value against the corresponding cell of the Results and flags any
-disagreement.""")
+    w(r"""\noindent This appendix re-derives every statistic in the Results from the archived
+data. For each quantity the raw observations are tabulated, the formula is stated,
+and the intermediate sums are substituted stage by stage. The unit of observation
+is the individual leaf-venation network. Section~C.17 reconciles every recomputed
+value against the Results.""")
     w()
 
     # ---------------- C.1 formulas ----------------------------------------
@@ -231,13 +239,11 @@ traced networks. Each table below states which set it uses.""")
     # ---------------- C.3 thresholds --------------------------------------
     w(r"\section{Critical Removed Fraction Under Uniform and Degree-Weighted Removal}")
     w()
-    w(r"""The critical removed fraction $p_{c}$ is the proportion of nodes whose
-removal drives the giant connected component below half its undamaged size with
-probability .50. Each network was evaluated under both removal modes at 2,400
-Monte Carlo trials per mode, and the per-network difference
-$d = p_{c,\text{uniform}} - p_{c,\text{degree}}$ is the paired observation on
-which the comparison rests. Table~C2 gives all three columns for every network
-in the percolation cohort.""")
+    w(r"""$p_{c}$ is the removed fraction at which the giant component falls
+below half its undamaged size with probability .50. Both modes were run at 2,400
+trials per network. The paired observation is
+$d = p_{c,	ext{uniform}} - p_{c,	ext{degree}}$, formed per network before any
+summary is taken.""")
     w()
     ru = [float(r["pc_random"]) for r in perc]
     rd = [float(r["pc_degree"]) for r in perc]
@@ -280,16 +286,25 @@ between-network variation cancels in the difference.""" %
     w()
     w(r"\subsection{Worked Computation of the Paired Difference}")
     w()
-    w(r"""Substituting the sums from the final block of Table~C2 into equations
-(C.1) and (C.2) for the difference column,""")
-    w(r"\begin{align}")
-    w(r"\bar{d} &= \frac{\sum d}{n} = \frac{%s}{%d} = %s \\[4pt]"
-      % (num(Sdiff["sum"]), Sdiff["n"], num(Sdiff["M"], 6)))
-    w(r"s_{d} &= \sqrt{\frac{\sum d^{2}-n\bar{d}^{2}}{n-1}}"
-      r" = \sqrt{\frac{%s-%d(%s)^{2}}{%d}} = %s"
-      % (num(Sdiff["sum_sq"], 6), Sdiff["n"], num(Sdiff["M"], 6),
-         Sdiff["n"] - 1, num(Sdiff["SD"], 6)))
-    w(r"\end{align}")
+    w(r"""Substituting the sums from the final block of Table~C2:""")
+    _nd, _sd, _sq = Sdiff["n"], Sdiff["sum"], Sdiff["sum_sq"]
+    _md = _sd / _nd
+    _corr = _nd * _md * _md
+    _numer = _sq - _corr
+    _var = _numer / (_nd - 1)
+    steps(
+        r"\bar{d} &= \frac{\sum d}{n}",
+        r"&= \frac{%s}{%d}" % (num(_sd, 6), _nd),
+        r"&= %s" % num(_md, 6),
+    )
+    steps(
+        r"s_{d}^{2} &= \frac{\sum d^{2}-n\bar{d}^{2}}{n-1}",
+        r"&= \frac{%s-%d(%s)^{2}}{%d}" % (num(_sq, 6), _nd, num(_md, 6), _nd - 1),
+        r"&= \frac{%s-%s}{%d}" % (num(_sq, 6), num(_corr, 6), _nd - 1),
+        r"&= \frac{%s}{%d}" % (num(_numer, 6), _nd - 1),
+        r"&= %s" % num(_var, 8),
+        r"s_{d} &= \sqrt{%s} = %s" % (num(_var, 8), num(Sdiff["SD"], 6)),
+    )
     w(r"""which round to the mean difference of %s and the standard deviation of
 %s reported in the Results. The uniform threshold exceeded the degree-weighted
 threshold in %d of %d networks, so the matched-pairs rank-biserial correlation is
@@ -314,11 +329,16 @@ median difference of %s, roughly one sixth of the uniform threshold.""" %
     rel = 100.0 * (Su["Mdn"] - Sd["Mdn"]) / Su["Mdn"]
     check("Relative reduction of the median (%)",
           T3["relative_reduction_of_median_pct"], rel, 0.05)
-    w(r"""The relative reduction in the tolerable removed fraction follows as""")
-    w(r"\begin{equation}")
-    w(r"\frac{%s-%s}{%s}\times 100 = %s\%%"
-      % (num(Su["Mdn"]), num(Sd["Mdn"]), num(Su["Mdn"]), "%.2f" % rel))
-    w(r"\end{equation}")
+    w(r"""Relative reduction of the median:""")
+    _gap = Su["Mdn"] - Sd["Mdn"]
+    steps(
+        r"\frac{\tilde{p}_{u}-\tilde{p}_{d}}{\tilde{p}_{u}}\times 100"
+        r" &= \frac{%s-%s}{%s}\times 100"
+        % (num(Su["Mdn"]), num(Sd["Mdn"]), num(Su["Mdn"])),
+        r"&= \frac{%s}{%s}\times 100" % (num(_gap, 4), num(Su["Mdn"])),
+        r"&= %s \times 100" % num(_gap / Su["Mdn"], 6),
+        r"&= %s\%%" % ("%.2f" % rel),
+    )
     w()
 
     # ---------------- C.4 descriptors -------------------------------------
@@ -376,15 +396,23 @@ without $\sum x^{2}$ because that quantity overflows ordinary display precision;
 its dispersion is given by the range.""" % SN["n"])
     w()
     mk = describe([r["mean_degree"] for r in char])
-    w(r"""Worked example for mean degree, substituting the first two columns of
-Table~C3 into equations (C.1) and (C.2):""")
-    w(r"\begin{align}")
-    w(r"\overline{\langle k\rangle} &= \frac{%s}{%d} = %s \\[4pt]"
-      % (num(mk["sum"], 3), mk["n"], num(mk["M"], 6)))
-    w(r"s &= \sqrt{\frac{%s-%d(%s)^{2}}{%d}} = %s"
-      % (num(mk["sum_sq"], 3), mk["n"], num(mk["M"], 6), mk["n"] - 1,
-         num(mk["SD"], 6)))
-    w(r"\end{align}")
+    w(r"""Worked example for mean degree, from the first two columns of Table~C3:""")
+    _c = mk["n"] * mk["M"] ** 2
+    steps(
+        r"\overline{\langle k\rangle} &= \frac{\sum \langle k\rangle}{n}",
+        r"&= \frac{%s}{%d}" % (num(mk["sum"], 3), mk["n"]),
+        r"&= %s" % num(mk["M"], 6),
+    )
+    steps(
+        r"s^{2} &= \frac{\sum \langle k\rangle^{2}-n\bar{x}^{2}}{n-1}",
+        r"&= \frac{%s-%d(%s)^{2}}{%d}"
+        % (num(mk["sum_sq"], 3), mk["n"], num(mk["M"], 6), mk["n"] - 1),
+        r"&= \frac{%s-%s}{%d}"
+        % (num(mk["sum_sq"], 4), num(_c, 4), mk["n"] - 1),
+        r"&= \frac{%s}{%d} = %s"
+        % (num(mk["sum_sq"] - _c, 6), mk["n"] - 1, num(mk["SD"] ** 2, 8)),
+        r"s &= \sqrt{%s} = %s" % (num(mk["SD"] ** 2, 8), num(mk["SD"], 6)),
+    )
     w()
 
     # ---------------- C.5 enhancement -------------------------------------
@@ -455,13 +483,23 @@ improved, %d were unchanged and %d worsened.""" % (Sdel["n"], Sdel["n"], imp, un
     w()
     w(r"\subsection{Worked Computation of the Threshold Gain}")
     w()
-    w(r"\begin{align}")
-    w(r"\overline{\Delta p_{c}} &= \frac{%s}{%d} = %s \\[4pt]"
-      % (num(Sdel["sum"]), Sdel["n"], num(Sdel["M"], 6)))
-    w(r"s_{\Delta} &= \sqrt{\frac{%s-%d(%s)^{2}}{%d}} = %s"
-      % (num(Sdel["sum_sq"], 6), Sdel["n"], num(Sdel["M"], 6),
-         Sdel["n"] - 1, num(Sdel["SD"], 6)))
-    w(r"\end{align}")
+    _cg = Sdel["n"] * Sdel["M"] ** 2
+    steps(
+        r"\overline{\Delta p_{c}} &= \frac{\sum \Delta p_{c}}{n}",
+        r"&= \frac{%s}{%d}" % (num(Sdel["sum"], 6), Sdel["n"]),
+        r"&= %s" % num(Sdel["M"], 6),
+    )
+    steps(
+        r"s_{\Delta}^{2} &= \frac{\sum \Delta p_{c}^{2}"
+        r"-n\overline{\Delta p_{c}}^{2}}{n-1}",
+        r"&= \frac{%s-%d(%s)^{2}}{%d}"
+        % (num(Sdel["sum_sq"], 6), Sdel["n"], num(Sdel["M"], 6), Sdel["n"] - 1),
+        r"&= \frac{%s-%s}{%d}"
+        % (num(Sdel["sum_sq"], 6), num(_cg, 6), Sdel["n"] - 1),
+        r"&= %s" % num(Sdel["SD"] ** 2, 8),
+        r"s_{\Delta} &= \sqrt{%s} = %s"
+        % (num(Sdel["SD"] ** 2, 8), num(Sdel["SD"], 6)),
+    )
     pct_imp = 100.0 * imp / Sdel["n"]
     check("Percent improved", T9["pct_improved"], pct_imp, 0.05)
     w(r"""The proportion of networks improving is $%d/%d \times 100 = %s\%%$, and
@@ -757,14 +795,10 @@ modes.""" %
 
     w(r"\section{Normality Screening and Rank-Order Association}")
     w()
-    w(r"""Because the choice between product-moment and rank-order correlation
-depends on the shape of the distributions, every variable entering the association
-analyses was first screened for normality with the Shapiro--Wilk test. The
-statistic is a ratio of the squared best linear unbiased estimate of the scale to
-the ordinary sum of squares, and it has no closed form that can usefully be
-substituted by hand; the values below are those returned by the standard
-implementation and are reported so that the decision rule they drove is
-auditable.""")
+    w(r"""Every variable entering the association analyses was screened for
+normality. The Shapiro--Wilk statistic has no closed form usable by hand, so the
+values below are those returned by the standard implementation and are reported so
+that the decision rule they drove is auditable.""")
     w()
     w(r"\begin{table}[H]")
     w(r"\centering")
@@ -824,22 +858,30 @@ every reported correlation can be reproduced by substitution.""")
     short = 1 - 6 * d2k / (n * (n * n - 1))
     w(r"""\noindent Worked example for the leading association, substituting the
 first row of Table~C11 into equation (C.3):""")
-    w(r"\begin{equation}")
-    w(r"\rho = 1 - \frac{6(%s)}{%d(%d^{2}-1)} = 1 - \frac{%s}{%s} = %s"
-      % ("{:,.1f}".format(d2k), n, n, "{:,.0f}".format(6 * d2k),
-         "{:,.0f}".format(n * (n * n - 1)), num(short, 6)))
-    w(r"\end{equation}")
+    _den = n * (n * n - 1)
+    steps(
+        r"\rho &= 1 - \frac{6\sum d_{i}^{2}}{n(n^{2}-1)}",
+        r"&= 1 - \frac{6(%s)}{%d(%d^{2}-1)}" % ("{:,.1f}".format(d2k), n, n),
+        r"&= 1 - \frac{%s}{%s}"
+        % ("{:,.0f}".format(6 * d2k), "{:,.0f}".format(_den)),
+        r"&= 1 - %s" % num(6 * d2k / _den, 6),
+        r"&= %s" % num(short, 6),
+    )
     w(r"""The threshold column contains %d tied values, for which the exact
 coefficient is obtained by applying the product-moment formula to midranks rather
 than by the shortcut above. That exact value is %s, so the tie correction shifts
 the coefficient by %s, well below the precision at which it is reported.
 Significance follows from""" %
       (n - len(set(PC.tolist())), num(rk, 6), num(abs(short - rk), 6)))
-    w(r"\begin{equation}")
-    w(r"t = \rho\sqrt{\frac{n-2}{1-\rho^{2}}}"
-      r" = %s\sqrt{\frac{%d}{1-%s^{2}}} = %.3f"
-      % (num(rk, 4), n - 2, num(rk, 4), rk * math.sqrt((n - 2) / (1 - rk * rk))))
-    w(r"\end{equation}")
+    _q = (n - 2) / (1 - rk * rk)
+    steps(
+        r"t &= \rho\sqrt{\frac{n-2}{1-\rho^{2}}}",
+        r"&= %s\sqrt{\frac{%d}{1-%s^{2}}}" % (num(rk, 4), n - 2, num(rk, 4)),
+        r"&= %s\sqrt{\frac{%d}{%s}}" % (num(rk, 4), n - 2, num(1 - rk * rk, 6)),
+        r"&= %s\sqrt{%s}" % (num(rk, 4), num(_q, 4)),
+        r"&= %s \times %s" % (num(rk, 4), num(math.sqrt(_q), 4)),
+        r"&= %.3f" % (rk * math.sqrt(_q)),
+    )
     w(r"""evaluated on %d degrees of freedom.""" % (n - 2))
     w()
     w(r"\subsection{Partial Rank-Order Association}")
@@ -888,10 +930,19 @@ first-order partial correlation applied to the rank-order coefficients:""")
     vk, a, b, c = psp(PC, K, LN)
     w(r"""\noindent Worked example for mean degree with log network size held
 constant, substituting the fourth row into equation (C.9):""")
-    w(r"\begin{equation}")
-    w(r"\rho_{xy\cdot z} = \frac{%s-(%s)(%s)}{\sqrt{(1-%s^{2})(1-%s^{2})}} = %s"
-      % (num(a, 4), num(b, 4), num(c, 4), num(b, 4), num(c, 4), num(vk, 6)))
-    w(r"\end{equation}")
+    _pn = a - b * c
+    _pd = math.sqrt((1 - b * b) * (1 - c * c))
+    steps(
+        r"\rho_{xy\cdot z} &= \frac{\rho_{xy}-\rho_{xz}\rho_{yz}}"
+        r"{\sqrt{(1-\rho_{xz}^{2})(1-\rho_{yz}^{2})}}",
+        r"&= \frac{%s-(%s)(%s)}{\sqrt{(1-%s^{2})(1-%s^{2})}}"
+        % (num(a, 4), num(b, 4), num(c, 4), num(b, 4), num(c, 4)),
+        r"&= \frac{%s-%s}{\sqrt{(%s)(%s)}}"
+        % (num(a, 4), num(b * c, 6), num(1 - b * b, 6), num(1 - c * c, 6)),
+        r"&= \frac{%s}{\sqrt{%s}}"
+        % (num(_pn, 6), num((1 - b * b) * (1 - c * c), 6)),
+        r"&= \frac{%s}{%s} = %s" % (num(_pn, 6), num(_pd, 6), num(vk, 6)),
+    )
     w(r"""Every association is larger with size held constant than without it,
 which is the pattern a size confound would not produce.""")
     w()
@@ -929,14 +980,17 @@ the change in $p_{c}$ per standard deviation of the predictor:""")
     w(r"\end{equation}")
     w(r"""The proportion of variance explained follows from the residual and total
 sums of squares:""")
-    w(r"\begin{align}")
-    w(r"R^{2} &= 1-\frac{SS_{\text{res}}}{SS_{\text{tot}}}"
-      r" = 1-\frac{%s}{%s} = %s \\[4pt]"
-      % (num(ss_res, 6), num(ss_tot, 6), num(r2, 4)))
-    w(r"F &= \frac{R^{2}/k}{(1-R^{2})/(n-k-1)}"
-      r" = \frac{%s/2}{(1-%s)/%d} = %.2f"
-      % (num(r2, 4), num(r2, 4), n - 3, Fv))
-    w(r"\end{align}")
+    steps(
+        r"R^{2} &= 1-\frac{SS_{\text{res}}}{SS_{\text{tot}}}",
+        r"&= 1-\frac{%s}{%s}" % (num(ss_res, 6), num(ss_tot, 6)),
+        r"&= 1-%s = %s" % (num(ss_res / ss_tot, 6), num(r2, 4)),
+    )
+    steps(
+        r"F &= \frac{R^{2}/k}{(1-R^{2})/(n-k-1)}",
+        r"&= \frac{%s/2}{(1-%s)/%d}" % (num(r2, 4), num(r2, 4), n - 3),
+        r"&= \frac{%s}{%s}" % (num(r2 / 2, 6), num((1 - r2) / (n - 3), 6)),
+        r"&= %.2f" % Fv,
+    )
     w(r"""on $(2, %d)$ degrees of freedom. Dividing each coefficient by the standard
 deviation of the outcome, %s, gives the fully standardised coefficients %s and %s,
 which are directly comparable with one another. The two predictors were
@@ -1023,7 +1077,193 @@ one quartile with every network in the other:""")
 so the two distributions are very nearly disjoint.""" % (len(g1) * len(g4), n_gt))
     w()
 
-    # ---------------- C.13 reconciliation ---------------------------------
+    # ---------------- C.13 sign test --------------------------------------
+    w(r"\section{Exact Sign Test on the Grade-A Subset}")
+    w()
+    w(r"""The grade-A subset carries no defect flag and is too small for a rank
+test, so direction is tested by an exact sign test, which uses only the sign of
+each paired difference.""")
+    w()
+    ga = dp[gr == "A"]
+    a_imp = int((ga > 0).sum())
+    a_unc = int((ga == 0).sum())
+    a_wor = int((ga < 0).sum())
+    a_m = a_imp + a_wor
+    a_p = float(stats.binomtest(a_imp, a_m, 0.5).pvalue)
+    ROB = J("second_pass_audit.json")["enhancement_robustness"]["A_and_only_A"]
+    check("Grade-A improved", ROB["improved"], a_imp, 0.5)
+    check("Grade-A unchanged", ROB["unchanged"], a_unc, 0.5)
+    check("Grade-A worsened", ROB["worsened"], a_wor, 0.5)
+    check("Grade-A sign-test p", ROB["sign_test_p"], a_p, 1e-6)
+    w(r"""Of the %d grade-A networks, %d improved, %d were unchanged and %d
+worsened. The %d unchanged networks carry no sign and are excluded, leaving
+$m = %d$ informative pairs of which $k = %d$ favour the enhanced graph. Under the
+null of no directional effect each pair is an independent fair coin, so""" %
+      (len(ga), a_imp, a_unc, a_wor, a_unc, a_m, a_imp))
+    steps(
+        r"p &= 2\,P(X \geq %d), \qquad X \sim \mathrm{Binomial}(%d, 0.5)"
+        % (a_imp, a_m),
+        r"&= 2\binom{%d}{%d}\left(\tfrac{1}{2}\right)^{%d}" % (a_m, a_imp, a_m),
+        r"&= 2(1)\left(\tfrac{1}{%d}\right)" % (2 ** a_m),
+        r"&= \frac{2}{%d}" % (2 ** a_m),
+        r"&= %.8f" % a_p,
+    )
+    w(r"""Because every informative pair moved the same way, the test attains its
+smallest possible value for this sample size, and the p-value is a function of
+$m$ alone. It establishes direction, not magnitude; the magnitude is the median
+$\Delta p_{c} = %s$ of Table~C4.""" % num(float(np.median(ga)), 4))
+    w()
+
+    # ---------------- C.14 Gini -------------------------------------------
+    w(r"\section{Concentration of the Removal Weights}")
+    w()
+    w(r"""Weighted removal draws each node with probability proportional to its
+centrality, so the departure from uniform removal depends on how unevenly the
+weights are spread. Concentration is measured by the Gini coefficient, zero for
+equal weights and approaching one as weight concentrates on one node.""")
+    w()
+    GMA = J("graph_metric_audit.json")["targeted_attack_axis"]
+    gd, gb = GMA["degree"], GMA["betweenness"]
+    check("Gini, degree weights", 0.274, gd["weight_gini"])
+    check("Gini, betweenness weights", 0.754, gb["weight_gini"])
+    check("Max/mean, degree weights", 2.4, gd["weight_max"], 0.05)
+    check("Max/mean, betweenness weights", 29.4, gb["weight_max"], 0.05)
+    check("Distinct degree weights", 6, gd["n_distinct_weights"], 0.5)
+    check("Distinct betweenness weights", 619, gb["n_distinct_weights"], 0.5)
+    w(r"\begin{table}[H]")
+    w(r"\centering")
+    w(r"\caption{\textit{Weight Concentration on the Synthetic Reference Network "
+      r"($N = %d$)}}" % GMA["N"])
+    w(r"\small\setlength{\tabcolsep}{5pt}")
+    w(r"\begin{tabular}{lcccccc}")
+    w(r"\toprule")
+    w(r"Weighting & Distinct & Largest tie & Gini & Max & $SD$ & "
+      r"Realised at $\rho = .20$ \\")
+    w(r"\midrule")
+    for lbl, g in (("Degree", gd), ("Betweenness", gb)):
+        w(r"%s & %d & %s & %s & %s & %s & %s \\"
+          % (lbl, g["n_distinct_weights"],
+             num(g["largest_tied_group_fraction"], 3), num(g["weight_gini"], 4),
+             num(g["weight_max"], 3), num(g["weight_sd"], 4),
+             num(g["realised_at_nominal_0.20"], 4)))
+    w(r"\bottomrule")
+    w(r"\end{tabular}")
+    w(r"\end{table}")
+    w()
+    w(r"""\noindent \textit{Note.} Weights are normalised to a mean of one, so the
+maximum column is the ratio of the largest weight to the mean. The Gini
+coefficient is""")
+    _N = GMA["N"]
+    for _lbl, _g in (("degree", gd), ("betweenness", gb)):
+        _sad = _g["weight_gini"] * 2 * _N * _N * _g["weight_mean"]
+        steps(
+            r"G_{\text{%s}} &= \frac{\sum_{i}\sum_{j}"
+            r"\lvert w_{i}-w_{j}\rvert}{2n^{2}\bar{w}}" % _lbl,
+            r"&= \frac{%s}{2(%d)^{2}(%s)}"
+            % ("{:,.0f}".format(_sad), _N, num(_g["weight_mean"], 1)),
+            r"&= \frac{%s}{%s}"
+            % ("{:,.0f}".format(_sad), "{:,.0f}".format(2 * _N * _N)),
+            r"&= %s" % num(_g["weight_gini"], 4),
+        )
+    w(r"""where $w_{i}$ is the removal weight of node $i$, $\bar{w}$ its mean and
+$n$ the number of nodes. Degree takes only %d distinct values on this network and
+%s of nodes fall in a single tied group, so degree-weighted removal is close to
+uniform removal; betweenness takes %d distinct values with a maximum %s times the
+mean, so it concentrates removal far more sharply. Because the removal probability
+is clipped at unity, a nominal $\rho = .20$ realises %s under degree weighting but
+only %s under betweenness weighting, and only the realised fraction is comparable
+across modes.""" % (gd["n_distinct_weights"],
+                    num(gd["largest_tied_group_fraction"], 3),
+                    gb["n_distinct_weights"], num(gb["weight_max"], 1),
+                    num(gd["realised_at_nominal_0.20"], 4),
+                    num(gb["realised_at_nominal_0.20"], 4)))
+    w()
+
+    # ---------------- C.15 VIF --------------------------------------------
+    w(r"\section{Collinearity Between the Two Predictors}")
+    w()
+    w(r"""The regression enters mean degree and fractal dimension together. For two
+predictors the auxiliary $R^{2}$ equals their squared correlation, so the variance
+inflation factor has a closed form.""")
+    w()
+    rkd = float(np.corrcoef(K, DD)[0, 1])
+    vif = 1.0 / (1.0 - rkd * rkd)
+    COLL = J("rrl_diagnostics.json")["collinearity"]
+    check("Pearson r, mean degree x D", COLL["pearson_meandegree_x_D"], rkd)
+    check("VIF, two-predictor model", COLL["VIF"], vif)
+    steps(
+        r"\mathrm{VIF} &= \frac{1}{1-R^{2}} = \frac{1}{1-r^{2}}",
+        r"&= \frac{1}{1-(%s)^{2}}" % num(rkd, 6),
+        r"&= \frac{1}{1-%s}" % num(rkd * rkd, 6),
+        r"&= \frac{1}{%s}" % num(1 - rkd * rkd, 6),
+        r"&= %s" % num(vif, 6),
+    )
+    w(r"""The two predictors correlate at $r = %s$ across the %d networks of the
+percolation cohort, giving $\mathrm{VIF} = %s$ against the conventional threshold
+of 5. Collinearity is therefore negligible and the standardised coefficients of
+Section~C.11 are interpretable individually. This is the reason loop fraction is
+not entered alongside mean degree: the two correlate at $\rho = %s$, which would
+raise the factor by two orders of magnitude.""" %
+      (num(rkd, 4), len(K), num(vif, 2),
+       num(COLL["spearman_meandegree_x_loopfraction"], 3)))
+    w()
+
+    # ---------------- C.16 MCSE -------------------------------------------
+    w(r"\section{Monte Carlo Standard Error at Each Trial Budget}")
+    w()
+    w(r"""Each collapse probability is a binomial proportion whose standard error
+depends only on the trial count. It is largest at $P = 0.50$, which is where the
+threshold is read, so the worst case is the figure that matters.""")
+    w()
+    steps(
+        r"\mathrm{SE}(\hat{P}) &= \sqrt{\frac{\hat{P}(1-\hat{P})}"
+        r"{N_{\text{trials}}}}",
+        r"&= \sqrt{\frac{(0.50)(0.50)}{N_{\text{trials}}}}",
+        r"&= \sqrt{\frac{0.25}{N_{\text{trials}}}}",
+    )
+    w(r"""At the two cohort budgets:""")
+    steps(
+        r"\mathrm{SE}_{2400} &= \sqrt{\frac{0.25}{2{,}400}}"
+        r" = \sqrt{%s} = %s" % (num(0.25 / 2400, 8), num(math.sqrt(0.25 / 2400), 6)),
+        r"\mathrm{SE}_{10000} &= \sqrt{\frac{0.25}{10{,}000}}"
+        r" = \sqrt{%s} = %s" % (num(0.25 / 10000, 8), num(math.sqrt(0.25 / 10000), 6)),
+        r"\text{ratio} &= \frac{%s}{%s} = %s"
+        % (num(math.sqrt(0.25 / 2400), 6), num(math.sqrt(0.25 / 10000), 6),
+           num(math.sqrt(10000.0 / 2400.0), 4)),
+    )
+    budgets = [("Percolation cohort, per attack strategy", 2400),
+               ("Enhancement cohort, per arm", 10000),
+               ("Coupled haustorial-density surface, per cell", 6000),
+               ("Synthetic network, targeted strategies", 100000),
+               ("Synthetic network, random removal", 1000000)]
+    check("MCSE at 2,400 trials", 0.0102, math.sqrt(0.25 / 2400), 5e-5)
+    check("MCSE at 10,000 trials", 0.0050, math.sqrt(0.25 / 10000), 5e-5)
+    w(r"\begin{table}[H]")
+    w(r"\centering")
+    w(r"\caption{\textit{Worst-Case Monte Carlo Standard Error by Trial Budget}}")
+    w(r"\small\setlength{\tabcolsep}{6pt}")
+    w(r"\begin{tabular}{lrr}")
+    w(r"\toprule")
+    w(r"Experimental unit & $N_{\text{trials}}$ & $\mathrm{SE}(\hat{P})$ \\")
+    w(r"\midrule")
+    for lbl, nt in budgets:
+        w(r"%s & %s & %s \\"
+          % (lbl, format(nt, ","), num(math.sqrt(0.25 / nt), 5)))
+    w(r"\bottomrule")
+    w(r"\end{tabular}")
+    w(r"\end{table}")
+    w()
+    w(r"""\noindent \textit{Note.} Errors are on the collapse-probability scale,
+not on the threshold scale. The enhancement cohort is run at the higher budget
+because its estimand is a paired difference of order $0.01$: at 2,400 trials the
+worst-case error of %s is comparable to the effect being measured, whereas at
+10,000 trials it falls to %s. The two arms of that comparison additionally share a
+single sequence of removal draws, so the Monte Carlo error is common to both arms
+and cancels from their difference rather than adding to it.""" %
+      (num(math.sqrt(0.25 / 2400), 5), num(math.sqrt(0.25 / 10000), 5)))
+    w()
+
+    # ---------------- C.17 reconciliation ---------------------------------
     w(r"\section{Reconciliation With the Reported Results}")
     w()
     w(r"""Every value recomputed above is listed against the corresponding cell of

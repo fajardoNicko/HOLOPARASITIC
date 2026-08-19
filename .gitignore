@@ -87,6 +87,7 @@ RESULTS_AUDIT.md
 MANUSCRIPT_REVISED_SECTIONS_NEW.docx
 *.docx
 *.xlsx
+!DISTRICT STF - BIBLIOGRAPHY.docx
 
 
 # Talk / teaching scripts — drafted locally, never part of the repo
