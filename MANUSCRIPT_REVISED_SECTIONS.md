@@ -60,7 +60,12 @@ individual conduit need not sever supply to the tissue beyond it, because flow c
 the break. Cavitation, the abrupt formation of a gas void in xylem sap under tension, and the resulting
 embolism that blocks the conduit (Liu et al., 2023; Bittencourt et al., 2018), remove conducting
 elements one at a time; whether such losses accumulate into a system-level failure therefore depends
-not only on how many elements are lost but on how the surviving elements are wired together.
+not only on how many elements are lost but on how the surviving elements are wired together. That
+redundancy has been measured directly rather than merely inferred: severing the midrib of a pinnately
+veined leaf reduces its hydraulic conductance by roughly three-quarters, whereas damage to second- and
+higher-order veins is tolerated with no detectable hydraulic penalty, because the reticulate minor-vein
+network supplies parallel paths (Sack et al., 2008). The stakes are not hypothetical: most forest
+species worldwide operate with narrow hydraulic safety margins (Choat et al., 2012).
 
 Because the vascular system consists of conducting elements joined at discrete junctions, a leaf
 venation network can be represented directly as a graph, with vein junctions as nodes and vein segments
@@ -87,8 +92,11 @@ component falls below half its undamaged size with probability 0.50. Because the
 irregular network cannot be obtained in closed form, it is estimated by Monte Carlo simulation (Newman
 & Ziff, 2001). Network-robustness theory further predicts that the answer depends on *where* loss
 falls: systems can absorb uniformly scattered failure yet fragment sooner when loss is concentrated on
-structurally important elements (Albert et al., 2000; Callaway et al., 2000). It is important to be
-precise about what this quantity is. p_c is computed on the unweighted graph; it is a **structural
+structurally important elements (Albert et al., 2000; Callaway et al., 2000). Real vascular failure, by
+contrast, is neither uniform nor independent: optical imaging of dehydrating leaves shows that embolism
+nucleates in the largest veins and propagates in a sequence set by vein size (Brodribb et al., 2016),
+so uniform removal is best understood as a null structural scenario rather than a model of embolism.
+It is important to be precise about what this quantity is. p_c is computed on the unweighted graph; it is a **structural
 fragmentation threshold**, not a measurement of hydraulic conductance, water potential, or cavitation,
 and it is not interconvertible with physiological indices such as percentage loss of conductivity or
 P50.
@@ -101,7 +109,11 @@ Munné-Bosch, 2021). Field and glasshouse studies establish that host physiologi
 parasitism can begin well before visible signs appear, with reported lead times ranging from
 approximately twenty days in *Orobanche*-infected sunflower to roughly fifty days in
 *Cuscuta*-infected hosts (Cochavi et al., 2017; Shen et al., 2007); the documented signatures of that
-window, however, are optical, thermal, growth-related and carbon-related rather than hydraulic. The
+window, however, are optical, thermal, growth-related and carbon-related rather than hydraulic. Direct
+hydraulic characterisation of the interaction remains scarce: field measurement of a mistletoe–host
+association records a host trunk water-potential depression of approximately 0.6 MPa (Griebel et al.,
+2022), and no measurement of total water potential, osmotic potential or turgor has been reported for
+any *Cuscuta*–host interaction (Balios et al., 2025). The
 parasite is therefore treated in this study as a biologically motivated example of localised hydraulic
 withdrawal and distributed vascular disruption, and is modelled as a hydraulic boundary condition
 analysed in parallel with the structural analysis. No claim is made that the present model demonstrates
@@ -120,7 +132,12 @@ flow model, and identify fluid-flow modelling as the required next step. Separat
 flow with a Kirchhoff solve has been implemented on real traced venation without any damage analysis
 (Skjegstad & Kirkegaard, 2025), while the coupling of percolation to solved xylem hydraulics exists
 only for stem conduit networks, where connectivity has been treated as accelerating embolism spread
-(Loepfe et al., 2007; Mrad et al., 2021). What is missing is a quantitative percolation framework
+(Loepfe et al., 2007; Mrad et al., 2021), and network simulation of embolism spread in grapevine xylem
+has shown that the spatial sequence of failure governs whether a conductive backbone persists (Wason
+et al., 2021). Reticulation is also not free: venation architecture occupies a trade-off surface among
+transport efficiency, construction cost and damage robustness (Ronellenfitsch & Katifori, 2019), and in
+real leaves greater hydraulic safety is associated with higher leaf mass per area, thicker conduit walls
+and smaller leaf area (Nardini et al., 2012). What is missing is a quantitative percolation framework
 applied across many real leaf networks that estimates a per-network fragmentation threshold, separates
 connectivity from the geometric traits it covaries with, and tests by direct manipulation whether
 reticulation itself raises that threshold.
@@ -145,9 +162,11 @@ observed range.
 ## 1. Dataset and Network Preparation
 
 This study was entirely computational and required no biological sampling or cultivation. All vascular
-data were obtained from the publicly available repository of Matos et al. (2024), *Leaf Architecture
-and Functional Traits for 122 Species at the University of California at Berkeley Botanical Garden*,
-retrieved from the Dryad Digital Repository. The repository contains spatially calibrated
+data were obtained from the publicly available repository of Matos et al. (2024a), *Leaf Architecture
+and Functional Traits for 122 Species at the University of California Botanical Garden at Berkeley*,
+retrieved from the Dryad Digital Repository. Two 2024 papers report on this same material and are cited
+separately throughout: Matos et al. (2024a), the data paper describing the deposit, and Matos et al.
+(2024b), the companion analysis of venation architecture and function. The repository contains spatially calibrated
 high-resolution venation images, anatomical cross-sections, and pre-extracted network tables for 122
 phylogenetically diverse species. It was selected because it supplies calibrated vascular geometry that
 would otherwise require extensive microscopic preparation and image segmentation, and because its
@@ -294,8 +313,14 @@ fraction** coincide for uniform and degree weights in the range of interest but 
 heavy-tailed betweenness weights. Both quantities are reported for the betweenness mode, and thresholds
 from different modes are compared only on the realised-fraction axis.
 
+Uniform removal is used as a null structural scenario rather than as a model of embolism, since
+observed vascular failure is spatially clustered and ordered by conduit or vein size rather than
+independent and uniform (Brodribb et al., 2016; Pritzkow et al., 2022; Lu et al., 2025).
+
 Neither centrality-weighted mode is a model of any biological process. They are structural bounding
-scenarios in the sense of the robustness-envelope framework: uniform removal characterises the expected
+scenarios in the sense of the robustness-envelope framework (Trajanovski et al., 2013), and the use of
+connectivity-ordered removal as a bounding device rather than a mechanistic hypothesis has precedent in
+biological network analysis (Memmott et al., 2004): uniform removal characterises the expected
 structural response and centrality-weighted removal approximates its pessimistic edge. No claim is made
 that any organism computes or acts upon a centrality measure.
 
@@ -305,8 +330,9 @@ percolation cohort; the enhancement cohort was evaluated at 10,000 trials per ne
 synthetic reference at 1,000,000 trials under uniform removal and 100,000 under each weighted mode.
 Each trial records whether the giant connected component has fallen below half its undamaged size. A
 logistic function is fitted to the resulting collapse-probability curve and the **critical removed
-fraction** is taken as its inflection point, p_c = −b/w; where the inflection falls outside the swept
-range, the direct 0.5-crossing of the empirical curve is used instead.
+fraction** is taken as its inflection point, p_c = −b/w — the cut point that bisects the fitted
+probabilities (Zhang et al., 2020); where the inflection falls outside the swept range, the direct
+0.5-crossing of the empirical curve is used instead.
 
 ## 5. Reticulation Enhancement
 
@@ -318,7 +344,10 @@ contains no other point (Newby et al., 2025). Candidates that already exist as v
 the remainder are added shortest-first — closing the leaf's smallest open areoles first — until mean
 degree reaches ⟨k⟩ = 2.811, the 90th percentile of the percolation cohort's own mean degree. No network
 is therefore made denser than the most reticulate networks actually observed. **Loop addition modifies
-only the edge set; the node set is unchanged.** A sparse network gains many loops and an already
+only the edge set; the node set is unchanged.** The manipulation alters connectivity alone and carries
+no construction-cost, mechanical or photosynthetic term, so it identifies the direction of a
+network-level relationship rather than an optimum; the material and ecological costs of added
+reticulation are documented elsewhere (Price & Weitz, 2014; Nardini et al., 2012). A sparse network gains many loops and an already
 reticulate one few, and the threshold is re-measured on the enhanced network for direct comparison with
 the original.
 
@@ -342,7 +371,7 @@ Q = K_h(ψ_host − ψ_parasite).
 
 **K_h is specified relative to each tapped node's own incident conductance**, so that a haustorium taps
 a vein in proportion to its calibre; this choice is consistent with comparative evidence that the
-parasite's own xylem is the narrower, higher-resistance element at the interface, and it prevents
+parasite's own xylem is the narrower, higher-resistance element at the interface (Zhang et al., 2024), and it prevents
 sinks placed on thin terminal veins from dominating the solution.
 
 Rather than being swept, K_h is fixed to a literature-anchored constant, solved so that the sink diverts
@@ -350,7 +379,8 @@ approximately the fraction of host water reported for parasitic associations —
 floor taken from Jiang et al. (2003) — across an illustrative host–parasite gradient of the order of
 1.5 MPa. Nutrient-flow relationships for a true holoparasite are drawn from Jeschke et al. (1994).
 Because no primary holoparasite measurement of either the diverted fraction or the driving gradient
-could be located, both are treated as literature-anchored constraints and a stated delimitation rather
+could be located — no total water potential, osmotic potential or turgor value has been published for
+any *Cuscuta*–host interaction (Balios et al., 2025) — both are treated as literature-anchored constraints and a stated delimitation rather
 than measured inputs. A modelled cavitation threshold of −2.0 MPa is applied, and its influence on the
 reported outcome is examined by sensitivity analysis (§8).
 
@@ -367,8 +397,9 @@ mean, standard deviation, median and range.
 
 **Threshold estimation.** The collapse probability is estimated as P(collapse) = m_collapse / N_trials.
 A logistic model P(collapse) = 1/(1 + exp[−(wρ + b)]) is fitted and p_c = −b/w taken as its inflection
-point. **Confidence intervals are percentile bootstrap intervals with B = 200 resamples and seed 7, the
-resampling unit being the individual Monte Carlo trial**, drawn with replacement. Where the number of
+point, i.e. the cut point bisecting the fitted probabilities (Zhang et al., 2020). **Confidence intervals are percentile bootstrap intervals with B = 200 resamples and seed 7, the
+resampling unit being the individual Monte Carlo trial**, drawn with replacement (Efron & Tibshirani,
+1993). Where the number of
 trials exceeds the implementation's resampling cap of 50,000, each bootstrap replicate is smaller than
 the dataset and the resulting interval is conservative — approximately 1.6 times wider than a
 full-size replicate at 100,000 trials, as measured directly. No interval is anti-conservative.
@@ -382,9 +413,11 @@ Wilcoxon's exclusion convention, with the more conservative Pratt treatment repo
 
 **Architecture–threshold relationships.** Normality is assessed by Shapiro–Wilk (Shapiro & Wilk, 1965).
 Because normality was rejected for the outcome, a pre-specified rule applied the rank-based Spearman
-coefficient **uniformly to all association tests**, rather than selecting a coefficient per variable.
-Unique contributions are isolated by partial correlation and by standardised multiple regression, with
-multicollinearity assessed by the variance inflation factor. Because box-counting fractal dimension is
+coefficient **uniformly to all association tests**, rather than selecting a coefficient per variable;
+the choice among Pearson, Spearman and partial coefficients follows standard practice for continuous
+and ranked data (Wisniewski & Brannan, 2024). Unique contributions are isolated by partial correlation
+and by standardised multiple regression (Wisniewski & Brannan, 2024), with multicollinearity assessed
+by the variance inflation factor (Dormann et al., 2013). Because box-counting fractal dimension is
 area-dependent, every architecture–threshold association is additionally reported controlling for
 log network size. Group comparisons across categorical quality strata use the Kruskal–Wallis test.
 
@@ -734,7 +767,7 @@ removal draws, each network served as its own control under common random number
 error is common to the two arms.
 
 Differences among quality grades in the raw change were **not statistically significant**
-(Kruskal–Wallis p = .073), so the grades are reported for transparency rather than as a detected
+(Kruskal–Wallis p = .072), so the grades are reported for transparency rather than as a detected
 effect. Grade-A networks began at the highest median initial connectivity of any grade (⟨k⟩ = 2.665
 against 2.472 for grade B), which is the relevant covariate given the dependence reported in Table 11.
 Considered alone, the artifact-free grade-A subset was still significant: of its 21 networks, 13
@@ -830,7 +863,7 @@ was **exactly linear** in the host–parasite gradient, at 0.2682 MPa per MPa (i
 residual 0.017 MPa across 0–12 MPa). Third, extrapolating that relationship, reaching the modelled
 −2.0 MPa threshold would require a host–parasite gradient of approximately **6.0 MPa**, against a
 largest directly measured parasite–host leaf gradient of approximately 0.5 MPa in the published
-literature.
+literature (Griebel et al., 2022).
 
 Under the modelled conditions the calibrated haustorial sink is therefore **largely decoupled from the
 structural fragmentation threshold**: it withdraws a substantial fraction of leaf throughput while
@@ -878,7 +911,10 @@ geometric convention, not independent physical validity.
 The one comparison against an independent physical measurement was weak. Modelled whole-network
 conductance tracked measured leaf conductance only weakly and non-significantly (ρ = .187, p = .073,
 n = 93 species, 95% CI [−0.024, 0.382]), as expected of a xylem-only model compared with a quantity
-dominated by resistances outside the xylem. The interval spans zero, so the check is underpowered
+dominated by resistances outside the xylem, which account for the great majority of the decline in
+whole-leaf conductance during dehydration (Scoffoni et al., 2017); the study that published these
+networks likewise reported that venation architecture predicts hydraulic efficiency only weakly
+(Matos et al., 2024b). The interval spans zero, so the check is underpowered
 rather than negative. It is unchanged by the choice of resistance convention: repeating it under the
 deposit's alternative ℓ/r² convention gives ρ = .179, p = .059 (n = 112). The species set is the
 percolation cohort intersected with those having a measured value; relaxing the cohort screen to all
@@ -998,7 +1034,9 @@ removal. Fractal dimension behaved oppositely, retaining a moderate and signific
 the multi-lesion protocol (ρ = .523, p < .001). A compact lesion removes a spatially bounded region and
 leaves the remainder connected, so the network routes around the hole; the alternative routes that
 reticulation supplies between regions are what dispersed removal destroys and what a single hole does
-not.
+not. This is the behaviour reported for single spatially embedded networks, in which a finite localised
+hole does not propagate, in contrast to interdependent systems (Berezin et al., 2015); degree-homogeneous
+networks are likewise no more vulnerable to localised than to dispersed removal (Shao et al., 2015).
 
 **The principal architectural result of this study is therefore specific in scope: reticulate
 connectivity governs tolerance to dispersed simulated vascular damage. Under spatially contiguous
@@ -1057,13 +1095,41 @@ cohort used 2,400 trials per network per mode and the enhancement cohort 10,000 
 stated where they apply.
 
 **Items requiring the author's action before submission.** The reference list needs the corrections
-identified in the audit: the two Matos et al. (2024) papers must be cited separately (*Ecology*,
-105(12), e4436 for the dataset; *New Phytologist*, 244(2), 407–425 for the analysis); Sack et al.
-(2008) is *PNAS*, 105(5), 1567–1572; Ronellenfitsch and Katifori (2019) is *Physical Review Letters*,
-123(24), 248101; the Mrad et al. (2021) author list is Mrad, Johnson, Love and Domec; Xu et al. is
-2020; and the Albert et al. (2000) erratum (*Nature*, 409(6819), 542) should be cited alongside.
-Skjegstad and Kirkegaard (2025), Shen et al. (2007) and Cochavi et al. (2017), newly cited in the
-Introduction, must be added.
+identified in the audit: the two Matos et al. (2024) papers must be cited separately and are
+distinguished here as **2024a** (the data paper, *Ecology*, 105(12), e4436) and **2024b** (the analysis,
+*New Phytologist*, 244(2), 407–425); Sack et al. (2008) is *PNAS*, 105(5), 1567–1572, **not** the
+*Plant, Cell & Environment* entry currently in the list, which does not resolve; Ronellenfitsch and
+Katifori (2019) is *Physical Review Letters*, **123(24), 248101**, not 038301; the Mrad et al. (2021)
+author list is Mrad, Johnson, Love and Domec; Xu et al. is **2020**; and the Albert et al. (2000)
+erratum (*Nature*, 409(6819), 542) should be cited alongside.
+
+**References newly cited in these sections and not yet in the list.** Sack et al. (2008);
+Brodribb et al. (2016); Scoffoni et al. (2017); Nardini et al. (2012); Ronellenfitsch and Katifori
+(2019); Balios et al. (2025); Griebel et al. (2022); Zhang et al. (2024); Pritzkow et al. (2022);
+Lu et al. (2025); Trajanovski et al. (2013); Memmott et al. (2004); Berezin et al. (2015); Shao et al.
+(2015); Skjegstad and Kirkegaard (2025); Shen et al. (2007); Cochavi et al. (2017); and Dormann et al.
+(2013), *Ecography*, 36(1), 27–46, for the variance inflation factor. Full APA entries
+with verified DOIs are carded in `rrl/A`–`rrl/J` and summarised in `DEEP_RRL_EVIDENCE_PACK.md` Part X.
+
+**Three references were deliberately removed, and the reasons are recorded here so the decision is
+auditable rather than silent.** *Dawson and Ehleringer (1993)* was cited for the haustorial
+water-potential gradient; the project's own revision notes flag it as almost certainly the wrong paper
+(the well-known 1993 Dawson and Ehleringer study concerns stream-water use by riparian trees), and the
+claim it supported is now carried by Balios et al. (2025) and Griebel et al. (2022). *Wolitzky (2022)*
+was cited for the definition of mean degree but was recorded in the source draft as an unverified
+citation with no retrievable full reference; Newman (2003) already supports that definition and is
+retained. The reference previously listed only as *StatPearls* is **retained** and properly attributed as
+Wisniewski and Brannan (2024), *Correlation (Coefficient, Partial, and Spearman Rank) and Regression
+Analysis*, StatPearls Publishing, NBK606101, last updated 25 May 2024. It is a legitimate authored
+reference for the choice among Pearson, Spearman and partial coefficients and for multiple
+regression, and it is cited for those. It must **not** carry two claims previously attached to it,
+because the chapter does not cover them: the **variance inflation factor / multicollinearity**, now
+cited to Dormann et al. (2013), and the **inflection point of a fitted logistic curve** as the
+threshold estimator, now cited to Zhang et al. (2020), whose subject is precisely bootstrap
+confidence intervals for the cut point that bisects probabilities estimated by logistic regression. Four further Introduction citations — Ma et al. (2021),
+Goldbeck (2013), Kong et al. (2019) and Al-Ward et al. (2022) — were superseded rather than dropped:
+the degree-distribution and betweenness definitions they supported are now carried by the primary
+sources Newman (2003), Barabási and Albert (1999) and Freeman (1977).
 
 **SOP alignment.** The Results are now organised thematically rather than by specific question. If the
 Statement of the Problem is retained in its current form, SOP 2 should read *simulated vascular element

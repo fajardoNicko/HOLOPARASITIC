@@ -43,6 +43,7 @@ All reproducible, all reading only the archive or the raw deposit; none re-runs 
 
 ```
 scripts/make_revised_sections_docx.py            -> MANUSCRIPT_REVISED_SECTIONS.docx
+scripts/verify_manuscript_numbers.py             -> (checks the manuscript against the archive)
 scripts/run_rrl_diagnostics.py                   -> data/rrl_diagnostics.json
 scripts/run_cavitation_sensitivity.py            -> data/cavitation_sensitivity.json
 scripts/run_graph_metric_audit.py                -> data/graph_metric_audit.json
@@ -61,6 +62,21 @@ n = 75 / 85 / 97 / 99 / 100.
 `scripts/make_revised_sections_docx.py` — 17 tables and all 14 figures embedded, APA caption layout
 (label, italic title, image, note). The markdown is the source of truth; re-run the script after any
 edit rather than editing the .docx by hand.
+
+**Citation integrity.** The first draft of the revised sections lost citations during restructuring:
+several claims the evidence pack supports were left uncited, and Sack et al. (2008), Brodribb et al.
+(2016), Scoffoni et al. (2017), Nardini et al. (2012), Ronellenfitsch and Katifori (2019), Balios et al.
+(2025) and Griebel et al. (2022) were missing from the body. All are now restored — the body carries 51
+distinct first authors, up from 34 — and three deliberate removals (Dawson & Ehleringer 1993,
+Wolitzky 2022, StatPearls) are documented with reasons at the end of the markdown rather than left
+silent.
+
+**Number provenance.** `scripts/verify_manuscript_numbers.py` checks 42 reported statistics against the
+archived JSON files, never against a previous manuscript version. It currently passes 42/42. Run it
+after any manuscript edit or analysis rerun. Note that interim values seen during the cohort run
+(e.g. medians of 0.1950 / 0.1967 / 0.1997) were partial-cohort snapshots — leaves were processed
+smallest-first, so any snapshot is biased toward small networks. **Only the n = 100 values are
+canonical**, and no deliverable now carries an interim value.
 
 **No processes are running.**
 

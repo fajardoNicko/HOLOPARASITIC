@@ -84,6 +84,10 @@ FIX_LIST.md
 HERO_NUMBERS.md
 HERO_DECISION.md
 RESULTS_AUDIT.md
+MANUSCRIPT_REVISED_SECTIONS_NEW.docx
+*.docx
+*.xlsx
+
 
 # Talk / teaching scripts — drafted locally, never part of the repo
 CONCEPTS.md

@@ -296,8 +296,17 @@ def main() -> None:
         body(doc, text, spacing=1.0 if is_note else 2.0,
              space_after=10 if is_note else 6)
 
-    doc.save(OUT)
-    print("wrote %s" % OUT.name)
+    target = OUT
+    try:
+        doc.save(target)
+    except PermissionError:
+        # the document is open in Word; write beside it rather than failing
+        target = OUT.with_name(OUT.stem + "_NEW" + OUT.suffix)
+        doc.save(target)
+        print("NOTE: %s is locked (open in Word?), so this run wrote %s instead."
+              % (OUT.name, target.name))
+        print("      Close the document and re-run to overwrite the original.")
+    print("wrote %s" % target.name)
     print("  tables rendered : %d" % n_tables)
     print("  figure captions : %d" % n_figs)
     print("  images embedded : %d" % n_imgs)
