@@ -116,6 +116,9 @@ def characterize(G, name: str | None = None, betweenness: bool = False,
     try:
         prof.update({f"geom_{k}": v
                      for k, v in calibrate.measure_from_graph(G).items()
+                     # drop calibrate's tag-based loop_fraction and its
+                     # mean_degree: both are already present above under the
+                     # canonical (non-bridge / graph) definitions
                      if k not in ("loop_fraction", "mean_degree")})
     except Exception:
         pass

@@ -1,5 +1,5 @@
 """
-network.py  (Person A) — synthetic host vascular network generator.
+network.py — synthetic host vascular network generator.
 
 Builds a 2-D hydraulic network by recursive Murray's-law bifurcation and then
 adds *anastomoses* (reticulation / cross-links) so the network contains loops.
@@ -220,15 +220,25 @@ def conductance_csr(G: nx.Graph):
 
 
 def summary(G: nx.Graph) -> dict:
+    """Size and connectivity of a generated network.
+
+    `n_cycles` is the cycle rank E - N + C. The generator always emits a single
+    connected component, so C = 1 here, but it is counted rather than assumed so
+    that this agrees with realleaf.summary() and characterize.characterize(),
+    where real traced leaves do sometimes come apart into fragments.
+    """
     n_anas = sum(1 for _, _, d in G.edges(data=True) if d["kind"] == "anastomosis")
     n_term = sum(1 for _, d in G.nodes(data=True) if d["kind"] == "terminal")
+    N, E = G.number_of_nodes(), G.number_of_edges()
+    n_comp = nx.number_connected_components(G) if N else 0
     return {
-        "n_nodes": G.number_of_nodes(),
-        "n_edges": G.number_of_edges(),
+        "n_nodes": N,
+        "n_edges": E,
         "n_anastomoses": n_anas,
         "n_terminals": n_term,
-        "n_cycles": G.number_of_edges() - G.number_of_nodes() + 1,
-        "mean_degree": 2 * G.number_of_edges() / G.number_of_nodes(),
+        "n_components": n_comp,
+        "n_cycles": E - N + n_comp,
+        "mean_degree": 2 * E / N if N else 0.0,
     }
 
 

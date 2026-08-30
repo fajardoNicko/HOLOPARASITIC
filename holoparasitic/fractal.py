@@ -1,13 +1,28 @@
 """
-fractal.py  (Person A) — box-counting fractal dimension D of a network.
+fractal.py — box-counting fractal dimension D of a network.
 
 The drawn network (its edges, not just its nodes) is rasterised into points;
 the number of occupied boxes N(eps) is counted across a range of box sizes eps.
 For a fractal,  N(eps) ~ eps^(-D),  so D is the slope of log N vs log(1/eps).
 
-Dicotyledonous crop venation is empirically D ~ 1.5-2.0; the generator's
-`angle_jitter` knob moves the synthetic network across that range, which is how
-the study sweeps D.
+Dicotyledonous crop venation is empirically D ~ 1.5-2.0, and the 112 measured
+Matos leaves span 1.15-1.91.
+
+D is never asserted, only measured. Two different generator knobs move it, and
+which one is in play depends on the reticulation mode:
+
+    'knn'  mode   `reticulation` — denser cross-linking fills more of the plane.
+                  This is the axis sweep.pc_vs_D and the (K_h, D) surface use.
+    'mesh' mode   `generations` — a deeper tree is more space-filling. Adding
+                  Delaunay chords does not move the point cloud, so mesh_frac
+                  leaves D almost unchanged; this is why the calibrated 2-D grid
+                  (config.SWEEP_GENERATIONS x SWEEP_MEAN_DEGREES) sweeps D by
+                  depth and mean degree by mesh_frac, giving two near-orthogonal
+                  axes.
+
+Known limit: box-counting D on this generator saturates near 1.81, so the
+densest ~20% of real leaves (D > 1.81) are outside the synthetic grid's reach.
+Closing that gap needs a space-filling layout rather than a branching one.
 """
 
 from __future__ import annotations

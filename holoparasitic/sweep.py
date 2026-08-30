@@ -1,5 +1,5 @@
 """
-sweep.py  (Person D) — parameter sweeps that turn single runs into the study's
+sweep.py — parameter sweeps that turn single runs into the study's
 two headline results:
 
   1. pc_vs_D       topological p_c as a function of fractal dimension D

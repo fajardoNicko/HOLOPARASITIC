@@ -111,6 +111,9 @@ def boundary_profile(G, margin_frac: float = 0.02) -> dict:
         "mean_degree_shift": float(k_int - k_raw),
         "n_nodes_interior": Ni,
         "n_edges_interior": Ei,
+        # tag-based (Matos 'EL' veins), NOT the canonical non-bridge loop
+        # fraction — see realleaf.summary() for the distinction. Diagnostic
+        # only; no reported result reads this column.
         "loop_fraction_interior": float(n_loop_i / Ei) if Ei else 0.0,
         "n_cycles_interior": int(Ei - Ni + nx.number_connected_components(H)) if Ni else 0,
         # perimeter/area proxy: small windows are hit hardest by cut ends

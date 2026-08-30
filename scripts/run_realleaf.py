@@ -128,7 +128,12 @@ def main():
 
         row = {"species": spp, "n_nodes": s["n_nodes"], "n_edges": s["n_edges"],
                "mean_degree": round(s["mean_degree"], 2),
+               # NOTE two loop measures, see realleaf.summary(). `loop_fraction`
+               # is Matos' EL vein tag and is kept for continuity with the
+               # archived CSV; `loop_fraction_nonbridge` is the canonical one
+               # that every reported result uses.
                "loop_fraction": round(s["loop_fraction"], 3),
+               "loop_fraction_nonbridge": round(s["loop_fraction_nonbridge"], 4),
                "n_components": s["n_components"], "D": round(D, 4),
                "pc_random": round(pc_rand, 4), "pc_degree": round(pc_deg, 4),
                "pc_betweenness": round(pc_btw, 4), "pc_hydraulic": round(pc_hyd, 4),

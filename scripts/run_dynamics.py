@@ -85,19 +85,24 @@ def main():
     for label, s in runs.items():
         ax.plot(s["t"], s["rho"], lw=2, color=colors[label], label=label)
 
+    # Both lines are MODEL criteria on the same removal process. Neither is a
+    # symptom: the model contains no symptom variable, so f_c must not be
+    # labelled "wilting" and the gap must not be called pre-symptomatic.
     ax.axhline(p_c, color="black", ls="--", lw=1.4)
-    ax.text(0.2, p_c + 0.015, f"$p_c$ = {p_c:.2f}  (functional collapse)",
+    ax.text(0.2, p_c + 0.015, f"$p_c$ = {p_c:.2f}  (fragmentation criterion)",
             fontsize=9)
     ax.axhline(f_c, color="0.4", ls=":", lw=1.4)
-    ax.text(0.2, f_c + 0.015, f"$f_c$ = {f_c:.2f}  (visible wilting)", fontsize=9)
+    ax.text(0.2, f_c + 0.015, f"$f_c$ = {f_c:.2f}  (giant component lost)",
+            fontsize=9)
 
-    # shade the pre-symptomatic window for the moderate parasite
+    # shade the separation between the two criteria for the moderate rate
     m = runs["moderate (r=0.25)"]
     ax.axvspan(m["t_c"], m["t_wilt"], color="#ffd000", alpha=0.25)
-    ax.annotate("", xy=(m["t_wilt"], 0.5), xytext=(m["t_c"], 0.5),
+    ax.annotate("", xy=(m["t_wilt"], 0.44), xytext=(m["t_c"], 0.44),
                 arrowprops=dict(arrowstyle="<->", color="black"))
-    ax.text((m["t_c"] + m["t_wilt"]) / 2, 0.53,
-            f"window\n{m['window']:.1f} growth-time units", ha="center",
+    # sits below f_c so it cannot collide with the criterion label on that line
+    ax.text((m["t_c"] + m["t_wilt"]) / 2, 0.335,
+            f"separation\n{m['window']:.1f} growth-time units", ha="center",
             fontsize=9)
     for s in runs.values():
         ax.scatter([s["t_c"]], [p_c], color="black", zorder=5, s=25)
@@ -107,11 +112,12 @@ def main():
     # not its duration, is the result.
     ax.set_xlabel("time since infestation  (arbitrary units set by the assumed "
                   "growth rate $r$)")
-    ax.set_ylabel(r"haustorial load  $\rho(t)$")
+    ax.set_ylabel(r"affected node fraction  $\rho(t)$")
     ax.set_ylim(0, 1.0)
-    ax.set_title(r"Logistic infestation $d\rho/dt = r\,\rho(1-\rho)$ crossing the "
-                 r"collapse threshold" + "\n(the gap = pre-symptomatic window "
-                 "visual scouting misses)")
+    ax.set_title(r"Logistic load growth $d\rho/dt = r\,\rho(1-\rho)$ crossing the "
+                 r"two collapse criteria"
+                 + "\n(the gap is the separation between $p_c$ and $f_c$, "
+                   "not a physiological window)")
     ax.legend(loc="center right"); ax.grid(alpha=0.25)
     fig.tight_layout()
     path = os.path.join(figdir, "dynamics.png")

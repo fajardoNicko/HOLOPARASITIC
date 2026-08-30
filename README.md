@@ -1,97 +1,182 @@
 # Holoparasite-Induced Vascular Percolation Study
 
-Computational biophysics model of **holoparasitic** haustorial sink strength and
-the **Vascular Percolation Threshold p_c** of a host plant's hydraulic network —
-the point of irreversible network fragmentation, proposed as a *pre-symptomatic*
-intervention metric (collapse precedes visible wilting). Focused on holoparasites
-(*Cuscuta* stem, *Orobanche* root, *Pilostyles* endophytic; calibrated on *Cuscuta
-campestris*), with hemiparasites (*Striga*, mistletoe) kept as a comparison.
+Computational biophysics model of holoparasitic haustorial sink strength and the
+vascular percolation threshold p_c of a host plant's hydraulic network — the
+point at which the network fragments irreversibly. The argument for p_c is that
+it is reached *before* visible wilting, so it is a pre-symptomatic intervention
+metric rather than a diagnosis after the fact.
 
-## What it does
+The study runs on two kinds of network, deliberately:
+
+- **Real leaves.** 120 traced venation networks from Matos et al. (2024), UC
+  Berkeley Botanical Garden (Dryad `10.5061/dryad.1g1jwsv36`). These carry the
+  observational result and its confounds.
+- **Synthetic networks.** A Murray's-law generator calibrated to the real
+  cohort's branching geometry. Because its two structural knobs are
+  near-orthogonal, it separates causes the real cohort can only correlate.
+
+Parasites are modelled as attachment geometry × trophic efficiency, anchored on
+*Cuscuta campestris*: stem (*Cuscuta*), root (*Orobanche*) and systemic
+(*Pilostyles*) holoparasites, with *Striga* and mistletoe kept as hemiparasitic
+comparisons.
+
+## Pipeline
 
 ```
-Murray's-law reticulate network  ──►  box-counting fractal dimension D
-        │                                       │
-        ▼                                       ▼
- Kirchhoff flow solver (Ax=b)            Monte Carlo node removal
- + haustorial sink K_h                   ──► Giant Connected Component
-        │                                       │
-        └───────────────►  embolism  ───────────┤
-                                                 ▼
-                              logistic regression ──► p_c
-                                                 │
-                              sweep K_h × D ──►  p_c surface
+  real leaf CSVs ──► realleaf.py ─┐
+                                  ├─► one networkx.Graph  ──► fractal.py ──► D
+  config.py params ─► network.py ─┘   (schema in config.py)      │
+                                              │                  │
+                        hydraulics.py ◄───────┤                  │
+                        Kirchhoff A·psi = b   │                  │
+                        + haustorial sink K_h │                  │
+                        + cavitation          ▼                  ▼
+                                       percolation.py  ──► logistic fit ──► p_c
+                                       Monte Carlo node
+                                       removal, GCC size
 ```
+
+Every module reads and writes the same graph contract, so a traced leaf and a
+generated network are measured by literally the same code path. That is what
+makes the two halves of the study comparable rather than merely analogous.
 
 ## Quick start
 
+Pinned to Python 3.13; see `requirements.txt`.
+
 ```powershell
-# install the pinned stack
 C:\laragon\bin\python\python-3.13\python.exe -m pip install -r requirements.txt
 
-# fast end-to-end demo (~seconds) — writes figures\
-C:\laragon\bin\python\python-3.13\python.exe scripts\run_demo.py
-
-# smoke tests
+# invariants — 5 tests, a few seconds
 C:\laragon\bin\python\python-3.13\python.exe tests\test_smoke.py
 
-# full paper run: 1,000,000 trials + all figures (~11 min on the i5-8265U)
+# end-to-end demo, seconds, writes figures\
+C:\laragon\bin\python\python-3.13\python.exe scripts\run_demo.py
+
+# the archived reference run: 1,000,000 trials + figures (~11 min, i5-8265U)
 C:\laragon\bin\python\python-3.13\python.exe scripts\run_full.py
-# lighter pass:
-C:\laragon\bin\python\python-3.13\python.exe scripts\run_full.py 100000
+C:\laragon\bin\python\python-3.13\python.exe scripts\run_full.py 100000   # lighter
 ```
 
-## Module map (and who owns what)
+Anything touching real leaves additionally needs the Matos deposit unzipped into
+`UCBG_venation_form_data/` (~4.4 GB, deliberately not committed).
 
-| File | Owner | Role |
-|------|-------|------|
-| `config.py` | D | **Frozen** shared config + network data-structure contract |
-| `holoparasitic/network.py` | A | Reticulate Murray's-law generator, CSR conversion |
-| `holoparasitic/fractal.py` | A | Box-counting fractal dimension D |
-| `holoparasitic/hydraulics.py` | B | Sparse Kirchhoff solver + haustorial sink K_h, cavitation |
-| `holoparasitic/percolation.py` | C | Monte Carlo GCC collapse + logistic-regression p_c |
-| `holoparasitic/sweep.py` | D | p_c-vs-D and the (K_h, D) p_c surface |
-| `holoparasitic/viz.py` | C/D | Network plot, **hero sigmoid**, heatmap, collapse animation |
-| `scripts/run_demo.py`, `run_full.py` | D | End-to-end drivers |
+## Reference network and headline numbers
 
-## The three modeling decisions (baked into the data structure)
+The reference ("hero") network is `config.DEFAULT_NETWORK`: the cohort-calibrated
+planar **mesh**, promoted 2026-07-30. Reproduce these with `run_full.py`.
 
-1. **Reticulation.** The generator emits a *reticulate* network (tree +
-   anastomoses), not a pure dendrite. A strict tree has no redundant paths and
-   therefore no sharp percolation transition — the hero sigmoid would not exist.
-   Controlled by `NetworkParams.reticulation`.
+| Quantity | Value |
+|---|---|
+| N | 1,023 |
+| mean degree ⟨k⟩ | 2.489 |
+| independent loops | 251 |
+| box-counting D | 1.387 |
+| p_c, random removal | **0.2711**, 95% CI [0.2700, 0.2720] (10⁶ trials) |
+| p_c, betweenness-targeted | 0.189 |
+| p_c, degree-targeted | 0.202 |
 
-2. **How K_h enters.** Two honest paths, both implemented:
-   - *Topological* (`mode="random"` / `"targeted"`): p_c is a property of the
-     network's connectivity (depends on D). This is the fast 1e6-trial engine.
-   - *Coupled* (`mode="hydraulic"`): the flow solver computes vessel tension;
-     vessels past the cavitation limit embolise and are removed, so **K_h
-     genuinely shifts p_c**. This fills the (K_h, D) surface.
+Both targeted attacks fall below random, with the betweenness (backbone) attack
+strongest. This matches the real cohort, where degree-targeted p_c is below
+random in 100 leaves out of 100.
 
-3. **Random vs targeted removal.** `mode="targeted"` removes the highest-
-   **betweenness** vessels first — the stem/major-vein backbone, the true
-   structurally-critical nodes in a vascular tree (`p_c ≈ 0.18` vs `0.28`
-   random). Targeting by raw *degree* is weaker than random (`0.31`), because the
-   high-degree nodes are the redundant reticulated periphery — a result in itself.
+Three cohorts are nested, and which one a number came from matters:
 
-### The D axis
+| Cohort | n | Criterion |
+|---|---|---|
+| traced | 120 | every Matos leaf loaded |
+| characterized | 112 | ≥ 500 veins |
+| percolation | 100 | ≥ 2,000 veins, ≥ 1 cycle, cut-end terminal fraction ≤ 0.05, \|Δ⟨k⟩\| ≤ 0.05 |
+| enhancement | 105 | N ≥ 1,000 and current p_c ≥ 0.02 |
 
-`D` is swept at **constant network size N** by varying the anastomosis (vein)
-density (`NetworkParams.reticulation`) and *measuring* the box-counting
-dimension of each network — denser venation → more space-filling → higher `D`
-(≈1.35–1.48 across the sweep; hero network D ≈ 1.43, inside the measured
-*Relbunium* leaf-venation range 1.39–1.76). As in real leaf venation, denser
-networks are also better connected, so mean degree co-varies (~6.0 at the
-default). Box-counting fits the genuine scaling regime (a fixed window of box
-sizes), not the finite-size-saturated coarse boxes.
+`data/cohort_provenance.json` records each membership and every exclusion reason.
+`data/results_verified.json` is the machine-readable source of truth for every
+reported statistic; the manuscript documents are generated from it by
+`scripts/make_results_docx.py`, never hand-edited.
 
-## Outputs
+Main findings, all with n and test in `results_verified.json`:
 
-`figures/` — `network.png`, `sigmoid.png` (hero), `pc_heatmap.png`,
-`collapse_montage.png`, `collapse.gif`.
-`data/` — `results.npz`, `summary.json` (reproducible numbers for the paper).
+- On the 100-leaf cohort, mean degree and D are both independent predictors of
+  p_c (partial Spearman 0.736 and 0.502) and are themselves nearly uncorrelated.
+- On the 42-network synthetic grid, where the two are manipulated separately,
+  mean degree carries almost all of the effect (standardized β 0.933 vs 0.067,
+  R² = 0.887). Connectivity is the lever; D is real but small.
+- Adding shortest Delaunay areole closures to each leaf's own venation raises
+  median p_c from 0.201 to 0.215; 93 of 105 leaves improve and none worsen.
+- At the literature-anchored sink strength (`K_H_HOLOPARASITE = 0.0392`) the
+  haustorium is sub-cavitation: no vessel embolises at any gradient tested. The
+  hydraulic sink and the percolation collapse are therefore decoupled lenses on
+  the same host, not one mechanism.
+
+Two things the study deliberately does **not** claim: a universality class (the
+measured β is window-sensitive and matches neither mean-field nor 2-D; see
+`scripts/run_scaling_mesh.py`), and validation against measured K_leaf (Spearman
+0.187, p = 0.073, n = 93 — reported as a limitation, since the model is
+xylem-only while K_leaf is dominated by outside-xylem pathways).
+
+## Module map
+
+| File | Role |
+|---|---|
+| `config.py` | Physical constants, all default parameter sets, the graph schema |
+| `holoparasitic/network.py` | Synthetic Murray's-law generator; `knn` and `mesh` reticulation |
+| `holoparasitic/realleaf.py` | Loader for one traced Matos leaf, onto the same schema |
+| `holoparasitic/metadata.py` | The source dataset's extraction-quality flags, decoded |
+| `holoparasitic/fractal.py` | Box-counting D, shared by graphs and leaf images |
+| `holoparasitic/hydraulics.py` | Sparse Kirchhoff solver, haustorial sink, cavitation |
+| `holoparasitic/percolation.py` | Monte Carlo GCC collapse, logistic p_c, bootstrap CI |
+| `holoparasitic/characterize.py` | Full per-leaf profile and the validity screen |
+| `holoparasitic/boundary.py` | Cropping-artifact test for the windowed source networks |
+| `holoparasitic/calibrate.py` | Measures real branching geometry; fits the generator to it |
+| `holoparasitic/matos_summary.py` | Reads the authors' precomputed metrics, as a cross-check |
+| `holoparasitic/dynamics.py` | Logistic load ρ(t) and the pre-symptomatic window |
+| `holoparasitic/sweep.py` | p_c vs D, and the coupled (K_h, D) surface |
+| `holoparasitic/viz.py` | Network plot, collapse sigmoid, heatmap, animation |
+
+Drivers live in `scripts/` and are catalogued in [scripts/README.md](scripts/README.md).
+Outputs and their provenance are catalogued in [data/README.md](data/README.md).
+
+## Three modelling decisions worth knowing before reading the code
+
+**1. Reticulation is required, not decorative.** A strict Murray tree has no
+redundant paths, so removing an internal node disconnects its whole subtree and
+the giant component bleeds off roughly linearly — there is no sharp threshold to
+measure at all. Real venation is reticulate. Two modes implement this:
+`knn` adds nearest-neighbour cross-links to a tree (mean degree rises but most
+edges stay bridges); `mesh` adds the shortest Delaunay edges, which are planar
+and non-crossing, so each one closes a real areole. Only `mesh` reproduces the
+cohort's loop fraction of ~0.78 at a mean degree of only ~2.5, which is why it
+is the calibrated default.
+
+**2. How K_h enters — two paths, both implemented.** Topologically
+(`mode="random"` / `"targeted"`), p_c is a property of connectivity alone; this
+is the fast engine behind the million-trial reference run. Coupled
+(`mode="hydraulic"`), the solver computes vessel tension, vessels past the
+cavitation limit embolise and are removed, so K_h genuinely moves the threshold.
+Note that ρ means different things in the two: fraction of junctions *removed*
+in the topological modes, fraction of junctions *bearing a haustorium* in the
+hydraulic one. They are different quantities and are not interchangeable.
+
+**3. Site, not bond, percolation.** `percolation._trial_random` removes
+*junctions* (nodes), which is site percolation. The critical behaviour and the
+qualitative conclusions are the same as for vessel (bond) removal, but the
+numbers are not, and the methods say junctions. Relatedly, `_gcc_size` measures
+the largest surviving component anywhere rather than specifically the one still
+attached to the root; on networks this reticulated the two coincide, and
+`run_robustness.py` measures the threshold as root-invariant, but the code does
+not enforce a root check and the methods do not claim it does.
 
 ## Reproducibility
 
-Every random draw flows through `config.new_rng(seed)`; all seeds live in
-`config.py`. Same config in → same figures out.
+Every random draw goes through `config.new_rng(seed)` and every seed lives in
+`config.py`, so the same configuration produces the same figures. Long runs
+(`run_cohort_suggested.py`, `run_synthetic_grid.py`, `run_kleaf_validate.py`)
+append to their CSV incrementally and skip completed rows, so an interrupted run
+resumes rather than restarting.
+
+Two archived artifacts are **superseded** and labelled as such rather than
+deleted, because earlier drafts quote them: the `pc_vs_D` and `pc_surface` arrays
+inside `data/results.npz` were computed on the legacy `knn` generator (⟨k⟩
+4.4–7.0, far above anything empirical). `data/csv/README.md` sets out exactly why
+and what replaced them. `sweep._network_for_reticulation` still forces `knn`
+mode on purpose, so those legacy figures remain reproducible.

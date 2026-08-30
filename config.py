@@ -2,11 +2,14 @@
 config.py — central, FROZEN configuration for the Holoparasitic Vascular
 Percolation Study.
 
-Everything the four sub-modules share lives here so that Person D can freeze it
-in Week 1 and A/B/C build against a stable contract.
+Every physical constant, every default parameter set and the shared graph
+schema live here, so that the modules under holoparasitic/ can be developed and
+re-run independently against one contract. Nothing below should change without
+re-running the pipeline: the archived results in data/ were produced under these
+values, and several of them are quoted verbatim in the manuscript.
 
 ----------------------------------------------------------------------------
-FROZEN NETWORK DATA STRUCTURE  (agreed Week 1 — do not change silently)
+NETWORK DATA STRUCTURE — the contract every module reads and writes
 ----------------------------------------------------------------------------
 The single object passed between every module is a `networkx.Graph` named `G`.
 
@@ -21,18 +24,25 @@ Node attributes
 Edge attributes
     radius      : float   vessel radius            (normalised, r0 = 1.0)
     length      : float   vessel length            (normalised)
-    resistance  : float   Hagen-Poiseuille R = 8 eta L / (pi r^4)
-    conductance : float   g = 1 / resistance       (normalised, used by solver)
+    resistance  : float   Hagen-Poiseuille R = 8 eta L / (pi r^4)   [Pa.s/m^3]
+    conductance : float   g = r^4 / L              (normalised, used by solver)
     kind        : str     'axial'        = Murray bifurcation edge
                           'anastomosis'  = reticulation cross-link (loop)
 
+`conductance` is NOT the reciprocal of `resistance`: it is 1/R with the global
+constant 8*eta/pi divided out, i.e. g = (pi / 8 eta) / R. That constant is the
+same on every edge, so it factors out of the Kirchhoff solve and changes no
+potential; dropping it keeps the sparse system well-conditioned across the
+~100x caliber range between the root vessel and a minor vein. `resistance`
+carries the real SI value for anything the paper reports in physical units.
+
 Helper `network.to_csr(G)` converts G -> scipy CSR adjacency ONCE; the Monte
 Carlo hot loop then works purely on integer-indexed sparse matrices and never
-touches NetworkX (this is what makes 1e6 trials feasible — see the brief).
+touches NetworkX. That is what makes the million-trial reference run feasible.
 ----------------------------------------------------------------------------
 """
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import numpy as np
 
 
@@ -69,14 +79,19 @@ K_H_HOLOPARASITE = 0.0392
 
 
 # ----------------------------------------------------------------------------
-# Network generation defaults  (Person A)
+# Network generation defaults
 # ----------------------------------------------------------------------------
 @dataclass
 class NetworkParams:
+    # The bare defaults below reproduce the pre-2026-07 'knn' reference network
+    # exactly (see LEGACY_HERO_NETWORK at the bottom of this file). The network
+    # the study actually reports on is DEFAULT_NETWORK, which overrides most of
+    # them with values measured from the real cohort.
     generations: int = 9          # tree depth; ~2^g terminal vessels (N~1023)
     branch_angle: float = 45.0    # half-angle of each bifurcation [degrees]
     angle_jitter: float = 8.0     # random angle spread [degrees]
-    length_ratio: float = 0.72    # child_length/parent_length -> the D knob
+    length_ratio: float = 0.72    # child_length/parent_length; a constant-
+                                  # connectivity geometric control, not a D knob
     radius_exponent: float = 3.0  # Murray's law exponent (r_p^n = sum r_c^n)
     daughter_symmetry: float = 1.0  # r_small/r_large at each split (0,1]; 1.0 =
                                     # symmetric (Murray-equal daughters, the
@@ -85,13 +100,14 @@ class NetworkParams:
                                     # Murray conservation holds for any value.
     root_length: float = 1.0      # length of the root vessel (normalised)
     root_radius: float = 1.0      # radius of the root vessel (normalised)
-    # Reticulation: number of anastomoses (cross-links) to add, as a fraction of
-    # the (N-1) tree edges; shortest candidates first, so mean degree is
-    # ~2*(1+reticulation) regardless of length_ratio. This is ALSO the D knob:
-    # denser venation -> more space-filling -> higher box-counting D. Default 2.0
-    # gives ~2044 loops, mean degree ~6.0 and D~1.43 — inside the measured
-    # Relbunium leaf-venation range (1.39-1.76; see VALIDATION.md) — with a sharp
-    # p_c~0.28. (0.0 => pure tree, which has NO sharp percolation transition.)
+    # Reticulation ('knn' mode only): number of anastomoses (cross-links) to add,
+    # as a fraction of the (N-1) tree edges; shortest candidates first, so mean
+    # degree is ~2*(1+reticulation) regardless of length_ratio. In this mode it
+    # is also what moves box-counting D, because denser cross-linking fills more
+    # of the plane: sweep.pc_vs_D uses it for exactly that. Default 2.0 gives
+    # ~2044 loops, mean degree ~6.0 and D~1.43, inside the measured Relbunium
+    # leaf-venation range 1.39-1.76 (see VALIDATION.md), with a sharp p_c~0.28.
+    # 0.0 gives a pure tree, which has NO sharp percolation transition at all.
     reticulation: float = 2.0
     reticulation_knn: int = 10    # nearest neighbours scanned per node for links
     # Reticulation MODE — how loops are closed:
@@ -112,7 +128,7 @@ class NetworkParams:
 
 
 # ----------------------------------------------------------------------------
-# Percolation / Monte Carlo defaults  (Person C)
+# Percolation / Monte Carlo defaults
 # ----------------------------------------------------------------------------
 @dataclass
 class PercolationParams:
@@ -128,7 +144,7 @@ class PercolationParams:
 
 
 # ----------------------------------------------------------------------------
-# Parameter sweep defaults  (Person D) — builds the p_c vs (K_h, D) surface.
+# Parameter sweep defaults — builds the p_c vs (K_h, D) surface.
 # The hydraulic-coupled mode re-solves a sparse system per trial, so it uses a
 # much smaller trial budget than the 1e6-trial topological hero sigmoid.
 # ----------------------------------------------------------------------------

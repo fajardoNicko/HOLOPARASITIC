@@ -1,5 +1,5 @@
 """
-percolation.py  (Person C) — Monte Carlo GCC collapse + logistic-regression p_c.
+percolation.py — Monte Carlo GCC collapse + logistic-regression p_c.
 
 For a FINITE network the percolation transition is sigmoidal, not a step, so we
 estimate the threshold statistically:
@@ -67,6 +67,13 @@ def importance_weights(G, nodes, metric="betweenness"):
 # Single-trial helpers (operate purely on the integer-indexed CSR matrix)
 # ----------------------------------------------------------------------------
 def _gcc_size(sub) -> int:
+    """Node count of the largest surviving component.
+
+    This is the largest component ANYWHERE in the survivor set, not specifically
+    the one still attached to the root. On networks this reticulated the two
+    coincide in practice — run_robustness.py measures the threshold as
+    root-invariant — but the distinction is real and is stated in the methods
+    rather than glossed as "connected to the root"."""
     if sub.shape[0] == 0:
         return 0
     _, labels = connected_components(sub, directed=False)

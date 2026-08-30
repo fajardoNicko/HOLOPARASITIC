@@ -1,5 +1,5 @@
 r"""
-hydraulics.py  (Person B) — steady-state xylem flow as a sparse linear system.
+hydraulics.py — steady-state xylem flow as a sparse linear system.
 
 Kirchhoff's current law on the conductance-weighted graph gives, at every free
 node i,
@@ -39,15 +39,15 @@ class HydraulicSolver:
         self.G = G
         self.W, self.nodes = network.conductance_csr(G)
         self.index = {n: i for i, n in enumerate(self.nodes)}
-        deg = np.asarray(self.W.sum(axis=1)).ravel()
-        self.L = (sp.diags(deg) - self.W).tocsr()
+        # Total incident conductance of every node. This is both the diagonal of
+        # the Laplacian and the caliber measure used to scale a haustorial leak
+        # to the vessel it taps, so it is computed once and used for both.
+        self.node_conductance = np.asarray(self.W.sum(axis=1)).ravel()
+        self.L = (sp.diags(self.node_conductance) - self.W).tocsr()
 
         self.root = next(n for n, d in G.nodes(data=True) if d["kind"] == "root")
         self.terminals = [n for n, d in G.nodes(data=True)
                           if d["kind"] == "terminal"]
-        # incident conductance of every node (diagonal of the Laplacian) — used
-        # to scale haustorial leak to the host vessel's own caliber.
-        self.node_conductance = np.asarray(self.W.sum(axis=1)).ravel()
 
     # ------------------------------------------------------------------ solve
     def solve(self, haustoria=None, k_h=config.K_H_DEFAULT, relative=True,

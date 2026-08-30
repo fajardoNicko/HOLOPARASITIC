@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 r"""
-make_revised_sections_docx.py -- render MANUSCRIPT_REVISED_SECTIONS.md as a Word
-document with real tables and embedded figures.
+make_discussion_sop_docx.py -- render DISCUSSION_SOP_ALIGNED.md as a Word document with real
+tables and embedded figures.
 
 The markdown file is the source of truth; this script only typesets it, so the
 two can never drift. Re-run it after any edit to the markdown.
@@ -13,9 +13,9 @@ two can never drift. Re-run it after any edit to the markdown.
   * inline **bold**, *italic*, `code` are rendered as runs
   * body text is double-spaced Times New Roman 12 pt; tables are single-spaced
 
-    python scripts/make_revised_sections_docx.py
+    python scripts/make_discussion_sop_docx.py
 
-Writes MANUSCRIPT_REVISED_SECTIONS.docx.  ASCII-only stdout.
+Writes DISCUSSION_SOP_ALIGNED.docx.  ASCII-only stdout.
 """
 
 from __future__ import annotations

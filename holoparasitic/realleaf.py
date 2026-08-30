@@ -251,17 +251,47 @@ def find_leaf_pairs(data_dir: str):
     return pairs
 
 
-def summary(G) -> dict:
-    """Same shape as network.summary(), plus real-leaf extras."""
+def summary(G, loops: bool = True) -> dict:
+    """Same shape as network.summary(), plus real-leaf extras.
+
+    TWO DIFFERENT RETICULATION MEASURES appear here. They are close but not
+    equal, and quoting one under the other's name is what produced the
+    0.719-vs-0.727 discrepancy between early draft tables:
+
+      loop_fraction            edges Matos LABELLED as loop veins (Type 'EL'),
+                               over all edges. Depends on the source dataset's
+                               own vein classification, and undercounts any loop
+                               that happens to be closed by an ET/EB-typed vein.
+                               Kept under this name because the archived
+                               data/realleaf_pc.csv was written with it.
+      loop_fraction_nonbridge  edges that actually LIE ON a cycle, over all
+                               edges. Purely topological, defined identically on
+                               real and synthetic networks, and independent of
+                               anyone's vein labels. THIS IS THE CANONICAL
+                               DEFINITION used by every reported result — see
+                               data/analysis_master.csv and the
+                               `_canonical_loop_fraction` field of
+                               data/results_verified.json — and the one to quote.
+
+    loops=False skips the bridge scan, the only non-trivial cost in here, and
+    omits the two non-bridge fields.
+    """
     n_anas = sum(1 for *_, d in G.edges(data=True) if d["kind"] == "anastomosis")
     n_term = sum(1 for _, d in G.nodes(data=True) if d["kind"] == "terminal")
     E, N = G.number_of_edges(), G.number_of_nodes()
-    return {
+    n_comp = nx.number_connected_components(G) if N else 0
+    out = {
         "n_nodes": N, "n_edges": E,
         "n_anastomoses": n_anas, "n_terminals": n_term,
-        "n_cycles": E - N + nx.number_connected_components(G),
+        # cycle rank (Euler): E - N + number of components
+        "n_cycles": E - N + n_comp,
         "mean_degree": 2 * E / N if N else 0.0,
-        "n_components": nx.number_connected_components(G),
+        "n_components": n_comp,
         "root": G.graph.get("root"),
         "loop_fraction": n_anas / E if E else 0.0,
     }
+    if loops:
+        n_bridges = len(list(nx.bridges(G))) if E else 0
+        out["loop_fraction_nonbridge"] = (E - n_bridges) / E if E else 0.0
+        out["bridge_fraction"] = n_bridges / E if E else 0.0
+    return out

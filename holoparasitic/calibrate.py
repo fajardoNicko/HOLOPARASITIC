@@ -99,6 +99,12 @@ def measure_from_graph(G) -> dict:
         "murray_exponent": med(murray),
         "daughter_symmetry": med(symm),
         "length_ratio": med(lratio),
+        # CAUTION: tag-based (edges typed 'anastomosis'), which is NOT the
+        # canonical loop fraction. COHORT_TARGETS below and every reported
+        # figure use the non-bridge definition (edges lying on a cycle); on a
+        # 'mesh' network the two differ. Callers that need the canonical value
+        # compute it themselves — characterize.characterize() and
+        # scripts/run_calibration.py both do, and both drop this field.
         "loop_fraction": loops / E if E else 0.0,
         "mean_degree": 2 * E / N if N else 0.0,
         "D": None,                                  # filled by caller if wanted
@@ -273,7 +279,9 @@ COHORT_TARGETS = {
     "daughter_symmetry": 0.675,
     "length_ratio": 0.929,
     "mean_degree": 2.516,
-    "loop_fraction": 0.776,        # NOT matched — see note in reticulation_for_k
+    # non-bridge definition (edges on a cycle), the canonical one; matched only
+    # by 'mesh' reticulation — see the note in reticulation_for_k
+    "loop_fraction": 0.776,
     "D_median": 1.694,
     "D_min": 1.262,
     "D_max": 1.913,

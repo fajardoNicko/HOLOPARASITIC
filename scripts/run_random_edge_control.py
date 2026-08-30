@@ -52,7 +52,6 @@ ASCII-only stdout.
 """
 import argparse
 import csv
-import glob
 import os
 import sys
 import time
@@ -177,13 +176,26 @@ def meta_lookup():
     return m
 
 
+MIN_NODES = 1000        # enhancement-cohort screen, as reported in the paper
+MIN_PC = 0.02
+
+
 def enhancement_cohort():
-    """The 105 species of the enhancement cohort, with their baseline <k>."""
+    """The 105 species of the enhancement cohort, with their baseline <k>.
+
+    cohort_suggested.csv holds all 120 traced leaves, so the enhancement screen
+    (N >= 1000 and a measurable current threshold) has to be applied here or the
+    control runs on networks the paper's enhancement result never included --
+    including degenerate ones such as Puy_alp, which is a 144-node matching with
+    <k> = 1.0 and p_c = 0. This screen reproduces n = 105 exactly.
+    """
     p = os.path.join(ROOT, "data", "cohort_suggested.csv")
     rows = []
     if os.path.exists(p):
         for r in csv.DictReader(open(p, newline="")):
             try:
+                if int(r["N"]) < MIN_NODES or float(r["pc_current"]) < MIN_PC:
+                    continue
                 rows.append((r["species"], float(r["k_current"])))
             except (KeyError, ValueError):
                 continue
@@ -235,18 +247,21 @@ def main():
     print("  output      : %s" % os.path.relpath(OUT, ROOT))
     print("")
 
+    # Pair node/vein CSVs the same way the rest of the pipeline does: the
+    # archive is not internally consistent about stems, so per-directory
+    # pairing is what find_leaf_pairs exists to handle.
+    pairs = {sp: (nf, vf) for sp, nf, vf in realleaf.find_leaf_pairs(LEAFDIR)}
+
     write_header = not os.path.exists(OUT)
     for i, sp in enumerate(todo, 1):
-        hits = glob.glob(os.path.join(LEAFDIR, sp + "*node*.csv")) or \
-               glob.glob(os.path.join(LEAFDIR, sp + "*"))
-        if not hits:
+        if sp not in pairs:
             print("  [%3d/%3d] %-28s SKIP (files not found)" % (i, len(todo), sp))
             continue
 
         t0 = time.time()
         try:
-            G = realleaf.load(sp, LEAFDIR) if hasattr(realleaf, "load") else \
-                realleaf.build(sp, LEAFDIR)
+            nf, vf = pairs[sp]
+            G = realleaf.load_matos(nf, vf, name=sp)
         except Exception as exc:
             print("  [%3d/%3d] %-28s SKIP (%s)" % (i, len(todo), sp, exc))
             continue
