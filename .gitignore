@@ -97,12 +97,20 @@ figures/board_photos/
 # Local-only drafts and generated exports
 #
 # Everything below is deliberately not pushed: either it is a working draft, or
-# it is regenerated on demand by a script in scripts/. The manuscript documents
-# that ARE tracked (Methodology.docx, RESULTS_DATA_PACK.docx, SECOND_PASS_AUDIT.md,
-# …) are intentionally left out of this list.
+# it is regenerated on demand by a script in scripts/.
+#
+# NOTE: the blanket *.docx / *.xlsx / *.html rules below cover the manuscript
+# exports too (Methodology.docx, MANUSCRIPT_REVISED_SECTIONS.docx,
+# RESULTS_DATA_PACK.docx …). Those were tracked from before these rules existed
+# and were untracked on 2026-08-31; .gitignore has no effect on already-tracked
+# files, which is why they survived here for so long. The markdown sources they
+# are generated from (MANUSCRIPT_REVISED_SECTIONS.md, DISCUSSION_SOP_ALIGNED.md,
+# SUPPLEMENTARY_TABLES.md …) stay tracked and are the source of truth; the .docx
+# are rebuilt by scripts/make_*_docx.py. Add a "!name.docx" line to keep one.
 # ==========================================================================
 CLAUDES CUT.docx
 RESULTS_REVISED.docx
+SOFTWARE_LOGBOOK.md
 APPENDIX_C_COMPUTATIONS.tex
 APPENDIX_C_CHECKS.csv
 FIX_LIST.md
@@ -124,4 +132,5 @@ ORAL_SCRIPT.md
 PRESENTATION.md
 PRESENTATION_SCRIPT.md
 STUDY_MASTERY_GUIDE.md
+DEFENSE_PANEL_PREP.md
 *.html
