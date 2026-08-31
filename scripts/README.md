@@ -75,7 +75,7 @@ Run these in order; each consumes the previous one's output. *Needs raw data.*
 | `run_final_resolution_checks.py` | The final unresolved-item battery. | `data/final_resolution_checks.json` |
 | `run_rrl_diagnostics.py` | Numbers the deep literature pass needed computed. | `data/rrl_diagnostics.json` |
 | `run_targeted_ci.py` | Bootstrap CIs for the two targeted attacks, which the original run did not store. | `data/targeted_ci.json` |
-| `run_empirical.py` | Box-counting D measured on leaf photographs, via the same code path as the graphs. | `data/empirical_summary.json` |
+| `run_empirical.py` | Box-counting D measured on our own leaf photographs, via the same code path as the graphs. Writes into `empirical/`, not `data/`. | `empirical/measurements/venation_metrics.csv`, `empirical_summary.json`, `figures/empirical_D_vs_pc.png` |
 
 ## 6. Assemble the reported numbers
 

@@ -73,21 +73,23 @@ planar **mesh**, promoted 2026-07-30. Reproduce these with `run_full.py`.
 | independent loops | 251 |
 | box-counting D | 1.387 |
 | p_c, random removal | **0.2711**, 95% CI [0.2700, 0.2720] (10⁶ trials) |
-| p_c, betweenness-targeted | 0.189 |
-| p_c, degree-targeted | 0.202 |
+| p_c, betweenness-targeted | 0.1889, 95% CI [0.1879, 0.1902] (10⁵ trials) |
+| p_c, degree-targeted | 0.2023, 95% CI [0.2014, 0.2033] (10⁵ trials) |
 
 Both targeted attacks fall below random, with the betweenness (backbone) attack
 strongest. This matches the real cohort, where degree-targeted p_c is below
-random in 100 leaves out of 100.
+random in 100 leaves out of 100. Source: `data/summary.json` and
+`data/targeted_ci.json`.
 
-Three cohorts are nested, and which one a number came from matters:
+Four cohorts are used, nested 100 ⊂ 105 ⊂ 112 ⊂ 120. They were screened by
+different rules for different purposes, so which one a number came from matters:
 
 | Cohort | n | Criterion |
 |---|---|---|
 | traced | 120 | every Matos leaf loaded |
 | characterized | 112 | ≥ 500 veins |
-| percolation | 100 | ≥ 2,000 veins, ≥ 1 cycle, cut-end terminal fraction ≤ 0.05, \|Δ⟨k⟩\| ≤ 0.05 |
 | enhancement | 105 | N ≥ 1,000 and current p_c ≥ 0.02 |
+| percolation | 100 | ≥ 2,000 veins, ≥ 1 cycle, cut-end terminal fraction ≤ 0.05, absolute mean-degree shift ≤ 0.05 |
 
 `data/cohort_provenance.json` records each membership and every exclusion reason.
 `data/results_verified.json` is the machine-readable source of truth for every
@@ -113,6 +115,30 @@ measured β is window-sensitive and matches neither mean-field nor 2-D; see
 `scripts/run_scaling_mesh.py`), and validation against measured K_leaf (Spearman
 0.187, p = 0.073, n = 93 — reported as a limitation, since the model is
 xylem-only while K_leaf is dominated by outside-xylem pathways).
+
+## Repository layout
+
+```
+config.py                 physical constants, default parameter sets, graph schema
+holoparasitic/            the modelling library (module map below)
+scripts/                  every runnable driver          -> scripts/README.md
+tests/                    smoke tests
+data/                     all generated results          -> data/README.md
+figures/                  all generated figures
+empirical/                our own leaf photographs, measurements and the
+                          literature notes behind them   -> empirical/README.md
+rrl/                      the ten-domain literature review, one file per domain
+UCBG_venation_form_data/  the Matos deposit, unzipped (not committed, ~4.4 GB)
+hydraulics/               Matos et al.'s measured hydraulics tables (vendored)
+Rscripts/                 Matos et al.'s own R analysis code (vendored, reference)
+```
+
+`hydraulics/` and `Rscripts/` are **third-party files redistributed from the
+Matos deposit**, not our work. `Rscripts/` is kept for reference only and is
+never executed by this pipeline. `hydraulics/hydraulics/UCBG_venation_kmax.csv`
+is a genuine input: `run_kleaf_validate.py` and
+`run_resistance_convention_sensitivity.py` both read the measured K_leaf values
+from it.
 
 ## Module map
 
@@ -165,6 +191,62 @@ the largest surviving component anywhere rather than specifically the one still
 attached to the root; on networks this reticulated the two coincide, and
 `run_robustness.py` measures the threshold as root-invariant, but the code does
 not enforce a root check and the methods do not claim it does.
+
+## Document index
+
+The repository root carries the written record as well as the code. Start at the
+top of each group.
+
+**Method and results**
+
+| Document | What it holds |
+|---|---|
+| [ANALYSIS.md](ANALYSIS.md) | Pipeline walkthrough and the data analysis behind each result |
+| [PROJECT_DETAILED_WRITEUP.md](PROJECT_DETAILED_WRITEUP.md) | Long-form writeup feeding the paper |
+| [MANUSCRIPT_REVISED_SECTIONS.md](MANUSCRIPT_REVISED_SECTIONS.md) | Current manuscript sections |
+| [DISCUSSION_REVISED.md](DISCUSSION_REVISED.md), [DISCUSSION_SOP_ALIGNED.md](DISCUSSION_SOP_ALIGNED.md) | Discussion drafts; the SOP-aligned one is the later |
+| [STATISTICAL_ANALYSIS_REWRITE.md](STATISTICAL_ANALYSIS_REWRITE.md) | Replacement statistics section |
+| [SUPPLEMENTARY_TABLES.md](SUPPLEMENTARY_TABLES.md) | Tables S1–S5, generated from the archived JSON |
+| [ROBUSTNESS_CEILING_DISCUSSION.md](ROBUSTNESS_CEILING_DISCUSSION.md) | Robustness-ceiling result, framed as hypothesis |
+
+**Verification trail** — read these to check the work rather than to learn it
+
+| Document | What it holds |
+|---|---|
+| [VALIDATION.md](VALIDATION.md) | Model vs literature, one verdict per claim |
+| [SECOND_PASS_AUDIT.md](SECOND_PASS_AUDIT.md) | Second-pass scientific stress test and the repairs it forced |
+| [FINAL_RESOLUTION_PASS.md](FINAL_RESOLUTION_PASS.md) | Every open flag and how it was closed |
+| [DEEP_RRL_EVIDENCE_PACK.md](DEEP_RRL_EVIDENCE_PACK.md) | Ten-domain literature and evidence pass |
+| [DISCUSSION_PATCH_LOG.md](DISCUSSION_PATCH_LOG.md) | Corrections applied to the Discussion, itemised |
+| [SOFTWARE_LOGBOOK.md](SOFTWARE_LOGBOOK.md) | Chronological build record, newest entry first |
+| [rrl/](rrl/) | The literature review itself, one file per domain (A–J) |
+
+**References and briefing**
+
+| Document | What it holds |
+|---|---|
+| [REFERENCES_RESULTS_DISCUSSION.md](REFERENCES_RESULTS_DISCUSSION.md) | Reference list for Results and Discussion |
+| [REFERENCES_PARASITES.md](REFERENCES_PARASITES.md) | References behind the parasite profiles |
+| [VALIDATOR_BRIEF.md](VALIDATOR_BRIEF.md), [BIOPHYSICIST_ONE_PAGER.md](BIOPHYSICIST_ONE_PAGER.md) | One-page briefs for external validators |
+| [PROPOSAL_DEFENSE.md](PROPOSAL_DEFENSE.md) | Proposal defence deck |
+| [HANDOFF.md](HANDOFF.md), [HANDOFF_FOR_PROCEDURES.md](HANDOFF_FOR_PROCEDURES.md) | Project state and methods handoff notes |
+
+## Data sources and attribution
+
+The venation networks, the measured hydraulics tables in `hydraulics/` and the R
+code in `Rscripts/` are **not our data**. They come from:
+
+> Matos, I. S., et al. (2024). *UCBG venation form data.* Dryad.
+> `https://doi.org/10.5061/dryad.1g1jwsv36`
+
+Check the licence terms on that Dryad landing page before redistributing any of
+it; the copies vendored here are included so the analysis can be re-run, and
+carry whatever terms the deposit sets. Cite the deposit, not this repository, for
+anything measured from those leaves.
+
+Our own contributions are the modelling code (`config.py`, `holoparasitic/`,
+`scripts/`, `tests/`), everything generated into `data/` and `figures/`, and the
+photographs and measurements in `empirical/`.
 
 ## Reproducibility
 
