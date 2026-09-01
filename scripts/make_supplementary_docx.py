@@ -6,6 +6,15 @@ tables and embedded figures.
 The markdown file is the source of truth; this script only typesets it, so the
 two can never drift. Re-run it after any edit to the markdown.
 
+It also typesets any other markdown file written in the same conventions, which
+is how APPENDIX_B_RAW_DATA.md is rendered:
+
+    python scripts/make_supplementary_docx.py APPENDIX_B_RAW_DATA.md APPENDIX_B_RAW_DATA.docx
+
+Figures are embedded only for the default source, whose figure numbers the
+FIGURES map below resolves; a caption label such as "Table B7" typesets its
+label and title and carries no image.
+
   * headings           -> Word heading styles
   * markdown tables    -> real Word tables (Table Grid, bold header row)
   * **Figure N** blocks -> APA layout: label, italic title, IMAGE, then the note
@@ -31,7 +40,8 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK
 from docx.shared import Pt, Inches, RGBColor
 
-SRC = ROOT / "SUPPLEMENTARY_TABLES.md"
+DEFAULT_SRC = ROOT / "SUPPLEMENTARY_TABLES.md"
+SRC = DEFAULT_SRC
 OUT = ROOT / "SUPPLEMENTARY_TABLES.docx"
 
 # Figure number -> image file, from the crosswalk at the top of the markdown.
@@ -131,6 +141,8 @@ def add_table(doc, rows):
 
 
 def add_image(doc, fignum):
+    if SRC != DEFAULT_SRC:
+        return False
     rel = FIGURES.get(fignum)
     if not rel:
         return False
@@ -152,6 +164,18 @@ def main() -> None:
         sys.stdout.reconfigure(line_buffering=True)
     except Exception:
         pass
+
+    global SRC, OUT
+    if len(sys.argv) > 1:
+        SRC = Path(sys.argv[1])
+        if not SRC.is_absolute():
+            SRC = ROOT / SRC
+        OUT = (Path(sys.argv[2]) if len(sys.argv) > 2
+               else SRC.with_suffix(".docx"))
+        if not OUT.is_absolute():
+            OUT = ROOT / OUT
+    if not SRC.exists():
+        raise SystemExit("no such markdown file: %s" % SRC)
 
     lines = SRC.read_text(encoding="utf-8").split("\n")
     doc = Document()
@@ -226,9 +250,9 @@ def main() -> None:
             continue
 
         # ---- Table / Figure caption labels ---------------------------------
-        cap = re.fullmatch(r"\*\*(Table|Figure) (\d+)\*\*(.*)", stripped)
+        cap = re.fullmatch(r"\*\*(Table|Figure) ([A-Z]?\d+)\*\*(.*)", stripped)
         if cap:
-            kind, num, tail = cap.group(1), int(cap.group(2)), cap.group(3)
+            kind, num, tail = cap.group(1), cap.group(2), cap.group(3)
             p = doc.add_paragraph()
             r = p.add_run(f"{kind} {num}")
             r.bold = True
@@ -251,7 +275,7 @@ def main() -> None:
                 i = k - 1
             if kind == "Figure":
                 n_figs += 1
-                if add_image(doc, num):
+                if num.isdigit() and add_image(doc, int(num)):
                     n_imgs += 1
             i += 1
             continue

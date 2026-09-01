@@ -1,0 +1,5 @@
+Cohort,n,Screening rule as coded,Excluded from the 112
+Traced networks,120,all Matos leaves loaded,none
+Characterization,112,n_edges >= 500 (characterize.py),"Als_lig, Asp_obl, Cal_nut, Dic_ant, Dry_rem, Equ_tel, Pte_esc, Puy_alp"
+Percolation,100,n_edges >= 2000 AND n_cycles >= 1 AND window cut-end terminal fraction <= 0.05 AND |mean-degree shift| <= 0.05 (build_cohort.py),"Ast_ban, Bar_pur, Car_pen, Clu_ala, Dic_feb, Doo_asp, Kni_uva, Luz_niv, Mic_pla, Par_tor, Phy_pur, Rib_vib"
+Enhancement,105,N >= 1000 AND current p_c >= 0.02 (run_cohort_suggested.py),"Ast_ban, Bar_pur, Doo_asp, Kni_uva, Luz_niv, Mic_pla, Phy_pur"

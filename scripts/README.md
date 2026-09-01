@@ -87,6 +87,7 @@ manuscript quotes should come from its output, not from an intermediate file.
 | `build_analysis_master.py` | Merges every per-leaf table into one, records cohort provenance, and computes every reported statistic once. | `data/analysis_master.csv`, `cohort_provenance.json`, `results_verified.json` |
 | `verify_manuscript_numbers.py` | Checks every statistic in the manuscript against the archived files, never against a previous draft. | stdout report |
 | `make_supplementary_tables.py` | Builds Tables S1–S5 from the archived JSON so no cited value is unsourced. | `SUPPLEMENTARY_TABLES.md` |
+| `make_appendix_b.py` | Appendix B: the unit-level observations themselves, listed in full, with a fingerprinted manifest and a column dictionary. Analyses nothing. Tables only by default; `--notes` adds an explanatory note under each. | `APPENDIX_B_RAW_DATA.md`, `appendix_b/B*.csv` |
 | `make_appendix_c.py` | Appendix C: every statistic re-derived from raw data with the arithmetic shown. | `APPENDIX_C_COMPUTATIONS.tex`, `APPENDIX_C_CHECKS.csv` |
 | `make_appendix_computations.py` | The earlier appendix generator, superseded by `make_appendix_c.py`. | same targets |
 | `export_csv.py` | Exports `results.npz` to readable CSV. | `data/csv/*.csv` |
@@ -103,7 +104,7 @@ so re-run the builder after editing rather than editing the `.docx`.
 | `make_revised_sections_docx.py` | `MANUSCRIPT_REVISED_SECTIONS.md` |
 | `make_discussion_docx.py` | `DISCUSSION_REVISED.md` |
 | `make_discussion_sop_docx.py` | `DISCUSSION_SOP_ALIGNED.md` |
-| `make_supplementary_docx.py` | `SUPPLEMENTARY_TABLES.md` |
+| `make_supplementary_docx.py` | `SUPPLEMENTARY_TABLES.md`, or any markdown named as its first argument (`… make_supplementary_docx.py APPENDIX_B_RAW_DATA.md APPENDIX_B_RAW_DATA.docx`) |
 | `make_stats_section_docx.py` | `STATISTICAL_ANALYSIS_REWRITE.md` |
 | `make_bibliography_docx.py` | The bibliography, APA 7th with hanging indent |
 | `patch_discussion_docx.py` | Applies audit corrections to a copy, leaving the original intact |
