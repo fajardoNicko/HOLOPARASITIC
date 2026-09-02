@@ -109,11 +109,10 @@ $\rho = %s$ and $r = %s$, so entering both would give""" %
          num(1 - COLL["pearson_meandegree_x_loopfraction"] ** 2, 6),
          num(lf_vif, 2)))
     w(r"\end{equation}")
-    w(r"""nearly %d times that threshold, at which the individual coefficients
-would be uninterpretable. By Equations~\eqref{eq:loopfrac}
-and~\eqref{eq:meandeg} the two are readings of one edge budget, and mean degree
-is reported because it has the closed-form relationship to the node
-count.""" % int(lf_vif / 5))
+    w(r"""%s times that threshold, at which the individual coefficients would be
+uninterpretable. By Equations~\eqref{eq:loopfrac} and~\eqref{eq:meandeg} the two
+are readings of one edge budget, and mean degree is reported because it has the
+closed-form relationship to the node count.""" % ("%.1f" % (lf_vif / 5.0)))
     w()
 
 

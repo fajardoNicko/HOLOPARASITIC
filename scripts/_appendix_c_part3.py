@@ -62,12 +62,12 @@ through Equations~\eqref{eq:mean} and~\eqref{eq:sd}.""")
     check("Empirical conductance Mdn",
           T1["empirical"]["hydraulic_conductance"]["Mdn"], SC["Mdn"], 5e-5)
     SN = describe([r["n_nodes"] for r in char])
-    w(r"Network size $N$ & %s & --- & %s & %s & %s & [%s, %s] \\"
+    w(r"Network size $N$ & %s & n/a & %s & %s & %s & [%s, %s] \\"
       % ("{:,}".format(int(SN["sum"])), "{:,.0f}".format(SN["M"]),
          "{:,.0f}".format(SN["SD"]), "{:,.0f}".format(SN["Mdn"]),
          "{:,.0f}".format(SN["min"]), "{:,.0f}".format(SN["max"])))
     SE = describe([r["n_edges"] for r in char])
-    w(r"Network size $E$ & %s & --- & %s & %s & %s & [%s, %s] \\"
+    w(r"Network size $E$ & %s & n/a & %s & %s & %s & [%s, %s] \\"
       % ("{:,}".format(int(SE["sum"])), "{:,.0f}".format(SE["M"]),
          "{:,.0f}".format(SE["SD"]), "{:,.0f}".format(SE["Mdn"]),
          "{:,.0f}".format(SE["min"]), "{:,.0f}".format(SE["max"])))
@@ -143,7 +143,7 @@ Table~\ref{tab:empdesc}.""" % len(syn))
          C["sci"](SC["SD"]), C["sci"](SC["Mdn"]), C["sci"](SC["min"], 1),
          C["sci"](SC["max"], 1)))
     SN = describe([r["N"] for r in syn])
-    w(r"Network size $N$ & %s & --- & %s & %s & %s & [%s, %s] \\"
+    w(r"Network size $N$ & %s & n/a & %s & %s & %s & [%s, %s] \\"
       % ("{:,}".format(int(SN["sum"])), "{:,.0f}".format(SN["M"]),
          "{:,.0f}".format(SN["SD"]), "{:,.0f}".format(SN["Mdn"]),
          "{:,.0f}".format(SN["min"]), "{:,.0f}".format(SN["max"])))

@@ -27,22 +27,30 @@ def preamble(C):
     w(r"\renewcommand{\theequation}{C.\arabic{equation}}")
     w(r"\begin{document}")
     w()
+    # Appendix-opening drop, matching the heading placement in Appendix G.
+    #
+    # \vspace* is the documented way to do this but TeX still discards glue at
+    # the very top of a page, so the drop is laid down as a zero-height rule
+    # (a box, which stops the discard) followed by a plain \vskip.
+    #
+    # The drop is paid for out of page 1: the opening paragraph below was cut
+    # from seven typeset lines to two, freeing 5 x \baselineskip = 72.5pt
+    # against the 72.27pt the drop costs. Page 1 therefore holds exactly the
+    # material it held before and no later page moves. If \appdrop is retuned,
+    # that paragraph has to gain or lose a line per 14.5pt to keep the balance.
+    w(r"\newlength{\appdrop}")
+    w(r"\setlength{\appdrop}{1in}")
+    w(r"\hrule height 0pt\relax")
+    w(r"\vskip\appdrop")
     w(r"\begin{center}")
     w(r"{\large\textbf{Appendix C}}\\[6pt]")
-    w(r"{\large\textbf{Data Analysis and Computation}}")
+    w(r"{\large\textbf{DATA ANALYSIS AND COMPUTATION}}")
     w(r"\end{center}")
     w(r"\vspace{1em}")
     w()
     w(r"""\noindent This appendix re-derives every quantity reported in the
-Results. It follows the Results section by section: for each quantity the
-observations or their sufficient sums are tabulated, the formula is stated, and
-the arithmetic is substituted stage by stage. The unit of observation is the
-individual leaf-venation network unless stated otherwise. Procedures that
-generate a quantity rather than compute it in closed form are specified in
-Section~\ref{sec:engine}; the logic behind each figure is given in
-Section~\ref{sec:figures}. Every value is recomputed from the archived files
-listed in Section~\ref{sec:provenance} and checked against the reported value in
-the audit file accompanying this appendix.""")
+Results from the archived data, in the order the Results presents them. Notation
+and formulas are collected in Section~\ref{sec:formulas}.""")
     w()
 
 
@@ -200,7 +208,7 @@ manuscript text.""")
          r"\texttt{cavitation\_sensitivity.json}"),
         (r"\ref{sec:surface}", "Coupled haustorial-density surface",
          r"\texttt{sink\_surface.json}"),
-        (r"\ref{sec:verification}", "Hydraulic verification; $K_{\text{leaf}}$",
+        (r"\ref{sec:verification}", r"Hydraulic verification; $K_{\text{leaf}}$",
          r"\texttt{results\_verified.json}, "
          r"\texttt{final\_resolution\_checks.json}"),
         (r"\ref{sec:criterion}", "Criterion and damage locality",
@@ -229,9 +237,9 @@ manuscript text.""")
     w(r"\toprule")
     w(r"Set & $n$ & Inclusion rule & Trials \\")
     w(r"\midrule")
-    w(r"Traced & %d & Every leaf loaded from the source deposit & --- \\"
+    w(r"Traced & %d & Every leaf loaded from the source deposit & n/a \\"
       % prov["traced"]["n"])
-    w(r"Characterisation & %d & At least 500 veins & --- \\"
+    w(r"Characterisation & %d & At least 500 veins & n/a \\"
       % prov["characterization_112"]["n"])
     w(r"Enhancement cohort & %d & $N \geq 1{,}000$ and current "
       r"$p_{c} \geq 0.02$ & 10,000 \\" % prov["enhancement_cohort_105"]["n"])

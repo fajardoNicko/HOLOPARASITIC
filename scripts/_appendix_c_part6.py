@@ -284,7 +284,7 @@ and D is implied.""")
         check("Grade %s median delta" % g, ref["median_delta_pc"], c_["Mdn"])
         check("Grade %s n" % g, ref["n"], len(sel), 0.5)
     w(r"\midrule")
-    w(r"Full cohort & %d & %s & %s & %s & %s\%% & --- \\"
+    w(r"Full cohort & %d & %s & %s & %s & %s\%% & n/a \\"
       % (len(enh), num(Sc["Mdn"]), num(Ss["Mdn"]), num(Sdel["Mdn"]),
          "%.0f" % pct_imp))
     w(r"\bottomrule")
@@ -413,7 +413,7 @@ before-and-after pair in the Results; its relative gain is
 $(%s-%s)/%s \times 100 = %s\%%$, against a cohort median of %s\%%, so it is an
 illustration of the mechanism rather than a representative magnitude.""" %
       (", ".join(esc(r["name"]) for r in bad),
-       num(bad[0]["boundary_terminal_frac"], 4) if bad else "---",
+       num(bad[0]["boundary_terminal_frac"], 4) if bad else "n/a",
        esc(T12[3]["name"]), num(r0["pc_suggested"]), num(r0["pc_current"]),
        num(r0["pc_current"]), "%.1f" % rel,
        "%.2f" % C["T9"]["median_relative_gain_pct"]))

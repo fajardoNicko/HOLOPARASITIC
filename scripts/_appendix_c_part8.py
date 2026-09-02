@@ -194,7 +194,7 @@ modelling or cohort choice.""")
       + " & ".join("$-$%s" % k.lstrip("-") for k in keys) + r" \\")
     w(r"\midrule")
     w(r"Onset gradient (MPa) & "
-      + " & ".join(("%.1f" % onset[k]) if onset[k] is not None else "---"
+      + " & ".join(("%.1f" % onset[k]) if onset[k] is not None else "n/a"
                    for k in keys) + r" \\")
     w(r"\bottomrule")
     w(r"\end{tabular}")
@@ -267,12 +267,12 @@ def comparisons(C):
       r"%s & $r_{rb} \approx 1.00$ \\"
       % (int((dp != 0).sum()), int(Wst2), pval(pw2)))
     w(r"Before vs.\ after, Pratt & Wilcoxon signed-rank & %d & $W = %d$ & %s & "
-      r"--- \\" % (len(dp), int(Wp), pval(pwp)))
+      r"n/a \\" % (len(dp), int(Wp), pval(pwp)))
     w(r"Quartile 1 vs.\ quartile 4 & Mann--Whitney & %d, %d & $U = %d$ & %s & "
       r"$\delta = %s$ \\"
       % (len(g1), len(g4), int(U), pval(pu), num(cliff, 3)))
     w(r"$\Delta p_{c}$ across quality grades & Kruskal--Wallis & %d & "
-      r"$H = %.3f$ & %s & --- \\" % (len(dp), H, pval(pk)))
+      r"$H = %.3f$ & %s & n/a \\" % (len(dp), H, pval(pk)))
     w(r"\bottomrule")
     w(r"\end{tabular}")
     w(r"\end{table}")

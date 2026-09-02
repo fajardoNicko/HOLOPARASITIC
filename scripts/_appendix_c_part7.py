@@ -102,7 +102,7 @@ of its neighbours and the reservoir with the reservoir's weight fixed at
 $K_{h}/(1+K_{h})$ regardless of calibre, so the depression is linear in the
 gradient with a slope independent of leaf architecture. Fitting the sweep:""")
     steps(
-        r"\Delta\psi_{\text{patch}} &= a\,g + b, \qquad"
+        r"\Delta\psi_{\text{patch}} &= a\,g + b, \qquad "
         r"a = %s,\quad b = %s,\quad \max\lvert\text{resid}\rvert = %s"
         % (num(law["slope_MPa_per_MPa_of_gradient"], 5),
            num(law["intercept_MPa"], 6),
@@ -226,20 +226,20 @@ data support only weakly.""")
     w(r"\toprule")
     w(r"Quantity & Value & Tolerance \\")
     w(r"\midrule")
-    w(r"Leaves compared & %d & --- \\" % hr["n_leaves"])
-    w(r"Vein segments compared & %s & --- \\" % "{:,}".format(hr["n_veins"]))
-    w(r"Leaves classified exact & %d & --- \\" % hr["n_exact"])
+    w(r"Leaves compared & %d & n/a \\" % hr["n_leaves"])
+    w(r"Vein segments compared & %s & n/a \\" % "{:,}".format(hr["n_veins"]))
+    w(r"Leaves classified exact & %d & n/a \\" % hr["n_exact"])
     w(r"Worst per-leaf ratio $CV$ & $%.1f \times 10^{-7}$ & $1\times10^{-6}$ \\"
       % (hr["worst_ratio_cv"] * 1e7))
     w(r"Worst $|$median ratio $-\,1|$ & $%.1f \times 10^{-8}$ & "
       r"$1\times10^{-6}$ \\" % (hr["worst_abs_median_ratio_minus_1"] * 1e8))
-    w(r"Minimum per-leaf Pearson $r$ on logs & %s & --- \\"
+    w(r"Minimum per-leaf Pearson $r$ on logs & %s & n/a \\"
       % num(hr["min_pearson_log_r"], 6))
-    w(r"Wrong-exponent control, median $r$ & %s & --- \\"
+    w(r"Wrong-exponent control, median $r$ & %s & n/a \\"
       % num(T11["wrong_exponent_control"], 4))
-    w(r"Measured $K_{\text{leaf}}$, Spearman $\rho$ & %s ($p$ %s) & --- \\"
+    w(r"Measured $K_{\text{leaf}}$, Spearman $\rho$ & %s ($p$ %s) & n/a \\"
       % (rho_(T11["kleaf"]["rho"]), pval(T11["kleaf"]["p"])))
-    w(r"Crop-edge screen, leaves within tolerance & %d of %d & --- \\"
+    w(r"Crop-edge screen, leaves within tolerance & %d of %d & n/a \\"
       % (T11["boundary"]["n_within"], T11["boundary"]["n"]))
     w(r"\bottomrule")
     w(r"\end{tabular}")
@@ -396,7 +396,7 @@ simultaneous lesions from ten random centres.""")
     w(r"\midrule")
     f1 = loc["median_disc1"] / loc["median_random_gcc"]
     f10 = loc["median_disc10"] / loc["median_random_gcc"]
-    w(r"Dispersed & %s & %s--%s & --- & 1.00 & %s & %s & %s \\"
+    w(r"Dispersed & %s & %s--%s & n/a & 1.00 & %s & %s & %s \\"
       % (num(loc["median_random_gcc"]),
          num(cl["criterion_comparison"]["iqr_gcc"][0]),
          num(cl["criterion_comparison"]["iqr_gcc"][1]),

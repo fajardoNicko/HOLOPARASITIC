@@ -118,11 +118,13 @@ def rho(x):
 
 
 def pval(p):
+    """APA p-value. A value that rounds to 1.000 must not print as '.000',
+    which would read as p < .001 -- the opposite of the truth."""
     p = float(p)
     if p < 0.001:
         return "$<$ .001"
-    if p >= 1.0:
-        return "= 1.000"
+    if p > 0.999:
+        return "$>$ .999"
     return "= ." + ("%.3f" % p).split(".")[1]
 
 
