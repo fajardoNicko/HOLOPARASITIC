@@ -13,6 +13,8 @@ onto the top of the next sheet, and so on.
     ... IN.pdf --sheet short   impose onto 8.5 x 11 (default: the source page size)
     ... IN.pdf --grid 2x2      four per sheet instead of two, filled left to right
     ... IN.pdf --title "Appendix G" --title "RAW DATA"   heading atop sheet 1
+    ... IN.pdf --title-top 1.0   inches down to the heading (default 1.0)
+    ... IN.pdf --start-page 106  folio each sheet, 106 upward
     ... IN.pdf --no-trim       keep the source margins instead of cropping them
     ... IN.pdf --no-rule       omit the hairlines between the slots
 
@@ -36,7 +38,7 @@ from pathlib import Path
 
 import pymupdf
 
-MARGIN = 20.0   # blank border around the whole sheet, points
+MARGIN = 72.0   # blank border around the whole sheet, points (1 in)
 GUTTER = 12.0   # blank strip between neighbouring slots, points
 PAD = 6.0       # slack left around the cropped content, points
 RULE_GRAY = 0.78
@@ -45,15 +47,38 @@ TITLE_FONT = "tibo"    # Times-Bold, matching the appendix heading in the manusc
 TITLE_SIZE = 12.0      # manuscript body size, as the appendix heading is set
 TITLE_LEADING = 24.0   # baseline to baseline: double spaced at 12 pt
 TITLE_GAP = 14.0       # blank strip under the heading, before the first row
+TITLE_TOP = 72.0       # top of the first heading line, from the sheet edge
+PAGENO_FONT = "tiro"   # Times-Roman, matching the manuscript's own folio
+PAGENO_SIZE = 12.0     # manuscript body size
+PAGENO_TOP = 36.0      # baseline is set below this; 0.5 in, the APA header
 
 
-def content_box(doc: pymupdf.Document) -> pymupdf.Rect:
-    """Union of the inked area of every page, ignoring full-page backgrounds."""
+def content_box(doc: pymupdf.Document, centre: bool = True) -> pymupdf.Rect:
+    """Union of the inked area of every page, ignoring full-page backgrounds.
+
+    The union, so nothing is ever clipped. centre then widens it to sit
+    symmetrically on the source page, which is what guarantees an equal margin
+    on every side of the finished sheet: the crop is what gets centred in the
+    slot, so a crop that leans right prints every ordinary page leaning left.
+
+    It is not free. One overfull line reaching the page edge widens the crop
+    for the whole document -- in Appendix C that is a single filename, and it
+    costs about a fifth of the type size. --tight trades the guarantee back for
+    that size, leaving the block off-centre by however far the worst page
+    overruns.
+    """
     page_rect = doc[0].rect
     box = pymupdf.Rect(1e9, 1e9, -1e9, -1e9)
     for page in doc:
-        for block in page.get_text("blocks"):
-            box |= pymupdf.Rect(block[:4])
+        # Spans, not blocks. A block's bbox can be reported far wider than the
+        # text it holds -- Appendix C has a two-column table whose block bbox
+        # runs to the page edge while its widest span stops 65 pt short -- and
+        # since the union sets the crop for the whole document, one inflated
+        # bbox costs every page real estate it did not need to give up.
+        for block in page.get_text("dict")["blocks"]:
+            for line in block.get("lines", []):
+                for span in line["spans"]:
+                    box |= pymupdf.Rect(span["bbox"])
         for drawing in page.get_drawings():
             rect = drawing["rect"]
             # A white sheet-sized fill is the exported background, not content.
@@ -63,7 +88,40 @@ def content_box(doc: pymupdf.Document) -> pymupdf.Rect:
     if box.is_empty or box.x1 < box.x0:
         return pymupdf.Rect(page_rect)
     box = pymupdf.Rect(box.x0 - PAD, box.y0 - PAD, box.x1 + PAD, box.y1 + PAD)
-    return box & page_rect
+    box &= page_rect
+    if centre:
+        dx = max(box.x1 - page_rect.width / 2, page_rect.width / 2 - box.x0)
+        dy = max(box.y1 - page_rect.height / 2, page_rect.height / 2 - box.y0)
+        box = pymupdf.Rect(page_rect.width / 2 - dx, page_rect.height / 2 - dy,
+                           page_rect.width / 2 + dx, page_rect.height / 2 + dy)
+        box &= page_rect
+    return box
+
+
+def typical_box(doc: pymupdf.Document) -> pymupdf.Rect:
+    """Median per-page ink box: where the type sits on an ordinary page.
+
+    The union crop has to cover the worst page, so on a document with one
+    overfull line or one wide table the crop is lopsided, and centring the crop
+    in the slot leaves every ordinary page visibly pushed to one side. Centring
+    this box instead puts the body text where the eye expects it and lets the
+    outlier hang into the slot's slack.
+    """
+    import statistics
+    edges: list[list[float]] = [[], [], [], []]
+    for page in doc:
+        box = pymupdf.Rect(1e9, 1e9, -1e9, -1e9)
+        for block in page.get_text("dict")["blocks"]:
+            for line in block.get("lines", []):
+                for span in line["spans"]:
+                    box |= pymupdf.Rect(span["bbox"])
+        if box.x1 <= box.x0:
+            continue
+        for i, v in enumerate((box.x0, box.y0, box.x1, box.y1)):
+            edges[i].append(v)
+    if not edges[0]:
+        return content_box(doc)
+    return pymupdf.Rect(*(statistics.median(e) for e in edges))
 
 
 SHEETS = {                    # width x height in inches, portrait
@@ -104,16 +162,30 @@ def parse_grid(spec: str) -> tuple[int, int]:
     return cols, rows
 
 
-def title_band(lines: list[str] | None) -> float:
-    """Height the heading needs at the top of the sheet, gap to the grid included."""
+def title_band(lines: list[str] | None, title_top: float = TITLE_TOP,
+               margin: float = MARGIN) -> float:
+    """Height the heading needs at the top of the sheet, gap to the grid included.
+
+    Measured from the sheet margin, since that is where Layout starts counting.
+    The first term is the extra drop bought by holding the heading at title_top
+    rather than tucking it against that margin; it is negative, and the heading
+    sits inside the margin, when the margin is already deeper than title_top.
+    """
     if not lines:
         return 0.0
-    return TITLE_SIZE + TITLE_LEADING * (len(lines) - 1) + TITLE_GAP
+    return ((title_top - margin) + TITLE_SIZE
+            + TITLE_LEADING * (len(lines) - 1) + TITLE_GAP)
 
 
-def draw_title(page: pymupdf.Page, sheet: pymupdf.Rect, lines: list[str]) -> None:
-    """The heading lines, each centred across the sheet, stacked at the top."""
-    baseline = MARGIN + TITLE_SIZE
+def draw_title(page: pymupdf.Page, sheet: pymupdf.Rect, lines: list[str],
+               title_top: float = TITLE_TOP) -> None:
+    """The heading lines, each centred across the sheet, stacked at the top.
+
+    title_top is the top of the first line, not its baseline, so that setting
+    it to one inch puts the ink an inch below the sheet edge and matches the
+    appendix heading as LaTeX sets it on the unimposed page.
+    """
+    baseline = title_top + TITLE_SIZE
     for line in lines:
         width = pymupdf.get_text_length(line, fontname=TITLE_FONT, fontsize=TITLE_SIZE)
         page.insert_text(
@@ -123,34 +195,66 @@ def draw_title(page: pymupdf.Page, sheet: pymupdf.Rect, lines: list[str]) -> Non
         baseline += TITLE_LEADING
 
 
+def draw_page_number(page: pymupdf.Page, sheet: pymupdf.Rect, number: int,
+                     margin: float = MARGIN) -> None:
+    """One folio per sheet, top right, in the manuscript's own position.
+
+    The number counts sheets, not the source pages imposed onto them: a 2x2
+    sheet carrying four source pages is one page of the printed appendix and
+    takes one number. That is what makes the imposed appendix paginate
+    continuously with the body it is bound into.
+    """
+    text = str(number)
+    width = pymupdf.get_text_length(text, fontname=PAGENO_FONT,
+                                    fontsize=PAGENO_SIZE)
+    page.insert_text(
+        pymupdf.Point(sheet.width - margin - width, PAGENO_TOP + PAGENO_SIZE),
+        text, fontname=PAGENO_FONT, fontsize=PAGENO_SIZE,
+    )
+
+
 class Layout:
     """Where the slots sit on a sheet, given a strip reserved at the top."""
 
     def __init__(self, sheet: pymupdf.Rect, clip: pymupdf.Rect,
-                 cols: int, rows: int, top_inset: float) -> None:
-        self.cols, self.rows, self.top = cols, rows, MARGIN + top_inset
-        self.slot_w = (sheet.width - 2 * MARGIN - GUTTER * (cols - 1)) / cols
-        self.slot_h = (sheet.height - MARGIN - self.top - GUTTER * (rows - 1)) / rows
+                 cols: int, rows: int, top_inset: float,
+                 cap_scale: float | None = None,
+                 margin: float = MARGIN,
+                 align: tuple[float, float] = (0.0, 0.0)) -> None:
+        self.align = align
+        self.cols, self.rows, self.margin = cols, rows, margin
+        self.top = margin + top_inset
+        self.slot_w = (sheet.width - 2 * margin - GUTTER * (cols - 1)) / cols
+        self.slot_h = (sheet.height - margin - self.top - GUTTER * (rows - 1)) / rows
         if self.slot_w <= 0 or self.slot_h <= 0:
             raise SystemExit(
                 f"{cols}x{rows} leaves no room on a "
                 f"{sheet.width / 72:.2f} x {sheet.height / 72:.2f} in sheet"
             )
-        self.scale = min(self.slot_w / clip.width, self.slot_h / clip.height)
+        self.fit = min(self.slot_w / clip.width, self.slot_h / clip.height)
+        # cap_scale holds a sheet to the size the rest of the document prints
+        # at, even when its own slots could take more.
+        self.scale = self.fit if cap_scale is None else min(self.fit, cap_scale)
         self.draw_w = clip.width * self.scale
         self.draw_h = clip.height * self.scale
 
     def slot_rect(self, col: int, row: int) -> pymupdf.Rect:
         # Each page is centred in its own cell, so the columns line up down the
         # sheet and the blank space falls evenly around the block of type.
-        x = MARGIN + col * (self.slot_w + GUTTER) + (self.slot_w - self.draw_w) / 2
+        x = self.margin + col * (self.slot_w + GUTTER) + (self.slot_w - self.draw_w) / 2
         y = self.top + row * (self.slot_h + GUTTER) + (self.slot_h - self.draw_h) / 2
+        # align shifts the placed page so that the typical text block, rather
+        # than the crop that has to cover the widest page, lands centred.
+        x -= self.align[0] * self.scale
+        y -= self.align[1] * self.scale
         return pymupdf.Rect(x, y, x + self.draw_w, y + self.draw_h)
 
 
 def build(
     src_path: Path, out_path: Path, trim: bool, rule: bool,
     sheet_name: str | None, grid: tuple[int, int], title: list[str] | None = None,
+    title_top: float = TITLE_TOP, margin: float = MARGIN, tight: bool = False,
+    start_page: int | None = None,
 ) -> None:
     src = pymupdf.open(src_path)
     if src.page_count == 0:
@@ -159,42 +263,74 @@ def build(
     cols, rows = grid
     per_sheet = cols * rows
     sheet = sheet_size(sheet_name, src)
-    clip = content_box(src) if trim else pymupdf.Rect(src[0].rect)
+    clip = content_box(src, centre=not tight) if trim else pymupdf.Rect(src[0].rect)
+    body = typical_box(src) if trim else clip
+    align = ((body.x0 + body.x1) / 2 - (clip.x0 + clip.x1) / 2,
+             (body.y0 + body.y1) / 2 - (clip.y0 + clip.y1) / 2)
 
-    # The heading opens the appendix, so only the first sheet gives up room to
-    # it. Every sheet after it keeps the full height, and so the larger type.
-    plain = Layout(sheet, clip, cols, rows, 0.0)
-    first_layout = Layout(sheet, clip, cols, rows, title_band(title))
+    plain = Layout(sheet, clip, cols, rows, 0.0, margin=margin, align=align)
+
+    # The heading opens the appendix, so the first sheet has less height to give
+    # its slots. Shrinking that sheet's pages to compensate would print sheet 1
+    # in visibly smaller type than sheet 2, which reads as a mistake in a bound
+    # appendix. The first sheet drops whole rows instead, so every page in the
+    # document images at exactly the same scale.
+    band = title_band(title, title_top, margin)
+    first_layout, first_per_sheet = plain, per_sheet
+    if title:
+        first_layout = Layout(sheet, clip, cols, rows, band, margin=margin,
+                              align=align)
+        for r in range(rows, 0, -1):
+            trial = Layout(sheet, clip, cols, r, band, cap_scale=plain.scale,
+                           margin=margin, align=align)
+            if trial.fit >= plain.scale:
+                first_layout, first_per_sheet = trial, cols * r
+                break
+        else:
+            # Not even one row survives the heading; shrink rather than fail.
+            first_per_sheet = per_sheet
 
     n_pages = src.page_count
     out = pymupdf.open()
-    for first in range(0, n_pages, per_sheet):
+    first = 0
+    while first < n_pages:
+        opening = (first == 0 and bool(title))
+        lay = first_layout if opening else plain
+        capacity = first_per_sheet if opening else per_sheet
         page = out.new_page(width=sheet.width, height=sheet.height)
-        lay = first_layout if (first == 0 and title) else plain
-        if first == 0 and title:
-            draw_title(page, sheet, title)
-        placed = min(per_sheet, n_pages - first)
+        if opening:
+            draw_title(page, sheet, title, title_top)
+        placed = min(capacity, n_pages - first)
         for slot in range(placed):
             # Row-major, so the sheet is read left to right then down.
             target = lay.slot_rect(slot % cols, slot // cols)
             page.show_pdf_page(target, src, first + slot, clip=clip)
         if rule:
             draw_rules(page, sheet, lay, placed)
+        if start_page is not None:
+            draw_page_number(page, sheet, start_page + out.page_count - 1,
+                             margin)
+        first += capacity
 
+    n_sheets = out.page_count
     out.save(out_path, garbage=4, deflate=True)
     out.close()
     src.close()
 
     print(f"wrote {out_path}")
-    print(f"  {n_pages} source pages -> {-(-n_pages // per_sheet)} sheets"
+    print(f"  {n_pages} source pages -> {n_sheets} sheets"
           f" at {cols}x{rows} ({per_sheet} per sheet)")
-    print(f"  sheet {sheet.width / 72:.2f} x {sheet.height / 72:.2f} in (portrait)")
+    print(f"  sheet {sheet.width / 72:.2f} x {sheet.height / 72:.2f} in (portrait),"
+          f" {margin / 72:.2f} in margins")
+    if start_page is not None:
+        print(f"  numbered {start_page} to {start_page + n_sheets - 1},"
+              f" one number per sheet")
     print(f"  crop  {clip.width / 72:.2f} x {clip.height / 72:.2f} in of the source page")
-    print(f"  scale {plain.scale * 100:.1f}%"
+    print(f"  scale {plain.scale * 100:.1f}% on every sheet"
           f"  (12 pt source text prints at {12 * plain.scale:.1f} pt)")
     if title:
-        print(f"  sheet 1 carries the heading, so its four pages sit at"
-              f" {first_layout.scale * 100:.1f}% ({12 * first_layout.scale:.1f} pt)")
+        print(f"  heading {title_top / 72:.2f} in from the sheet edge;"
+              f" sheet 1 holds {first_per_sheet} page(s) to keep that scale")
 
 
 def draw_rules(page: pymupdf.Page, sheet: pymupdf.Rect, lay: Layout, placed: int) -> None:
@@ -207,11 +343,11 @@ def draw_rules(page: pymupdf.Page, sheet: pymupdf.Rect, lay: Layout, placed: int
             continue
         y = lay.top + row * (lay.slot_h + GUTTER) - GUTTER / 2
         page.draw_line(
-            pymupdf.Point(MARGIN, y), pymupdf.Point(sheet.width - MARGIN, y),
+            pymupdf.Point(lay.margin, y), pymupdf.Point(sheet.width - lay.margin, y),
             color=gray, width=RULE_WIDTH,
         )
     for col in range(1, cols):
-        x = MARGIN + col * (lay.slot_w + GUTTER) - GUTTER / 2
+        x = lay.margin + col * (lay.slot_w + GUTTER) - GUTTER / 2
         for row in range(rows):
             if (col - 1, row) not in filled or (col, row) not in filled:
                 continue
@@ -240,6 +376,24 @@ def main(argv: list[str]) -> int:
         "--title", action="append", metavar="LINE",
         help="centred heading at the top of the first sheet; repeat for each line",
     )
+    ap.add_argument(
+        "--title-top", type=float, default=TITLE_TOP / 72.0, metavar="IN",
+        help="inches from the sheet edge to the top of the heading (default 1.0)",
+    )
+    ap.add_argument(
+        "--margin", type=float, default=MARGIN / 72.0, metavar="IN",
+        help="blank border on all four sides of the sheet (default 1.0)",
+    )
+    ap.add_argument(
+        "--start-page", type=int, metavar="N",
+        help="number the sheets consecutively from N, top right; one number "
+             "per sheet regardless of how many source pages it carries",
+    )
+    ap.add_argument(
+        "--tight", action="store_true",
+        help="crop to the ink rather than symmetrically: larger type, but the "
+             "block sits off-centre by however far the worst page overruns",
+    )
     args = ap.parse_args(argv)
 
     if not args.pdf.exists():
@@ -250,6 +404,8 @@ def main(argv: list[str]) -> int:
     build(
         args.pdf, out, trim=not args.no_trim, rule=not args.no_rule,
         sheet_name=args.sheet, grid=grid, title=args.title,
+        title_top=args.title_top * 72.0, margin=args.margin * 72.0,
+        tight=args.tight, start_page=args.start_page,
     )
     return 0
 

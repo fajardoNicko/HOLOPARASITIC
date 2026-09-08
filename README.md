@@ -1,10 +1,64 @@
-# Holoparasite-Induced Vascular Percolation Study
+# Percolation Analysis of Vein Reticulation
 
-Computational biophysics model of holoparasitic haustorial sink strength and the
-vascular percolation threshold p_c of a host plant's hydraulic network — the
-point at which the network fragments irreversibly. The argument for p_c is that
-it is reached *before* visible wilting, so it is a pre-symptomatic intervention
-metric rather than a diagnosis after the fact.
+**A Structural Basis for Damage Tolerance in Leaf Venation Networks under Simulated Vascular Damage**
+
+[![1st Place — District Science & Technology Fair](https://img.shields.io/badge/%F0%9F%8F%86%201st%20Place-District%20Science%20%26%20Technology%20Fair%202026-gold?style=for-the-badge)](#)
+
+![Python](https://img.shields.io/badge/Python-3.13-blue?style=flat-square)
+![Species](https://img.shields.io/badge/real%20networks-100%20species-brightgreen?style=flat-square)
+![Trials](https://img.shields.io/badge/Monte%20Carlo-10%E2%81%B6%20trials-orange?style=flat-square)
+![Veins validated](https://img.shields.io/badge/hydraulics%20validated-5.67M%20veins-teal?style=flat-square)
+![Reproducible](https://img.shields.io/badge/seeds-fully%20pinned-lightgrey?style=flat-square)
+
+> 🏆 **1st Place, District Science & Technology Fair (2026)** — Life Science / Computational
+> Biophysics. Advancing to Division STF.
+
+---
+
+## What this is
+
+A computational biophysics study of **how much structural damage a leaf's vascular network can
+absorb before it loses global connectivity**, and which architectural features decide that.
+
+It started as a parasite question. *Cuscuta* (dodder) is a holoparasite: no roots, no true leaves,
+no functional photosynthesis. It taps a host's xylem through a haustorium and drains it. The
+opening question was whether that drain alone could break the host's plumbing.
+
+It could not. At a literature-anchored sink strength diverting ~20% of leaf throughput, the
+haustorium moved the network's minimum water potential by only **0.026 MPa** — 2.6% of the modelled
+margin to cavitation, and no vessel embolised at any gradient tested from 0 to 3.0 MPa.
+
+So the question moved from **load** to **structure**: if a steady drain is not what breaks a leaf,
+how much of the network itself can fail before connectivity collapses? That is a percolation
+question, and the rest of the study answers it on 100 real venation networks.
+
+## Headline results
+
+| Finding | Number | n |
+|---|---|---|
+| Median collapse threshold, dispersed damage | **p_c = 0.1998** | 100 leaves |
+| Degree-weighted removal is worse — in every leaf | 0.1685 (−15.7%) | 100/100 |
+| Connectivity predicts tolerance | ρ = **0.733** | 100 |
+| Fractal dimension predicts it too, independently | ρ = 0.496 | 100 |
+| Least- vs most-reticulate quartile | 0.158 → **0.231** (+46%) | 25 + 25 |
+| Adding loops to a leaf makes that same leaf tougher | **93 improved · 12 unchanged · 0 worse** | 105 |
+| Localised damage is tolerated far better | 0.1998 → **0.4951** (2.46×) | 100/100 |
+| …and the reticulation advantage vanishes under it | ρ 0.737 → **−0.000** | 100 |
+
+**The interpretation.** Reticulation is not general armour. Its advantage appears when damage is
+*dispersed* and alternative routes are repeatedly tested; when damage is concentrated in one region
+the surrounding network simply routes around it and redundancy is never challenged. Under
+multi-lesion damage the surviving predictor is not connectivity but **fractal dimension**
+(ρ = 0.523). Which structural feature matters depends on the spatial statistics of the damage —
+there is no single measure of venation resilience.
+
+**What this is not.** A topological percolation threshold, not a measurement of hydraulic collapse.
+Losing graph connectivity and losing conductance are different events. The model's value is that it
+makes that gap falsifiable: it predicts a ~2.5× tolerance gap between localised and dispersed damage
+and predicts the reticulation effect should disappear under localised damage. Testing that on living
+leaves is the stated next step.
+
+## The two network families
 
 The study runs on two kinds of network, deliberately:
 
@@ -39,6 +93,14 @@ comparisons.
 Every module reads and writes the same graph contract, so a traced leaf and a
 generated network are measured by literally the same code path. That is what
 makes the two halves of the study comparable rather than merely analogous.
+
+Physics enters the graph in exactly three places: **conductance per edge**
+(Hagen–Poiseuille, g ∝ r⁴/L), **conservation of flow at every junction**
+(Kirchhoff, assembled as the conductance Laplacian), and **Dirichlet boundary
+conditions** (source at ψ = 0, terminals at ψ = −1.0 MPa). The same Laplacian
+that solves the flow encodes the connectivity that percolation destroys — which
+is what makes the hydraulic and topological halves two readings of one object
+rather than two models bolted together.
 
 ## Quick start
 
@@ -76,6 +138,9 @@ planar **mesh**, promoted 2026-07-30. Reproduce these with `run_full.py`.
 | p_c, betweenness-targeted | 0.1889, 95% CI [0.1879, 0.1902] (10⁵ trials) |
 | p_c, degree-targeted | 0.2023, 95% CI [0.2014, 0.2033] (10⁵ trials) |
 
+> ⚠️ These are the **synthetic reference network**, not the real cohort. The real-leaf medians are
+> 0.1998 (random) and 0.1685 (degree-weighted). Do not quote them interchangeably.
+
 Both targeted attacks fall below random, with the betweenness (backbone) attack
 strongest. This matches the real cohort, where degree-targeted p_c is below
 random in 100 leaves out of 100. Source: `data/summary.json` and
@@ -102,19 +167,41 @@ Main findings, all with n and test in `results_verified.json`:
   p_c (partial Spearman 0.736 and 0.502) and are themselves nearly uncorrelated.
 - On the 42-network synthetic grid, where the two are manipulated separately,
   mean degree carries almost all of the effect (standardized β 0.933 vs 0.067,
-  R² = 0.887). Connectivity is the lever; D is real but small.
+  R² = 0.887). Restricted to the empirical range ⟨k⟩ ≤ 2.99 the dominance shrinks
+  but holds: partial r 0.970 vs 0.451. Connectivity is the lever; D is real but
+  secondary.
 - Adding shortest Delaunay areole closures to each leaf's own venation raises
-  median p_c from 0.201 to 0.215; 93 of 105 leaves improve and none worsen.
+  median p_c from 0.201 to 0.215; 93 of 105 leaves improve and none worsen. At
+  matched edge count, placement matters: the planar Delaunay rule is the most
+  conservative of three arms tested.
+- Damage geometry changes the answer. Under one contiguous lesion the median
+  threshold rises to 0.4951 and the connectivity association falls to zero; under
+  ten lesions fractal dimension is the only surviving predictor (ρ = 0.523).
 - At the literature-anchored sink strength (`K_H_HOLOPARASITE = 0.0392`) the
   haustorium is sub-cavitation: no vessel embolises at any gradient tested. The
   hydraulic sink and the percolation collapse are therefore decoupled lenses on
   the same host, not one mechanism.
 
-Two things the study deliberately does **not** claim: a universality class (the
+Three things the study deliberately does **not** claim: a universality class (the
 measured β is window-sensitive and matches neither mean-field nor 2-D; see
-`scripts/run_scaling_mesh.py`), and validation against measured K_leaf (Spearman
+`scripts/run_scaling_mesh.py`), validation against measured K_leaf (Spearman
 0.187, p = 0.073, n = 93 — reported as a limitation, since the model is
-xylem-only while K_leaf is dominated by outside-xylem pathways).
+xylem-only while K_leaf is dominated by outside-xylem pathways), and any claim
+that the topological threshold is an early-warning or pre-symptomatic diagnostic
+of hydraulic failure.
+
+## Known limitations, stated up front
+
+| Limitation | Why it matters |
+|---|---|
+| Topological, not hydraulic | Connectivity loss ≠ conductance loss. Never converted to PLC, P50 or K_leaf. |
+| 100 of 120 sources are **crop windows**, not whole laminae | No petiole in any file; the source node is the widest vein, not an anatomical one. |
+| The 1.0 MPa cavitation margin is **stipulated** | ψ_leaf = −1.0 and ψ_cav = −2.0 are both choices. The parasite contributes 2.6% of that margin; the null inverts at a −1.0 MPa threshold. This is why Δψ, not an embolism count, is the reported quantity. |
+| The 20% diversion anchor is **hemiparasite-derived** | Jiang et al. (2003), whole-plant root uptake. Treated as a conservative floor, and swept 0–3.0 MPa rather than trusted at one point. |
+| Box-counting D is size-entangled | Spearman(N, D) = +0.880. Its association with p_c *rises* to 0.633 under size control, so it survives — but both numbers are disclosed. |
+
+`SECOND_PASS_AUDIT.md` and `FINAL_RESOLUTION_PASS.md` carry the full stress test and every repair
+it forced.
 
 ## Repository layout
 
@@ -155,7 +242,7 @@ from it.
 | `holoparasitic/boundary.py` | Cropping-artifact test for the windowed source networks |
 | `holoparasitic/calibrate.py` | Measures real branching geometry; fits the generator to it |
 | `holoparasitic/matos_summary.py` | Reads the authors' precomputed metrics, as a cross-check |
-| `holoparasitic/dynamics.py` | Logistic load ρ(t) and the pre-symptomatic window |
+| `holoparasitic/dynamics.py` | Logistic load ρ(t) and the damage-accumulation window |
 | `holoparasitic/sweep.py` | p_c vs D, and the coupled (K_h, D) surface |
 | `holoparasitic/viz.py` | Network plot, collapse sigmoid, heatmap, animation |
 
@@ -190,7 +277,9 @@ numbers are not, and the methods say junctions. Relatedly, `_gcc_size` measures
 the largest surviving component anywhere rather than specifically the one still
 attached to the root; on networks this reticulated the two coincide, and
 `run_robustness.py` measures the threshold as root-invariant, but the code does
-not enforce a root check and the methods do not claim it does.
+not enforce a root check and the methods do not claim it does. A source-anchored
+re-run gives thresholds correlating at ρ = 0.912 with every association
+preserved, so the criterion choice does not carry the conclusions.
 
 ## Document index
 
@@ -221,10 +310,12 @@ top of each group.
 | [SOFTWARE_LOGBOOK.md](SOFTWARE_LOGBOOK.md) | Chronological build record, newest entry first |
 | [rrl/](rrl/) | The literature review itself, one file per domain (A–J) |
 
-**References and briefing**
+**Defence and briefing**
 
 | Document | What it holds |
 |---|---|
+| [STUDY_MASTERY_GUIDE.md](STUDY_MASTERY_GUIDE.md) | Everything needed to defend the study, end to end |
+| [DEFENSE_PANEL_PREP.md](DEFENSE_PANEL_PREP.md) | Anticipated panel questions with prepared answers |
 | [REFERENCES_RESULTS_DISCUSSION.md](REFERENCES_RESULTS_DISCUSSION.md) | Reference list for Results and Discussion |
 | [REFERENCES_PARASITES.md](REFERENCES_PARASITES.md) | References behind the parasite profiles |
 | [VALIDATOR_BRIEF.md](VALIDATOR_BRIEF.md), [BIOPHYSICIST_ONE_PAGER.md](BIOPHYSICIST_ONE_PAGER.md) | One-page briefs for external validators |
@@ -262,3 +353,7 @@ inside `data/results.npz` were computed on the legacy `knn` generator (⟨k⟩
 4.4–7.0, far above anything empirical). `data/csv/README.md` sets out exactly why
 and what replaced them. `sweep._network_for_reticulation` still forces `knn`
 mode on purpose, so those legacy figures remain reproducible.
+
+---
+
+<sub>Nicko Fajardo · 1st Place, District Science & Technology Fair 2026 · advancing to Division STF</sub>

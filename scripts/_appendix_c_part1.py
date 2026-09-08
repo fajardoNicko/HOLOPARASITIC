@@ -27,19 +27,19 @@ def preamble(C):
     w(r"\renewcommand{\theequation}{C.\arabic{equation}}")
     w(r"\begin{document}")
     w()
-    # Appendix-opening drop, matching the heading placement in Appendix G.
+    # Appendix-opening drop, on top of the 1in geometry margin.
     #
-    # \vspace* is the documented way to do this but TeX still discards glue at
-    # the very top of a page, so the drop is laid down as a zero-height rule
-    # (a box, which stops the discard) followed by a plain \vskip.
+    # Set to zero: the heading is wanted 1in below the paper edge, which the
+    # margin already provides, and the earlier 1in drop pushed it to 2in.
     #
-    # The drop is paid for out of page 1: the opening paragraph below was cut
-    # from seven typeset lines to two, freeing 5 x \baselineskip = 72.5pt
-    # against the 72.27pt the drop costs. Page 1 therefore holds exactly the
-    # material it held before and no later page moves. If \appdrop is retuned,
-    # that paragraph has to gain or lose a line per 14.5pt to keep the balance.
+    # Kept as a length rather than deleted because the mechanism is not
+    # obvious. \vspace* is the documented way to open a page with space but TeX
+    # discards glue at the very top of a page regardless, so the drop has to be
+    # laid down as a zero-height rule -- a box, which stops the discard --
+    # followed by a plain \vskip. Anyone retuning this needs that, and at 0pt
+    # the pair is harmless.
     w(r"\newlength{\appdrop}")
-    w(r"\setlength{\appdrop}{1in}")
+    w(r"\setlength{\appdrop}{0pt}")
     w(r"\hrule height 0pt\relax")
     w(r"\vskip\appdrop")
     w(r"\begin{center}")
