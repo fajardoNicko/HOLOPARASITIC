@@ -2,16 +2,22 @@
 
 **A Structural Basis for Damage Tolerance in Leaf Venation Networks under Simulated Vascular Damage**
 
-[![1st Place — District Science & Technology Fair](https://img.shields.io/badge/%F0%9F%8F%86%201st%20Place-District%20Science%20%26%20Technology%20Fair%202026-gold?style=for-the-badge)](#)
+[![Overall Champion — Life Science, Division STF](https://img.shields.io/badge/%F0%9F%A5%87%20Overall%20Champion-Life%20Science%20%C2%B7%20Division%20STF%202026-gold?style=for-the-badge)](#)
+[![1st Place — Life Science Individual, Division STF](https://img.shields.io/badge/%F0%9F%8F%86%201st%20Place-Life%20Science%20Individual%20%C2%B7%20Division%20STF%202026-gold?style=for-the-badge)](#)
+[![1st Place — District STF](https://img.shields.io/badge/%F0%9F%8F%86%201st%20Place-District%20STF%202026-%23b8860b?style=for-the-badge)](#)
 
+![Next](https://img.shields.io/badge/next-Regional%20STF-success?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.13-blue?style=flat-square)
 ![Species](https://img.shields.io/badge/real%20networks-100%20species-brightgreen?style=flat-square)
 ![Trials](https://img.shields.io/badge/Monte%20Carlo-10%E2%81%B6%20trials-orange?style=flat-square)
 ![Veins validated](https://img.shields.io/badge/hydraulics%20validated-5.67M%20veins-teal?style=flat-square)
 ![Reproducible](https://img.shields.io/badge/seeds-fully%20pinned-lightgrey?style=flat-square)
 
-> 🏆 **1st Place, District Science & Technology Fair (2026)** — Life Science / Computational
-> Biophysics. Advancing to Division STF.
+> 🥇 **Overall Champion, Life Science — Division Science & Technology Fair (2026)**
+> 🏆 **1st Place, Life Science (Individual) — Division STF (2026)**
+> 🏆 **1st Place — District STF (2026)**
+>
+> **Advancing to the Regional Science & Technology Fair.**
 
 ---
 
@@ -316,6 +322,7 @@ top of each group.
 |---|---|
 | [STUDY_MASTERY_GUIDE.md](STUDY_MASTERY_GUIDE.md) | Everything needed to defend the study, end to end |
 | [DEFENSE_PANEL_PREP.md](DEFENSE_PANEL_PREP.md) | Anticipated panel questions with prepared answers |
+| [STATISTICS_EXPLAINED.md](STATISTICS_EXPLAINED.md) | Every statistical tool, technical and plain-language, with the judge-facing answer |
 | [REFERENCES_RESULTS_DISCUSSION.md](REFERENCES_RESULTS_DISCUSSION.md) | Reference list for Results and Discussion |
 | [REFERENCES_PARASITES.md](REFERENCES_PARASITES.md) | References behind the parasite profiles |
 | [VALIDATOR_BRIEF.md](VALIDATOR_BRIEF.md), [BIOPHYSICIST_ONE_PAGER.md](BIOPHYSICIST_ONE_PAGER.md) | One-page briefs for external validators |
@@ -356,4 +363,4 @@ mode on purpose, so those legacy figures remain reproducible.
 
 ---
 
-<sub>Nicko Fajardo · 1st Place, District Science & Technology Fair 2026 · advancing to Division STF</sub>
+<sub>Nicko Fajardo · Overall Champion, Life Science & 1st Place, Life Science Individual — Division STF 2026 · 1st Place, District STF 2026 · advancing to Regional STF</sub>
