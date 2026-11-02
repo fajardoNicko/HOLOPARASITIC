@@ -1,0 +1,38 @@
+{
+  "n": 27,
+  "trials_per_arm": 2400,
+  "crossing_pct_of_added": {
+    "delaunay": 1.11,
+    "rand_del": 4.08,
+    "rand_any": 99.96
+  },
+  "current_reproduces_archive": 27,
+  "by_criterion": {
+    "f30": {
+      "median_gain_delaunay_planar": 0.0128,
+      "median_gain_rand_del_planar": 0.0398,
+      "n_rand_del_above_delaunay": 27,
+      "wilcoxon_rand_del_vs_delaunay_p": 1.4901161193847656e-08,
+      "median_ratio_rand_del_over_delaunay": 2.62
+    },
+    "f50": {
+      "median_gain_delaunay_planar": 0.0119,
+      "median_gain_rand_del_planar": 0.0399,
+      "n_rand_del_above_delaunay": 26,
+      "wilcoxon_rand_del_vs_delaunay_p": 8.29809930635731e-06,
+      "median_ratio_rand_del_over_delaunay": 2.34
+    },
+    "f70": {
+      "median_gain_delaunay_planar": 0.0146,
+      "median_gain_rand_del_planar": 0.0356,
+      "n_rand_del_above_delaunay": 26,
+      "wilcoxon_rand_del_vs_delaunay_p": 4.470348358154297e-08,
+      "median_ratio_rand_del_over_delaunay": 1.99
+    }
+  },
+  "archived_unfiltered_median_gain": {
+    "delaunay": 0.0117,
+    "rand_del": 0.0436,
+    "rand_any": 0.1404
+  }
+}
