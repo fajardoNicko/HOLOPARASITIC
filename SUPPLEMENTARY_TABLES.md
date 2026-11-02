@@ -73,19 +73,19 @@ These tables collect quantities that were computed and archived by the analysis 
 
 **Table S3**
 
-*Predictor Collinearity, Network-Size Control, Criterion and Locality Dispersion, Crop-Edge Detail, and Bootstrap Interval Widths*
+*Predictor Collinearity, Loop-Fraction Identities, Network-Size Control, Criterion and Locality Dispersion, Crop-Edge Detail, Bootstrap Intervals, and Resistance Convention*
 
 | Quantity | Value |
 |---|---|
-| Pearson r(⟨k⟩, D) | .148, *p* = .141 |
+| Pearson r(⟨k⟩, D), n = 100 | .148, *p* = .141 |
 | Variance inflation factor | 1.02 |
 | Pearson r between the uniform and degree-weighted thresholds (n = 100) | .984 |
-| Spearman ρ(⟨k⟩, loop fraction) | .995 |
-| Pearson r(⟨k⟩, loop fraction) | .972 |
-| Cubic fit of loop fraction on ⟨k⟩ | *R*² = .917, residual *SD* = 0.047 |
-| Cycle-rank fraction vs the identity 1 − 2/⟨k⟩ + c/E | max \|difference\| = 2.5e-16 across all 120 traced networks (**exact to floating point**) |
-| Non-bridge loop fraction vs the same identity | mean \|difference\| = 0.564 (**not** an identity) |
-| Non-bridge fraction ÷ cycle-rank fraction | 3.63 |
+| Spearman ρ(⟨k⟩, loop fraction), n = 100 | .994 |
+| Pearson r(⟨k⟩, loop fraction), n = 100 | .972 |
+| Cubic fit of loop fraction on ⟨k⟩, n = 100 | *R*² = .987, residual *SD* = 0.015 |
+| Cycle-rank fraction (E − N + c)/E vs the identity 1 − 2/⟨k⟩ + c/E | max \|difference\| = 2.5e-16 across all 120 traced networks (**exact to floating point**) |
+| Non-bridge loop fraction vs the cycle-rank fraction, n = 100 | mean \|difference\| = 0.559 (**not** an identity) |
+| Mean non-bridge fraction ÷ mean cycle-rank fraction, n = 100 | 0.767 ÷ 0.208 = 3.69 |
 
 | Association | Raw ρ | p | Controlling log N | p |
 |---|---:|---|---:|---|
@@ -103,9 +103,9 @@ These tables collect quantities that were computed and archived by the analysis 
 
 | Damage scenario | Mdn threshold | IQR | ρ with ⟨k⟩ (p) | ρ with loop fraction (p) | ρ with D (p) |
 |---|---:|---|---:|---:|---:|
-| Dispersed (GCC criterion) | 0.1998 | 0.1572 – 0.2207 | .737 (< .001) | .731 (< .001) | .501 (< .001) |
+| Dispersed (GCC criterion, re-run on the same draws as the rows below) | 0.1998 | 0.1572 – 0.2207 | .737 (< .001) | .731 (< .001) | .501 (< .001) |
 | Dispersed (source-anchored) | 0.1837 | 0.1487 – 0.2041 | .654 (< .001) | .650 (< .001) | .465 (< .001) |
-| Localised, 1 disc | 0.4951 | 0.4620 – 0.5069 | .000 (= .000) | .007 (= .942) | .142 (= .159) |
+| Localised, 1 disc | 0.4951 | 0.4620 – 0.5069 | .000 (> .999) | .007 (= .942) | .142 (= .159) |
 | Localised, 10 discs | 0.4511 | 0.4247 – 0.4687 | .151 (= .135) | .151 (= .134) | .523 (< .001) |
 
 | Crop-edge quantity | Value |
@@ -118,12 +118,11 @@ These tables collect quantities that were computed and archived by the analysis 
 | Failures entering the percolation cohort | 0 |
 | Failures entering the enhancement cohort | 3 |
 
-| Bootstrap quantity | Capped replicate | Full-size replicate |
-|---|---:|---:|
-| Resample size | 50,000 | 100,000 |
-| 95% interval | [0.27048, 0.27216] | [0.27085, 0.27191] |
-| Interval width | 0.001684 | 0.001053 |
-| Width ratio, capped : full | **1.599** | (√(n/cap) predicts 1.414) |
+| Synthetic reference network | Trials | p_c | 95% CI, resampling capped at 50,000 trials | 95% CI, all trials resampled | Width ratio |
+|---|---:|---:|---|---|---:|
+| Uniform removal | 1,000,000 | 0.2711 | [0.2700, 0.2720] | [0.2708, 0.2712] | 4.70 |
+| Degree-weighted removal | 100,000 | 0.2023 | [0.2014, 0.2033] | [0.2017, 0.2030] | 1.52 |
+| Betweenness-weighted removal | 100,000 | 0.1889 | [0.1879, 0.1902] | [0.1882, 0.1897] | 1.57 |
 
 | Resistance convention | Spearman ρ with measured K_leaf | p |
 |---|---:|---|
@@ -131,7 +130,7 @@ These tables collect quantities that were computed and archived by the analysis 
 | ℓ/r² (deposit alternative) | .179 | = .059 |
 | Median ratio of the two modelled conductances | 0.064 | — |
 
-*Note.* The graph-identity row is recomputed here directly from `data/analysis_master.csv`. The corresponding field in `data/graph_metric_audit.json` reports a mean |difference| of 0.0147 with a maximum of 1.0 for the empirical set; that field is **superseded**, because its script omitted the components correction c/E, and 61 of the 120 traced networks have more than one component (up to 4,477). With the correction applied the identity is exact to floating point, and it holds for the **cycle-rank** fraction only — not for the non-bridge loop fraction reported throughout this study, which is a different quantity. n = 100 for every association, n = 112 for the convention comparison, n = 120 for the crop-edge check. Bootstrap intervals throughout the manuscript are percentile intervals with B = 200 and seed 7, the resampling unit being the individual Monte Carlo trial, capped at 50,000 trials per replicate. Where a run exceeds that cap the reported interval is **conservative**, never anti-conservative.
+*Note.* The graph-identity row is recomputed here directly from `data/analysis_master.csv`. The corresponding field in `data/graph_metric_audit.json` reports a mean |difference| of 0.0147 with a maximum of 1.0 for the empirical set; that field is **superseded**, because its script omitted the components correction c/E, and 61 of the 120 traced networks have more than one component (up to 4,477). With the correction applied the identity is exact to floating point, and it holds for the **cycle-rank** fraction only — not for the non-bridge loop fraction reported throughout this study, which is a different quantity. n = 100 for the collinearity, loop-fraction, association and damage-scenario rows; n = 120 for the identity row; n = 112 for the convention comparison; n = 120 for the crop-edge check. The four damage-scenario rows come from one re-run on identical removal draws, which reproduces the archived thresholds at ρ = .999; this is why the dispersed row differs slightly from Tables 3, 6 and 8. Bootstrap intervals are percentile intervals with B = 200 and seed 7, resampling individual Monte Carlo trials. The earlier intervals resampled at most 50,000 trials per replicate, which made them 1.5 to 4.7 times too wide for the runs above; the uncapped column replaces them. The intervals describe only the sampling noise of a finite number of trials, not error from the logistic model or the choice of collapse rule.
 
 ---
 

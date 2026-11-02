@@ -40,6 +40,8 @@ def fm(x):
 def p3(x):
     if x < 0.001:
         return "< .001"
+    if x >= 0.9995:                 # "%.3f" would print 1.000 and lose the integer part
+        return "> .999"
     return "= ." + ("%.3f" % x).split(".")[1]
 
 
@@ -100,6 +102,26 @@ def main() -> None:
     _u = [float(r["mean_degree"]) for r in rows
           if r["in_enhancement_cohort_105"] == "True" and float(r["delta_pc"]) == 0.0]
     unch_lo, unch_hi = min(_u), max(_u)
+
+    # Loop-fraction rows on the percolation cohort (n = 100), the sample the text
+    # discusses. The earlier rows mixed n = 100 (rrl_diagnostics) with n = 120
+    # (graph_metric_audit, which includes 8 networks below the 500-vein screen and
+    # compared the non-bridge fraction with 1 - 2/<k> without the c/E term).
+    import numpy as _np
+    from scipy import stats as _st
+    _c = [r for r in rows if r["in_percolation_cohort_100"] == "True"]
+    _k = _np.array([float(r["mean_degree"]) for r in _c])
+    _lf = _np.array([float(r["loop_fraction_nonbridge"]) for r in _c])
+    _cyc = _np.array([float(r["n_cycles"]) / float(r["n_edges"]) for r in _c])
+    lf_n = len(_c)
+    lf_rho = _st.spearmanr(_k, _lf)[0]
+    lf_r = _st.pearsonr(_k, _lf)[0]
+    _fit = _np.polyval(_np.polyfit(_k, _lf, 3), _k)
+    lf_cubic_r2 = 1 - ((_lf - _fit) ** 2).sum() / ((_lf - _lf.mean()) ** 2).sum()
+    lf_cubic_sd = (_lf - _fit).std(ddof=1)
+    lf_vs_cyc = _np.abs(_lf - _cyc).mean()
+    lf_mean, cyc_mean = _lf.mean(), _cyc.mean()
+    unc = L("uncapped_ci.json")
 
     W = []
     a = W.append
@@ -245,30 +267,26 @@ def main() -> None:
     # ---------------- S3 -----------------------------------------------------
     a("**Table S3**")
     a("")
-    a("*Predictor Collinearity, Network-Size Control, Criterion and Locality Dispersion, "
-      "Crop-Edge Detail, and Bootstrap Interval Widths*")
+    a("*Predictor Collinearity, Loop-Fraction Identities, Network-Size Control, Criterion and "
+      "Locality Dispersion, Crop-Edge Detail, Bootstrap Intervals, and Resistance Convention*")
     a("")
     a("| Quantity | Value |")
     a("|---|---|")
-    a("| Pearson r(⟨k⟩, D) | %s, *p* %s |"
+    a("| Pearson r(⟨k⟩, D), n = 100 | %s, *p* %s |"
       % (r3(rrl["collinearity"]["pearson_meandegree_x_D"]), p3(rrl["collinearity"]["p"])))
     a("| Variance inflation factor | %.2f |" % rrl["collinearity"]["VIF"])
     a("| Pearson r between the uniform and degree-weighted thresholds (n = %d) | %s |"
       % (_n, r3(arm_r)))
-    a("| Spearman ρ(⟨k⟩, loop fraction) | %s |"
-      % r3(rrl["collinearity"]["spearman_meandegree_x_loopfraction"]))
-    a("| Pearson r(⟨k⟩, loop fraction) | %s |"
-      % r3(rrl["collinearity"]["pearson_meandegree_x_loopfraction"]))
-    a("| Cubic fit of loop fraction on ⟨k⟩ | *R*² = %s, residual *SD* = %.3f |"
-      % (r3(gma["empirical_120_leaves"]["loop_fraction_given_mean_degree"]["cubic_fit_R2"]),
-         gma["empirical_120_leaves"]["loop_fraction_given_mean_degree"]["residual_sd"]))
-    a("| Cycle-rank fraction vs the identity 1 − 2/⟨k⟩ + c/E | max \\|difference\\| = %.1e "
-      "across all %d traced networks (**exact to floating point**) |" % (idmax, idn))
-    a("| Non-bridge loop fraction vs the same identity | mean \\|difference\\| = %.3f "
-      "(**not** an identity) |"
-      % gma["empirical_120_leaves"]["nonbridge_loop_fraction_vs_identity"]["mean_abs_difference"])
-    a("| Non-bridge fraction ÷ cycle-rank fraction | %.2f |"
-      % gma["empirical_120_leaves"]["nonbridge_vs_cycle_rank"]["ratio"])
+    a("| Spearman ρ(⟨k⟩, loop fraction), n = %d | %s |" % (lf_n, r3(lf_rho)))
+    a("| Pearson r(⟨k⟩, loop fraction), n = %d | %s |" % (lf_n, r3(lf_r)))
+    a("| Cubic fit of loop fraction on ⟨k⟩, n = %d | *R*² = %s, residual *SD* = %.3f |"
+      % (lf_n, r3(lf_cubic_r2), lf_cubic_sd))
+    a("| Cycle-rank fraction (E − N + c)/E vs the identity 1 − 2/⟨k⟩ + c/E | max \\|difference\\| "
+      "= %.1e across all %d traced networks (**exact to floating point**) |" % (idmax, idn))
+    a("| Non-bridge loop fraction vs the cycle-rank fraction, n = %d | mean \\|difference\\| = %.3f "
+      "(**not** an identity) |" % (lf_n, lf_vs_cyc))
+    a("| Mean non-bridge fraction ÷ mean cycle-rank fraction, n = %d | %.3f ÷ %.3f = %.2f |"
+      % (lf_n, lf_mean, cyc_mean, lf_mean / cyc_mean))
     a("")
     a("| Association | Raw ρ | p | Controlling log N | p |")
     a("|---|---:|---|---:|---|")
@@ -299,7 +317,7 @@ def main() -> None:
     a("| Damage scenario | Mdn threshold | IQR | ρ with ⟨k⟩ (p) | ρ with loop fraction (p) | "
       "ρ with D (p) |")
     a("|---|---:|---|---:|---:|---:|")
-    a("| Dispersed (GCC criterion) | %.4f | %.4f – %.4f | %s | %s | %s |"
+    a("| Dispersed (GCC criterion, re-run on the same draws as the rows below) | %.4f | %.4f – %.4f | %s | %s | %s |"
       % (crit["median_gcc"], crit["iqr_gcc"][0], crit["iqr_gcc"][1],
          "%s (%s)" % (r3(assoc["gcc"]["spearman_x_mean_degree"][0]), p3(assoc["gcc"]["spearman_x_mean_degree"][1])),
          "%s (%s)" % (r3(assoc["gcc"]["spearman_x_loop_fraction"][0]), p3(assoc["gcc"]["spearman_x_loop_fraction"][1])),
@@ -335,16 +353,16 @@ def main() -> None:
     a("| Failures entering the percolation cohort | 0 |")
     a("| Failures entering the enhancement cohort | 3 |")
     a("")
-    a("| Bootstrap quantity | Capped replicate | Full-size replicate |")
-    a("|---|---:|---:|")
-    cap, full = ba["measured_on_hero_mesh"]["capped_at_50k"], ba["measured_on_hero_mesh"]["full_size_replicate"]
-    a("| Resample size | %s | %s |" % ("{:,}".format(cap["n_resampled"]), "{:,}".format(full["n_resampled"])))
-    a("| 95%% interval | [%.5f, %.5f] | [%.5f, %.5f] |"
-      % (cap["ci95"][0], cap["ci95"][1], full["ci95"][0], full["ci95"][1]))
-    a("| Interval width | %.6f | %.6f |" % (cap["width"], full["width"]))
-    a("| Width ratio, capped : full | **%.3f** | (√(n/cap) predicts %.3f) |"
-      % (ba["measured_on_hero_mesh"]["width_ratio_capped_over_full"],
-         ba["measured_on_hero_mesh"]["expected_ratio_sqrt_n_over_cap"]))
+    a("| Synthetic reference network | Trials | p_c | 95%% CI, resampling capped at %s trials | "
+      "95%% CI, all trials resampled | Width ratio |" % "{:,}".format(ba["implementation"]["sample_cap"]))
+    a("|---|---:|---:|---|---|---:|")
+    for key, lbl in (("random", "Uniform removal"), ("degree", "Degree-weighted removal"),
+                     ("betweenness", "Betweenness-weighted removal")):
+        u = unc["results"][key]
+        a("| %s | %s | %.4f | [%.4f, %.4f] | [%.4f, %.4f] | %.2f |"
+          % (lbl, "{:,}".format(u["n_trials"]), u["p_c"], u["ci95_capped_50k"][0],
+             u["ci95_capped_50k"][1], u["ci95_uncapped"][0], u["ci95_uncapped"][1],
+             u["width_ratio_capped_over_uncapped"]))
     a("")
     a("| Resistance convention | Spearman ρ with measured K_leaf | p |")
     a("|---|---:|---|")
@@ -361,13 +379,20 @@ def main() -> None:
       "one component (up to 4,477). With the correction applied the identity is exact to floating "
       "point, and it holds for the **cycle-rank** fraction only — not for the non-bridge loop fraction "
       "reported throughout this study, which is a different quantity. "
-      "n = 100 for every association, n = %d for the convention comparison, "
-      "n = %d for the crop-edge check. Bootstrap intervals throughout the manuscript are "
-      "percentile intervals with B = %d and seed %d, the resampling unit being the "
-      "individual Monte Carlo trial, capped at %s trials per replicate. Where a run exceeds "
-      "that cap the reported interval is **conservative**, never anti-conservative."
-      % (kv["n"], bs["n_leaves"], ba["implementation"]["B"], ba["implementation"]["seed"],
-         "{:,}".format(ba["implementation"]["sample_cap"])))
+      "n = 100 for the collinearity, loop-fraction, association and damage-scenario rows; "
+      "n = %d for the identity row; n = %d for the convention comparison; n = %d for the "
+      "crop-edge check. The four damage-scenario rows come from one re-run on identical removal "
+      "draws, which reproduces the archived thresholds at ρ = .999; this is why the dispersed "
+      "row differs slightly from Tables 3, 6 and 8. Bootstrap intervals are percentile intervals "
+      "with B = %d and seed %d, resampling individual Monte Carlo trials. The earlier intervals "
+      "resampled at most %s trials per replicate, which made them %.1f to %.1f times too wide "
+      "for the runs above; the uncapped column replaces them. The intervals describe only the "
+      "sampling noise of a finite number of trials, not error from the logistic model or the "
+      "choice of collapse rule."
+      % (idn, kv["n"], bs["n_leaves"], ba["implementation"]["B"], ba["implementation"]["seed"],
+         "{:,}".format(ba["implementation"]["sample_cap"]),
+         min(u["width_ratio_capped_over_uncapped"] for u in unc["results"].values()),
+         max(u["width_ratio_capped_over_uncapped"] for u in unc["results"].values())))
     a("")
     a("---")
     a("")
