@@ -1,0 +1,9 @@
+{
+  "n": 105,
+  "traced_planar": 44,
+  "original_enhanced_planar": 4,
+  "filtered_enhanced_planar": 33,
+  "made_nonplanar_by_original": 40,
+  "made_nonplanar_by_filtered": 11,
+  "test": "networkx.check_planarity (layout-free)"
+}

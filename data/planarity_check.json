@@ -1,0 +1,191 @@
+{
+  "n_networks": 105,
+  "geometry_note": "edges are straight segments between junction coordinates; a crossing is any shared point between two edges that do not share a junction",
+  "original_enhancement": {
+    "networks_with_added_edges": 93,
+    "added_edges_total": 606351,
+    "crossing_edges_total": 5738,
+    "crossing_pct_of_added_total": 0.946,
+    "networks_with_any_crossing": 91,
+    "per_network_crossing_pct": {
+      "n": 93,
+      "Mdn": 0.663,
+      "Q1": 0.405,
+      "Q3": 1.618,
+      "M": 1.05917,
+      "min": 0.0,
+      "max": 4.18
+    }
+  },
+  "traced_baseline": {
+    "crossing_pairs_total": 3455,
+    "edges_total": 5660790,
+    "per_network_pct_of_E": {
+      "n": 105,
+      "Mdn": 0.058,
+      "Q1": 0.035,
+      "Q3": 0.103,
+      "M": 0.10177,
+      "min": 0.0,
+      "max": 1.692
+    }
+  },
+  "planar_enhancement": {
+    "edges_added_total": 606351,
+    "candidates_skipped_total": 5839,
+    "networks_reaching_target_k": 104,
+    "k_planar": {
+      "n": 105,
+      "Mdn": 2.811,
+      "Q1": 2.8109,
+      "Q3": 2.811,
+      "M": 2.82291,
+      "min": 2.8098,
+      "max": 2.9893
+    }
+  },
+  "reproduction_check": {
+    "pc_current_f50_equals_archived": 105,
+    "of": 105
+  },
+  "by_criterion": {
+    "f30": {
+      "collapse_criterion": "largest component < 30% of original",
+      "median_pc_current": 0.2213,
+      "median_pc_planar": 0.234,
+      "delta": {
+        "n": 105,
+        "Mdn": 0.0101,
+        "Q1": 0.0051,
+        "Q3": 0.0175,
+        "M": 0.01244,
+        "min": 0.0,
+        "max": 0.046
+      },
+      "n_improved": 93,
+      "n_unchanged": 12,
+      "n_worsened": 0,
+      "median_relative_gain_pct": 4.95,
+      "wilcoxon": {
+        "W": 0.0,
+        "p": 5.567967769452712e-17,
+        "n_nonzero": 93
+      },
+      "grade_A": {
+        "n": 21,
+        "n_improved": 13,
+        "n_worsened": 0,
+        "median_delta": 0.0065,
+        "sign_test_p": 0.000244140625
+      },
+      "spearman_initial_k_x_delta": {
+        "rho": -0.8148,
+        "p": 3.9623640482965353e-26
+      },
+      "gain_vs_headroom": {
+        "slope_with_intercept": 0.0516,
+        "slope_through_origin": 0.0457,
+        "headroom": "2.811 - initial <k>"
+      }
+    },
+    "f50": {
+      "collapse_criterion": "largest component < 50% of original",
+      "median_pc_current": 0.201,
+      "median_pc_planar": 0.2151,
+      "delta": {
+        "n": 105,
+        "Mdn": 0.0096,
+        "Q1": 0.0047,
+        "Q3": 0.0177,
+        "M": 0.01243,
+        "min": 0.0,
+        "max": 0.0458
+      },
+      "n_improved": 93,
+      "n_unchanged": 12,
+      "n_worsened": 0,
+      "median_relative_gain_pct": 5.49,
+      "wilcoxon": {
+        "W": 0.0,
+        "p": 5.56869430494015e-17,
+        "n_nonzero": 93
+      },
+      "grade_A": {
+        "n": 21,
+        "n_improved": 13,
+        "n_worsened": 0,
+        "median_delta": 0.007,
+        "sign_test_p": 0.000244140625
+      },
+      "spearman_initial_k_x_delta": {
+        "rho": -0.8223,
+        "p": 5.7998354875107926e-27
+      },
+      "gain_vs_headroom": {
+        "slope_with_intercept": 0.0521,
+        "slope_through_origin": 0.0459,
+        "headroom": "2.811 - initial <k>"
+      },
+      "vs_archived_unfiltered": {
+        "spearman_delta": 0.9997,
+        "median_archived_delta": 0.0096,
+        "median_abs_difference_pc_enhanced": 0.0001,
+        "max_abs_difference_pc_enhanced": 0.0009,
+        "archived_n_improved": 93
+      }
+    },
+    "f70": {
+      "collapse_criterion": "largest component < 70% of original",
+      "median_pc_current": 0.162,
+      "median_pc_planar": 0.1773,
+      "delta": {
+        "n": 105,
+        "Mdn": 0.0105,
+        "Q1": 0.0054,
+        "Q3": 0.0196,
+        "M": 0.01389,
+        "min": 0.0,
+        "max": 0.0603
+      },
+      "n_improved": 93,
+      "n_unchanged": 12,
+      "n_worsened": 0,
+      "median_relative_gain_pct": 8.05,
+      "wilcoxon": {
+        "W": 0.0,
+        "p": 5.570874448462588e-17,
+        "n_nonzero": 93
+      },
+      "grade_A": {
+        "n": 21,
+        "n_improved": 13,
+        "n_worsened": 0,
+        "median_delta": 0.0072,
+        "sign_test_p": 0.000244140625
+      },
+      "spearman_initial_k_x_delta": {
+        "rho": -0.8292,
+        "p": 9.020297244965338e-28
+      },
+      "gain_vs_headroom": {
+        "slope_with_intercept": 0.0577,
+        "slope_through_origin": 0.0511,
+        "headroom": "2.811 - initial <k>"
+      }
+    }
+  },
+  "threshold_free_area": {
+    "definition": "integral of the mean largest-component fraction over rho in [0, 0.6]",
+    "delta": {
+      "n": 105,
+      "Mdn": 0.0089,
+      "Q1": 0.0046,
+      "Q3": 0.0163,
+      "M": 0.01154,
+      "min": 0.0,
+      "max": 0.0434
+    },
+    "n_improved": 93,
+    "n_worsened": 0
+  }
+}
