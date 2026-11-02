@@ -1,0 +1,451 @@
+{
+  "n": 100,
+  "trials_per_network_per_mode": 2400,
+  "reproduction_check": {
+    "random_f50_equals_archived": 100,
+    "degree_f50_equals_archived": 100,
+    "of": 100
+  },
+  "by_criterion": {
+    "f10": {
+      "criterion": "largest component < 10% of original",
+      "median_random": 0.2494,
+      "median_degree": 0.2103,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.7023,
+          "p": 3.8942817274565413e-16
+        },
+        "D": {
+          "rho": 0.0537,
+          "p": 0.5953369731384115
+        },
+        "loop_fraction": {
+          "rho": 0.6965,
+          "p": 8.544385406173472e-16
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.709,
+          "p": 2.1723197512591857e-16
+        },
+        "D_given_mean_degree": {
+          "rho": -0.147,
+          "p": 0.14647212874724097
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.6061,
+        "beta_D": 0.003,
+        "R2": 0.3679
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 100,
+        "n_equal": 0,
+        "n_degree_higher": 0,
+        "median_relative_reduction_pct": 15.68
+      },
+      "rank_agreement_with_f50": {
+        "rho": 0.8284,
+        "p": 2.081920221599396e-26
+      }
+    },
+    "f20": {
+      "criterion": "largest component < 20% of original",
+      "median_random": 0.2301,
+      "median_degree": 0.1933,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.7474,
+          "p": 4.184960433023239e-19
+        },
+        "D": {
+          "rho": 0.2642,
+          "p": 0.007895132427044359
+        },
+        "loop_fraction": {
+          "rho": 0.74,
+          "p": 1.4278029382772759e-18
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.7325,
+          "p": 6.958646781387312e-18
+        },
+        "D_given_mean_degree": {
+          "rho": 0.1519,
+          "p": 0.13328184852731453
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.583,
+        "beta_D": 0.2021,
+        "R2": 0.4157
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 100,
+        "n_equal": 0,
+        "n_degree_higher": 0,
+        "median_relative_reduction_pct": 16.01
+      },
+      "rank_agreement_with_f50": {
+        "rho": 0.9359,
+        "p": 3.298325358351607e-46
+      }
+    },
+    "f30": {
+      "criterion": "largest component < 30% of original",
+      "median_random": 0.2202,
+      "median_degree": 0.1828,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.753,
+          "p": 1.6206725255907762e-19
+        },
+        "D": {
+          "rho": 0.363,
+          "p": 0.00020548963506709713
+        },
+        "loop_fraction": {
+          "rho": 0.7455,
+          "p": 5.797755338270293e-19
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.7402,
+          "p": 2.0629984807054226e-18
+        },
+        "D_given_mean_degree": {
+          "rho": 0.3055,
+          "p": 0.0021083772975726027
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.5611,
+        "beta_D": 0.3044,
+        "R2": 0.4581
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 100,
+        "n_equal": 0,
+        "n_degree_higher": 0,
+        "median_relative_reduction_pct": 16.99
+      },
+      "rank_agreement_with_f50": {
+        "rho": 0.9726,
+        "p": 7.06289540274622e-64
+      }
+    },
+    "f40": {
+      "criterion": "largest component < 40% of original",
+      "median_random": 0.2109,
+      "median_degree": 0.1767,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.7408,
+          "p": 1.2494272162160174e-18
+        },
+        "D": {
+          "rho": 0.4557,
+          "p": 1.896098948909147e-06
+        },
+        "loop_fraction": {
+          "rho": 0.7344,
+          "p": 3.4509111685187645e-18
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.737,
+          "p": 3.406998062149887e-18
+        },
+        "D_given_mean_degree": {
+          "rho": 0.4448,
+          "p": 3.968608783155115e-06
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.5412,
+        "beta_D": 0.3733,
+        "R2": 0.4922
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 100,
+        "n_equal": 0,
+        "n_degree_higher": 0,
+        "median_relative_reduction_pct": 16.26
+      },
+      "rank_agreement_with_f50": {
+        "rho": 0.9941,
+        "p": 1.7099553940740885e-96
+      }
+    },
+    "f50": {
+      "criterion": "largest component < 50% of original",
+      "median_random": 0.1998,
+      "median_degree": 0.1685,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.7328,
+          "p": 4.479878760590678e-18
+        },
+        "D": {
+          "rho": 0.496,
+          "p": 1.544732917524013e-07
+        },
+        "loop_fraction": {
+          "rho": 0.7269,
+          "p": 1.1136130625956214e-17
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.7355,
+          "p": 4.328438776080913e-18
+        },
+        "D_given_mean_degree": {
+          "rho": 0.5025,
+          "p": 1.1593174510021982e-07
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.5262,
+        "beta_D": 0.4083,
+        "R2": 0.5073
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 100,
+        "n_equal": 0,
+        "n_degree_higher": 0,
+        "median_relative_reduction_pct": 15.69
+      },
+      "rank_agreement_with_f50": {
+        "rho": 1.0,
+        "p": 0.0
+      }
+    },
+    "f60": {
+      "criterion": "largest component < 60% of original",
+      "median_random": 0.1855,
+      "median_degree": 0.1568,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.7467,
+          "p": 4.703776007199977e-19
+        },
+        "D": {
+          "rho": 0.4976,
+          "p": 1.3858272165714956e-07
+        },
+        "loop_fraction": {
+          "rho": 0.7428,
+          "p": 9.084232866979215e-19
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.7524,
+          "p": 2.7705757913792984e-19
+        },
+        "D_given_mean_degree": {
+          "rho": 0.5118,
+          "p": 6.140200697405306e-08
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.5427,
+        "beta_D": 0.4167,
+        "R2": 0.5353
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 99,
+        "n_equal": 0,
+        "n_degree_higher": 1,
+        "median_relative_reduction_pct": 15.52
+      },
+      "rank_agreement_with_f50": {
+        "rho": 0.9941,
+        "p": 2.8828618395089817e-96
+      }
+    },
+    "f70": {
+      "criterion": "largest component < 70% of original",
+      "median_random": 0.1611,
+      "median_degree": 0.1364,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.8009,
+          "p": 1.4911486075211846e-23
+        },
+        "D": {
+          "rho": 0.4646,
+          "p": 1.1206140634483263e-06
+        },
+        "loop_fraction": {
+          "rho": 0.799,
+          "p": 2.232020208209409e-23
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.8082,
+          "p": 4.954393690572329e-24
+        },
+        "D_given_mean_degree": {
+          "rho": 0.4914,
+          "p": 2.411176510623433e-07
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.6048,
+        "beta_D": 0.3854,
+        "R2": 0.5835
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 97,
+        "n_equal": 0,
+        "n_degree_higher": 3,
+        "median_relative_reduction_pct": 15.3
+      },
+      "rank_agreement_with_f50": {
+        "rho": 0.9777,
+        "p": 2.8937178378802004e-68
+      }
+    },
+    "f80": {
+      "criterion": "largest component < 80% of original",
+      "median_random": 0.1163,
+      "median_degree": 0.1002,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.8657,
+          "p": 3.255939543054727e-31
+        },
+        "D": {
+          "rho": 0.3828,
+          "p": 8.464195201769815e-05
+        },
+        "loop_fraction": {
+          "rho": 0.8679,
+          "p": 1.5527245126792227e-31
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.8668,
+          "p": 4.581005184854728e-31
+        },
+        "D_given_mean_degree": {
+          "rho": 0.3908,
+          "p": 6.339158685233439e-05
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.7551,
+        "beta_D": 0.2836,
+        "R2": 0.7141
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 97,
+        "n_equal": 2,
+        "n_degree_higher": 1,
+        "median_relative_reduction_pct": 13.84
+      },
+      "rank_agreement_with_f50": {
+        "rho": 0.9304,
+        "p": 1.7068245167027145e-44
+      }
+    },
+    "f90": {
+      "criterion": "largest component < 90% of original",
+      "median_random": 0.0413,
+      "median_degree": 0.0388,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.8399,
+          "p": 9.222008526436367e-28
+        },
+        "D": {
+          "rho": 0.3027,
+          "p": 0.0022071985104010886
+        },
+        "loop_fraction": {
+          "rho": 0.838,
+          "p": 1.5943577253904283e-27
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.8315,
+          "p": 1.6480244330148e-26
+        },
+        "D_given_mean_degree": {
+          "rho": 0.2199,
+          "p": 0.028769060454500714
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.8187,
+        "beta_D": 0.11,
+        "R2": 0.7091
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 72,
+        "n_equal": 16,
+        "n_degree_higher": 12,
+        "median_relative_reduction_pct": 6.05
+      },
+      "rank_agreement_with_f50": {
+        "rho": 0.7537,
+        "p": 1.4378957977249225e-19
+      }
+    },
+    "area": {
+      "criterion": "threshold-free: area under the largest-component curve, rho 0-0.6",
+      "median_random": 0.1858,
+      "median_degree": 0.1568,
+      "spearman_random_with": {
+        "mean_degree": {
+          "rho": 0.7881,
+          "p": 2.259978438399749e-22
+        },
+        "D": {
+          "rho": 0.3067,
+          "p": 0.0019124668200423622
+        },
+        "loop_fraction": {
+          "rho": 0.7826,
+          "p": 6.862489306903617e-22
+        }
+      },
+      "partial_spearman": {
+        "mean_degree_given_D": {
+          "rho": 0.7758,
+          "p": 4.096223210635178e-21
+        },
+        "D_given_mean_degree": {
+          "rho": 0.2197,
+          "p": 0.028901170075809383
+        }
+      },
+      "regression_fully_standardized": {
+        "beta_mean_degree": 0.6402,
+        "beta_D": 0.238,
+        "R2": 0.5117
+      },
+      "degree_vs_uniform": {
+        "n_degree_lower": 100,
+        "n_equal": 0,
+        "n_degree_higher": 0,
+        "median_relative_reduction_pct": 15.61
+      },
+      "rank_agreement_with_f50": {
+        "rho": 0.9582,
+        "p": 4.70985682844221e-55
+      }
+    }
+  }
+}
