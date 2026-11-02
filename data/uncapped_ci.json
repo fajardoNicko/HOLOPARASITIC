@@ -1,0 +1,63 @@
+{
+  "network": {
+    "N": 1023,
+    "E": 1273
+  },
+  "bootstrap": "percentile, B = 200, seed 7",
+  "results": {
+    "random": {
+      "n_trials": 1000000,
+      "trials_per_density": 20000,
+      "p_c": 0.271115,
+      "ci95_capped_50k": [
+        0.269951,
+        0.271955
+      ],
+      "ci95_uncapped": [
+        0.270802,
+        0.271229
+      ],
+      "bootstrap_sd_uncapped": 0.00012,
+      "width_capped": 0.002005,
+      "width_uncapped": 0.000426,
+      "width_ratio_capped_over_uncapped": 4.701,
+      "seconds": 2124.8
+    },
+    "degree": {
+      "n_trials": 100000,
+      "trials_per_density": 2000,
+      "p_c": 0.202287,
+      "ci95_capped_50k": [
+        0.201369,
+        0.203311
+      ],
+      "ci95_uncapped": [
+        0.201681,
+        0.202959
+      ],
+      "bootstrap_sd_uncapped": 0.000338,
+      "width_capped": 0.001943,
+      "width_uncapped": 0.001278,
+      "width_ratio_capped_over_uncapped": 1.52,
+      "seconds": 249.7
+    },
+    "betweenness": {
+      "n_trials": 100000,
+      "trials_per_density": 2000,
+      "p_c": 0.188879,
+      "ci95_capped_50k": [
+        0.187895,
+        0.190242
+      ],
+      "ci95_uncapped": [
+        0.188195,
+        0.189688
+      ],
+      "bootstrap_sd_uncapped": 0.000385,
+      "width_capped": 0.002347,
+      "width_uncapped": 0.001492,
+      "width_ratio_capped_over_uncapped": 1.573,
+      "seconds": 280.6
+    }
+  }
+}
