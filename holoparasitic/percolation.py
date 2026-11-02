@@ -281,6 +281,43 @@ def find_pc(G, params=None, weights=None, k_h=config.K_H_DEFAULT,
     return res
 
 
+def find_pc_multi(G, params=None, weights=None, rho_max=1.0,
+                  fractions=(0.3, 0.5, 0.7)):
+    """p_c at several collapse criteria from ONE Monte Carlo sweep.
+
+    Runs exactly the trials density_response runs for 'random' (or, with
+    `weights`, weighted) removal — same seed, same order of random draws — but
+    keeps every trial's largest-component size, so the collapse criterion
+    "largest component < f x N0" can be applied afterwards for each f in
+    `fractions`. At f = params.collapse_fraction the result is identical to
+    find_pc. Also returns the threshold-free robustness area: the mean
+    largest-component fraction integrated over rho in [0, rho_max]."""
+    p = params or config.DEFAULT_PERCOLATION
+    rng = config.new_rng(p.seed)
+    adj, _ = network.to_csr(G)
+    n = adj.shape[0]
+    tpd = p.trials_per_density
+    rhos = np.linspace(0.0, float(rho_max), p.n_densities)
+    gccs = np.empty((p.n_densities, tpd))
+    for di, rho in enumerate(rhos):
+        for t in range(tpd):
+            gccs[di, t] = (_trial_random(adj, n, rho, rng) if weights is None
+                           else _trial_weighted(adj, n, rho, rng, weights))
+    X = np.repeat(rhos, tpd)
+    out = {"rhos": rhos, "n_nodes": n, "trials_per_density": tpd,
+           "n_trials": p.n_densities * tpd,
+           "gcc_fraction": gccs.mean(axis=1) / n, "p_c": {}}
+    for f in fractions:
+        outcomes = (gccs < f * n).astype(np.int8)
+        fit = fit_pc(X, outcomes.ravel())
+        pc = fit["p_c"]
+        if not (0.0 <= pc <= 1.0) or np.isnan(pc):
+            pc = pc_crossing(rhos, outcomes.mean(axis=1))
+        out["p_c"][f] = float(pc)
+    out["robustness_area"] = float(np.trapezoid(out["gcc_fraction"], rhos))
+    return out
+
+
 if __name__ == "__main__":
     from . import network as net
     G = net.generate()
