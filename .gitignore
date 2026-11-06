@@ -1,14 +1,106 @@
 # ==========================================================================
-# Raw source dataset — re-download, never commit
+# The repository holds only the program, a short README and the results.
+# Everything else in this folder (manuscript drafts, logbook, ISEF forms,
+# literature notes, handoffs, PDFs, Word files, slides) stays on this machine.
+# A new file at the top level is ignored unless it is whitelisted here.
 # ==========================================================================
-# Matos et al. (2024) UCBG venation deposit, ~4.4 GB of per-leaf vein/node/HLD
-# CSVs. Fetch it from Dryad (doi:10.5061/dryad.1g1jwsv36) and unzip it here.
-# This directory also exists in git history (commits e667fe7..76febe6), which is
-# why .git is ~1.6 GB; ignoring it now does not rewrite that history.
-UCBG_venation_form_data/
+/*
+!/.gitignore
+!/README.md
+!/config.py
+!/requirements.txt
+!/holoparasitic/
+!/scripts/
+!/tests/
+!/data/
+!/figures/
+!/empirical/
+!/hydraulics/
+
+# hydraulics/: only the measured Kleaf table, which run_kleaf_validate.py and
+# run_resistance_convention_sensitivity.py read. The rest of the Matos deposit
+# (including UCBG_venation_form_data/, ~4.4 GB) is downloaded from Dryad,
+# doi:10.5061/dryad.1g1jwsv36. Note that the venation data also sits in git
+# history (commits e667fe7..76febe6); ignoring it does not rewrite that history.
+/hydraulics/*
+!/hydraulics/hydraulics/
+/hydraulics/hydraulics/*
+!/hydraulics/hydraulics/UCBG_venation_kmax.csv
+
+# Documents are never tracked, even inside the kept folders
+*.md
+!/README.md
+*.pdf
+*.doc
+*.docx
+*.xlsx
+*.pptx
+*.tex
+*.html
+~$*
 
 # ==========================================================================
-# Python
+# Scripts that build the paper, appendices, logbook, forms, slides or the
+# display board rather than computing results
+# ==========================================================================
+/scripts/_appendix_c_part*.py
+/scripts/make_appendix_b.py
+/scripts/make_appendix_c.py
+/scripts/make_appendix_computations.py
+/scripts/make_2up_portrait.py
+/scripts/make_bibliography_docx.py
+/scripts/make_data_summary_xlsx.py
+/scripts/make_defense_script_pdf.py
+/scripts/make_discussion_docx.py
+/scripts/make_discussion_sop_docx.py
+/scripts/make_format_check_pdf.py
+/scripts/make_methods_pdf.py
+/scripts/make_methods_short_pdf.py
+/scripts/make_ppt_guide_pdf.py
+/scripts/make_results_docx.py
+/scripts/make_revised_sections_docx.py
+/scripts/make_stats_section_docx.py
+/scripts/make_supplementary_docx.py
+/scripts/make_supplementary_tables.py
+/scripts/patch_discussion_docx.py
+/scripts/verify_manuscript_numbers.py
+/scripts/check_submission_dates.py
+/scripts/extract_prompt_log.py
+/scripts/logbook_entries.py
+/scripts/logbook_figures.py
+/scripts/make_form2a_attachment.py
+/scripts/make_isef_forms.py
+/scripts/make_logbook_attachments.py
+/scripts/make_logbook_cover.py
+/scripts/make_research_logbook.py
+/scripts/make_research_plan_docx.py
+/scripts/submission_info.py
+/scripts/make_board_figures.py
+/scripts/make_flowchart_figures.py
+/scripts/make_pipeline_revised.py
+/scripts/make_stats_tree.py
+
+# Figures that are diagrams or display-board art, not results
+/figures/board_*
+/figures/board_photos/
+/figures/methodology/fig01_pipeline*.png
+/figures/methodology/fig02_dataset.png
+/figures/methodology/fig03_reconstruction.png
+/figures/methodology/fig07_hydraulic_flow.png
+/figures/methodology/fig08b_cavitation_loop.png
+/figures/methodology/fig12_stats_tree.png
+/figures/methodology/fig_reticulation_concept.png
+
+# ==========================================================================
+# Run logs: redirected stdout, kept locally. The results they narrate are in
+# data/*.csv and data/*.json.
+# ==========================================================================
+*.log
+# ...except this one, which is JSON despite the extension
+!data/_critloc_summary.log
+
+# ==========================================================================
+# Python / R / OS / editor
 # ==========================================================================
 __pycache__/
 *.py[cod]
@@ -21,25 +113,16 @@ dist/
 .venv/
 venv/
 env/
-ENV/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/
 .coverage
 htmlcov/
-
-# ==========================================================================
-# R
-# ==========================================================================
 .Rhistory
 .RData
 .Rproj.user/
 *.Rproj
-
-# ==========================================================================
-# OS / editor cruft
-# ==========================================================================
 Thumbs.db
 ehthumbs.db
 desktop.ini
@@ -48,101 +131,3 @@ desktop.ini
 *~
 .vscode/
 .idea/
-
-# MS Office lock/owner files (e.g. ~$THODOLOGY_SEGMENTS_RRL.docx)
-~$*
-
-# ==========================================================================
-# LaTeX build artifacts
-# ==========================================================================
-*.aux
-*.fdb_latexmk
-*.fls
-*.out
-*.synctex.gz
-*.toc
-*.bbl
-*.blg
-
-# ==========================================================================
-# Machine-local Claude Code config
-# Grants broad auto-approval; committing it would apply it on other machines.
-# ==========================================================================
-.claude/settings.local.json
-
-# ==========================================================================
-# Run logs
-# Every driver prints its progress to stdout; these are redirected copies of
-# that, kept locally so a long run can be inspected after the fact. The results
-# they narrate are already in data/*.csv and data/*.json.
-# ==========================================================================
-*.log
-# ...except this one, which is JSON despite the extension — it is a results
-# file, not narration, and is kept in the repo.
-!data/_critloc_summary.log
-
-# ==========================================================================
-# Heavy binaries that are not inputs to any script
-# ==========================================================================
-# COMSOL model files (16 MB+ each; the FSI side-experiment, not part of the
-# percolation pipeline — see COMSOL_FSI_Repair_Guide.md for how to rebuild one).
-*.mph
-# Vision-board exports, regenerated from VISIONBOARD.html by the browser.
-VISIONBOARD*.png
-VISIONBOARD*.pdf
-# Photographs used only as board decoration; not measured by any script.
-figures/board_photos/
-
-# ==========================================================================
-# Local-only drafts and generated exports
-#
-# Everything below is deliberately not pushed: either it is a working draft, or
-# it is regenerated on demand by a script in scripts/.
-#
-# NOTE: the blanket *.docx / *.xlsx / *.html rules below cover the manuscript
-# exports too (Methodology.docx, MANUSCRIPT_REVISED_SECTIONS.docx,
-# RESULTS_DATA_PACK.docx …). Those were tracked from before these rules existed
-# and were untracked on 2026-08-31; .gitignore has no effect on already-tracked
-# files, which is why they survived here for so long. The markdown sources they
-# are generated from (MANUSCRIPT_REVISED_SECTIONS.md, DISCUSSION_SOP_ALIGNED.md,
-# SUPPLEMENTARY_TABLES.md …) stay tracked and are the source of truth; the .docx
-# are rebuilt by scripts/make_*_docx.py. Add a "!name.docx" line to keep one.
-# ==========================================================================
-CLAUDES CUT.docx
-RESULTS_REVISED.docx
-SOFTWARE_LOGBOOK.md
-APPENDIX_C_COMPUTATIONS.tex
-APPENDIX_C_CHECKS.csv
-FIX_LIST.md
-HERO_NUMBERS.md
-HERO_DECISION.md
-RESULTS_AUDIT.md
-REVISION_REPORT.md
-COMSOL_FSI_Repair_Guide.md
-MANUSCRIPT_REVISED_SECTIONS_NEW.docx
-*.docx
-*.xlsx
-!DISTRICT STF - BIBLIOGRAPHY.docx
-AI_PROMPT_LOG_FULL.md
-AI_PROMPT_LOG_REVIEW.md
-APPENDIX_B_RAW_DATA.md
-APPENDIX_C_COMPUTATIONS_4UP.pdf
-APPENDIX_E_SUPPLEMENTARY_4UP.pdf
-APPENDIX_G_RAW_DATA_2UP.pdf
-APPENDIX_G_RAW_DATA_4UP.pdf
-METHODS_FOR_VALIDATION_FORM.md
-METHODS_FOR_VALIDATION_FORM.pdf
-METHODS_SHORT_FOR_VALIDATION_FORM.md
-METHODS_SHORT_FOR_VALIDATION_FORM.pdf
-# Talk / teaching scripts — drafted locally, never part of the repo
-CONCEPTS.md
-EXPLAINER.md
-METHODOLOGY_SCRIPT.md
-ORAL_SCRIPT.md
-PRESENTATION.md
-PRESENTATION_SCRIPT.md
-STUDY_MASTERY_GUIDE.md
-DEFENSE_PANEL_PREP.md
-PHOTODOC_APPENDIX_PLAN.md
-*.html
-STATISTICS_EXPLAINED.md

@@ -6,361 +6,72 @@
 [![1st Place — Life Science Individual, Division STF](https://img.shields.io/badge/%F0%9F%8F%86%201st%20Place-Life%20Science%20Individual%20%C2%B7%20Division%20STF%202026-gold?style=for-the-badge)](#)
 [![1st Place — District STF](https://img.shields.io/badge/%F0%9F%8F%86%201st%20Place-District%20STF%202026-%23b8860b?style=for-the-badge)](#)
 
-![Next](https://img.shields.io/badge/next-Regional%20STF-success?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.13-blue?style=flat-square)
 ![Species](https://img.shields.io/badge/real%20networks-100%20species-brightgreen?style=flat-square)
-![Trials](https://img.shields.io/badge/Monte%20Carlo-10%E2%81%B6%20trials-orange?style=flat-square)
-![Veins validated](https://img.shields.io/badge/hydraulics%20validated-5.67M%20veins-teal?style=flat-square)
 ![Reproducible](https://img.shields.io/badge/seeds-fully%20pinned-lightgrey?style=flat-square)
 
-> 🥇 **Overall Champion, Life Science — Division Science & Technology Fair (2026)**
-> 🏆 **1st Place, Life Science (Individual) — Division STF (2026)**
-> 🏆 **1st Place — District STF (2026)**
->
-> **Advancing to the Regional Science & Technology Fair.**
+This program measures how much vein loss a leaf venation network can take before it breaks apart.
+Each traced network becomes a graph (junctions = nodes, vein segments = edges). A Monte Carlo
+simulation removes junctions and records when the largest connected component falls below half of
+its original size. The critical removed fraction **p_c** is where half of the trials collapse.
+A hydraulic solver (Kirchhoff flow on the same graph) adds a haustorial sink as a separate test.
 
----
+## Main results
 
-## What this is
-
-A computational biophysics study of **how much structural damage a leaf's vascular network can
-absorb before it loses global connectivity**, and which architectural features decide that.
-
-It started as a parasite question. *Cuscuta* (dodder) is a holoparasite: no roots, no true leaves,
-no functional photosynthesis. It taps a host's xylem through a haustorium and drains it. The
-opening question was whether that drain alone could break the host's plumbing.
-
-It could not. At a literature-anchored sink strength diverting ~20% of leaf throughput, the
-haustorium moved the network's minimum water potential by only **0.026 MPa** — 2.6% of the modelled
-margin to cavitation, and no vessel embolised at any gradient tested from 0 to 3.0 MPa.
-
-So the question moved from **load** to **structure**: if a steady drain is not what breaks a leaf,
-how much of the network itself can fail before connectivity collapses? That is a percolation
-question, and the rest of the study answers it on 100 real venation networks.
-
-## Headline results
-
-| Finding | Number | n |
+| Result | Value | Networks |
 |---|---|---|
-| Median collapse threshold, dispersed damage | **p_c = 0.1998** | 100 leaves |
-| Degree-weighted removal is worse — in every leaf | 0.1685 (−15.7%) | 100/100 |
-| Connectivity predicts tolerance | ρ = **0.733** | 100 |
-| Fractal dimension predicts it too, independently | ρ = 0.496 | 100 |
-| Least- vs most-reticulate quartile | 0.158 → **0.231** (+46%) | 25 + 25 |
-| Adding loops to a leaf makes that same leaf tougher | **93 improved · 12 unchanged · 0 worse** | 105 |
-| Localised damage is tolerated far better | 0.1998 → **0.4951** (2.46×) | 100/100 |
-| …and the reticulation advantage vanishes under it | ρ 0.737 → **−0.000** | 100 |
+| Median p_c, uniform removal | 0.1998 | 100 |
+| Median p_c, degree-weighted removal (lower in every network) | 0.1685 | 100 |
+| Mean degree vs p_c (holds at every collapse criterion, 10–90%) | ρ = .73 (.70–.87) | 100 |
+| Adding loops to a network's own junctions raised p_c | 93 improved, 12 already above the ceiling | 105 |
+| Localized lesions vs dispersed loss | 2.3–2.5× more removal needed | 100 |
+| Haustorial sink taking 20% of inflow | minimum ψ −0.996 → −1.022 MPa; no vessel below −2.0 MPa | reference network |
 
-**The interpretation.** Reticulation is not general armour. Its advantage appears when damage is
-*dispersed* and alternative routes are repeatedly tested; when damage is concentrated in one region
-the surrounding network simply routes around it and redundancy is never challenged. Under
-multi-lesion damage the surviving predictor is not connectivity but **fractal dimension**
-(ρ = 0.523). Which structural feature matters depends on the spatial statistics of the damage —
-there is no single measure of venation resilience.
+The numbers come from the files in `data/`; the figures are in `figures/`.
 
-**What this is not.** A topological percolation threshold, not a measurement of hydraulic collapse.
-Losing graph connectivity and losing conductance are different events. The model's value is that it
-makes that gap falsifiable: it predicts a ~2.5× tolerance gap between localised and dispersed damage
-and predicts the reticulation effect should disappear under localised damage. Testing that on living
-leaves is the stated next step.
-
-## The two network families
-
-The study runs on two kinds of network, deliberately:
-
-- **Real leaves.** 120 traced venation networks from Matos et al. (2024), UC
-  Berkeley Botanical Garden (Dryad `10.5061/dryad.1g1jwsv36`). These carry the
-  observational result and its confounds.
-- **Synthetic networks.** A Murray's-law generator calibrated to the real
-  cohort's branching geometry. Because its two structural knobs are
-  near-orthogonal, it separates causes the real cohort can only correlate.
-
-Parasites are modelled as attachment geometry × trophic efficiency, anchored on
-*Cuscuta campestris*: stem (*Cuscuta*), root (*Orobanche*) and systemic
-(*Pilostyles*) holoparasites, with *Striga* and mistletoe kept as hemiparasitic
-comparisons.
-
-## Pipeline
+## Layout
 
 ```
-  real leaf CSVs ──► realleaf.py ─┐
-                                  ├─► one networkx.Graph  ──► fractal.py ──► D
-  config.py params ─► network.py ─┘   (schema in config.py)      │
-                                              │                  │
-                        hydraulics.py ◄───────┤                  │
-                        Kirchhoff A·psi = b   │                  │
-                        + haustorial sink K_h │                  │
-                        + cavitation          ▼                  ▼
-                                       percolation.py  ──► logistic fit ──► p_c
-                                       Monte Carlo node
-                                       removal, GCC size
+config.py        constants, default parameters, random seeds, graph schema
+holoparasitic/   the library: network generator, leaf loader, percolation, hydraulics, fractal dimension
+scripts/         runnable drivers (run_*.py compute results; make_*.py draw figures)
+tests/           smoke tests
+data/            all computed results (CSV, JSON, NPZ)
+figures/         all result figures
+empirical/       templates for locally measured leaves
+hydraulics/      measured leaf conductance table from the Matos deposit (read by run_kleaf_validate.py)
 ```
 
-Every module reads and writes the same graph contract, so a traced leaf and a
-generated network are measured by literally the same code path. That is what
-makes the two halves of the study comparable rather than merely analogous.
-
-Physics enters the graph in exactly three places: **conductance per edge**
-(Hagen–Poiseuille, g ∝ r⁴/L), **conservation of flow at every junction**
-(Kirchhoff, assembled as the conductance Laplacian), and **Dirichlet boundary
-conditions** (source at ψ = 0, terminals at ψ = −1.0 MPa). The same Laplacian
-that solves the flow encodes the connectivity that percolation destroys — which
-is what makes the hydraulic and topological halves two readings of one object
-rather than two models bolted together.
-
-## Quick start
-
-Pinned to Python 3.13; see `requirements.txt`.
+## Run it
 
 ```powershell
-C:\laragon\bin\python\python-3.13\python.exe -m pip install -r requirements.txt
-
-# invariants — 5 tests, a few seconds
-C:\laragon\bin\python\python-3.13\python.exe tests\test_smoke.py
-
-# end-to-end demo, seconds, writes figures\
-C:\laragon\bin\python\python-3.13\python.exe scripts\run_demo.py
-
-# the archived reference run: 1,000,000 trials + figures (~11 min, i5-8265U)
-C:\laragon\bin\python\python-3.13\python.exe scripts\run_full.py
-C:\laragon\bin\python\python-3.13\python.exe scripts\run_full.py 100000   # lighter
+python -m pip install -r requirements.txt
+python tests\test_smoke.py           # quick checks, a few seconds
+python scripts\run_demo.py           # end-to-end demo, seconds
+python scripts\run_full.py           # reference run, 1,000,000 trials (~11 min)
 ```
 
-Anything touching real leaves additionally needs the Matos deposit unzipped into
-`UCBG_venation_form_data/` (~4.4 GB, deliberately not committed).
-
-## Reference network and headline numbers
-
-The reference ("hero") network is `config.DEFAULT_NETWORK`: the cohort-calibrated
-planar **mesh**, promoted 2026-07-30. Reproduce these with `run_full.py`.
-
-| Quantity | Value |
-|---|---|
-| N | 1,023 |
-| mean degree ⟨k⟩ | 2.489 |
-| independent loops | 251 |
-| box-counting D | 1.387 |
-| p_c, random removal | **0.2711**, 95% CI [0.2700, 0.2720] (10⁶ trials) |
-| p_c, betweenness-targeted | 0.1889, 95% CI [0.1879, 0.1902] (10⁵ trials) |
-| p_c, degree-targeted | 0.2023, 95% CI [0.2014, 0.2033] (10⁵ trials) |
-
-> ⚠️ These are the **synthetic reference network**, not the real cohort. The real-leaf medians are
-> 0.1998 (random) and 0.1685 (degree-weighted). Do not quote them interchangeably.
-
-Both targeted attacks fall below random, with the betweenness (backbone) attack
-strongest. This matches the real cohort, where degree-targeted p_c is below
-random in 100 leaves out of 100. Source: `data/summary.json` and
-`data/targeted_ci.json`.
-
-Four cohorts are used, nested 100 ⊂ 105 ⊂ 112 ⊂ 120. They were screened by
-different rules for different purposes, so which one a number came from matters:
-
-| Cohort | n | Criterion |
-|---|---|---|
-| traced | 120 | every Matos leaf loaded |
-| characterized | 112 | ≥ 500 veins |
-| enhancement | 105 | N ≥ 1,000 and current p_c ≥ 0.02 |
-| percolation | 100 | ≥ 2,000 veins, ≥ 1 cycle, cut-end terminal fraction ≤ 0.05, absolute mean-degree shift ≤ 0.05 |
-
-`data/cohort_provenance.json` records each membership and every exclusion reason.
-`data/results_verified.json` is the machine-readable source of truth for every
-reported statistic; the manuscript documents are generated from it by
-`scripts/make_results_docx.py`, never hand-edited.
-
-Main findings, all with n and test in `results_verified.json`:
-
-- On the 100-leaf cohort, mean degree and D are both independent predictors of
-  p_c (partial Spearman 0.736 and 0.502) and are themselves nearly uncorrelated.
-- On the 42-network synthetic grid, where the two are manipulated separately,
-  mean degree carries almost all of the effect (standardized β 0.933 vs 0.067,
-  R² = 0.887). Restricted to the empirical range ⟨k⟩ ≤ 2.99 the dominance shrinks
-  but holds: partial r 0.970 vs 0.451. Connectivity is the lever; D is real but
-  secondary.
-- Adding shortest Delaunay areole closures to each leaf's own venation raises
-  median p_c from 0.201 to 0.215; 93 of 105 leaves improve and none worsen. At
-  matched edge count, placement matters: the planar Delaunay rule is the most
-  conservative of three arms tested.
-- Damage geometry changes the answer. Under one contiguous lesion the median
-  threshold rises to 0.4951 and the connectivity association falls to zero; under
-  ten lesions fractal dimension is the only surviving predictor (ρ = 0.523).
-- At the literature-anchored sink strength (`K_H_HOLOPARASITE = 0.0392`) the
-  haustorium is sub-cavitation: no vessel embolises at any gradient tested. The
-  hydraulic sink and the percolation collapse are therefore decoupled lenses on
-  the same host, not one mechanism.
-
-Three things the study deliberately does **not** claim: a universality class (the
-measured β is window-sensitive and matches neither mean-field nor 2-D; see
-`scripts/run_scaling_mesh.py`), validation against measured K_leaf (Spearman
-0.187, p = 0.073, n = 93 — reported as a limitation, since the model is
-xylem-only while K_leaf is dominated by outside-xylem pathways), and any claim
-that the topological threshold is an early-warning or pre-symptomatic diagnostic
-of hydraulic failure.
-
-## Known limitations, stated up front
-
-| Limitation | Why it matters |
-|---|---|
-| Topological, not hydraulic | Connectivity loss ≠ conductance loss. Never converted to PLC, P50 or K_leaf. |
-| 100 of 120 sources are **crop windows**, not whole laminae | No petiole in any file; the source node is the widest vein, not an anatomical one. |
-| The 1.0 MPa cavitation margin is **stipulated** | ψ_leaf = −1.0 and ψ_cav = −2.0 are both choices. The parasite contributes 2.6% of that margin; the null inverts at a −1.0 MPa threshold. This is why Δψ, not an embolism count, is the reported quantity. |
-| The 20% diversion anchor is **hemiparasite-derived** | Jiang et al. (2003), whole-plant root uptake. Treated as a conservative floor, and swept 0–3.0 MPa rather than trusted at one point. |
-| Box-counting D is size-entangled | Spearman(N, D) = +0.880. Its association with p_c *rises* to 0.633 under size control, so it survives — but both numbers are disclosed. |
-
-`SECOND_PASS_AUDIT.md` and `FINAL_RESOLUTION_PASS.md` carry the full stress test and every repair
-it forced.
-
-## Repository layout
+Scripts that use real leaves need the Matos et al. deposit unzipped into
+`UCBG_venation_form_data/` (about 4.4 GB, not included):
 
 ```
-config.py                 physical constants, default parameter sets, graph schema
-holoparasitic/            the modelling library (module map below)
-scripts/                  every runnable driver          -> scripts/README.md
-tests/                    smoke tests
-data/                     all generated results          -> data/README.md
-figures/                  all generated figures
-empirical/                our own leaf photographs, measurements and the
-                          literature notes behind them   -> empirical/README.md
-rrl/                      the ten-domain literature review, one file per domain
-UCBG_venation_form_data/  the Matos deposit, unzipped (not committed, ~4.4 GB)
-hydraulics/               Matos et al.'s measured hydraulics tables (vendored)
-Rscripts/                 Matos et al.'s own R analysis code (vendored, reference)
+python scripts\run_characterize.py
+python scripts\build_cohort.py
+python scripts\run_cohort_percolation.py
 ```
 
-`hydraulics/` and `Rscripts/` are **third-party files redistributed from the
-Matos deposit**, not our work. `Rscripts/` is kept for reference only and is
-never executed by this pipeline. `hydraulics/hydraulics/UCBG_venation_kmax.csv`
-is a genuine input: `run_kleaf_validate.py` and
-`run_resistance_convention_sensitivity.py` both read the measured K_leaf values
-from it.
+Every random draw goes through `config.new_rng(seed)`, so the same settings give the same results.
 
-## Module map
+## Data
 
-| File | Role |
-|---|---|
-| `config.py` | Physical constants, all default parameter sets, the graph schema |
-| `holoparasitic/network.py` | Synthetic Murray's-law generator; `knn` and `mesh` reticulation |
-| `holoparasitic/realleaf.py` | Loader for one traced Matos leaf, onto the same schema |
-| `holoparasitic/metadata.py` | The source dataset's extraction-quality flags, decoded |
-| `holoparasitic/fractal.py` | Box-counting D, shared by graphs and leaf images |
-| `holoparasitic/hydraulics.py` | Sparse Kirchhoff solver, haustorial sink, cavitation |
-| `holoparasitic/percolation.py` | Monte Carlo GCC collapse, logistic p_c, bootstrap CI |
-| `holoparasitic/characterize.py` | Full per-leaf profile and the validity screen |
-| `holoparasitic/boundary.py` | Cropping-artifact test for the windowed source networks |
-| `holoparasitic/calibrate.py` | Measures real branching geometry; fits the generator to it |
-| `holoparasitic/matos_summary.py` | Reads the authors' precomputed metrics, as a cross-check |
-| `holoparasitic/dynamics.py` | Logistic load ρ(t) and the damage-accumulation window |
-| `holoparasitic/sweep.py` | p_c vs D, and the coupled (K_h, D) surface |
-| `holoparasitic/viz.py` | Network plot, collapse sigmoid, heatmap, animation |
+The venation networks and the measured hydraulics table are not ours. They come from:
 
-Drivers live in `scripts/` and are catalogued in [scripts/README.md](scripts/README.md).
-Outputs and their provenance are catalogued in [data/README.md](data/README.md).
+> Matos, I. S., et al. (2024). *Leaf architecture and functional traits for 122 species at the
+> University of California at Berkeley botanical garden* [Data set]. Dryad.
+> https://doi.org/10.5061/dryad.1g1jwsv36
 
-## Three modelling decisions worth knowing before reading the code
-
-**1. Reticulation is required, not decorative.** A strict Murray tree has no
-redundant paths, so removing an internal node disconnects its whole subtree and
-the giant component bleeds off roughly linearly — there is no sharp threshold to
-measure at all. Real venation is reticulate. Two modes implement this:
-`knn` adds nearest-neighbour cross-links to a tree (mean degree rises but most
-edges stay bridges); `mesh` adds the shortest Delaunay edges, which are planar
-and non-crossing, so each one closes a real areole. Only `mesh` reproduces the
-cohort's loop fraction of ~0.78 at a mean degree of only ~2.5, which is why it
-is the calibrated default.
-
-**2. How K_h enters — two paths, both implemented.** Topologically
-(`mode="random"` / `"targeted"`), p_c is a property of connectivity alone; this
-is the fast engine behind the million-trial reference run. Coupled
-(`mode="hydraulic"`), the solver computes vessel tension, vessels past the
-cavitation limit embolise and are removed, so K_h genuinely moves the threshold.
-Note that ρ means different things in the two: fraction of junctions *removed*
-in the topological modes, fraction of junctions *bearing a haustorium* in the
-hydraulic one. They are different quantities and are not interchangeable.
-
-**3. Site, not bond, percolation.** `percolation._trial_random` removes
-*junctions* (nodes), which is site percolation. The critical behaviour and the
-qualitative conclusions are the same as for vessel (bond) removal, but the
-numbers are not, and the methods say junctions. Relatedly, `_gcc_size` measures
-the largest surviving component anywhere rather than specifically the one still
-attached to the root; on networks this reticulated the two coincide, and
-`run_robustness.py` measures the threshold as root-invariant, but the code does
-not enforce a root check and the methods do not claim it does. A source-anchored
-re-run gives thresholds correlating at ρ = 0.912 with every association
-preserved, so the criterion choice does not carry the conclusions.
-
-## Document index
-
-The repository root carries the written record as well as the code. Start at the
-top of each group.
-
-**Method and results**
-
-| Document | What it holds |
-|---|---|
-| [ANALYSIS.md](ANALYSIS.md) | Pipeline walkthrough and the data analysis behind each result |
-| [PROJECT_DETAILED_WRITEUP.md](PROJECT_DETAILED_WRITEUP.md) | Long-form writeup feeding the paper |
-| [MANUSCRIPT_REVISED_SECTIONS.md](MANUSCRIPT_REVISED_SECTIONS.md) | Current manuscript sections |
-| [DISCUSSION_REVISED.md](DISCUSSION_REVISED.md), [DISCUSSION_SOP_ALIGNED.md](DISCUSSION_SOP_ALIGNED.md) | Discussion drafts; the SOP-aligned one is the later |
-| [STATISTICAL_ANALYSIS_REWRITE.md](STATISTICAL_ANALYSIS_REWRITE.md) | Replacement statistics section |
-| [SUPPLEMENTARY_TABLES.md](SUPPLEMENTARY_TABLES.md) | Tables S1–S5, generated from the archived JSON |
-| [ROBUSTNESS_CEILING_DISCUSSION.md](ROBUSTNESS_CEILING_DISCUSSION.md) | Robustness-ceiling result, framed as hypothesis |
-
-**Verification trail** — read these to check the work rather than to learn it
-
-| Document | What it holds |
-|---|---|
-| [VALIDATION.md](VALIDATION.md) | Model vs literature, one verdict per claim |
-| [SECOND_PASS_AUDIT.md](SECOND_PASS_AUDIT.md) | Second-pass scientific stress test and the repairs it forced |
-| [FINAL_RESOLUTION_PASS.md](FINAL_RESOLUTION_PASS.md) | Every open flag and how it was closed |
-| [DEEP_RRL_EVIDENCE_PACK.md](DEEP_RRL_EVIDENCE_PACK.md) | Ten-domain literature and evidence pass |
-| [DISCUSSION_PATCH_LOG.md](DISCUSSION_PATCH_LOG.md) | Corrections applied to the Discussion, itemised |
-| [SOFTWARE_LOGBOOK.md](SOFTWARE_LOGBOOK.md) | Chronological build record, newest entry first |
-| [rrl/](rrl/) | The literature review itself, one file per domain (A–J) |
-
-**Defence and briefing**
-
-| Document | What it holds |
-|---|---|
-| [STUDY_MASTERY_GUIDE.md](STUDY_MASTERY_GUIDE.md) | Everything needed to defend the study, end to end |
-| [DEFENSE_PANEL_PREP.md](DEFENSE_PANEL_PREP.md) | Anticipated panel questions with prepared answers |
-| [STATISTICS_EXPLAINED.md](STATISTICS_EXPLAINED.md) | Every statistical tool, technical and plain-language, with the judge-facing answer |
-| [REFERENCES_RESULTS_DISCUSSION.md](REFERENCES_RESULTS_DISCUSSION.md) | Reference list for Results and Discussion |
-| [REFERENCES_PARASITES.md](REFERENCES_PARASITES.md) | References behind the parasite profiles |
-| [VALIDATOR_BRIEF.md](VALIDATOR_BRIEF.md), [BIOPHYSICIST_ONE_PAGER.md](BIOPHYSICIST_ONE_PAGER.md) | One-page briefs for external validators |
-| [PROPOSAL_DEFENSE.md](PROPOSAL_DEFENSE.md) | Proposal defence deck |
-| [HANDOFF.md](HANDOFF.md), [HANDOFF_FOR_PROCEDURES.md](HANDOFF_FOR_PROCEDURES.md) | Project state and methods handoff notes |
-
-## Data sources and attribution
-
-The venation networks, the measured hydraulics tables in `hydraulics/` and the R
-code in `Rscripts/` are **not our data**. They come from:
-
-> Matos, I. S., et al. (2024). *UCBG venation form data.* Dryad.
-> `https://doi.org/10.5061/dryad.1g1jwsv36`
-
-Check the licence terms on that Dryad landing page before redistributing any of
-it; the copies vendored here are included so the analysis can be re-run, and
-carry whatever terms the deposit sets. Cite the deposit, not this repository, for
-anything measured from those leaves.
-
-Our own contributions are the modelling code (`config.py`, `holoparasitic/`,
-`scripts/`, `tests/`), everything generated into `data/` and `figures/`, and the
-photographs and measurements in `empirical/`.
-
-## Reproducibility
-
-Every random draw goes through `config.new_rng(seed)` and every seed lives in
-`config.py`, so the same configuration produces the same figures. Long runs
-(`run_cohort_suggested.py`, `run_synthetic_grid.py`, `run_kleaf_validate.py`)
-append to their CSV incrementally and skip completed rows, so an interrupted run
-resumes rather than restarting.
-
-Two archived artifacts are **superseded** and labelled as such rather than
-deleted, because earlier drafts quote them: the `pc_vs_D` and `pc_surface` arrays
-inside `data/results.npz` were computed on the legacy `knn` generator (⟨k⟩
-4.4–7.0, far above anything empirical). `data/csv/README.md` sets out exactly why
-and what replaced them. `sweep._network_for_reticulation` still forces `knn`
-mode on purpose, so those legacy figures remain reproducible.
+Cite the deposit for anything measured from those leaves.
 
 ---
 
-<sub>Nicko Fajardo · Overall Champion, Life Science & 1st Place, Life Science Individual — Division STF 2026 · 1st Place, District STF 2026 · advancing to Regional STF</sub>
+<sub>Nicko Fajardo · Valenzuela City School of Mathematics and Science</sub>
