@@ -1,0 +1,5 @@
+species,common_name,group,plant_id,leaf_id,window_id,collection_date,window_mm2,n_junctions,mean_degree,loop_fraction,p_c,notes
+Terminalia catappa,talisay,non-crop,1,1,1,,34.91,3239,2.4875,0.7407,0.1559,"LeafVeinCNN v2.14 as traced; crop T786 L1272 W3693 H3693; N=4517 E=5618; 2400 trials, seed 1"
+Abelmoschus esculentus,okra,crop,1,1,1,,34.91,492,2.2241,0.4743,0.1157,"LeafVeinCNN v2.14 as traced; crop T984 L1568 W3693 H3693; N=821 E=913; 2400 trials, seed 1"
+Annona muricata,guyabano,crop,1,1,1,,34.91,836,2.3565,0.6085,0.0849,"LeafVeinCNN v2.14 as traced; crop T1200 L1064 W3693 H3693; N=1279 E=1507; 2400 trials, seed 1"
+Hibiscus rosa-sinensis,gumamela,non-crop,1,1,1,,34.91,1933,2.3981,0.689,0.1799,"LeafVeinCNN v2.14 as traced; crop T1696 L1816 W3693 H3693; N=2808 E=3367; 2400 trials, seed 1"
