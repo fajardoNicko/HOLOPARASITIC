@@ -166,31 +166,32 @@ def main():
                 fontsize=10, fontweight="bold")
     a0.set_aspect("equal"); a0.axis("off")
     a0.set_title("Water-potential field with the calibrated sink\n"
-                 "K_h = %.3f  |  diverts ~20%% of flow at ~1.5 MPa  |  0 vessels embolise"
-                 % k_h, fontsize=11, color=INK)
+                 "K_h = %.4f  |  takes ~20%% of inflow at the 1.5 MPa gradient  |  "
+                 "0 vessels below -2.0 MPa" % k_h, fontsize=11, color=INK)
     cb = fig.colorbar(tcf, ax=a0, fraction=0.046, pad=0.02); cb.set_label("psi (MPa)")
 
-    a1.plot(grads, min_psi, "-o", ms=3, color=BLU, lw=2, label="leaf's lowest tension")
+    a1.plot(grads, min_psi, "-o", ms=3, color=BLU, lw=2, label="leaf's lowest water potential")
     a1.axhline(config.PSI_CAVITATION, color=ACC, ls="--", lw=1.6)
-    a1.text(0.05, config.PSI_CAVITATION - 0.12, "cavitation / rupture threshold (-2.0 MPa)",
+    a1.text(0.05, config.PSI_CAVITATION - 0.12, "stipulated cavitation threshold (-2.0 MPa)",
             color=ACC, fontsize=9)
     a1.axvline(GRADIENT_MPA, color="0.3", ls="-", lw=1.4)
     a1.text(GRADIENT_MPA + 0.06, min_psi[0] - 0.25,
             "illustrative gradient\n(~1.5 MPa, review-level)", fontsize=8.5, color="0.3")
     a1.fill_between(grads, config.PSI_CAVITATION, 0.05, color=BLU, alpha=0.06)
-    a1.text(1.55, -0.55, "no embolism\n(safe region)", fontsize=8.5, color=BLU)
+    a1.text(1.55, -0.55, "above the -2.0 MPa\nthreshold", fontsize=8.5, color=BLU)
     a1.set_ylim(config.PSI_CAVITATION - 0.4, 0.05)
     a1.set_xlabel("host -> parasite water-potential gradient (MPa)\n"
                   "(parasite osmotic strength / host water stress)", color=INK)
-    a1.set_ylabel("leaf's minimum xylem tension (MPa)", color=INK)
-    a1.set_title("The calibrated sink NEVER reaches rupture, at any gradient\n"
-                 "(20% of flow is diverted with barely any tension change)",
+    a1.set_ylabel("leaf's minimum xylem water potential (MPa)", color=INK)
+    a1.set_title("Lowest water potential across %d gradients, 0 to %.1f MPa\n"
+                 "(no vessel reached the -2.0 MPa threshold in this sweep)" % (len(grads), grads[-1]),
                  fontsize=11, color=INK)
     a1.legend(loc="lower left", fontsize=9); a1.grid(alpha=0.25)
 
-    fig.suptitle("Literature-grounded haustorial sink: it withdraws 20% of flow yet "
-                 "cannot rupture the xylem -> harm is resource drain, not embolism",
-                 fontsize=12, color=INK, y=1.0)
+    i_lit = int(np.argmin(np.abs(grads - GRADIENT_MPA)))
+    fig.suptitle("Literature-calibrated haustorial sink: it takes 20%% of inflow and lowers the "
+                 "minimum water potential by %.3f MPa (at the -2.0 MPa cavitation threshold)"
+                 % (min_psi[0] - min_psi[i_lit]), fontsize=12, color=INK, y=1.0)
     fig.text(0.5, 0.005,
              "Reservoir psi set an illustrative ~1.5 MPa below the tapped host vessel "
              "(review-level value, not a primary measurement); K_h solved so the haustorium "
