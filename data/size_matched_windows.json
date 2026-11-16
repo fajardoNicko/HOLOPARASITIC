@@ -1,0 +1,1553 @@
+{
+ "window_mm_area_mode": 5.9088,
+ "target_nodes_nodes_mode": 2000,
+ "min_nodes": 500,
+ "margin_mm": 0.5,
+ "max_windows_per_leaf": 3,
+ "area": {
+  "cohort_leaves": 100,
+  "leaves_with_window": 66,
+  "leaves_without_window": 34,
+  "n_windows": 173,
+  "median_side_mm": 5.909,
+  "median_window_nodes": 1017.0,
+  "median_window_mean_degree": 2.45925,
+  "median_window_pc": 0.19678333333333337,
+  "median_whole_leaf_pc_same_leaves": 0.20750000000000002,
+  "line": {
+   "a_at_k2": 0.0965967925048691,
+   "slope": 0.18564398731129617,
+   "residual_sd": 0.03685087658248529
+  },
+  "spearman_k_pc_leaves": {
+   "rho": 0.785742615593362,
+   "p": 5.572283908634615e-15,
+   "n": 66
+  },
+  "spearman_k_pc_windows": {
+   "rho": 0.7658558858609671,
+   "p": 1.2717442451006682e-34,
+   "n": 173
+  },
+  "window_vs_whole_leaf": {
+   "rho_mean_degree": 0.9609226594301222,
+   "rho_pc": 0.9733729985595663
+  },
+  "leaves": [
+   {
+    "species": "Abe_mex",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.2121,
+    "p_c": 0.1561,
+    "n_nodes": 973.6666666666666,
+    "leaf_mean_degree": 2.3151313601596275,
+    "leaf_pc": 0.1834
+   },
+   {
+    "species": "Aex_pun",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.8141999999999996,
+    "p_c": 0.2654,
+    "n_nodes": 737.6666666666666,
+    "leaf_mean_degree": 2.936097375427919,
+    "leaf_pc": 0.2698
+   },
+   {
+    "species": "Ale_cor",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4671,
+    "p_c": 0.20496666666666666,
+    "n_nodes": 1933.0,
+    "leaf_mean_degree": 2.511981494138058,
+    "leaf_pc": 0.2113
+   },
+   {
+    "species": "Ane_cal",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.3301000000000003,
+    "p_c": 0.16103333333333333,
+    "n_nodes": 1503.3333333333333,
+    "leaf_mean_degree": 2.215554438195021,
+    "leaf_pc": 0.1513
+   },
+   {
+    "species": "Ari_bae",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.3812333333333333,
+    "p_c": 0.1963666666666667,
+    "n_nodes": 1320.3333333333333,
+    "leaf_mean_degree": 2.461742160278745,
+    "leaf_pc": 0.2079
+   },
+   {
+    "species": "Asi_tri",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.23925,
+    "p_c": 0.1567,
+    "n_nodes": 1131.0,
+    "leaf_mean_degree": 2.283512370511177,
+    "leaf_pc": 0.1755
+   },
+   {
+    "species": "Bei_tar",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.559066666666667,
+    "p_c": 0.2033666666666667,
+    "n_nodes": 2153.6666666666665,
+    "leaf_mean_degree": 2.5480549361587297,
+    "leaf_pc": 0.2087
+   },
+   {
+    "species": "Bux_har",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.6200333333333337,
+    "p_c": 0.19720000000000001,
+    "n_nodes": 1106.0,
+    "leaf_mean_degree": 2.731251599692859,
+    "leaf_pc": 0.2055
+   },
+   {
+    "species": "Cam_sin",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.2453333333333334,
+    "p_c": 0.1625,
+    "n_nodes": 993.0,
+    "leaf_mean_degree": 2.3142071808967533,
+    "leaf_pc": 0.1858
+   },
+   {
+    "species": "Car_pal",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.5735333333333332,
+    "p_c": 0.2006,
+    "n_nodes": 804.3333333333334,
+    "leaf_mean_degree": 2.6302352568836374,
+    "leaf_pc": 0.2008
+   },
+   {
+    "species": "Cat_edu",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.445,
+    "p_c": 0.20983333333333332,
+    "n_nodes": 580.6666666666666,
+    "leaf_mean_degree": 2.568478924862553,
+    "leaf_pc": 0.2209
+   },
+   {
+    "species": "Cel_aus",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4191333333333334,
+    "p_c": 0.1960333333333333,
+    "n_nodes": 2209.6666666666665,
+    "leaf_mean_degree": 2.493859105006646,
+    "leaf_pc": 0.2119
+   },
+   {
+    "species": "Cel_ten",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4534,
+    "p_c": 0.2048,
+    "n_nodes": 682.0,
+    "leaf_mean_degree": 2.539742827735173,
+    "leaf_pc": 0.2161
+   },
+   {
+    "species": "Chl_spi",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.06515,
+    "p_c": 0.08915000000000001,
+    "n_nodes": 635.0,
+    "leaf_mean_degree": 2.147870425914817,
+    "leaf_pc": 0.1216
+   },
+   {
+    "species": "Cis_ant",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.5889333333333333,
+    "p_c": 0.2132666666666667,
+    "n_nodes": 1958.6666666666667,
+    "leaf_mean_degree": 2.63560553897942,
+    "leaf_pc": 0.233
+   },
+   {
+    "species": "Cis_pop",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.5150666666666663,
+    "p_c": 0.21966666666666665,
+    "n_nodes": 2808.0,
+    "leaf_mean_degree": 2.545641631911377,
+    "leaf_pc": 0.223
+   },
+   {
+    "species": "Cit_mon",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4613333333333336,
+    "p_c": 0.21196666666666666,
+    "n_nodes": 1664.6666666666667,
+    "leaf_mean_degree": 2.532890791929532,
+    "leaf_pc": 0.2267
+   },
+   {
+    "species": "Com_umb",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.409433333333333,
+    "p_c": 0.18736666666666665,
+    "n_nodes": 1548.3333333333333,
+    "leaf_mean_degree": 2.4705982469577057,
+    "leaf_pc": 0.1932
+   },
+   {
+    "species": "Cor_bud",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.3893333333333335,
+    "p_c": 0.19236666666666666,
+    "n_nodes": 1071.0,
+    "leaf_mean_degree": 2.471634398919406,
+    "leaf_pc": 0.2005
+   },
+   {
+    "species": "Cor_lae",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4403,
+    "p_c": 0.20009999999999997,
+    "n_nodes": 964.6666666666666,
+    "leaf_mean_degree": 2.5202384331535623,
+    "leaf_pc": 0.2181
+   },
+   {
+    "species": "Cri_pat",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.2514000000000003,
+    "p_c": 0.16494999999999999,
+    "n_nodes": 590.5,
+    "leaf_mean_degree": 2.3746341463414637,
+    "leaf_pc": 0.1681
+   },
+   {
+    "species": "Cup_nud",
+    "n_windows": 1,
+    "side_mm": 5.909,
+    "mean_degree": 2.9194,
+    "p_c": 0.2599,
+    "n_nodes": 2121.0,
+    "leaf_mean_degree": 2.932830372353371,
+    "leaf_pc": 0.2548
+   },
+   {
+    "species": "Cus_spi",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4571666666666667,
+    "p_c": 0.16326666666666667,
+    "n_nodes": 900.0,
+    "leaf_mean_degree": 2.5416707224482646,
+    "leaf_pc": 0.1345
+   },
+   {
+    "species": "Cyc_bip",
+    "n_windows": 1,
+    "side_mm": 5.909,
+    "mean_degree": 2.4862,
+    "p_c": 0.2045,
+    "n_nodes": 506.0,
+    "leaf_mean_degree": 2.706467843747141,
+    "leaf_pc": 0.2444
+   },
+   {
+    "species": "Dap_him",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.2165,
+    "p_c": 0.1055,
+    "n_nodes": 719.0,
+    "leaf_mean_degree": 2.336685472496474,
+    "leaf_pc": 0.109
+   },
+   {
+    "species": "Del_fis",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.7571333333333334,
+    "p_c": 0.2312,
+    "n_nodes": 2164.6666666666665,
+    "leaf_mean_degree": 2.848738839830219,
+    "leaf_pc": 0.2306
+   },
+   {
+    "species": "Dio_lyc",
+    "n_windows": 1,
+    "side_mm": 5.909,
+    "mean_degree": 2.566,
+    "p_c": 0.2007,
+    "n_nodes": 530.0,
+    "leaf_mean_degree": 2.6731291198138813,
+    "leaf_pc": 0.2204
+   },
+   {
+    "species": "Dio_pol",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.2421,
+    "p_c": 0.15163333333333331,
+    "n_nodes": 678.6666666666666,
+    "leaf_mean_degree": 2.2970150045066537,
+    "leaf_pc": 0.1619
+   },
+   {
+    "species": "Dir_occ",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.6466,
+    "p_c": 0.22186666666666666,
+    "n_nodes": 3435.6666666666665,
+    "leaf_mean_degree": 2.700432854328163,
+    "leaf_pc": 0.2332
+   },
+   {
+    "species": "Ehr_acu",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4974333333333334,
+    "p_c": 0.22746666666666668,
+    "n_nodes": 795.6666666666666,
+    "leaf_mean_degree": 2.574463376853286,
+    "leaf_pc": 0.2402
+   },
+   {
+    "species": "Esc_her",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4904666666666664,
+    "p_c": 0.19843333333333335,
+    "n_nodes": 2422.6666666666665,
+    "leaf_mean_degree": 2.5644625212659284,
+    "leaf_pc": 0.2113
+   },
+   {
+    "species": "Euc_cri",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.53385,
+    "p_c": 0.2026,
+    "n_nodes": 828.0,
+    "leaf_mean_degree": 2.665278934221482,
+    "leaf_pc": 0.2191
+   },
+   {
+    "species": "Eur_jap",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.20395,
+    "p_c": 0.1524,
+    "n_nodes": 647.5,
+    "leaf_mean_degree": 2.2491464588987133,
+    "leaf_pc": 0.1609
+   },
+   {
+    "species": "Eus_jap",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.9136666666666664,
+    "p_c": 0.25579999999999997,
+    "n_nodes": 3291.6666666666665,
+    "leaf_mean_degree": 2.942835755278573,
+    "leaf_pc": 0.2597
+   },
+   {
+    "species": "Fra_son",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.416066666666667,
+    "p_c": 0.08886666666666666,
+    "n_nodes": 608.3333333333334,
+    "leaf_mean_degree": 2.4577190509187354,
+    "leaf_pc": 0.0795
+   },
+   {
+    "species": "Gom_keu",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.5228333333333333,
+    "p_c": 0.1963,
+    "n_nodes": 918.0,
+    "leaf_mean_degree": 2.5957524335016395,
+    "leaf_pc": 0.2095
+   },
+   {
+    "species": "Hib_sca",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.9064666666666668,
+    "p_c": 0.2501666666666667,
+    "n_nodes": 2677.6666666666665,
+    "leaf_mean_degree": 2.947241106059974,
+    "leaf_pc": 0.2548
+   },
+   {
+    "species": "Ill_lan",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.5467333333333335,
+    "p_c": 0.2000666666666667,
+    "n_nodes": 883.3333333333334,
+    "leaf_mean_degree": 2.684014702234649,
+    "leaf_pc": 0.2045
+   },
+   {
+    "species": "Ite_ili",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.42785,
+    "p_c": 0.19165,
+    "n_nodes": 799.0,
+    "leaf_mean_degree": 2.525947892395679,
+    "leaf_pc": 0.2071
+   },
+   {
+    "species": "Lon_jap",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.436566666666667,
+    "p_c": 0.14496666666666666,
+    "n_nodes": 935.6666666666666,
+    "leaf_mean_degree": 2.4871229962774444,
+    "leaf_pc": 0.1494
+   },
+   {
+    "species": "Mal_pal",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.6433999999999997,
+    "p_c": 0.2205,
+    "n_nodes": 2145.0,
+    "leaf_mean_degree": 2.684290247327164,
+    "leaf_pc": 0.2254
+   },
+   {
+    "species": "Mel_maj",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.708933333333333,
+    "p_c": 0.23939999999999997,
+    "n_nodes": 1211.6666666666667,
+    "leaf_mean_degree": 2.8072104755966216,
+    "leaf_pc": 0.2533
+   },
+   {
+    "species": "Mon_car",
+    "n_windows": 1,
+    "side_mm": 5.909,
+    "mean_degree": 2.3232,
+    "p_c": 0.1768,
+    "n_nodes": 594.0,
+    "leaf_mean_degree": 2.471456972451008,
+    "leaf_pc": 0.1977
+   },
+   {
+    "species": "Myr_rub",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.4787999999999997,
+    "p_c": 0.2273,
+    "n_nodes": 601.5,
+    "leaf_mean_degree": 2.614605821484404,
+    "leaf_pc": 0.2394
+   },
+   {
+    "species": "Nan_dom",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.3910333333333336,
+    "p_c": 0.1948,
+    "n_nodes": 884.0,
+    "leaf_mean_degree": 2.460352905118438,
+    "leaf_pc": 0.2037
+   },
+   {
+    "species": "Not_fus",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.3648666666666665,
+    "p_c": 0.20400000000000004,
+    "n_nodes": 1023.0,
+    "leaf_mean_degree": 2.4483483132952024,
+    "leaf_pc": 0.2233
+   },
+   {
+    "species": "Ole_eur",
+    "n_windows": 1,
+    "side_mm": 5.909,
+    "mean_degree": 2.4778,
+    "p_c": 0.2049,
+    "n_nodes": 1758.0,
+    "leaf_mean_degree": 2.520152986172404,
+    "leaf_pc": 0.2092
+   },
+   {
+    "species": "Pae_bro",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.3280666666666665,
+    "p_c": 0.18646666666666667,
+    "n_nodes": 856.3333333333334,
+    "leaf_mean_degree": 2.400576862666705,
+    "leaf_pc": 0.1945
+   },
+   {
+    "species": "Peu_bol",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.2887,
+    "p_c": 0.18563333333333332,
+    "n_nodes": 531.6666666666666,
+    "leaf_mean_degree": 2.359790897319073,
+    "leaf_pc": 0.1932
+   },
+   {
+    "species": "Phi_lat",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.5938666666666665,
+    "p_c": 0.2126,
+    "n_nodes": 1470.0,
+    "leaf_mean_degree": 2.653043091959129,
+    "leaf_pc": 0.2204
+   },
+   {
+    "species": "Pit_vir",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.6240666666666663,
+    "p_c": 0.23723333333333332,
+    "n_nodes": 1099.6666666666667,
+    "leaf_mean_degree": 2.729325584211164,
+    "leaf_pc": 0.2517
+   },
+   {
+    "species": "Pla_ori",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.6095666666666673,
+    "p_c": 0.2432,
+    "n_nodes": 860.3333333333334,
+    "leaf_mean_degree": 2.733575581395349,
+    "leaf_pc": 0.2533
+   },
+   {
+    "species": "Pol_vir",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.641033333333333,
+    "p_c": 0.21919999999999998,
+    "n_nodes": 1406.0,
+    "leaf_mean_degree": 2.708568937752001,
+    "leaf_pc": 0.2304
+   },
+   {
+    "species": "Pro_hoo",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4753333333333334,
+    "p_c": 0.14170000000000002,
+    "n_nodes": 1445.0,
+    "leaf_mean_degree": 2.50465829846583,
+    "leaf_pc": 0.1643
+   },
+   {
+    "species": "Qui_sap",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.2508333333333335,
+    "p_c": 0.16323333333333334,
+    "n_nodes": 1040.3333333333333,
+    "leaf_mean_degree": 2.3299906957510594,
+    "leaf_pc": 0.1866
+   },
+   {
+    "species": "Ran_lae",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.4661,
+    "p_c": 0.07835,
+    "n_nodes": 717.5,
+    "leaf_mean_degree": 2.519472647370814,
+    "leaf_pc": 0.101
+   },
+   {
+    "species": "Rha_pir",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.5635999999999997,
+    "p_c": 0.22916666666666666,
+    "n_nodes": 813.6666666666666,
+    "leaf_mean_degree": 2.6785432760523413,
+    "leaf_pc": 0.2447
+   },
+   {
+    "species": "Rub_odo",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4736333333333334,
+    "p_c": 0.07363333333333333,
+    "n_nodes": 1475.0,
+    "leaf_mean_degree": 2.4618434768390145,
+    "leaf_pc": 0.0704
+   },
+   {
+    "species": "Sam_nig",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.449733333333333,
+    "p_c": 0.14759999999999998,
+    "n_nodes": 1799.6666666666667,
+    "leaf_mean_degree": 2.502728603753494,
+    "leaf_pc": 0.1581
+   },
+   {
+    "species": "Sau_cer",
+    "n_windows": 1,
+    "side_mm": 5.909,
+    "mean_degree": 2.4095,
+    "p_c": 0.0288,
+    "n_nodes": 503.0,
+    "leaf_mean_degree": 2.432334414964688,
+    "leaf_pc": 0.0262
+   },
+   {
+    "species": "Sim_chi",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.3511333333333333,
+    "p_c": 0.13263333333333335,
+    "n_nodes": 827.0,
+    "leaf_mean_degree": 2.4764835164835164,
+    "leaf_pc": 0.1546
+   },
+   {
+    "species": "Sta_chi",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.315,
+    "p_c": 0.10830000000000001,
+    "n_nodes": 571.5,
+    "leaf_mean_degree": 2.373880206179884,
+    "leaf_pc": 0.1194
+   },
+   {
+    "species": "Tec_spe",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.5968,
+    "p_c": 0.2191,
+    "n_nodes": 1327.6666666666667,
+    "leaf_mean_degree": 2.6677897430429685,
+    "leaf_pc": 0.2317
+   },
+   {
+    "species": "Tro_ara",
+    "n_windows": 3,
+    "side_mm": 5.909,
+    "mean_degree": 2.4380666666666664,
+    "p_c": 0.16906666666666667,
+    "n_nodes": 1839.3333333333333,
+    "leaf_mean_degree": 2.475079876511588,
+    "leaf_pc": 0.1877
+   },
+   {
+    "species": "Ure_car",
+    "n_windows": 1,
+    "side_mm": 5.909,
+    "mean_degree": 2.381,
+    "p_c": 0.0936,
+    "n_nodes": 609.0,
+    "leaf_mean_degree": 2.397585802575829,
+    "leaf_pc": 0.0567
+   },
+   {
+    "species": "Vio_gla",
+    "n_windows": 2,
+    "side_mm": 5.909,
+    "mean_degree": 2.25475,
+    "p_c": 0.14584999999999998,
+    "n_nodes": 699.5,
+    "leaf_mean_degree": 2.3200540175557056,
+    "leaf_pc": 0.1584
+   }
+  ],
+  "local": {
+   "n": 4,
+   "inside_band": 3,
+   "spearman_rho": 0.6000000000000001,
+   "spearman_p_one_sided": 0.2,
+   "leaves": [
+    {
+     "common_name": "talisay",
+     "mean_degree": 2.4875,
+     "p_c": 0.1559,
+     "predicted": 0.18709823631912595,
+     "lo": 0.11291826805175459,
+     "hi": 0.2612782045864973,
+     "residual": -0.031198236319125938
+    },
+    {
+     "common_name": "okra",
+     "mean_degree": 2.2241,
+     "p_c": 0.1157,
+     "predicted": 0.13819961006133058,
+     "lo": 0.06291261757353707,
+     "hi": 0.2134866025491241,
+     "residual": -0.022499610061330583
+    },
+    {
+     "common_name": "guyabano",
+     "mean_degree": 2.3565,
+     "p_c": 0.0849,
+     "predicted": 0.1627788739813462,
+     "lo": 0.08836843415954682,
+     "hi": 0.23718931380314556,
+     "residual": -0.07787887398134619
+    },
+    {
+     "common_name": "gumamela",
+     "mean_degree": 2.3981,
+     "p_c": 0.1799,
+     "predicted": 0.17050166385349608,
+     "lo": 0.09623366050555462,
+     "hi": 0.24476966720143753,
+     "residual": 0.009398336146503927
+    }
+   ]
+  },
+  "windows_cut": 256,
+  "windows_below_min_nodes": 83
+ },
+ "nodes": {
+  "cohort_leaves": 100,
+  "leaves_with_window": 73,
+  "leaves_without_window": 27,
+  "n_windows": 193,
+  "median_side_mm": 8.641,
+  "median_window_nodes": 1923.0,
+  "median_window_mean_degree": 2.4467333333333334,
+  "median_window_pc": 0.1948,
+  "median_whole_leaf_pc_same_leaves": 0.2013,
+  "line": {
+   "a_at_k2": 0.07830471887622932,
+   "slope": 0.2149571877643609,
+   "residual_sd": 0.03854883113155491
+  },
+  "spearman_k_pc_leaves": {
+   "rho": 0.803467851413057,
+   "p": 1.1894483012394704e-17,
+   "n": 73
+  },
+  "spearman_k_pc_windows": {
+   "rho": 0.8020481875169961,
+   "p": 1.2663016452939736e-44,
+   "n": 193
+  },
+  "window_vs_whole_leaf": {
+   "rho_mean_degree": 0.9660002468221648,
+   "rho_pc": 0.9727870172165949
+  },
+  "leaves": [
+   {
+    "species": "Abe_mex",
+    "n_windows": 3,
+    "side_mm": 8.072,
+    "mean_degree": 2.2431666666666668,
+    "p_c": 0.16736666666666666,
+    "n_nodes": 1840.3333333333333,
+    "leaf_mean_degree": 2.3151313601596275,
+    "leaf_pc": 0.1834
+   },
+   {
+    "species": "Aex_pun",
+    "n_windows": 2,
+    "side_mm": 9.621,
+    "mean_degree": 2.8493000000000004,
+    "p_c": 0.2633,
+    "n_nodes": 1908.5,
+    "leaf_mean_degree": 2.936097375427919,
+    "leaf_pc": 0.2698
+   },
+   {
+    "species": "Ale_cor",
+    "n_windows": 3,
+    "side_mm": 6.077,
+    "mean_degree": 2.496566666666667,
+    "p_c": 0.20856666666666665,
+    "n_nodes": 2111.6666666666665,
+    "leaf_mean_degree": 2.511981494138058,
+    "leaf_pc": 0.2113
+   },
+   {
+    "species": "Ane_cal",
+    "n_windows": 3,
+    "side_mm": 6.638,
+    "mean_degree": 2.4290000000000003,
+    "p_c": 0.18523333333333336,
+    "n_nodes": 2531.6666666666665,
+    "leaf_mean_degree": 2.215554438195021,
+    "leaf_pc": 0.1513
+   },
+   {
+    "species": "Ari_bae",
+    "n_windows": 1,
+    "side_mm": 7.116,
+    "mean_degree": 2.3933,
+    "p_c": 0.1994,
+    "n_nodes": 1861.0,
+    "leaf_mean_degree": 2.461742160278745,
+    "leaf_pc": 0.2079
+   },
+   {
+    "species": "Asi_tri",
+    "n_windows": 3,
+    "side_mm": 8.812,
+    "mean_degree": 2.2162666666666664,
+    "p_c": 0.16036666666666669,
+    "n_nodes": 2148.6666666666665,
+    "leaf_mean_degree": 2.283512370511177,
+    "leaf_pc": 0.1755
+   },
+   {
+    "species": "Beg_for",
+    "n_windows": 3,
+    "side_mm": 12.659,
+    "mean_degree": 2.3989333333333334,
+    "p_c": 0.12116666666666666,
+    "n_nodes": 1953.6666666666667,
+    "leaf_mean_degree": 2.42471534357831,
+    "leaf_pc": 0.1408
+   },
+   {
+    "species": "Bei_tar",
+    "n_windows": 3,
+    "side_mm": 6.335,
+    "mean_degree": 2.5445,
+    "p_c": 0.20653333333333335,
+    "n_nodes": 2799.0,
+    "leaf_mean_degree": 2.5480549361587297,
+    "leaf_pc": 0.2087
+   },
+   {
+    "species": "Bux_har",
+    "n_windows": 1,
+    "side_mm": 8.522,
+    "mean_degree": 2.6866,
+    "p_c": 0.2045,
+    "n_nodes": 2581.0,
+    "leaf_mean_degree": 2.731251599692859,
+    "leaf_pc": 0.2055
+   },
+   {
+    "species": "Cal_pan",
+    "n_windows": 3,
+    "side_mm": 14.286,
+    "mean_degree": 2.379966666666667,
+    "p_c": 0.2076,
+    "n_nodes": 2131.6666666666665,
+    "leaf_mean_degree": 2.4046849757673665,
+    "leaf_pc": 0.21
+   },
+   {
+    "species": "Cam_sin",
+    "n_windows": 3,
+    "side_mm": 8.22,
+    "mean_degree": 2.2807,
+    "p_c": 0.1682,
+    "n_nodes": 1673.0,
+    "leaf_mean_degree": 2.3142071808967533,
+    "leaf_pc": 0.1858
+   },
+   {
+    "species": "Car_pal",
+    "n_windows": 2,
+    "side_mm": 8.952,
+    "mean_degree": 2.58065,
+    "p_c": 0.2068,
+    "n_nodes": 1860.0,
+    "leaf_mean_degree": 2.6302352568836374,
+    "leaf_pc": 0.2008
+   },
+   {
+    "species": "Cat_edu",
+    "n_windows": 3,
+    "side_mm": 10.314,
+    "mean_degree": 2.4931,
+    "p_c": 0.21673333333333336,
+    "n_nodes": 1976.3333333333333,
+    "leaf_mean_degree": 2.568478924862553,
+    "leaf_pc": 0.2209
+   },
+   {
+    "species": "Cel_aus",
+    "n_windows": 3,
+    "side_mm": 6.043,
+    "mean_degree": 2.4467333333333334,
+    "p_c": 0.20396666666666666,
+    "n_nodes": 2770.0,
+    "leaf_mean_degree": 2.493859105006646,
+    "leaf_pc": 0.2119
+   },
+   {
+    "species": "Cel_ten",
+    "n_windows": 3,
+    "side_mm": 9.79,
+    "mean_degree": 2.4614666666666665,
+    "p_c": 0.20113333333333336,
+    "n_nodes": 1683.0,
+    "leaf_mean_degree": 2.539742827735173,
+    "leaf_pc": 0.2161
+   },
+   {
+    "species": "Chi_nit",
+    "n_windows": 3,
+    "side_mm": 15.326,
+    "mean_degree": 2.258,
+    "p_c": 0.18090000000000003,
+    "n_nodes": 2113.6666666666665,
+    "leaf_mean_degree": 2.3090208716231526,
+    "leaf_pc": 0.1983
+   },
+   {
+    "species": "Chl_spi",
+    "n_windows": 3,
+    "side_mm": 10.015,
+    "mean_degree": 2.1120666666666668,
+    "p_c": 0.10063333333333334,
+    "n_nodes": 1760.0,
+    "leaf_mean_degree": 2.147870425914817,
+    "leaf_pc": 0.1216
+   },
+   {
+    "species": "Cis_ant",
+    "n_windows": 3,
+    "side_mm": 5.671,
+    "mean_degree": 2.5963333333333334,
+    "p_c": 0.22056666666666666,
+    "n_nodes": 2157.3333333333335,
+    "leaf_mean_degree": 2.63560553897942,
+    "leaf_pc": 0.233
+   },
+   {
+    "species": "Cis_pop",
+    "n_windows": 3,
+    "side_mm": 4.724,
+    "mean_degree": 2.4755000000000003,
+    "p_c": 0.2023,
+    "n_nodes": 1732.3333333333333,
+    "leaf_mean_degree": 2.545641631911377,
+    "leaf_pc": 0.223
+   },
+   {
+    "species": "Cit_mon",
+    "n_windows": 3,
+    "side_mm": 6.52,
+    "mean_degree": 2.4671666666666665,
+    "p_c": 0.21176666666666666,
+    "n_nodes": 1939.6666666666667,
+    "leaf_mean_degree": 2.532890791929532,
+    "leaf_pc": 0.2267
+   },
+   {
+    "species": "Com_umb",
+    "n_windows": 2,
+    "side_mm": 6.738,
+    "mean_degree": 2.3827,
+    "p_c": 0.18055,
+    "n_nodes": 1979.5,
+    "leaf_mean_degree": 2.4705982469577057,
+    "leaf_pc": 0.1932
+   },
+   {
+    "species": "Cor_lae",
+    "n_windows": 3,
+    "side_mm": 8.233,
+    "mean_degree": 2.4352,
+    "p_c": 0.20293333333333333,
+    "n_nodes": 1891.0,
+    "leaf_mean_degree": 2.5202384331535623,
+    "leaf_pc": 0.2181
+   },
+   {
+    "species": "Cos_tap",
+    "n_windows": 2,
+    "side_mm": 14.441,
+    "mean_degree": 2.45385,
+    "p_c": 0.1948,
+    "n_nodes": 1611.0,
+    "leaf_mean_degree": 2.564522127184827,
+    "leaf_pc": 0.1995
+   },
+   {
+    "species": "Cup_nud",
+    "n_windows": 1,
+    "side_mm": 6.031,
+    "mean_degree": 2.9183,
+    "p_c": 0.2597,
+    "n_nodes": 2202.0,
+    "leaf_mean_degree": 2.932830372353371,
+    "leaf_pc": 0.2548
+   },
+   {
+    "species": "Cus_spi",
+    "n_windows": 3,
+    "side_mm": 8.324,
+    "mean_degree": 2.4435,
+    "p_c": 0.16183333333333336,
+    "n_nodes": 1700.0,
+    "leaf_mean_degree": 2.5416707224482646,
+    "leaf_pc": 0.1345
+   },
+   {
+    "species": "Cyc_bip",
+    "n_windows": 3,
+    "side_mm": 12.799,
+    "mean_degree": 2.6286,
+    "p_c": 0.22373333333333334,
+    "n_nodes": 1771.6666666666667,
+    "leaf_mean_degree": 2.706467843747141,
+    "leaf_pc": 0.2444
+   },
+   {
+    "species": "Dap_him",
+    "n_windows": 3,
+    "side_mm": 9.935,
+    "mean_degree": 2.2235666666666667,
+    "p_c": 0.09416666666666666,
+    "n_nodes": 1417.0,
+    "leaf_mean_degree": 2.336685472496474,
+    "leaf_pc": 0.109
+   },
+   {
+    "species": "Del_fis",
+    "n_windows": 3,
+    "side_mm": 5.566,
+    "mean_degree": 2.7607666666666666,
+    "p_c": 0.22693333333333335,
+    "n_nodes": 1816.0,
+    "leaf_mean_degree": 2.848738839830219,
+    "leaf_pc": 0.2306
+   },
+   {
+    "species": "Dio_pol",
+    "n_windows": 3,
+    "side_mm": 9.955,
+    "mean_degree": 2.2601333333333335,
+    "p_c": 0.15226666666666666,
+    "n_nodes": 2049.3333333333335,
+    "leaf_mean_degree": 2.2970150045066537,
+    "leaf_pc": 0.1619
+   },
+   {
+    "species": "Dir_occ",
+    "n_windows": 3,
+    "side_mm": 4.404,
+    "mean_degree": 2.6407666666666665,
+    "p_c": 0.22326666666666664,
+    "n_nodes": 1619.0,
+    "leaf_mean_degree": 2.700432854328163,
+    "leaf_pc": 0.2332
+   },
+   {
+    "species": "Ehr_acu",
+    "n_windows": 3,
+    "side_mm": 8.974,
+    "mean_degree": 2.4933333333333336,
+    "p_c": 0.22526666666666664,
+    "n_nodes": 1934.3333333333333,
+    "leaf_mean_degree": 2.574463376853286,
+    "leaf_pc": 0.2402
+   },
+   {
+    "species": "Esc_her",
+    "n_windows": 3,
+    "side_mm": 5.007,
+    "mean_degree": 2.570466666666667,
+    "p_c": 0.21653333333333333,
+    "n_nodes": 1910.0,
+    "leaf_mean_degree": 2.5644625212659284,
+    "leaf_pc": 0.2113
+   },
+   {
+    "species": "Eur_jap",
+    "n_windows": 2,
+    "side_mm": 10.589,
+    "mean_degree": 2.2092,
+    "p_c": 0.14125,
+    "n_nodes": 1902.0,
+    "leaf_mean_degree": 2.2491464588987133,
+    "leaf_pc": 0.1609
+   },
+   {
+    "species": "Eus_jap",
+    "n_windows": 3,
+    "side_mm": 4.969,
+    "mean_degree": 2.9019999999999997,
+    "p_c": 0.25233333333333335,
+    "n_nodes": 2275.0,
+    "leaf_mean_degree": 2.942835755278573,
+    "leaf_pc": 0.2597
+   },
+   {
+    "species": "Fra_son",
+    "n_windows": 3,
+    "side_mm": 10.229,
+    "mean_degree": 2.430566666666667,
+    "p_c": 0.08466666666666667,
+    "n_nodes": 1954.0,
+    "leaf_mean_degree": 2.4577190509187354,
+    "leaf_pc": 0.0795
+   },
+   {
+    "species": "Gom_keu",
+    "n_windows": 3,
+    "side_mm": 8.465,
+    "mean_degree": 2.5527333333333333,
+    "p_c": 0.2018333333333333,
+    "n_nodes": 2068.3333333333335,
+    "leaf_mean_degree": 2.5957524335016395,
+    "leaf_pc": 0.2095
+   },
+   {
+    "species": "Hib_sca",
+    "n_windows": 3,
+    "side_mm": 5.188,
+    "mean_degree": 2.892666666666667,
+    "p_c": 0.24910000000000002,
+    "n_nodes": 2063.0,
+    "leaf_mean_degree": 2.947241106059974,
+    "leaf_pc": 0.2548
+   },
+   {
+    "species": "Ill_lan",
+    "n_windows": 3,
+    "side_mm": 8.602,
+    "mean_degree": 2.6255333333333333,
+    "p_c": 0.2015,
+    "n_nodes": 1821.6666666666667,
+    "leaf_mean_degree": 2.684014702234649,
+    "leaf_pc": 0.2045
+   },
+   {
+    "species": "Ite_ili",
+    "n_windows": 3,
+    "side_mm": 9.636,
+    "mean_degree": 2.4575,
+    "p_c": 0.1938,
+    "n_nodes": 1909.3333333333333,
+    "leaf_mean_degree": 2.525947892395679,
+    "leaf_pc": 0.2071
+   },
+   {
+    "species": "Lon_jap",
+    "n_windows": 2,
+    "side_mm": 8.407,
+    "mean_degree": 2.4175500000000003,
+    "p_c": 0.1356,
+    "n_nodes": 1858.5,
+    "leaf_mean_degree": 2.4871229962774444,
+    "leaf_pc": 0.1494
+   },
+   {
+    "species": "Mag_che",
+    "n_windows": 2,
+    "side_mm": 18.694,
+    "mean_degree": 2.09685,
+    "p_c": 0.0843,
+    "n_nodes": 1722.5,
+    "leaf_mean_degree": 2.1720782017052795,
+    "leaf_pc": 0.1039
+   },
+   {
+    "species": "Mal_pal",
+    "n_windows": 3,
+    "side_mm": 5.859,
+    "mean_degree": 2.595666666666667,
+    "p_c": 0.21096666666666666,
+    "n_nodes": 1999.0,
+    "leaf_mean_degree": 2.684290247327164,
+    "leaf_pc": 0.2254
+   },
+   {
+    "species": "Mel_maj",
+    "n_windows": 3,
+    "side_mm": 7.83,
+    "mean_degree": 2.7242666666666664,
+    "p_c": 0.24183333333333334,
+    "n_nodes": 1849.6666666666667,
+    "leaf_mean_degree": 2.8072104755966216,
+    "leaf_pc": 0.2533
+   },
+   {
+    "species": "Mic_mul",
+    "n_windows": 3,
+    "side_mm": 17.348,
+    "mean_degree": 2.322766666666667,
+    "p_c": 0.05066666666666667,
+    "n_nodes": 1582.3333333333333,
+    "leaf_mean_degree": 2.419486398063909,
+    "leaf_pc": 0.042
+   },
+   {
+    "species": "Myr_rub",
+    "n_windows": 3,
+    "side_mm": 10.345,
+    "mean_degree": 2.5305,
+    "p_c": 0.23240000000000002,
+    "n_nodes": 1906.3333333333333,
+    "leaf_mean_degree": 2.614605821484404,
+    "leaf_pc": 0.2394
+   },
+   {
+    "species": "Nan_dom",
+    "n_windows": 3,
+    "side_mm": 8.641,
+    "mean_degree": 2.431033333333333,
+    "p_c": 0.19883333333333333,
+    "n_nodes": 1936.0,
+    "leaf_mean_degree": 2.460352905118438,
+    "leaf_pc": 0.2037
+   },
+   {
+    "species": "Not_fus",
+    "n_windows": 3,
+    "side_mm": 8.508,
+    "mean_degree": 2.3878,
+    "p_c": 0.20803333333333332,
+    "n_nodes": 2000.6666666666667,
+    "leaf_mean_degree": 2.4483483132952024,
+    "leaf_pc": 0.2233
+   },
+   {
+    "species": "Pae_bro",
+    "n_windows": 3,
+    "side_mm": 8.692,
+    "mean_degree": 2.3339666666666665,
+    "p_c": 0.1874,
+    "n_nodes": 1971.6666666666667,
+    "leaf_mean_degree": 2.400576862666705,
+    "leaf_pc": 0.1945
+   },
+   {
+    "species": "Per_acu",
+    "n_windows": 1,
+    "side_mm": 13.601,
+    "mean_degree": 2.4103,
+    "p_c": 0.1785,
+    "n_nodes": 1935.0,
+    "leaf_mean_degree": 2.524037838538292,
+    "leaf_pc": 0.2013
+   },
+   {
+    "species": "Peu_bol",
+    "n_windows": 3,
+    "side_mm": 11.44,
+    "mean_degree": 2.3042666666666665,
+    "p_c": 0.17600000000000002,
+    "n_nodes": 1903.0,
+    "leaf_mean_degree": 2.359790897319073,
+    "leaf_pc": 0.1932
+   },
+   {
+    "species": "Phi_lat",
+    "n_windows": 3,
+    "side_mm": 7.046,
+    "mean_degree": 2.5874666666666664,
+    "p_c": 0.2094,
+    "n_nodes": 1913.0,
+    "leaf_mean_degree": 2.653043091959129,
+    "leaf_pc": 0.2204
+   },
+   {
+    "species": "Pit_vir",
+    "n_windows": 3,
+    "side_mm": 7.735,
+    "mean_degree": 2.640233333333333,
+    "p_c": 0.24026666666666666,
+    "n_nodes": 1769.0,
+    "leaf_mean_degree": 2.729325584211164,
+    "leaf_pc": 0.2517
+   },
+   {
+    "species": "Pla_ori",
+    "n_windows": 3,
+    "side_mm": 8.731,
+    "mean_degree": 2.6728,
+    "p_c": 0.2477,
+    "n_nodes": 1780.6666666666667,
+    "leaf_mean_degree": 2.733575581395349,
+    "leaf_pc": 0.2533
+   },
+   {
+    "species": "Pol_cri",
+    "n_windows": 3,
+    "side_mm": 15.392,
+    "mean_degree": 2.3254333333333332,
+    "p_c": 0.16496666666666668,
+    "n_nodes": 2037.0,
+    "leaf_mean_degree": 2.3214863583105507,
+    "leaf_pc": 0.1556
+   },
+   {
+    "species": "Pol_vir",
+    "n_windows": 3,
+    "side_mm": 7.299,
+    "mean_degree": 2.6565999999999996,
+    "p_c": 0.2194,
+    "n_nodes": 2141.6666666666665,
+    "leaf_mean_degree": 2.708568937752001,
+    "leaf_pc": 0.2304
+   },
+   {
+    "species": "Pro_hoo",
+    "n_windows": 2,
+    "side_mm": 7.26,
+    "mean_degree": 2.46305,
+    "p_c": 0.15805,
+    "n_nodes": 2028.0,
+    "leaf_mean_degree": 2.50465829846583,
+    "leaf_pc": 0.1643
+   },
+   {
+    "species": "Qui_sap",
+    "n_windows": 3,
+    "side_mm": 7.98,
+    "mean_degree": 2.2971,
+    "p_c": 0.16790000000000002,
+    "n_nodes": 1971.6666666666667,
+    "leaf_mean_degree": 2.3299906957510594,
+    "leaf_pc": 0.1866
+   },
+   {
+    "species": "Ran_lae",
+    "n_windows": 1,
+    "side_mm": 9.501,
+    "mean_degree": 2.4712,
+    "p_c": 0.0582,
+    "n_nodes": 1872.0,
+    "leaf_mean_degree": 2.519472647370814,
+    "leaf_pc": 0.101
+   },
+   {
+    "species": "Rha_pir",
+    "n_windows": 3,
+    "side_mm": 9.322,
+    "mean_degree": 2.6168666666666667,
+    "p_c": 0.2329,
+    "n_nodes": 2013.0,
+    "leaf_mean_degree": 2.6785432760523413,
+    "leaf_pc": 0.2447
+   },
+   {
+    "species": "Rom_cou",
+    "n_windows": 3,
+    "side_mm": 18.81,
+    "mean_degree": 2.333133333333333,
+    "p_c": 0.1427,
+    "n_nodes": 1100.0,
+    "leaf_mean_degree": 2.359474216380182,
+    "leaf_pc": 0.0855
+   },
+   {
+    "species": "Rub_odo",
+    "n_windows": 3,
+    "side_mm": 8.097,
+    "mean_degree": 2.323366666666667,
+    "p_c": 0.0872,
+    "n_nodes": 1589.0,
+    "leaf_mean_degree": 2.4618434768390145,
+    "leaf_pc": 0.0704
+   },
+   {
+    "species": "Sag_lat",
+    "n_windows": 1,
+    "side_mm": 25.187,
+    "mean_degree": 2.5804,
+    "p_c": 0.1756,
+    "n_nodes": 2078.0,
+    "leaf_mean_degree": 2.6216542078611043,
+    "leaf_pc": 0.1783
+   },
+   {
+    "species": "Sam_nig",
+    "n_windows": 3,
+    "side_mm": 6.346,
+    "mean_degree": 2.4418,
+    "p_c": 0.14706666666666668,
+    "n_nodes": 2141.3333333333335,
+    "leaf_mean_degree": 2.502728603753494,
+    "leaf_pc": 0.1581
+   },
+   {
+    "species": "Sau_cer",
+    "n_windows": 2,
+    "side_mm": 12.831,
+    "mean_degree": 2.3651,
+    "p_c": 0.042249999999999996,
+    "n_nodes": 1613.0,
+    "leaf_mean_degree": 2.432334414964688,
+    "leaf_pc": 0.0262
+   },
+   {
+    "species": "Sau_mad",
+    "n_windows": 3,
+    "side_mm": 12.858,
+    "mean_degree": 2.5124,
+    "p_c": 0.20946666666666666,
+    "n_nodes": 1829.0,
+    "leaf_mean_degree": 2.558325679044745,
+    "leaf_pc": 0.2035
+   },
+   {
+    "species": "Sim_chi",
+    "n_windows": 2,
+    "side_mm": 8.322,
+    "mean_degree": 2.39505,
+    "p_c": 0.13315,
+    "n_nodes": 1737.0,
+    "leaf_mean_degree": 2.4764835164835164,
+    "leaf_pc": 0.1546
+   },
+   {
+    "species": "Smi_his",
+    "n_windows": 3,
+    "side_mm": 13.093,
+    "mean_degree": 2.3302333333333336,
+    "p_c": 0.1844,
+    "n_nodes": 2002.3333333333333,
+    "leaf_mean_degree": 2.344174557431041,
+    "leaf_pc": 0.193
+   },
+   {
+    "species": "Sol_lig",
+    "n_windows": 1,
+    "side_mm": 17.124,
+    "mean_degree": 2.3864,
+    "p_c": 0.1053,
+    "n_nodes": 999.0,
+    "leaf_mean_degree": 2.48659328252893,
+    "leaf_pc": 0.0817
+   },
+   {
+    "species": "Sta_chi",
+    "n_windows": 3,
+    "side_mm": 11.746,
+    "mean_degree": 2.319433333333333,
+    "p_c": 0.08596666666666668,
+    "n_nodes": 1782.3333333333333,
+    "leaf_mean_degree": 2.373880206179884,
+    "leaf_pc": 0.1194
+   },
+   {
+    "species": "Tec_spe",
+    "n_windows": 3,
+    "side_mm": 6.703,
+    "mean_degree": 2.578866666666667,
+    "p_c": 0.2177,
+    "n_nodes": 1791.0,
+    "leaf_mean_degree": 2.6677897430429685,
+    "leaf_pc": 0.2317
+   },
+   {
+    "species": "Tro_ara",
+    "n_windows": 3,
+    "side_mm": 6.384,
+    "mean_degree": 2.4498,
+    "p_c": 0.1665,
+    "n_nodes": 2093.6666666666665,
+    "leaf_mean_degree": 2.475079876511588,
+    "leaf_pc": 0.1877
+   },
+   {
+    "species": "Ure_car",
+    "n_windows": 3,
+    "side_mm": 12.053,
+    "mean_degree": 2.3250333333333333,
+    "p_c": 0.04800000000000001,
+    "n_nodes": 1607.0,
+    "leaf_mean_degree": 2.397585802575829,
+    "leaf_pc": 0.0567
+   },
+   {
+    "species": "Vio_gla",
+    "n_windows": 1,
+    "side_mm": 9.719,
+    "mean_degree": 2.3027,
+    "p_c": 0.157,
+    "n_nodes": 2299.0,
+    "leaf_mean_degree": 2.3200540175557056,
+    "leaf_pc": 0.1584
+   }
+  ],
+  "local": {
+   "n": 4,
+   "inside_band": 4,
+   "spearman_rho": 0.6000000000000001,
+   "spearman_p_one_sided": 0.2,
+   "leaves": [
+    {
+     "common_name": "talisay",
+     "mean_degree": 2.4875,
+     "p_c": 0.1559,
+     "predicted": 0.1830963479113552,
+     "lo": 0.10569941620350597,
+     "hi": 0.26049327961920443,
+     "residual": -0.027196347911355195
+    },
+    {
+     "common_name": "okra",
+     "mean_degree": 2.2241,
+     "p_c": 0.1157,
+     "predicted": 0.1264766246542226,
+     "lo": 0.04806989929863725,
+     "hi": 0.20488335000980795,
+     "residual": -0.010776624654222605
+    },
+    {
+     "common_name": "guyabano",
+     "mean_degree": 2.3565,
+     "p_c": 0.0849,
+     "predicted": 0.154936956314224,
+     "lo": 0.077338377976134,
+     "hi": 0.23253553465231397,
+     "residual": -0.07003695631422399
+    },
+    {
+     "common_name": "gumamela",
+     "mean_degree": 2.3981,
+     "p_c": 0.1799,
+     "predicted": 0.1638791753252214,
+     "lo": 0.08640958076852846,
+     "hi": 0.24134876988191434,
+     "residual": 0.01602082467477861
+    }
+   ]
+  },
+  "windows_cut": 193,
+  "windows_below_min_nodes": 0
+ }
+}

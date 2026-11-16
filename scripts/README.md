@@ -101,7 +101,8 @@ Run in this order. The raw microscope photos stay on the researcher's machine
 | `clean_local_tiles.py` | Per window: finds each photo's field-of-view circle, flattens the lighting, fits rotation, magnification and lens distortion for all photos at once, and stitches them. | `LOCAL VALIDATION/<leaf>_cleaned/` |
 | `local_window_boxes.py` | Finds the leaf piece in each stitch, places the common 5.9 × 5.9 mm window, and writes the LeafVeinCNN crop numbers and exclusion masks. | `window.json`, `window_preview.png`, `<final>_mask.png` per leaf folder |
 | `run_local_leaves.py` | Converts the LeafVeinCNN workbooks to Matos-style CSVs and runs percolation with the cohort's exact settings (2,400 trials, seed 1, 50% criterion). | `empirical/local_tracings/*.csv`, `empirical/local_leaves.csv` |
-| `make_local_validation_figure.py` | Local leaves against the cohort's tolerance line and 95% prediction band; prints the two pre-set checks. | `figures/revised/Figure_14_local_leaves.png` |
+| `run_size_matched_windows.py` | Cuts up to three 5.9 × 5.9 mm windows (and, as a sensitivity check, ~2,000-junction windows) from each cohort leaf and measures them with the same engine, so the local leaves can be compared at matched size. *Needs raw data.* | `data/size_matched_windows.{csv,json}` |
+| `make_local_validation_figure.py` | Local leaves against the tolerance line and 95% prediction band of the whole leaves (A) and of the size-matched windows (B); prints the two pre-set checks for each. | `figures/revised/Figure_14_local_leaves.png` |
 | `make_window_diagram.py` | Diagram of the window placement. | `figures/revised/local_window_diagram.png` |
 | `make_revised_figures.py` | Rebuilds the revised paper figure set from `data/`. | `figures/revised/Figure_*.png` |
 
