@@ -30,6 +30,7 @@
 # Documents are never tracked, even inside the kept folders
 *.md
 !/README.md
+!/scripts/README.md
 *.pdf
 *.doc
 *.docx
